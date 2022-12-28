@@ -1,35 +1,27 @@
 A client wrapper for the popular Lectio app, mostly used by danish students.
-## Features
-- Fetch your homework
+> This library is being developed, which means it isn't fully stable and needs a lot of refactoring. Things are bound to change.
 
-## Future features
-- Fetch your calendar
-- Grades
-- ... lots more
+## Features
+| Feature             | Implementation | Stable |
+|---------------------|----------------|--------|
+| getHomework()       | ✅              | ✅      |
+| getAssignments()    | ✅              |        |
+| getMessages()       | ✅              |        |
+| getCalendar()       | ✅              | ✅      |
+| getImage()          | ✅              | ✅      |
+| getMessageContent() |                |        |
+| getAbsence()        |                |        |
+| getGrades()         |                |        |
+## Visualization
+![Flowchart for lectio_wrapper flow](/lectio_wrapper.drawio.png)
 
 ## Usage
-Import the package:
-
+A quick example to fetch your homework:
 ```dart
-import 'package:lectio_wrapper/lectio_wrapper.dart';
+Account account = Account(<id>, <username>, <password>);
+Student? student = await account.login();
+var homework = await student!.getHomework();
 ```
-Initialize an account object
-```dart
-var account = Account(<HIGH_SCHOOL_ID>, "<USERNAME>", "<PASSWORD>");
-```
-Create a `LectioClient` from your account object:
-```dart
-final LectioClient lectioClient = LectioClient(account);
-```
-Login:
-```dart
-await lectioClient.login();
-```
-And finally load your homework:
-```dart
-List<Homework> homework = await lectioClient.loadHomework();
-```
-Full example in examples.
 ## Additional information
 
 You are welcome to contribute, it's a fairly easy subject.
