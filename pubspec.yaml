@@ -1,0 +1,23 @@
+name: lectio_wrapper
+description: A client wrapper for Lectio.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=2.18.5 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  beautiful_soup_dart: ^0.3.0
+  requests: ^4.7.0
+  http: ^0.13.5
+  intl: ^0.18.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  dotenv: 4.0.1
+
+flutter:
