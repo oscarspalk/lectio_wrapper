@@ -21,3 +21,7 @@
 ### 0.0.5
 
 * DateTimes weren't fully correct, attempt to correct it.
+
+### 0.0.6
+
+* ListGyms function succesfully implemented.

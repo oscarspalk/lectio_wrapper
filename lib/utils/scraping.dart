@@ -1,11 +1,11 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
 import 'package:lectio_wrapper/types/calendar_event.dart';
 import 'package:lectio_wrapper/types/class.dart';
+import 'package:lectio_wrapper/types/gym.dart';
 import 'package:lectio_wrapper/types/message.dart';
 import 'package:requests/requests.dart';
 import 'package:http/http.dart' as http;
@@ -17,6 +17,7 @@ import 'package:lectio_wrapper/types/text_detail.dart';
 RegExp datePattern = RegExp(r"\d{1,2}\/\d{1,2}-\d{4}");
 
 RegExp timePattern = RegExp(r"\d{2}:\d{2}");
+RegExp gymIdPattern = RegExp(r"\d");
 
 Future<Map<String, String>> extractASPData(
     BeautifulSoup soup, String target) async {
@@ -71,6 +72,29 @@ Future<BeautifulSoup?> loggedIn(String url, {Map<String, String>? data}) async {
   } else {
     return soup;
   }
+}
+
+Future<List<Gym>> listGyms() async {
+  List<Gym> gyms = [];
+  String gymsListUrl = "https://www.lectio.dk/lectio/login_list.aspx?showall=1";
+  var response = await Requests.get(gymsListUrl);
+  var soup = BeautifulSoup(response.body);
+  var listElement = soup.find("*", id: "schoolsdiv");
+  if (listElement == null) {
+    return gyms;
+  }
+  for (var schoolParent in listElement.children) {
+    var linkElement = schoolParent.children[0];
+    var href = linkElement.getAttrValue("href");
+    var name = linkElement.text;
+    var nums = gymIdPattern.allMatches(href ?? "").toList();
+    String numBuffer = "";
+    for (var n in nums) {
+      numBuffer = numBuffer + (href ?? "").substring(n.start, n.end);
+    }
+    gyms.add(Gym(int.parse(numBuffer), name));
+  }
+  return gyms;
 }
 
 class Scraper {
@@ -146,7 +170,6 @@ class Scraper {
   Future<List<Class>> extractClasses(
       BeautifulSoup soup, String Function(String path) buildUrl) async {
     List<Class> classes = [];
-    List<Future<Class>> classesToExtract = [];
     Bs4Element? classTableParent =
         soup.find('div', id: "m_Content_listecontainer");
     if (classTableParent != null && classTableParent.children.isNotEmpty) {
@@ -171,22 +194,22 @@ class Scraper {
         calendarSoup.find("td", selector: "tr.s2dayHeader")!.children;
     titleSoup.removeAt(0).decompose();
     List<String> titles = [];
-    titleSoup.forEach((dayTitle) {
+    for (var dayTitle in titleSoup) {
       titles.add(dayTitle.text);
-    });
+    }
 
     var informationHeaders =
         calendarSoup.findAll("*", selector: "td.s2infoHeader");
     informationHeaders.removeAt(0).decompose();
     List<List<String>> informations = [];
-    informationHeaders.forEach((informationHeader) {
+    for (var informationHeader in informationHeaders) {
       List<String> informationsInner = [];
       var infos = informationHeader.findAll("*", selector: "a.s2skemabrik");
-      infos.forEach((element) {
+      for (var element in infos) {
         informationsInner.add(element.text);
-      });
+      }
       informations.add(informationsInner);
-    });
+    }
 
     var calendarDays =
         calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
@@ -220,7 +243,7 @@ class Scraper {
           }
         }
 
-        pieceInformation.forEach((pieceInfo) {
+        for (var pieceInfo in pieceInformation) {
           var dates = datePattern.allMatches(pieceInfo);
           var times = timePattern.allMatches(pieceInfo);
 
@@ -248,7 +271,7 @@ class Scraper {
                 break;
             }
           }
-        });
+        }
         var event =
             CalenderEvent(status, title, team, teacher, room, link, start, end);
         dayEvents.add(event);
@@ -263,8 +286,12 @@ class Scraper {
     List<Homework> homeworkList = [];
     var homeworkSoup = soup.find("*",
         selector:
-            "div#s_m_Content_Content_contentPnl table.ls-table-layout1:first-child")!;
+            "div#s_m_Content_Content_contentPnl table.ls-table-layout1:first-child");
 
+    // if there is no homework
+    if (homeworkSoup == null) {
+      return [];
+    }
     homeworkSoup.contents[1].findAll("tr").forEach((homework) {
       String date = homework.children[0].text;
       String aktivitet =
@@ -272,7 +299,7 @@ class Scraper {
       String note = homework.children[2].text;
       var detailColumn = homework.children[3];
       List<Detail> details = [];
-      detailColumn.nodes.forEach((detail) {
+      for (var detail in detailColumn.nodes) {
         if (detail.text != null && detail.text != "") {
           if (detail.attributes.containsKey("href")) {
             details.add(LinkDetail(detail.attributes['href']!, detail.text!));
@@ -280,9 +307,8 @@ class Scraper {
             details.add(TextDetail(detail.text!));
           }
         }
-      });
+      }
 
-      var links = detailColumn.findAll("a");
       var hourLink = homework.children[1].children[0].attributes['href'];
       homeworkList
           .add(Homework(aktivitet, baseUrl + hourLink!, date, details, note));
@@ -309,14 +335,14 @@ class Scraper {
         .children[0]
         .children;
     messageTable.removeAt(0).decompose();
-    messageTable.forEach((messageRow) {
+    for (var messageRow in messageTable) {
       String messageLink =
           messageRow.children[3].children[0].children[0].getAttrValue("href")!;
       String topic = messageRow.children[3].text;
       String receivers = messageRow.children[5].text;
       String dateChanged = messageRow.children[6].text;
       messages.add(Message(messageLink, dateChanged, receivers, topic));
-    });
+    }
     return messages;
   }
 
@@ -325,7 +351,7 @@ class Scraper {
     var assignmentsSoup = soup.find("table")!.children[0].children;
     // remove first
     assignmentsSoup.removeAt(0).decompose();
-    assignmentsSoup.forEach((assignmentRow) {
+    for (var assignmentRow in assignmentsSoup) {
       var columns = assignmentRow.findAll("td");
       int week = int.parse(columns[0].text);
       String team = columns[1].text;
@@ -348,7 +374,7 @@ class Scraper {
           absence: absence,
           taskNote: taskNote,
           taskLink: taskLink));
-    });
+    }
     return assignments;
   }
 }

@@ -1,5 +1,4 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
@@ -13,6 +12,9 @@ enum GradeType { proof, actual, comment, protocol }
 
 String intFixed(int n, int count) => n.toString().padLeft(count, "0");
 
+/// A student, which can be used to request a load of stuff.
+/// Be aware that if a student object isn't fetched by login, you do not have sufficient permissions to view fx. grades etc.
+/// Takes a [String] studentId and an [int] gymId
 class Student {
   String studentId;
   int gymId;
@@ -21,6 +23,7 @@ class Student {
     scraper = Scraper(this);
   }
 
+  /// Returns a [BasicInfo] containing name and pictureId.
   Future<BasicInfo> getBasicInfo() async {
     String profileUrl = buildUrl("SkemaNy.aspx?type=elev&elevid=$studentId");
     var resp = await Requests.get(profileUrl);
@@ -34,22 +37,26 @@ class Student {
     return baseUrl + path;
   }
 
+  /// Get an external student.
   Student getStudent(String studentId) {
     return Student(studentId, gymId);
   }
 
+  /// Get all classes as a [List] of [Class]
   Future<List<Class>> getClasses() async {
     String url = buildUrl("FindSkema.aspx?type=stamklasse");
     var soup = await Requests.get(url);
     return await scraper.extractClasses(BeautifulSoup(soup.body), buildUrl);
   }
 
+  /// Returns an image from an id as a [Uint8List]
   Future<Uint8List> getImage(String imageId) async {
     var response = await Requests.get(
         buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
     return response.bodyBytes;
   }
 
+  /// Returns all assignments for the specified year.
   Future<List<Assignment>> getAssignments(int year) async {
     String url = buildUrl("OpgaverElev.aspx?elevid=$studentId");
     var assignmentSoup = await Requests.get(url);
