@@ -18,7 +18,7 @@ RegExp datePattern = RegExp(r"\d{1,2}\/\d{1,2}-\d{4}");
 
 RegExp timePattern = RegExp(r"\d{2}:\d{2}");
 RegExp gymIdPattern = RegExp(r"\d");
-RegExp modulTimePattern = RegExp(r"[[:alnum:]]+\/[[:alnum:]]+");
+RegExp modulTimePattern = RegExp(r"\d{1,2}\/\d{1,2}");
 Future<Map<String, String>> extractASPData(
     BeautifulSoup soup, String target) async {
   Map<String, String> data = {"__EVENTTARGET": target};

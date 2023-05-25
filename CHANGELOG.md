@@ -29,3 +29,7 @@
 ### 0.0.7
 
 * Day class is in DateTime format instead of string.
+
+### 0.0.8
+
+* Day class returned wrong time, works now.
