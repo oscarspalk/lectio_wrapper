@@ -33,3 +33,7 @@
 ### 0.0.8
 
 * Day class returned wrong time, works now.
+
+### 0.0.9
+
+* 12:00 Timestamp was recognized as 00:00, fixed now!
