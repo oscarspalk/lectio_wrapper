@@ -101,7 +101,8 @@ class Student {
     var url = buildUrl(
         "SkemaNy.aspx?type=elev&elevid=$studentId&week=${intFixed(week, 2)}$year");
     var response = await Requests.get(url);
-    return await scraper.extractCalendar(BeautifulSoup(response.body));
+    return await scraper.extractCalendar(
+        BeautifulSoup(response.body), year, week);
   }
 
   Future<List<dynamic>> getAbsence(int year, {bool image = false}) async {

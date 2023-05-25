@@ -6,7 +6,7 @@ class Week {
 class Day {
   List<String> informations;
   List<CalenderEvent> events;
-  String date;
+  DateTime date;
   Day(this.informations, this.events, this.date);
 }
 

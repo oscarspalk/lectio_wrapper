@@ -18,7 +18,7 @@ RegExp datePattern = RegExp(r"\d{1,2}\/\d{1,2}-\d{4}");
 
 RegExp timePattern = RegExp(r"\d{2}:\d{2}");
 RegExp gymIdPattern = RegExp(r"\d");
-
+RegExp modulTimePattern = RegExp(r"[[:alnum:]]+\/[[:alnum:]]+");
 Future<Map<String, String>> extractASPData(
     BeautifulSoup soup, String target) async {
   Map<String, String> data = {"__EVENTTARGET": target};
@@ -188,7 +188,7 @@ class Scraper {
     return classes;
   }
 
-  Future<Week> extractCalendar(BeautifulSoup soup) async {
+  Future<Week> extractCalendar(BeautifulSoup soup, int year, int week) async {
     var calendarSoup = soup.find("tbody")!;
     var titleSoup =
         calendarSoup.find("td", selector: "tr.s2dayHeader")!.children;
@@ -219,7 +219,15 @@ class Scraper {
     for (int i = 0; i < calendarDays.length; i++) {
       var day = calendarDays[i];
       var informationsForThisDay = informations[i];
-      var dayName = titles[i];
+      var dayMatches = modulTimePattern.firstMatch(titles[i]);
+      List<int> dayMonthAndDay = dayMatches != null
+          ? titles[i]
+              .substring(dayMatches.start, dayMatches.end)
+              .split("/")
+              .map((e) => int.parse(e))
+              .toList()
+          : [1, 1];
+      var dayTime = DateTime(year, dayMonthAndDay[1], dayMonthAndDay[0]);
       List<CalenderEvent> dayEvents = [];
       day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
         String status = "Uændret";
@@ -276,7 +284,7 @@ class Scraper {
             CalenderEvent(status, title, team, teacher, room, link, start, end);
         dayEvents.add(event);
       });
-      week.days.add(Day(informationsForThisDay, dayEvents, dayName));
+      week.days.add(Day(informationsForThisDay, dayEvents, dayTime));
     }
     return week;
   }

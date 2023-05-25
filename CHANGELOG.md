@@ -25,3 +25,7 @@
 ### 0.0.6
 
 * ListGyms function succesfully implemented.
+
+### 0.0.7
+
+* Day class is in DateTime format instead of string.
