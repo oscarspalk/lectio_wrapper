@@ -188,7 +188,8 @@ class Scraper {
     return classes;
   }
 
-  Future<Week> extractCalendar(BeautifulSoup soup, int year, int week) async {
+  Future<Week> extractCalendar(
+      BeautifulSoup soup, int year, int weekNum) async {
     var calendarSoup = soup.find("tbody")!;
     var titleSoup =
         calendarSoup.find("td", selector: "tr.s2dayHeader")!.children;
@@ -215,7 +216,7 @@ class Scraper {
         calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
     calendarDays.removeAt(0).decompose();
 
-    Week week = Week([]);
+    Week week = Week([], weekNum);
     for (int i = 0; i < calendarDays.length; i++) {
       var day = calendarDays[i];
       var informationsForThisDay = informations[i];

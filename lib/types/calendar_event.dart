@@ -1,6 +1,7 @@
 class Week {
   List<Day> days;
-  Week(this.days);
+  int weekNum;
+  Week(this.days, this.weekNum);
 }
 
 class Day {

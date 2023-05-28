@@ -37,3 +37,7 @@
 ### 0.0.9
 
 * 12:00 Timestamp was recognized as 00:00, fixed now!
+
+### 0.0.10
+
+* Added weekNum to the Week class
