@@ -133,12 +133,19 @@ class Scraper {
         studentTable.children.sublist(1, studentTable.children.length);
     List<Student> students = [];
     for (var student in studentRows) {
+      Bs4Element imageElement = student.children[0].children[0];
       Bs4Element firstNameElement = student.children[2].children[0].children[0];
+      Bs4Element lastNameElement = student.children[3].children[0];
       String? href = firstNameElement.attributes['href'];
-      if (href != null) {
+      String? pictureSrc = imageElement.attributes['src'];
+      if (href != null && pictureSrc != null) {
         String? id = queriesFromSoup(href)['elevid'];
-        if (id != null) {
-          students.add(Student(id, this.student.gymId));
+        String? pictureId = queriesFromSoup(pictureSrc)['pictureid'];
+        if (id != null && pictureId != null) {
+          Student student = Student(id, this.student.gymId);
+          student.imageId = pictureId;
+          student.name = "${firstNameElement.text} ${lastNameElement.text}";
+          students.add(student);
         }
       }
     }

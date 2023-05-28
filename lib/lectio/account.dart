@@ -24,7 +24,7 @@ class Account {
 
       await Requests.post(loginUrl, body: extracted);
       String studentId = getElevId((await loggedIn(forsideUrl))!)!;
-      return Student(studentId, gymId);
+      return Student(studentId, gymId, fetchInfo: true);
     } catch (e) {
       return null;
     }

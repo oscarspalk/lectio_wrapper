@@ -19,8 +19,16 @@ class Student {
   String studentId;
   int gymId;
   late Scraper scraper;
-  Student(this.studentId, this.gymId) {
+  late String imageId;
+  late String name;
+  Student(this.studentId, this.gymId, {fetchInfo = false}) {
     scraper = Scraper(this);
+    if (fetchInfo) {
+      getBasicInfo().then((value) {
+        name = value.name;
+        imageId = value.pictureId;
+      });
+    }
   }
 
   /// Returns a [BasicInfo] containing name and pictureId.
