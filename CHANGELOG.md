@@ -45,3 +45,7 @@
 ### 0.1.0
 
 * getClasses doesn't fetch everything, so you don't waste precious Lectio API calls.
+
+### 0.1.1
+
+* Updated student class to include basic name and image id.
