@@ -43,10 +43,14 @@ class Student {
   }
 
   /// Get all classes as a [List] of [Class]
-  Future<List<Class>> getClasses() async {
+  Future<List<ClassRef>> getClasses() async {
     String url = buildUrl("FindSkema.aspx?type=stamklasse");
     var soup = await Requests.get(url);
-    return await scraper.extractClasses(BeautifulSoup(soup.body), buildUrl);
+    return await scraper.extractClasses(BeautifulSoup(soup.body));
+  }
+
+  Future<Class> getClass(ClassRef ref) async {
+    return await scraper.extractClass(ref, buildUrl);
   }
 
   /// Returns an image from an id as a [Uint8List]

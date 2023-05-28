@@ -1,6 +1,7 @@
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
+import 'package:lectio_wrapper/types/class.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
 void main() {
@@ -58,4 +59,19 @@ void main() {
     expect(
         gyms.firstWhere((element) => element.name == "Egaa Gymnasium").id, 256);
   });
+
+  test('getClasses()', () async {
+    var classes = await student!.getClasses();
+    expect(classes, isNotEmpty);
+  });
+
+  test(
+    'getClass()',
+    () async {
+      var klasse = await student!.getClass(ClassRef(
+          "/lectio/256/SkemaNy.aspx?type=stamklasse&klasseid=55788763869",
+          "1bx"));
+      expect(klasse, isNotNull);
+    },
+  );
 }

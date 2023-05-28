@@ -146,8 +146,8 @@ class Scraper {
   }
 
   Future<Class> extractClass(
-      String url, String Function(String path) buildUrl) async {
-    String uri = "https://www.lectio.dk$url";
+      ClassRef ref, String Function(String path) buildUrl) async {
+    String uri = "https://www.lectio.dk${ref.url}";
     var soup = await Requests.get(uri);
     BeautifulSoup bs = BeautifulSoup(soup.body);
     Bs4Element? title = bs.find('div', id: "s_m_HeaderContent_MainTitle");
@@ -158,7 +158,7 @@ class Scraper {
         className = match[0]!;
       }
     }
-    String classId = queriesFromSoup(url)['klasseid'] ?? "";
+    String classId = queriesFromSoup(ref.url)['klasseid'] ?? "";
     String classUrl =
         buildUrl("subnav/members.aspx?klasseid=$classId&showstudents=1");
     var studentSoup = await Requests.get(classUrl);
@@ -167,9 +167,8 @@ class Scraper {
     return Class(classId, className, students);
   }
 
-  Future<List<Class>> extractClasses(
-      BeautifulSoup soup, String Function(String path) buildUrl) async {
-    List<Class> classes = [];
+  Future<List<ClassRef>> extractClasses(BeautifulSoup soup) async {
+    List<ClassRef> classes = [];
     Bs4Element? classTableParent =
         soup.find('div', id: "m_Content_listecontainer");
     if (classTableParent != null && classTableParent.children.isNotEmpty) {
@@ -178,8 +177,8 @@ class Scraper {
         for (var group in paragraph.children) {
           String? href = group.attributes['href'];
           if (group.text.contains(RegExp(r'^\d[a-z]*[a-z]')) && href != null) {
-            Class temp = await extractClass(href, buildUrl);
-            classes.add(temp);
+            ClassRef classRef = ClassRef(href, group.text);
+            classes.add(classRef);
           }
         }
       }

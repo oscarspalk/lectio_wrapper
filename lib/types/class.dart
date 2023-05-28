@@ -7,3 +7,9 @@ class Class {
 
   Class(this.id, this.name, this.students);
 }
+
+class ClassRef {
+  String url;
+  String name;
+  ClassRef(this.url, this.name);
+}

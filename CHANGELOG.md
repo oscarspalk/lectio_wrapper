@@ -41,3 +41,7 @@
 ### 0.0.10
 
 * Added weekNum to the Week class
+
+### 0.1.0
+
+* getClasses doesn't fetch everything, so you don't waste precious Lectio API calls.
