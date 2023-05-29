@@ -378,7 +378,7 @@ class Scraper {
       var task = columns[2].children[0].children[0];
       String taskLink = task.getAttrValue('href')!;
       String title = task.text;
-      DateFormat format = DateFormat("d/M-y H:M");
+      DateFormat format = DateFormat("d/M-y HH:mm");
       DateTime deadline = format.parse(columns[3].text);
       double studentTime = double.parse(columns[4].text.replaceAll(",", "."));
       String status = columns[5].text;

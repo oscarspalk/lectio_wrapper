@@ -53,3 +53,7 @@
 ### 0.1.2
 
 * Added support for default photo
+
+### 0.1.3
+
+* Assignments corrected datetimes

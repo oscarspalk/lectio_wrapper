@@ -32,7 +32,7 @@ void main() {
   });
 
   test('getAssignments()', () async {
-    var assignments = await student!.getAssignments(2023);
+    var assignments = await student!.getAssignments();
     expect(assignments, isNotEmpty);
   });
 
