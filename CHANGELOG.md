@@ -57,3 +57,7 @@
 ### 0.1.3
 
 * Assignments corrected datetimes
+
+### 0.1.4
+
+* Fetches all assignments now.
