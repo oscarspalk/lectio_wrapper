@@ -368,10 +368,12 @@ class Scraper {
 
   Future<List<Assignment>> extractAssignments(BeautifulSoup soup) async {
     List<Assignment> assignments = [];
-    var assignmentsSoup = soup.find("table")!.children[0].children;
+    var assignmentsSoup = soup.find("table")!;
+
+    var assigmentsChildren = assignmentsSoup.children[0].children;
     // remove first
-    assignmentsSoup.removeAt(0).decompose();
-    for (var assignmentRow in assignmentsSoup) {
+    assigmentsChildren.removeAt(0).decompose();
+    for (var assignmentRow in assigmentsChildren) {
       var columns = assignmentRow.findAll("td");
       int week = int.parse(columns[0].text);
       String team = columns[1].text;

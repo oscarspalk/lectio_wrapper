@@ -75,10 +75,11 @@ class Student {
   }
 
   /// Returns all assignments for the specified year.
-  Future<List<Assignment>> getAssignments() async {
+  Future<List<Assignment>> getAssignments(int year) async {
     String url = buildUrl("OpgaverElev.aspx?elevid=$studentId");
-    var assignmentSoup = await Requests.get(url);
-    return await scraper.extractAssignments(BeautifulSoup(assignmentSoup.body));
+    var assignmentSoup = await scraper.postLoggedInPageSoup(
+        url, r"s$m$ChooseTerm$term", {r"s$m$ChooseTerm$term": year.toString()});
+    return await scraper.extractAssignments(assignmentSoup!);
   }
 
   Future<List<Homework>> getHomework() async {
