@@ -1,5 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
 import 'package:lectio_wrapper/types/calendar_event.dart';
@@ -63,8 +64,13 @@ class Student {
 
   /// Returns an image from an id as a [Uint8List]
   Future<Uint8List> getImage(String imageId) async {
-    var response = await Requests.get(
-        buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
+    Response response;
+    if (imageId.startsWith("https")) {
+      response = await Requests.get(imageId);
+    } else {
+      response = await Requests.get(
+          buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
+    }
     return response.bodyBytes;
   }
 

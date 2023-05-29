@@ -49,3 +49,7 @@
 ### 0.1.1
 
 * Updated student class to include basic name and image id.
+
+### 0.1.2
+
+* Added support for default photo

@@ -140,7 +140,12 @@ class Scraper {
       String? pictureSrc = imageElement.attributes['src'];
       if (href != null && pictureSrc != null) {
         String? id = queriesFromSoup(href)['elevid'];
-        String? pictureId = queriesFromSoup(pictureSrc)['pictureid'];
+        String? pictureId;
+        if (pictureSrc.contains("default")) {
+          pictureId = "https://www.lectio.dk/lectio/img/defaultfoto_large.jpg";
+        } else {
+          pictureId = queriesFromSoup(pictureSrc)['pictureid'];
+        }
         if (id != null && pictureId != null) {
           Student student = Student(id, this.student.gymId);
           student.imageId = pictureId;
