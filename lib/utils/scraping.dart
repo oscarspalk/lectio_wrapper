@@ -1,5 +1,4 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
