@@ -4,6 +4,7 @@ import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
 import 'package:lectio_wrapper/types/calendar_event.dart';
+import 'package:lectio_wrapper/types/calendar_event_details.dart';
 import 'package:lectio_wrapper/types/class.dart';
 import 'package:lectio_wrapper/types/gym.dart';
 import 'package:lectio_wrapper/types/message.dart';
@@ -243,7 +244,8 @@ class Scraper {
       List<CalenderEvent> dayEvents = [];
       day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
         String status = "Uændret";
-        String link = piece.getAttrValue('href') ?? "";
+        String id =
+            queriesFromSoup(piece.getAttrValue('href') ?? "")['absid'] ?? "";
         String title = "";
         DateTime start = DateTime.now();
         DateTime end = DateTime.now();
@@ -293,7 +295,7 @@ class Scraper {
           }
         }
         var event =
-            CalenderEvent(status, title, team, teacher, room, link, start, end);
+            CalenderEvent(status, title, team, teacher, room, id, start, end);
         dayEvents.add(event);
       });
       week.days.add(Day(informationsForThisDay, dayEvents, dayTime));
@@ -408,5 +410,47 @@ class Scraper {
           taskLink: taskLink));
     }
     return assignments;
+  }
+
+  Content extractHomeworkArticle(Bs4Element element) {
+    var contentHeader = element.children[0];
+    if (contentHeader.children.isEmpty) {
+      return Content(contentHeader.text);
+    }
+    if (contentHeader.children[0].name == "a") {
+      var linkElement = contentHeader.children[0];
+      String? note;
+      if (element.children.length > 1) {
+        note = element.children[1].children[0].text;
+      }
+      return Content(linkElement.text,
+          href: linkElement.getAttrValue("href"), note: note);
+    }
+    return Content("");
+  }
+
+  Future<CalendarEventDetails> extractCalendarEventDetails(
+      BeautifulSoup soup) async {
+    List<Content> contents = [];
+    String? note;
+    var contentContainer = soup.find("*",
+        id: "s_m_Content_Content_tocAndToolbar_inlineHomeworkDiv");
+    var noteContainer =
+        soup.find("*", id: 's_m_Content_Content_tocAndToolbar_ActNoteTB_tb');
+    if (noteContainer != null) {
+      note = noteContainer.text;
+    }
+    if (contentContainer!.children.isNotEmpty) {
+      if (contentContainer.children[0].text ==
+          "Aktiviteten har ikke noget indhold.") {
+        return CalendarEventDetails([], note);
+      }
+      List<Bs4Element> homework = contentContainer.findAll("article");
+      for (var homeworkPiece in homework) {
+        contents.add(extractHomeworkArticle(homeworkPiece));
+      }
+    }
+
+    return CalendarEventDetails(contents, note);
   }
 }

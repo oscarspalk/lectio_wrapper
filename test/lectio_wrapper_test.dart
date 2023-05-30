@@ -74,4 +74,27 @@ void main() {
       expect(klasse, isNotNull);
     },
   );
+
+  test('getCalendarEventDetails', () async {
+    var eventDetails = await student!.getCalendarEventDetails(CalenderEvent(
+        "",
+        "title",
+        "team",
+        "teacher",
+        "room",
+        "56314099116",
+        DateTime.now(),
+        DateTime.now()));
+    var eventDetails2 = await student!.getCalendarEventDetails(CalenderEvent(
+        "",
+        "title",
+        "team",
+        "teacher",
+        "room",
+        "56314100155",
+        DateTime.now(),
+        DateTime.now()));
+    expect(eventDetails, isNotNull);
+    expect(eventDetails2, isNotNull);
+  });
 }

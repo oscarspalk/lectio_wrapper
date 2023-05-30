@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
+import 'package:lectio_wrapper/types/calendar_event_details.dart';
 import 'package:lectio_wrapper/types/class.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
@@ -121,6 +122,14 @@ class Student {
     var response = await Requests.get(url);
     return await scraper.extractCalendar(
         BeautifulSoup(response.body), year, week);
+  }
+
+  Future<CalendarEventDetails> getCalendarEventDetails(
+      CalenderEvent event) async {
+    var url = buildUrl("aktivitet/aktivitetforside2.aspx?absid=${event.id}");
+    var response = await Requests.get(url);
+    return await scraper
+        .extractCalendarEventDetails(BeautifulSoup(response.body));
   }
 
   Future<List<dynamic>> getAbsence(int year, {bool image = false}) async {

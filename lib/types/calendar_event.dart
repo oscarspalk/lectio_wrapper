@@ -17,10 +17,10 @@ class CalenderEvent {
   String team;
   String teacher;
   String room;
-  String link;
+  String id;
   DateTime start;
   DateTime end;
 
   CalenderEvent(this.status, this.title, this.team, this.teacher, this.room,
-      this.link, this.start, this.end);
+      this.id, this.start, this.end);
 }

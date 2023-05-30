@@ -65,3 +65,7 @@
 ### 0.1.5
 
 * Messages get the correct timestamps now and receivers.
+
+### 0.1.6
+
+* Implemented getCalendarEventDetails function.
