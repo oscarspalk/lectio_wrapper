@@ -1,11 +1,11 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
+import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
-import 'package:lectio_wrapper/types/calendar_event.dart';
 import 'package:lectio_wrapper/types/class.dart';
-import 'package:lectio_wrapper/types/homework.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
 
@@ -88,7 +88,7 @@ class Student {
     return await scraper.extractHomework(BeautifulSoup(response.body));
   }
 
-  Future<List<dynamic>> getMessages() async {
+  Future<List<Message>> getMessages() async {
     var url = buildUrl("beskeder2.aspx?elevid=$studentId");
     var response = await Requests.get(url);
     return await scraper.extractMessages(BeautifulSoup(response.body));

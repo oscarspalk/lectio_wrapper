@@ -61,3 +61,7 @@
 ### 0.1.4
 
 * Fetches all assignments now.
+
+### 0.1.5
+
+* Messages get the correct timestamps now and receivers.
