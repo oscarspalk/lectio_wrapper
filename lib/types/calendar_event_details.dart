@@ -1,7 +1,7 @@
 class CalendarEventDetails {
   CalendarEventDetails(this.content, this.note);
   String? note;
-  List<dynamic> content;
+  List<Content> content;
 }
 
 class Content {

@@ -69,3 +69,7 @@
 ### 0.1.6
 
 * Implemented getCalendarEventDetails function.
+
+### 0.1.7
+
+* Changed type of contents on CalendarEventDetails
