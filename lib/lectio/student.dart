@@ -132,6 +132,11 @@ class Student {
         .extractCalendarEventDetails(BeautifulSoup(response.body));
   }
 
+  Future<Uint8List> getFile(String url) async {
+    var res = await Requests.get(url);
+    return res.bodyBytes;
+  }
+
   Future<List<dynamic>> getAbsence(int year, {bool image = false}) async {
     var url = buildUrl("material_lektieoversigt.aspx?elevid=$studentId");
     var response = await Requests.get(url);

@@ -97,4 +97,10 @@ void main() {
     expect(eventDetails, isNotNull);
     expect(eventDetails2, isNotNull);
   });
+
+  test('getFile()', () async {
+    var file = await student!.getFile(
+        "https://www.lectio.dk/lectio/256/lc/60231186938/res/60231186939/RetteGuide%20Afleveringer%201g.docx%202.docx");
+    expect(file, isNotEmpty);
+  });
 }

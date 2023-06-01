@@ -73,3 +73,7 @@
 ### 0.1.7
 
 * Changed type of contents on CalendarEventDetails
+
+### 0.1.8
+
+* Added getFile
