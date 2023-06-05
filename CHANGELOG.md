@@ -77,3 +77,7 @@
 ### 0.1.8
 
 * Added getFile
+
+### 0.1.9
+
+* Added getCookies

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
@@ -102,5 +104,10 @@ void main() {
     var file = await student!.getFile(
         "https://www.lectio.dk/lectio/256/lc/60231186938/res/60231186939/RetteGuide%20Afleveringer%201g.docx%202.docx");
     expect(file, isNotEmpty);
+  });
+
+  test('getCookies()', () async {
+    var cookies = await student!.getCookies();
+    expect(cookies, isNotNull);
   });
 }

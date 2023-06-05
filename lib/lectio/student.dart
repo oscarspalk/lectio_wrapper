@@ -46,6 +46,10 @@ class Student {
     return baseUrl + path;
   }
 
+  Future<CookieJar> getCookies() {
+    return Requests.getStoredCookies("www.lectio.dk");
+  }
+
   /// Get an external student.
   Student getStudent(String studentId) {
     return Student(studentId, gymId);
