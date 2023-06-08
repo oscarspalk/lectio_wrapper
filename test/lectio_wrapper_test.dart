@@ -68,10 +68,7 @@ void main() {
   test(
     'getClass()',
     () async {
-      var klasse = await student!.classes.get(ClassRef(
-          "/lectio/256/SkemaNy.aspx?type=stamklasse&klasseid=55788763869",
-          "1bx",
-          "55788763869"));
+      var klasse = await student!.classes.get(ClassRef("1bx", "55788763869"));
       expect(klasse, isNotNull);
     },
   );

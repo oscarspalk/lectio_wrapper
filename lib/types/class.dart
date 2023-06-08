@@ -9,8 +9,7 @@ class Class {
 }
 
 class ClassRef {
-  String url;
   String name;
   String id;
-  ClassRef(this.url, this.name, this.id);
+  ClassRef(this.name, this.id);
 }

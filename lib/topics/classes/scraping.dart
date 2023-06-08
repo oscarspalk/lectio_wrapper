@@ -14,7 +14,7 @@ Future<List<ClassRef>> extractClasses(BeautifulSoup soup) async {
         String? href = group.attributes['href'];
         if (group.text.contains(RegExp(r'^\d[a-z]*[a-z]')) && href != null) {
           String classId = queriesFromSoup(href)['klasseid'] ?? "";
-          ClassRef classRef = ClassRef(href, group.text, classId);
+          ClassRef classRef = ClassRef(group.text, classId);
           classes.add(classRef);
         }
       }
