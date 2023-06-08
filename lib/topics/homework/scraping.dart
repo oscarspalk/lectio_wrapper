@@ -1,8 +1,8 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/types/detail.dart';
-import 'package:lectio_wrapper/types/homework.dart';
-import 'package:lectio_wrapper/types/link_detail.dart';
-import 'package:lectio_wrapper/types/text_detail.dart';
+import 'package:lectio_wrapper/types/homework/detail.dart';
+import 'package:lectio_wrapper/types/homework/homework.dart';
+import 'package:lectio_wrapper/types/homework/link_detail.dart';
+import 'package:lectio_wrapper/types/homework/text_detail.dart';
 
 Future<List<Homework>> extractHomework(BeautifulSoup soup) async {
   const String baseUrl = "https://lectio.dk";

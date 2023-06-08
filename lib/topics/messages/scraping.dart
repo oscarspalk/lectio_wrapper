@@ -1,6 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
-import 'package:lectio_wrapper/types/message.dart';
+import 'package:lectio_wrapper/types/message/message.dart';
 
 Future<List<Message>> extractMessages(BeautifulSoup soup) async {
   List<Message> messages = [];

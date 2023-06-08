@@ -2,6 +2,7 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
+import 'package:lectio_wrapper/topics/absence/controller.dart';
 import 'package:lectio_wrapper/topics/assignments/controller.dart';
 import 'package:lectio_wrapper/topics/classes/controller.dart';
 import 'package:lectio_wrapper/topics/events/controller.dart';
@@ -31,6 +32,7 @@ class Student {
   late EventController events;
   late AssignmentsController assignments;
   late WeekController weeks;
+  late AbsenceController absence;
 
   Student(this.studentId, this.gymId, {fetchInfo = false}) {
     homework = HomeworkController(this);
@@ -40,6 +42,7 @@ class Student {
     events = EventController(this);
     assignments = AssignmentsController(this);
     weeks = WeekController(this);
+    absence = AbsenceController(this);
     if (fetchInfo) {
       getBasicInfo().then((value) {
         name = value.name;
@@ -105,9 +108,6 @@ class Student {
     return res.bodyBytes;
   }
 
-  Future<List<dynamic>> getAbsence(int year, {bool image = false}) async {
-    throw "no implementation";
-  }
   /* def getFravær(self, year, image=False):
         otherASPData = {"s$m$ChooseTerm$term" : str(year)}
         opgaverSoup = self.postLoggedInPageSoup(f"{self.rootURL}subnav/fravaerelev.aspx?elevid={self.elevID}", "s$m$ChooseTerm$term", otherASPData)

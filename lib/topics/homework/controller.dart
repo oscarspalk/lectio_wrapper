@@ -1,7 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/homework/scraping.dart';
-import 'package:lectio_wrapper/types/homework.dart';
+import 'package:lectio_wrapper/types/homework/homework.dart';
 import 'package:requests/requests.dart';
 
 class HomeworkController {

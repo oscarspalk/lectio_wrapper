@@ -1,6 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
-import 'package:lectio_wrapper/types/calendar_event.dart';
+import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
 RegExp datePattern = RegExp(r"\d{1,2}\/\d{1,2}-\d{4}");

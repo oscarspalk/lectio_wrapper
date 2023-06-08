@@ -1,7 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/events/scraping.dart';
-import 'package:lectio_wrapper/types/calendar_event_details.dart';
+import 'package:lectio_wrapper/types/weeks/calendar_event_details.dart';
 import 'package:requests/requests.dart';
 
 class EventController {

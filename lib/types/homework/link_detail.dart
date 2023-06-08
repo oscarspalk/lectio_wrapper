@@ -1,4 +1,4 @@
-import 'package:lectio_wrapper/types/detail.dart';
+import 'package:lectio_wrapper/types/homework/detail.dart';
 
 class LinkDetail extends Detail {
   String href;
