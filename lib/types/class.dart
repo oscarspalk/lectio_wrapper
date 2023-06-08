@@ -11,5 +11,6 @@ class Class {
 class ClassRef {
   String url;
   String name;
-  ClassRef(this.url, this.name);
+  String id;
+  ClassRef(this.url, this.name, this.id);
 }
