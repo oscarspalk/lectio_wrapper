@@ -1,6 +1,11 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/topics/absence/scraping.dart';
+import 'package:lectio_wrapper/topics/weeks/scraping.dart';
 import 'package:lectio_wrapper/types/absence/cause.dart';
+import 'package:lectio_wrapper/utils/scraping.dart';
+
+DateFormat registeredTimeFormat = DateFormat("dd/MM-yyyy HH:mm");
 
 Future<List<AbsenceCauseEntry>> extractAbsenceCauses(BeautifulSoup soup) async {
   List<AbsenceCauseEntry> causesEntries = [];
@@ -14,18 +19,35 @@ Future<List<AbsenceCauseEntry>> extractAbsenceCauses(BeautifulSoup soup) async {
       .children[0];
 
   if (registrationTable.children.length > 1) {
-    for (var row in registrationTable.children) {
-      causesEntries.add(extractAbsenceCause(row));
+    var listOfRegistrations = registrationTable.children;
+    listOfRegistrations.removeAt(0);
+    for (var row in listOfRegistrations) {
+      causesEntries.add(extractAbsenceCause(row, false));
+    }
+  }
+
+  if (unregistrationTable.children.length > 1) {
+    var listOfRegistrations = unregistrationTable.children;
+    listOfRegistrations.removeAt(0);
+    for (var row in listOfRegistrations) {
+      causesEntries.add(extractAbsenceCause(row, true));
     }
   }
 
   return causesEntries;
 }
 
-AbsenceCauseEntry extractAbsenceCause(Bs4Element row) {
+AbsenceCauseEntry extractAbsenceCause(Bs4Element row, bool missingCause) {
   double absencePercent = extractAbsencePercent(row.children[3]);
-  AbsenceCauses? cause = row.children[8].text as AbsenceCauses;
+  AbsenceCauses? cause = AbsenceCauses.values.firstWhere((element) =>
+      element.name.toLowerCase() == row.children[8].text.toLowerCase());
   String extendedCause = row.children[9].text;
-
-  //return AbsenceCauseEntry(id, absencePercent, cause, expandedCause, note, registered, module, missingCause)
+  String id = queriesFromSoup(
+      row.children[10].children[0].getAttrValue("href")!)['id']!;
+  String note = row.children[7].text;
+  String registeredDateString = row.children[5].text;
+  DateTime registered = registeredTimeFormat.parse(registeredDateString);
+  var event = extractModul(row.children[2].children[0]);
+  return AbsenceCauseEntry(id, absencePercent, cause, extendedCause, note,
+      registered, event, missingCause);
 }

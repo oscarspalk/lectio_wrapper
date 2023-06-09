@@ -3,7 +3,7 @@ import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 class AbsenceCauseEntry {
   String id;
   double absence;
-  AbsenceCauseEntry cause;
+  AbsenceCauses cause;
   String expandedCause;
   String note;
   DateTime registered;

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
@@ -49,62 +51,65 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
     var dayTime = DateTime(year, dayMonthAndDay[1], dayMonthAndDay[0]);
     List<CalendarEvent> dayEvents = [];
     day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
-      String status = "Uændret";
-      String id =
-          queriesFromSoup(piece.getAttrValue('href') ?? "")['absid'] ?? "";
-      String title = "";
-      DateTime start = DateTime.now();
-      DateTime end = DateTime.now();
-      String team = "";
-      String room = "";
-      String teacher = "";
-      List<String> pieceInformation =
-          piece.getAttrValue('data-additionalinfo')!.split("\n");
-      for (int j = 0; j < 2; j++) {
-        if (!(datePattern.stringMatch(pieceInformation[j]) != null) &&
-            !states.contains(pieceInformation[j]) &&
-            !pieceInformation[j]
-                .toLowerCase()
-                .startsWith(RegExp(r"hold|lærer|lokale"))) {
-          title = pieceInformation.removeAt(j);
-          break;
-        }
-      }
-
-      for (var pieceInfo in pieceInformation) {
-        var dates = datePattern.allMatches(pieceInfo);
-        var times = timePattern.allMatches(pieceInfo);
-
-        if (dates.isNotEmpty && times.isNotEmpty) {
-          String startTime =
-              "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(0))}";
-          String endTime =
-              "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(1))}";
-          DateFormat format = DateFormat("d/M-y HH:mm");
-          start = format.parse(startTime);
-          end = format.parse(endTime);
-        } else if (states.contains(pieceInfo)) {
-          status = pieceInfo;
-        } else {
-          List<String> data = pieceInfo.split(": ");
-          switch (data[0]) {
-            case "Hold":
-              team = data[1];
-              break;
-            case "Lærer":
-              teacher = data[1];
-              break;
-            case "Lokale":
-              room = data[1];
-              break;
-          }
-        }
-      }
-      var event =
-          CalendarEvent(status, title, team, teacher, room, id, start, end);
+      var event = extractModul(piece);
       dayEvents.add(event);
     });
     week.days.add(Day(informationsForThisDay, dayEvents, dayTime));
   }
   return week;
+}
+
+CalendarEvent extractModul(Bs4Element element) {
+  String status = "Uændret";
+  String id =
+      queriesFromSoup(element.getAttrValue('href') ?? "")['absid'] ?? "";
+  String title = "";
+  DateTime start = DateTime.now();
+  DateTime end = DateTime.now();
+  String team = "";
+  String room = "";
+  String teacher = "";
+  List<String> pieceInformation =
+      element.getAttrValue('data-additionalinfo')!.split("\n");
+  for (int j = 0; j < 2; j++) {
+    if (!(datePattern.stringMatch(pieceInformation[j]) != null) &&
+        !states.contains(pieceInformation[j]) &&
+        !pieceInformation[j]
+            .toLowerCase()
+            .startsWith(RegExp(r"hold|lærer|lokale"))) {
+      title = pieceInformation.removeAt(j);
+      break;
+    }
+  }
+
+  for (var pieceInfo in pieceInformation) {
+    var dates = datePattern.allMatches(pieceInfo);
+    var times = timePattern.allMatches(pieceInfo);
+
+    if (dates.isNotEmpty && times.isNotEmpty) {
+      String startTime =
+          "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(0))}";
+      String endTime =
+          "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(1))}";
+      DateFormat format = DateFormat("d/M-y HH:mm");
+      start = format.parse(startTime);
+      end = format.parse(endTime);
+    } else if (states.contains(pieceInfo)) {
+      status = pieceInfo;
+    } else {
+      List<String> data = pieceInfo.split(": ");
+      switch (data[0]) {
+        case "Hold":
+          team = data[1];
+          break;
+        case "Lærer":
+          teacher = data[1];
+          break;
+        case "Lokale":
+          room = data[1];
+          break;
+      }
+    }
+  }
+  return CalendarEvent(status, title, team, teacher, room, id, start, end);
 }
