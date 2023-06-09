@@ -47,7 +47,7 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
             .toList()
         : [1, 1];
     var dayTime = DateTime(year, dayMonthAndDay[1], dayMonthAndDay[0]);
-    List<CalenderEvent> dayEvents = [];
+    List<CalendarEvent> dayEvents = [];
     day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
       String status = "Uændret";
       String id =
@@ -101,7 +101,7 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
         }
       }
       var event =
-          CalenderEvent(status, title, team, teacher, room, id, start, end);
+          CalendarEvent(status, title, team, teacher, room, id, start, end);
       dayEvents.add(event);
     });
     week.days.add(Day(informationsForThisDay, dayEvents, dayTime));

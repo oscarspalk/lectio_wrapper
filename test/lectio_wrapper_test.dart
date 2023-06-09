@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/types/class.dart';
+import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -74,7 +75,7 @@ void main() {
   );
 
   test('getCalendarEventDetails', () async {
-    var eventDetails = await student!.events.expand(CalenderEvent(
+    var eventDetails = await student!.events.expand(CalendarEvent(
         "",
         "title",
         "team",
@@ -83,7 +84,7 @@ void main() {
         "56314099116",
         DateTime.now(),
         DateTime.now()));
-    var eventDetails2 = await student!.events.expand(CalenderEvent(
+    var eventDetails2 = await student!.events.expand(CalendarEvent(
         "",
         "title",
         "team",

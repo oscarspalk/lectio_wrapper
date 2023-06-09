@@ -23,10 +23,22 @@ Future<List<AbsenceEntry>> extractAbsence(BeautifulSoup soup) async {
     var teamId =
         queriesFromSoup(teamLink.getAttrValue("href")!)['holdelementid']!;
     var team = Team(teamName, teamId);
-
-    // current percent
-
-    // current moduler
+    List<double> percentages = [];
+    List<AbsenceFraction> fractions = [];
+    for (int i = 0; i < 8; i++) {
+      Bs4Element column = row.children[1 + i];
+      if (i % 2 == 0) {
+        percentages.add(extractAbsencePercent(column));
+      } else {
+        fractions.add(extractAbsenceFraction(column));
+      }
+    }
+    entries.add(AbsenceEntry(
+        team,
+        RegularEntryData(
+            percentages[0], fractions[0], percentages[1], fractions[1]),
+        AssignmentEntryData(
+            percentages[2], fractions[2], percentages[3], fractions[3])));
   }
   return entries;
 }
@@ -36,7 +48,8 @@ double extractAbsencePercent(Bs4Element cell) {
   var currentPercentText = cell.text;
   if (currentPercentText.isNotEmpty) {
     var textWithoutPercent = currentPercentText.replaceAll(r"%", '');
-    double normalised = double.parse(textWithoutPercent);
+    var textWithoutComma = textWithoutPercent.replaceAll(r",", '.');
+    double normalised = double.parse(textWithoutComma);
     currentPercent = normalised / 100.0;
   }
   return currentPercent;
@@ -46,7 +59,8 @@ AbsenceFraction extractAbsenceFraction(Bs4Element cell) {
   AbsenceFraction currentModules = AbsenceFraction(0, 0);
   var currentModulerText = cell.text;
   if (currentModulerText.isNotEmpty) {
-    List<String> currentModulesPieces = currentModulerText.split(r"/");
+    List<String> currentModulesPieces =
+        currentModulerText.replaceAll(r",", '.').split(r"/");
     currentModules = AbsenceFraction(double.parse(currentModulesPieces[0]),
         double.parse(currentModulesPieces[1]));
   }
