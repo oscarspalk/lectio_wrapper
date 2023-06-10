@@ -2,25 +2,23 @@ A client wrapper for the popular Lectio app, mostly used by danish students.
 > This library is being developed, which means it isn't fully stable and needs a lot of refactoring. Things are bound to change.
 
 ## Usage
-A quick example to fetch your homework:
-```dart
-Account account = Account(<id>, <username>, <password>);
-Student? student = await account.login();
-var homework = await student!.getHomework();
-```
+Login by making an ``Account`` object, and calling ``.login()``, which returns a ``Student`` object. Student object has listed features to call:
+| Feature             | Implementation |
+|---------------------|----------------|
+| homework | ✅              | 
+| assignments   | ✅              | 
+| messages      | ✅              | 
+| weeks       | ✅              | 
+| grades | ✅|
+| absence | ✅|
+| absence.registrations | ✅|
+| grades.notes | ✅|
+| classes | ✅|
+| events | ✅|
+| gyms | ✅|
+Currently only ``absence`` supports updating data.
 
-## Features
-| Feature             | Implementation | Stable |
-|---------------------|----------------|--------|
-| getHomework()       | ✅              | ✅      |
-| getAssignments()    | ✅              |        |
-| getMessages()       | ✅              |        |
-| getCalendar()       | ✅              | ✅      |
-| getImage()          | ✅              | ✅      |
-| getMessageContent() |                |        |
-| getAbsence()        |                |        |
-| getGrades()         |                |        |
-| listGyms() | ✅||
+More features will be added.
 
 ## Additional information
 
