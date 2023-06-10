@@ -6,12 +6,12 @@ class Week {
 
 class Day {
   List<String> informations;
-  List<CalenderEvent> events;
+  List<CalendarEvent> events;
   DateTime date;
   Day(this.informations, this.events, this.date);
 }
 
-class CalenderEvent {
+class CalendarEvent {
   String status;
   String title;
   String team;
@@ -21,6 +21,6 @@ class CalenderEvent {
   DateTime start;
   DateTime end;
 
-  CalenderEvent(this.status, this.title, this.team, this.teacher, this.room,
+  CalendarEvent(this.status, this.title, this.team, this.teacher, this.room,
       this.id, this.start, this.end);
 }

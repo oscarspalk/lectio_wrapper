@@ -2,12 +2,17 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
-import 'package:lectio_wrapper/lectio_wrapper.dart';
-import 'package:lectio_wrapper/types/assignment.dart';
-import 'package:lectio_wrapper/types/calendar_event_details.dart';
-import 'package:lectio_wrapper/types/class.dart';
+import 'package:lectio_wrapper/topics/absence/controller.dart';
+import 'package:lectio_wrapper/topics/assignments/controller.dart';
+import 'package:lectio_wrapper/topics/classes/controller.dart';
+import 'package:lectio_wrapper/topics/events/controller.dart';
+import 'package:lectio_wrapper/topics/grades/controller.dart';
+import 'package:lectio_wrapper/topics/gyms/controller.dart';
+import 'package:lectio_wrapper/topics/messages/controller.dart';
+import 'package:lectio_wrapper/topics/weeks/controller.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
+import 'package:lectio_wrapper/topics/homework/controller.dart';
 
 enum GradeType { proof, actual, comment, protocol }
 
@@ -19,11 +24,28 @@ String intFixed(int n, int count) => n.toString().padLeft(count, "0");
 class Student {
   String studentId;
   int gymId;
-  late Scraper scraper;
   late String imageId;
   late String name;
+  late HomeworkController homework;
+  late GymController gyms;
+  late ClassesController classes;
+  late MesssageController messages;
+  late EventController events;
+  late AssignmentsController assignments;
+  late WeekController weeks;
+  late AbsenceController absence;
+  late GradeController grades;
+
   Student(this.studentId, this.gymId, {fetchInfo = false}) {
-    scraper = Scraper(this);
+    homework = HomeworkController(this);
+    gyms = GymController();
+    classes = ClassesController(this);
+    messages = MesssageController(this);
+    events = EventController(this);
+    assignments = AssignmentsController(this);
+    weeks = WeekController(this);
+    absence = AbsenceController(this);
+    grades = GradeController(this);
     if (fetchInfo) {
       getBasicInfo().then((value) {
         name = value.name;
@@ -37,7 +59,7 @@ class Student {
     String profileUrl = buildUrl("SkemaNy.aspx?type=elev&elevid=$studentId");
     var resp = await Requests.get(profileUrl);
     BeautifulSoup profileSoup = BeautifulSoup(resp.body);
-    return scraper.extractBasicInfo(profileSoup);
+    return extractBasicInfo(profileSoup);
   }
 
   String get baseUrl => "https://www.lectio.dk/lectio/$gymId/";
@@ -55,17 +77,6 @@ class Student {
     return Student(studentId, gymId);
   }
 
-  /// Get all classes as a [List] of [Class]
-  Future<List<ClassRef>> getClasses() async {
-    String url = buildUrl("FindSkema.aspx?type=stamklasse");
-    var soup = await Requests.get(url);
-    return await scraper.extractClasses(BeautifulSoup(soup.body));
-  }
-
-  Future<Class> getClass(ClassRef ref) async {
-    return await scraper.extractClass(ref, buildUrl);
-  }
-
   /// Returns an image from an id as a [Uint8List]
   Future<Uint8List> getImage(String imageId) async {
     Response response;
@@ -76,26 +87,6 @@ class Student {
           buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
     }
     return response.bodyBytes;
-  }
-
-  /// Returns all assignments for the specified year.
-  Future<List<Assignment>> getAssignments(int year) async {
-    String url = buildUrl("OpgaverElev.aspx?elevid=$studentId");
-    var assignmentSoup = await scraper.postLoggedInPageSoup(
-        url, r"s$m$ChooseTerm$term", {r"s$m$ChooseTerm$term": year.toString()});
-    return await scraper.extractAssignments(assignmentSoup!);
-  }
-
-  Future<List<Homework>> getHomework() async {
-    var url = buildUrl("material_lektieoversigt.aspx?elevid=$studentId");
-    var response = await Requests.get(url);
-    return await scraper.extractHomework(BeautifulSoup(response.body));
-  }
-
-  Future<List<Message>> getMessages() async {
-    var url = buildUrl("beskeder2.aspx?elevid=$studentId");
-    var response = await Requests.get(url);
-    return await scraper.extractMessages(BeautifulSoup(response.body));
   }
 
   /*def getBeskeder(self, year, folderID):
@@ -109,43 +100,17 @@ class Student {
 
         return extract.extractBeskeder(beskederSoup) if beskederSoup else beskederSoup*/
 
-  Future<List<dynamic>> getMessageContent(String messageId) async {
-    var url = buildUrl("material_lektieoversigt.aspx?elevid=$studentId");
-    var response = await Requests.get(url);
-    return await scraper.extractHomework(BeautifulSoup(response.body));
-  }
-
   /*def getBeskedContent(self, beskedID):
         beskedSoup = self.postLoggedInPageSoup(f"{self.rootURL}beskeder2.aspx?elevid={self.elevID}", "__Page", {"__EVENTARGUMENT" : beskedID})
 
         return extract.extractBesked(beskedSoup) if beskedSoup else beskedSoup
 */
-  Future<Week> getCalendar(int year, int week) async {
-    var url = buildUrl(
-        "SkemaNy.aspx?type=elev&elevid=$studentId&week=${intFixed(week, 2)}$year");
-    var response = await Requests.get(url);
-    return await scraper.extractCalendar(
-        BeautifulSoup(response.body), year, week);
-  }
-
-  Future<CalendarEventDetails> getCalendarEventDetails(
-      CalenderEvent event) async {
-    var url = buildUrl("aktivitet/aktivitetforside2.aspx?absid=${event.id}");
-    var response = await Requests.get(url);
-    return await scraper
-        .extractCalendarEventDetails(BeautifulSoup(response.body));
-  }
 
   Future<Uint8List> getFile(String url) async {
     var res = await Requests.get(url);
     return res.bodyBytes;
   }
 
-  Future<List<dynamic>> getAbsence(int year, {bool image = false}) async {
-    var url = buildUrl("material_lektieoversigt.aspx?elevid=$studentId");
-    var response = await Requests.get(url);
-    return await scraper.extractHomework(BeautifulSoup(response.body));
-  }
   /* def getFravær(self, year, image=False):
         otherASPData = {"s$m$ChooseTerm$term" : str(year)}
         opgaverSoup = self.postLoggedInPageSoup(f"{self.rootURL}subnav/fravaerelev.aspx?elevid={self.elevID}", "s$m$ChooseTerm$term", otherASPData)
@@ -158,9 +123,7 @@ class Student {
     */
 
   Future<List<dynamic>> getGrades(int year, GradeType type) async {
-    var url = buildUrl("grades/grade_report.aspx?elevid=$studentId");
-    var response = await Requests.get(url);
-    return await scraper.extractHomework(BeautifulSoup(response.body));
+    throw "no implementation";
   }
   /*
     def getKarakterer(self, year, karakterType):

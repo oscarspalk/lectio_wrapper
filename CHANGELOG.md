@@ -81,3 +81,7 @@
 ### 0.1.9
 
 * Added getCookies
+
+### 0.2.0
+
+* Switched to a new structure, added grades and absence.

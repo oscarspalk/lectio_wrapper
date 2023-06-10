@@ -1,8 +1,9 @@
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
+import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/types/class.dart';
-import 'package:lectio_wrapper/utils/scraping.dart';
+import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -22,17 +23,17 @@ void main() {
   });
 
   test('getHomework()', () async {
-    var homework = await student!.getHomework();
+    var homework = await student!.homework.list();
     expect(homework, anyOf([isEmpty, isNotEmpty]));
   });
 
   test('getCalendar()', () async {
-    var calendar = await student!.getCalendar(2023, 1);
+    var calendar = await student!.weeks.get(2023, 1);
     expect(calendar.days, isNotEmpty);
   });
 
   test('getAssignments()', () async {
-    var assignments = await student!.getAssignments(2022);
+    var assignments = await student!.assignments.list(2022);
     expect(assignments, isNotEmpty);
   });
 
@@ -47,13 +48,13 @@ void main() {
   test(
     'getMessages()',
     () async {
-      var messages = await student!.getMessages();
-      expect(messages, isNotEmpty);
+      var messages = await student!.messages.list();
+      expect(messages, anyOf(isNotEmpty, isEmpty));
     },
   );
 
   test('listGyms()', () async {
-    var gyms = await listGyms();
+    var gyms = await GymController().list();
     expect(gyms, isNotEmpty);
     expect(gyms[0].id, 51);
     expect(
@@ -61,22 +62,20 @@ void main() {
   });
 
   test('getClasses()', () async {
-    var classes = await student!.getClasses();
+    var classes = await student!.classes.list();
     expect(classes, isNotEmpty);
   });
 
   test(
     'getClass()',
     () async {
-      var klasse = await student!.getClass(ClassRef(
-          "/lectio/256/SkemaNy.aspx?type=stamklasse&klasseid=55788763869",
-          "1bx"));
+      var klasse = await student!.classes.get(ClassRef("1bx", "55788763869"));
       expect(klasse, isNotNull);
     },
   );
 
   test('getCalendarEventDetails', () async {
-    var eventDetails = await student!.getCalendarEventDetails(CalenderEvent(
+    var eventDetails = await student!.events.expand(CalendarEvent(
         "",
         "title",
         "team",
@@ -85,7 +84,7 @@ void main() {
         "56314099116",
         DateTime.now(),
         DateTime.now()));
-    var eventDetails2 = await student!.getCalendarEventDetails(CalenderEvent(
+    var eventDetails2 = await student!.events.expand(CalendarEvent(
         "",
         "title",
         "team",

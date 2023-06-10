@@ -1,4 +1,4 @@
-import 'package:lectio_wrapper/types/detail.dart';
+import 'package:lectio_wrapper/types/homework/detail.dart';
 
 class TextDetail extends Detail {
   String text;
