@@ -6,6 +6,7 @@ import 'package:lectio_wrapper/topics/absence/controller.dart';
 import 'package:lectio_wrapper/topics/assignments/controller.dart';
 import 'package:lectio_wrapper/topics/classes/controller.dart';
 import 'package:lectio_wrapper/topics/events/controller.dart';
+import 'package:lectio_wrapper/topics/grades/controller.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/topics/messages/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
@@ -33,6 +34,7 @@ class Student {
   late AssignmentsController assignments;
   late WeekController weeks;
   late AbsenceController absence;
+  late GradeController grades;
 
   Student(this.studentId, this.gymId, {fetchInfo = false}) {
     homework = HomeworkController(this);
@@ -43,6 +45,7 @@ class Student {
     assignments = AssignmentsController(this);
     weeks = WeekController(this);
     absence = AbsenceController(this);
+    grades = GradeController(this);
     if (fetchInfo) {
       getBasicInfo().then((value) {
         name = value.name;
