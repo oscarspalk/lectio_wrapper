@@ -3,6 +3,7 @@ A client wrapper for the popular Lectio app, mostly used by danish students.
 
 ## Usage
 Login by making an ``Account`` object, and calling ``.login()``, which returns a ``Student`` object. Student object has listed features to call:
+
 | Feature             | Implementation |
 |---------------------|----------------|
 | homework | ✅              | 

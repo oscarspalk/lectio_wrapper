@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
@@ -60,9 +58,13 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
 }
 
 CalendarEvent extractModul(Bs4Element element) {
+  bool isTest = false;
   String status = "Uændret";
-  String id =
-      queriesFromSoup(element.getAttrValue('href') ?? "")['absid'] ?? "";
+  String? id = queriesFromSoup(element.getAttrValue('href') ?? "")['absid'];
+  if (id == null) {
+    isTest = true;
+    id = queriesFromSoup(element.getAttrValue('href') ?? "")['ProeveholdId'];
+  }
   String title = "";
   DateTime start = DateTime.now();
   DateTime end = DateTime.now();
@@ -111,5 +113,6 @@ CalendarEvent extractModul(Bs4Element element) {
       }
     }
   }
-  return CalendarEvent(status, title, team, teacher, room, id, start, end);
+  return CalendarEvent(status, title, team, teacher, room, id!, start, end,
+      isTest: isTest);
 }

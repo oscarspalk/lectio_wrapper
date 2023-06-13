@@ -28,7 +28,7 @@ void main() {
   });
 
   test('getCalendar()', () async {
-    var calendar = await student!.weeks.get(2023, 1);
+    var calendar = await student!.weeks.get(2023, 25);
     expect(calendar.days, isNotEmpty);
   });
 
@@ -93,6 +93,17 @@ void main() {
         "56314100155",
         DateTime.now(),
         DateTime.now()));
+    var eventDetails3 = await student!.events.expand(CalendarEvent(
+        "",
+        "title",
+        "team",
+        "teacher",
+        "room",
+        "58920954961",
+        isTest: true,
+        DateTime.now(),
+        DateTime.now()));
+    expect(eventDetails3, isNotNull);
     expect(eventDetails, isNotNull);
     expect(eventDetails2, isNotNull);
   });

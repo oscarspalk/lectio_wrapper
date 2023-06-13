@@ -12,6 +12,7 @@ class Day {
 }
 
 class CalendarEvent {
+  bool isTest;
   String status;
   String title;
   String team;
@@ -22,5 +23,6 @@ class CalendarEvent {
   DateTime end;
 
   CalendarEvent(this.status, this.title, this.team, this.teacher, this.room,
-      this.id, this.start, this.end);
+      this.id, this.start, this.end,
+      {this.isTest = false});
 }
