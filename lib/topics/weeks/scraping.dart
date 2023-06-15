@@ -58,12 +58,16 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
 }
 
 CalendarEvent extractModul(Bs4Element element) {
-  bool isTest = false;
+  CalendarEventType type = CalendarEventType.regular;
   String status = "Uændret";
   String? id = queriesFromSoup(element.getAttrValue('href') ?? "")['absid'];
   if (id == null) {
-    isTest = true;
+    type = CalendarEventType.test;
     id = queriesFromSoup(element.getAttrValue('href') ?? "")['ProeveholdId'];
+  }
+  if (id == null) {
+    type = CalendarEventType.private;
+    id = queriesFromSoup(element.getAttrValue('href') ?? "")['aftaleid'];
   }
   String title = "";
   DateTime start = DateTime.now();
@@ -71,6 +75,7 @@ CalendarEvent extractModul(Bs4Element element) {
   String team = "";
   String room = "";
   String teacher = "";
+  String note = "";
   List<String> pieceInformation =
       element.getAttrValue('data-additionalinfo')!.split("\n");
   for (int j = 0; j < 2; j++) {
@@ -99,20 +104,26 @@ CalendarEvent extractModul(Bs4Element element) {
     } else if (states.contains(pieceInfo)) {
       status = pieceInfo;
     } else {
-      List<String> data = pieceInfo.split(": ");
+      List<String> data = pieceInfo.split(":");
       switch (data[0]) {
         case "Hold":
-          team = data[1];
+          team = data[1].trim();
           break;
         case "Lærer":
-          teacher = data[1];
+          teacher = data[1].trim();
           break;
         case "Lokale":
-          room = data[1];
+          room = data[1].trim();
+          break;
+        case "Note":
+          var index = pieceInformation.indexOf(pieceInfo);
+          if (index < pieceInformation.length - 1) {
+            note = pieceInformation.sublist(index + 1).join("\n");
+          }
           break;
       }
     }
   }
   return CalendarEvent(status, title, team, teacher, room, id!, start, end,
-      isTest: isTest);
+      type: type, note: note);
 }

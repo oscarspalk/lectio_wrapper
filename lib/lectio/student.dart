@@ -36,7 +36,7 @@ class Student {
   late AbsenceController absence;
   late GradeController grades;
 
-  Student(this.studentId, this.gymId, {fetchInfo = false}) {
+  Student(this.studentId, this.gymId) {
     homework = HomeworkController(this);
     gyms = GymController();
     classes = ClassesController(this);
@@ -46,12 +46,11 @@ class Student {
     weeks = WeekController(this);
     absence = AbsenceController(this);
     grades = GradeController(this);
-    if (fetchInfo) {
-      getBasicInfo().then((value) {
-        name = value.name;
-        imageId = value.pictureId;
-      });
-    }
+  }
+
+  void setBasicInfo(BasicInfo basicInfo) {
+    name = basicInfo.name;
+    imageId = basicInfo.pictureId;
   }
 
   /// Returns a [BasicInfo] containing name and pictureId.

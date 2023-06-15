@@ -1,21 +1,23 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
+import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/events/calendar_event_details.dart';
 
 DateFormat testDateFormat = DateFormat("dd/MM-yy");
 DateFormat testTimeFormat = DateFormat("HH:mm");
 
 Future<CalendarEventDetails> extractCalendarEventDetails(
-    BeautifulSoup soup) async {
+    BeautifulSoup soup, Student student) async {
   Bs4Element? testElement =
       soup.find("*", id: 'm_Content_LectioDetailIslandProevehold_pa');
   if (testElement != null) {
-    return extractTestEventDetails(testElement);
+    return extractTestEventDetails(testElement, student);
   }
   return extractRegularEventDetails(soup);
 }
 
-TestCalendarEventDetails extractTestEventDetails(Bs4Element element) {
+TestCalendarEventDetails extractTestEventDetails(
+    Bs4Element element, Student realStudent) {
   List<Bs4Element> tables = element.findAll("table");
   Bs4Element infoTable = tables.first;
   Bs4Element studentTable = tables.last;
@@ -28,9 +30,8 @@ TestCalendarEventDetails extractTestEventDetails(Bs4Element element) {
   for (var studentRow in studentRows) {
     allStudents.add(extractTestStudent(studentRow, hasPrep));
   }
-  var studentId = int.parse(infoTable.children[0].children[6].children[1].text);
   TestStudent student = allStudents.firstWhere(
-    (element) => element.id == studentId,
+    (element) => element.name == realStudent.name,
   );
   var room = infoTable.children[0].children[4].children[1].text;
   String teacherString = infoTable.children[0].children[0].children[3].text;
@@ -47,10 +48,17 @@ TestStudent extractTestStudent(Bs4Element row, bool hasPrep) {
   var testDate = testDateFormat.parse(row.children[3].text);
   var add = hasPrep ? 1 : 0;
   if (hasPrep) {
-    preparingStart = testTimeFormat.parse(row.children[4].text);
+    preparingStart = testTimeFormat.parse(row.children[4].text).copyWith(
+        year: testDate.year, month: testDate.month, day: testDate.day);
   }
-  var testEnd = testTimeFormat.parse(row.children[4 + add].text);
-  var testStart = testTimeFormat.parse(row.children[5 + add].text);
+  var testStart = testTimeFormat
+      .parse(row.children[4 + add].text)
+      .copyWith(year: testDate.year, month: testDate.month, day: testDate.day);
+
+  var testEnd = testTimeFormat
+      .parse(row.children[5 + add].text)
+      .copyWith(year: testDate.year, month: testDate.month, day: testDate.day);
+
   return TestStudent(id, name, testDate, testEnd, testStart, preparingStart);
 }
 

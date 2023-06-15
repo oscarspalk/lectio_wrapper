@@ -89,3 +89,7 @@
 ### 0.2.1
 
 * Can also fetch exams now, doesn't support multiple teachers yet though.
+
+### 0.2.2
+
+* Support for creating, updating and deleting private appointments.
