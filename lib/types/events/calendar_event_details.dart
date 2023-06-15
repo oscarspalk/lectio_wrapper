@@ -6,6 +6,14 @@ class RegularCalendarEventDetails extends CalendarEventDetails {
   List<Content> content;
 }
 
+class PrivateCalendarEventDetails extends CalendarEventDetails {
+  final String content;
+  final String title;
+  final DateTime start;
+  final DateTime end;
+  PrivateCalendarEventDetails(this.content, this.end, this.start, this.title);
+}
+
 class Content {
   String? href;
   String content;

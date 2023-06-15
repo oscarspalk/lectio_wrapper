@@ -93,3 +93,7 @@
 ### 0.2.2
 
 * Support for creating, updating and deleting private appointments.
+
+### 0.2.3
+
+* Support for expanding private appointment.

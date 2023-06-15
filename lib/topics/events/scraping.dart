@@ -1,19 +1,32 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
+import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/types/events/calendar_event_details.dart';
 
 DateFormat testDateFormat = DateFormat("dd/MM-yy");
 DateFormat testTimeFormat = DateFormat("HH:mm");
 
 Future<CalendarEventDetails> extractCalendarEventDetails(
-    BeautifulSoup soup, Student student) async {
+    BeautifulSoup soup, Student student, CalendarEvent event) async {
   Bs4Element? testElement =
       soup.find("*", id: 'm_Content_LectioDetailIslandProevehold_pa');
+  Bs4Element? privateAppointmentElement =
+      soup.find("*", id: 'm_Content_island1_pa');
   if (testElement != null) {
     return extractTestEventDetails(testElement, student);
   }
+  if (privateAppointmentElement != null) {
+    return extractPrivateDetails(privateAppointmentElement, event);
+  }
   return extractRegularEventDetails(soup);
+}
+
+PrivateCalendarEventDetails extractPrivateDetails(
+    Bs4Element content, CalendarEvent event) {
+  var titleInput = content.find("*", id: 'm_Content_titelTextBox_tb')!.text;
+  var commentInput = content.find("*", id: 'm_Content_commentTextBox_tb')!.text;
+  return PrivateCalendarEventDetails(
+      commentInput, event.end, event.start, titleInput);
 }
 
 TestCalendarEventDetails extractTestEventDetails(

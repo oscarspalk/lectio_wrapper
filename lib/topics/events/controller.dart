@@ -14,15 +14,20 @@ class EventController {
 
   Future<CalendarEventDetails> expand(CalendarEvent event) async {
     String url;
-    if (event.type == CalendarEventType.test) {
-      url = student
-          .buildUrl("proevehold.aspx?type=proevehold&ProeveholdId=${event.id}");
-    } else {
-      url = student
-          .buildUrl("aktivitet/aktivitetforside2.aspx?absid=${event.id}");
+    switch (event.type) {
+      case CalendarEventType.test:
+        url = student.buildUrl(
+            "proevehold.aspx?type=proevehold&ProeveholdId=${event.id}");
+        break;
+      case CalendarEventType.regular:
+        url = student
+            .buildUrl("aktivitet/aktivitetforside2.aspx?absid=${event.id}");
+        break;
+      case CalendarEventType.private:
+        url = student.buildUrl("privat_aftale.aspx?aftaleid=${event.id}");
     }
     var response = await Requests.get(url);
     return await extractCalendarEventDetails(
-        BeautifulSoup(response.body), student);
+        BeautifulSoup(response.body), student, event);
   }
 }

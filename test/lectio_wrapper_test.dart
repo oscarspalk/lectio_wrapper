@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
@@ -106,6 +108,18 @@ void main() {
         DateTime.now(),
         DateTime.now(),
         note: ""));
+    var eventDetails4 = await student!.events.expand(CalendarEvent(
+        "",
+        "title",
+        "team",
+        "teacher",
+        "room",
+        "60630603994",
+        type: CalendarEventType.private,
+        DateTime.now(),
+        DateTime.now(),
+        note: ""));
+    expect(eventDetails4, isNotNull);
     expect(eventDetails3, isNotNull);
     expect(eventDetails, isNotNull);
     expect(eventDetails2, isNotNull);
