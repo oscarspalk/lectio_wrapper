@@ -85,3 +85,7 @@
 ### 0.2.0
 
 * Switched to a new structure, added grades and absence.
+
+### 0.2.1
+
+* Can also fetch exams now, doesn't support multiple teachers yet though.
