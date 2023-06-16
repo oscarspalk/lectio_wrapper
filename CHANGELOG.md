@@ -97,3 +97,7 @@
 ### 0.2.3
 
 * Support for expanding private appointment.
+
+### 0.2.4
+
+* Inbuilt image cache
