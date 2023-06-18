@@ -43,18 +43,35 @@ Future<List<AssignmentRef>> extractAssignments(BeautifulSoup soup) async {
 }
 
 Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
+  Bs4Element? weirdElement = soup.find('*', id: 'm_Content_ExerciseFilePnl');
+  List<File> testFiles = [];
   List<Bs4Element> infoTableRows = soup
       .find('*', id: 'm_Content_registerAfl_pa')!
-      .children[0]
+      .children[weirdElement != null ? 1 : 0]
       .children[0]
       .children;
   String title = soup.find('*', id: 'm_Content_NameLbl')!.text;
   String note = infoTableRows[1].children[1].text;
-  Bs4Element teamElement = infoTableRows[2].children[1].children[0];
+  String testFilesText = infoTableRows[1].children[0].text;
+  bool hasTestFiles = testFilesText.startsWith("Opgavebeskrivelse");
+  if (hasTestFiles) {
+    var entries = infoTableRows[1].children[1].children;
+    for (var entry in entries) {
+      if (entry.name == "a") {
+        testFiles.add(File(
+            queriesFromSoup(
+                entry.getAttrValue("href") ?? "")['exercisefileid']!,
+            entry.text));
+      }
+    }
+  }
+  Bs4Element teamElement =
+      infoTableRows[hasTestFiles ? 3 : 2].children[1].children[0];
   Team team = Team(teamElement.text,
       teamElement.getAttrValue("data-lectiocontextcard")!.replaceAll("HE", ""));
   String grading = soup.find('*', id: 'm_Content_gradeScaleIdLbl')!.text;
-  Bs4Element responsibleElement = infoTableRows[4].children[1].children[0];
+  Bs4Element responsibleElement =
+      infoTableRows[hasTestFiles ? 5 : 4].children[1].children[0];
   Person responsible = Person(
       responsibleElement.text,
       responsibleElement
@@ -66,7 +83,8 @@ Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
       .split(" ")
       .elementAt(0)
       .replaceAll(",", "."));
-  DateTime deadline = deadlineFormat.parse(infoTableRows[6].children[1].text);
+  DateTime deadline = deadlineFormat
+      .parse(infoTableRows[hasTestFiles ? 7 : 6].children[1].text);
   List<Bs4Element> entryRows =
       soup.find('*', id: 'm_Content_RecipientGV')!.children[0].children;
   entryRows.removeAt(0);
@@ -75,7 +93,7 @@ Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
     entries.add(extractAssignmentEntry(row));
   }
   return Assignment(ref.id, title, note, team, grading, responsible, hours,
-      deadline, entries);
+      deadline, entries, testFiles);
 }
 
 AssignmentEntry extractAssignmentEntry(Bs4Element row) {

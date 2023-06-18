@@ -109,3 +109,7 @@
 ### 0.2.6
 
 * Forgot to add ids to assignments
+
+### 0.2.7
+
+* There were also a field with test files, added that to assignments.
