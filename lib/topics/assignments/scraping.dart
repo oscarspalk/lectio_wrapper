@@ -51,7 +51,6 @@ Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
       .children[0]
       .children;
   String title = soup.find('*', id: 'm_Content_NameLbl')!.text;
-  String note = infoTableRows[1].children[1].text;
   String testFilesText = infoTableRows[1].children[0].text;
   bool hasTestFiles = testFilesText.startsWith("Opgavebeskrivelse");
   if (hasTestFiles) {
@@ -65,6 +64,8 @@ Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
       }
     }
   }
+  String note = infoTableRows[hasTestFiles ? 2 : 1].children[1].text;
+
   Bs4Element teamElement =
       infoTableRows[hasTestFiles ? 3 : 2].children[1].children[0];
   Team team = Team(teamElement.text,

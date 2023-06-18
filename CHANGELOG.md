@@ -113,3 +113,7 @@
 ### 0.2.7
 
 * There were also a field with test files, added that to assignments.
+
+### 0.2.8
+
+* Fixed offset for note
