@@ -5,6 +5,7 @@ import 'package:lectio_wrapper/types/primitives/person.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
 class Assignment {
+  String id;
   String title;
   String note;
   Team team;
@@ -13,8 +14,8 @@ class Assignment {
   double hours;
   DateTime deadline;
   List<AssignmentEntry> entries;
-  Assignment(this.title, this.note, this.team, this.grading, this.responsible,
-      this.hours, this.deadline, this.entries);
+  Assignment(this.id, this.title, this.note, this.team, this.grading,
+      this.responsible, this.hours, this.deadline, this.entries);
 }
 
 class AssignmentEntry {

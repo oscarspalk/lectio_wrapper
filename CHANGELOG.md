@@ -105,3 +105,7 @@
 ### 0.2.5
 
 * Changed assignments to being refs, and they can be fetched.
+
+### 0.2.6
+
+* Forgot to add ids to assignments

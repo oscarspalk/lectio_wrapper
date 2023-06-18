@@ -42,7 +42,7 @@ Future<List<AssignmentRef>> extractAssignments(BeautifulSoup soup) async {
   return assignments;
 }
 
-Assignment extractAssignment(BeautifulSoup soup) {
+Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
   List<Bs4Element> infoTableRows = soup
       .find('*', id: 'm_Content_registerAfl_pa')!
       .children[0]
@@ -74,8 +74,8 @@ Assignment extractAssignment(BeautifulSoup soup) {
   for (var row in entryRows) {
     entries.add(extractAssignmentEntry(row));
   }
-  return Assignment(
-      title, note, team, grading, responsible, hours, deadline, entries);
+  return Assignment(ref.id, title, note, team, grading, responsible, hours,
+      deadline, entries);
 }
 
 AssignmentEntry extractAssignmentEntry(Bs4Element row) {
