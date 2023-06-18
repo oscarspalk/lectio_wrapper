@@ -101,3 +101,7 @@
 ### 0.2.4
 
 * Inbuilt image cache
+
+### 0.2.5
+
+* Changed assignments to being refs, and they can be fetched.
