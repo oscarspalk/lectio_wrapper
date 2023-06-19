@@ -117,3 +117,7 @@
 ### 0.2.8
 
 * Fixed offset for note
+
+### 0.2.9
+
+* Login with invalid credentials throws error now
