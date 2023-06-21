@@ -121,3 +121,7 @@
 ### 0.2.9
 
 * Login with invalid credentials throws error now
+
+### 0.2.10
+
+* Can get message thread and info.
