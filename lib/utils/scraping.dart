@@ -28,9 +28,15 @@ Future<Map<String, String>> extractASPData(
 
 Map<String, String> queriesFromSoup(String url) {
   int splitLocation = url.indexOf("?");
-  var keys = Map.fromEntries(
-      url.substring(splitLocation + 1).split("&").map((keyValue) {
+  var keys = Map.fromEntries(url
+      .substring(splitLocation + 1)
+      .replaceAll("#", "")
+      .split("&")
+      .map((keyValue) {
     List<String> keyAndValue = keyValue.split("=");
+    if (keyValue.length < 2) {
+      return const MapEntry("", "");
+    }
     return MapEntry(keyAndValue[0], keyAndValue[1]);
   }));
   return keys;

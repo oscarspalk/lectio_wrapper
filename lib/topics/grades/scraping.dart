@@ -23,7 +23,7 @@ List<GradeRow> extractGrades(BeautifulSoup soup) {
     var team = Team(teamName, teamId);
 
     // extract all grades
-    List<int?> grades = [];
+    List<Grade?> grades = [];
     for (int i = 2; i < 8; i++) {
       grades.add(extractSingleGrade(gradeRow.children[i]));
     }
@@ -38,7 +38,7 @@ List<GradeRow> extractGrades(BeautifulSoup soup) {
   return returnedRows;
 }
 
-int? extractSingleGrade(Bs4Element element) {
+Grade? extractSingleGrade(Bs4Element element) {
   if (element.children.isEmpty) {
     return null;
   }
@@ -47,5 +47,9 @@ int? extractSingleGrade(Bs4Element element) {
   if (text == "--") {
     return null;
   }
-  return int.parse(text);
+  int grade = int.parse(text);
+  List<String> infos = child.getAttrValue("title")!.split("\n");
+  List<String> weightList = infos.elementAt(2).split(": ");
+  double weight = double.parse(weightList.elementAt(1).replaceAll(",", "."));
+  return Grade(weight, grade);
 }

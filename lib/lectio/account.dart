@@ -24,13 +24,12 @@ class Account {
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
 
-      final loginRequest = await Requests.post(loginUrl, body: extracted)
-          .timeout(const Duration(seconds: 3));
-      loginRequest.statusCode;
-      if (loginRequest.statusCode == 200) {
+      await Requests.post(loginUrl, body: extracted)
+          .timeout(const Duration(seconds: 5));
+      String? studentId = getElevId((await loggedIn(forsideUrl))!);
+      if (studentId == null) {
         throw InvalidCredentialsError();
       }
-      String studentId = getElevId((await loggedIn(forsideUrl))!)!;
       var student = Student(studentId, gymId);
       var basic = await student.getBasicInfo();
       return student..setBasicInfo(basic);
