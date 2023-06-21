@@ -1,6 +1,5 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
-import 'package:lectio_wrapper/types/weeks/calendar_event_details.dart';
 import 'package:requests/requests.dart';
 import 'package:http/http.dart' as http;
 
