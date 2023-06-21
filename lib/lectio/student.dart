@@ -35,8 +35,8 @@ class Student {
   late WeekController weeks;
   late AbsenceController absence;
   late GradeController grades;
-
-  Student(this.studentId, this.gymId, {fetchInfo = false}) {
+  Map<String, Uint8List> images = {};
+  Student(this.studentId, this.gymId) {
     homework = HomeworkController(this);
     gyms = GymController();
     classes = ClassesController(this);
@@ -46,12 +46,11 @@ class Student {
     weeks = WeekController(this);
     absence = AbsenceController(this);
     grades = GradeController(this);
-    if (fetchInfo) {
-      getBasicInfo().then((value) {
-        name = value.name;
-        imageId = value.pictureId;
-      });
-    }
+  }
+
+  void setBasicInfo(BasicInfo basicInfo) {
+    name = basicInfo.name;
+    imageId = basicInfo.pictureId;
   }
 
   /// Returns a [BasicInfo] containing name and pictureId.
@@ -80,12 +79,16 @@ class Student {
   /// Returns an image from an id as a [Uint8List]
   Future<Uint8List> getImage(String imageId) async {
     Response response;
+    if (images.containsKey(imageId)) {
+      return images[imageId]!;
+    }
     if (imageId.startsWith("https")) {
       response = await Requests.get(imageId);
     } else {
       response = await Requests.get(
           buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
     }
+    images.putIfAbsent(imageId, () => response.bodyBytes);
     return response.bodyBytes;
   }
 

@@ -2,6 +2,7 @@ import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
+import 'package:lectio_wrapper/types/assignment.dart';
 import 'package:lectio_wrapper/types/class.dart';
 
 void main() {
@@ -27,13 +28,39 @@ void main() {
   });
 
   test('getCalendar()', () async {
-    var calendar = await student!.weeks.get(2023, 1);
+    var calendar = await student!.weeks.get(2023, 24);
     expect(calendar.days, isNotEmpty);
   });
 
   test('getAssignments()', () async {
     var assignments = await student!.assignments.list(2022);
     expect(assignments, isNotEmpty);
+  });
+
+  test('get Assignment', () async {
+    var assignment = await student!.assignments.get(AssignmentRef(
+        week: 1,
+        team: " ",
+        title: "",
+        deadline: DateTime.now(),
+        studentTime: 3,
+        status: "",
+        absence: "",
+        taskNote: "taskNote",
+        id: "57682395006"));
+    var assignment2 = await student!.assignments.get(AssignmentRef(
+        week: 1,
+        team: " ",
+        title: "",
+        deadline: DateTime.now(),
+        studentTime: 3,
+        status: "",
+        absence: "",
+        taskNote: "taskNote",
+        id: "59978186146"));
+
+    expect(assignment, isNotNull);
+    expect(assignment2, isNotNull);
   });
 
   test(
@@ -82,7 +109,8 @@ void main() {
         "room",
         "56314099116",
         DateTime.now(),
-        DateTime.now()));
+        DateTime.now(),
+        note: ""));
     var eventDetails2 = await student!.events.expand(CalendarEvent(
         "",
         "title",
@@ -91,7 +119,32 @@ void main() {
         "room",
         "56314100155",
         DateTime.now(),
-        DateTime.now()));
+        DateTime.now(),
+        note: ""));
+    var eventDetails3 = await student!.events.expand(CalendarEvent(
+        "",
+        "title",
+        "team",
+        "teacher",
+        "room",
+        "58920954961",
+        type: CalendarEventType.test,
+        DateTime.now(),
+        DateTime.now(),
+        note: ""));
+    var eventDetails4 = await student!.events.expand(CalendarEvent(
+        "",
+        "title",
+        "team",
+        "teacher",
+        "room",
+        "60630603994",
+        type: CalendarEventType.private,
+        DateTime.now(),
+        DateTime.now(),
+        note: ""));
+    expect(eventDetails4, isNotNull);
+    expect(eventDetails3, isNotNull);
     expect(eventDetails, isNotNull);
     expect(eventDetails2, isNotNull);
   });
@@ -105,5 +158,37 @@ void main() {
   test('getCookies()', () async {
     var cookies = await student!.getCookies();
     expect(cookies, isNotNull);
+  });
+
+  test('Create private appointment', () async {
+    await student!.events.private.create(CalendarEvent("", "TestApi", "", "",
+        "", "", DateTime.now(), DateTime.now().add(const Duration(hours: 2)),
+        note: "Hello World"));
+  });
+
+  test('Delete private appointment', () async {
+    await student!.events.private.delete(CalendarEvent(
+        "",
+        "TestApi",
+        "",
+        "",
+        "",
+        "60630602322",
+        DateTime.now(),
+        DateTime.now().add(const Duration(hours: 2)),
+        note: "Hello World"));
+  });
+
+  test('Update private appointment', () async {
+    await student!.events.private.update(CalendarEvent(
+        "",
+        "title",
+        "team",
+        "teacher",
+        "room",
+        "60630603994",
+        DateTime.now(),
+        DateTime.now().add(const Duration(hours: 1)),
+        note: "Nu står der det her"));
   });
 }

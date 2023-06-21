@@ -3,6 +3,8 @@ import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
 
+class InvalidCredentialsError extends Error {}
+
 class Account {
   int gymId;
   String username;
@@ -22,9 +24,16 @@ class Account {
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
 
-      await Requests.post(loginUrl, body: extracted);
+      final loginRequest = await Requests.post(loginUrl, body: extracted)
+          .timeout(const Duration(seconds: 3));
+      loginRequest.statusCode;
+      if (loginRequest.statusCode == 200) {
+        throw InvalidCredentialsError();
+      }
       String studentId = getElevId((await loggedIn(forsideUrl))!)!;
-      return Student(studentId, gymId, fetchInfo: true);
+      var student = Student(studentId, gymId);
+      var basic = await student.getBasicInfo();
+      return student..setBasicInfo(basic);
     } catch (e) {
       return null;
     }

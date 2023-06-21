@@ -1,7 +1,42 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:lectio_wrapper/types/primitives/file.dart';
+import 'package:lectio_wrapper/types/primitives/person.dart';
+import 'package:lectio_wrapper/types/primitives/team.dart';
+
 class Assignment {
+  List<File> testFiles;
+  String id;
+  String title;
+  String note;
+  Team team;
+  String grading;
+  Person responsible;
+  double hours;
+  DateTime deadline;
+  List<AssignmentEntry> entries;
+  Assignment(
+      this.id,
+      this.title,
+      this.note,
+      this.team,
+      this.grading,
+      this.responsible,
+      this.hours,
+      this.deadline,
+      this.entries,
+      this.testFiles);
+}
+
+class AssignmentEntry {
+  DateTime time;
+  Person user;
+  String note;
+  File resource;
+  AssignmentEntry(this.time, this.user, this.note, this.resource);
+}
+
+class AssignmentRef {
   int week;
   String team;
   String title;
@@ -10,8 +45,8 @@ class Assignment {
   String status;
   String absence;
   String taskNote;
-  String taskLink;
-  Assignment(
+  String id;
+  AssignmentRef(
       {required this.week,
       required this.team,
       required this.title,
@@ -20,9 +55,9 @@ class Assignment {
       required this.status,
       required this.absence,
       required this.taskNote,
-      required this.taskLink});
+      required this.id});
 
-  Assignment copyWith({
+  AssignmentRef copyWith({
     int? week,
     String? team,
     String? title,
@@ -31,9 +66,9 @@ class Assignment {
     String? status,
     String? absence,
     String? taskNote,
-    String? taskLink,
+    String? id,
   }) {
-    return Assignment(
+    return AssignmentRef(
         week: week ?? this.week,
         team: team ?? this.team,
         title: title ?? this.title,
@@ -42,7 +77,7 @@ class Assignment {
         status: status ?? this.status,
         absence: absence ?? this.absence,
         taskNote: taskNote ?? this.taskNote,
-        taskLink: taskLink ?? this.taskLink);
+        id: id ?? this.id);
   }
 
   Map<String, dynamic> toMap() {
@@ -55,12 +90,12 @@ class Assignment {
       'status': status,
       'absence': absence,
       'taskNote': taskNote,
-      'taskLink': taskLink,
+      'id': id,
     };
   }
 
-  factory Assignment.fromMap(Map<String, dynamic> map) {
-    return Assignment(
+  factory AssignmentRef.fromMap(Map<String, dynamic> map) {
+    return AssignmentRef(
       week: map['week'] as int,
       team: map['team'] as String,
       title: map['title'] as String,
@@ -69,14 +104,14 @@ class Assignment {
       status: map['status'] as String,
       absence: map['absence'] as String,
       taskNote: map['taskNote'] as String,
-      taskLink: map['taskLink'] as String,
+      id: map['id'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Assignment.fromJson(String source) =>
-      Assignment.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory AssignmentRef.fromJson(String source) =>
+      AssignmentRef.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -84,7 +119,7 @@ class Assignment {
   }
 
   @override
-  bool operator ==(covariant Assignment other) {
+  bool operator ==(covariant AssignmentRef other) {
     if (identical(this, other)) return true;
 
     return other.week == week &&
@@ -95,7 +130,7 @@ class Assignment {
         other.status == status &&
         other.absence == absence &&
         other.taskNote == taskNote &&
-        other.taskLink == taskLink;
+        other.id == id;
   }
 
   @override
@@ -108,6 +143,6 @@ class Assignment {
         status.hashCode ^
         absence.hashCode ^
         taskNote.hashCode ^
-        taskLink.hashCode;
+        id.hashCode;
   }
 }

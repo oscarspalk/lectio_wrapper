@@ -85,3 +85,39 @@
 ### 0.2.0
 
 * Switched to a new structure, added grades and absence.
+
+### 0.2.1
+
+* Can also fetch exams now, doesn't support multiple teachers yet though.
+
+### 0.2.2
+
+* Support for creating, updating and deleting private appointments.
+
+### 0.2.3
+
+* Support for expanding private appointment.
+
+### 0.2.4
+
+* Inbuilt image cache
+
+### 0.2.5
+
+* Changed assignments to being refs, and they can be fetched.
+
+### 0.2.6
+
+* Forgot to add ids to assignments
+
+### 0.2.7
+
+* There were also a field with test files, added that to assignments.
+
+### 0.2.8
+
+* Fixed offset for note
+
+### 0.2.9
+
+* Login with invalid credentials throws error now
