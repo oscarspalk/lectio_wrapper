@@ -6,6 +6,16 @@ import 'package:lectio_wrapper/types/primitives/person.dart';
 
 DateFormat dateThreadFormat = DateFormat("dd/MM-yyyy HH:mm");
 
+List<String> weekdays = [
+  "mandag",
+  "tirsdag",
+  "onsdag",
+  "torsdag",
+  "fredag",
+  "lørdag",
+  "søndag"
+];
+
 List<MessageRef> extractMessages(BeautifulSoup soup) {
   List<MessageRef> messages = [];
   var messageTableParent =
@@ -33,10 +43,23 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
           parsedTime = daFormat.parse(times[1]);
           parsedTime = parsedTime.copyWith(year: DateTime.now().year);
         } catch (e) {
-          parsedTime = DateFormat("HH:mm").parse(dateChanged);
-          var now = DateTime.now();
-          parsedTime = parsedTime.copyWith(
-              year: now.year, month: now.month, day: now.day);
+          try {
+            parsedTime = DateFormat("HH:mm").parse(dateChanged);
+            var now = DateTime.now();
+            parsedTime = parsedTime.copyWith(
+                year: now.year, month: now.month, day: now.day);
+          } catch (e) {
+            List<String> splittedTimes = dateChanged.split(" ");
+            int weekday = weekdays.indexWhere(
+                    (element) => element.startsWith(splittedTimes[0])) +
+                1;
+            parsedTime = DateFormat("HH:mm").parse(splittedTimes[1]);
+            var now = DateTime.now();
+            int weekdayDifference = now.weekday - weekday;
+            var realDate = now.subtract(Duration(days: weekdayDifference));
+            parsedTime = parsedTime.copyWith(
+                year: realDate.year, month: realDate.month, day: realDate.day);
+          }
         }
       }
       messages.add(MessageRef(id, parsedTime, receivers, topic));

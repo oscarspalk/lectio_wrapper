@@ -9,6 +9,14 @@ class MessageRef {
   MessageRef(this.id, this.dateChanged, this.receivers, this.topic);
 }
 
+class CreateMessage {
+  List<Person> receivers;
+  String topic;
+  String content;
+  bool isAnswerable;
+  CreateMessage(this.topic, this.content, this.isAnswerable, this.receivers);
+}
+
 class Message {
   String topic;
   Person sender;
