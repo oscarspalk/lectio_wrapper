@@ -125,3 +125,7 @@
 ### 0.2.10
 
 * Can get message thread and info.
+
+### 0.2.11
+
+* Updated dependencies
