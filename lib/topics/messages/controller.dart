@@ -23,23 +23,26 @@ class MesssageController {
     return extractMessage(BeautifulSoup(response.body));
   }
 
-  Future<void> create(CreateMessage createMessage) async {
+  ///
+  /// Not working yet
+  ///
+  Future<List<BeautifulSoup>> create(CreateMessage createMessage) async {
+    List<BeautifulSoup> soups = [];
     // open message
-    String messageTarget = r"s$m$Content$Content$NewMessageLnk";
     String messageUrl = student
         .buildUrl("beskeder2.aspx?type=nybesked&elevid=${student.studentId}");
-    Map<String, String> messageData = {
-      r"s$m$ChooseTerm$term": "2022",
-      r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$ListGridSelectionTree$folders": "-70",
-      r"s$m$Content$Content$SPSearchText$tb": "",
-      r"s$m$Content$Content$MarkChkDD": "-1"
-    };
-    await Requests.get(messageUrl);
+
+    var createNewResp = await Requests.get(messageUrl);
+    var uri = createNewResp.url;
+    var maybeSoup = BeautifulSoup((createNewResp).body);
+    soups.add(maybeSoup);
 
     // add people
     for (var person in createMessage.receivers) {
-      await _addPerson(person);
+      var maybeSouppy = await _addPerson(person);
+      if (maybeSouppy != null) {
+        soups.add(maybeSouppy);
+      }
     }
 
     String target = r"s$m$Content$Content$CreateThreadEditMessageOkBtn";
@@ -58,23 +61,28 @@ class MesssageController {
       r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb":
           createMessage.content
     };
-    await postLoggedInPageSoup(url, target, data);
+    var maybeSoup2 = await postLoggedInPageSoup(url, target, data);
+    if (maybeSoup2 != null) {
+      soups.add(maybeSoup2);
+    }
+    return soups;
   }
 
-  Future<void> _addPerson(Person person) async {
+  Future<BeautifulSoup?> _addPerson(Person person) async {
     String target = r"s$m$Content$Content$CreateThreadRelatedAddButton";
-    String url = student
-        .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
+    String url =
+        student.buildUrl("beskeder2.aspx?type=&elevid=${student.studentId}");
     Map<String, String> data = {
       r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$addRecipientDD$inp": person.name,
-      r"s$m$Content$Content$addRecipientDD$inpid": person.id,
+      r"s$m$Content$Content$addRecipientDD$inp":
+          "Oscar+Gaardsted+Spalk+%281bx+12%29",
+      r"s$m$Content$Content$addRecipientDD$inpid": "S54299107744",
       r"s$m$Content$Content$CreateThreadEditMessageTitle$tb": "",
       r"s$m$Content$Content$RepliesToThreadOrExistingMessageAllowedChk": "on",
       r"s$m$Content$Content$CreateThreadAttachDocChooser$selectedDocumentId":
           "",
       r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb": ""
     };
-    await postLoggedInPageSoup(url, target, data);
+    return await postLoggedInPageSoup(url, target, data);
   }
 }

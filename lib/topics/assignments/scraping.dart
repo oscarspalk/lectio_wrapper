@@ -1,6 +1,8 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
+import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
+import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
 import 'package:lectio_wrapper/types/primitives/person.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
@@ -42,7 +44,8 @@ Future<List<AssignmentRef>> extractAssignments(BeautifulSoup soup) async {
   return assignments;
 }
 
-Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
+Future<Assignment> extractAssignment(
+    BeautifulSoup soup, AssignmentRef ref, Student student) async {
   Bs4Element? weirdElement = soup.find('*', id: 'm_Content_ExerciseFilePnl');
   List<File> testFiles = [];
   List<Bs4Element> infoTableRows = soup
@@ -68,8 +71,9 @@ Assignment extractAssignment(BeautifulSoup soup, AssignmentRef ref) {
 
   Bs4Element teamElement =
       infoTableRows[hasTestFiles ? 3 : 2].children[1].children[0];
-  Team team = Team(teamElement.text,
-      teamElement.getAttrValue("data-lectiocontextcard")!.replaceAll("HE", ""));
+  var teamId = teamElement.getAttrValue("data-lectiocontextcard")!;
+  var teamContext = (await student.context.get(teamId)) as TeamContext;
+  Team team = Team(teamElement.text, teamId, teamContext.subject);
   String grading = soup.find('*', id: 'm_Content_gradeScaleIdLbl')!.text;
   Bs4Element responsibleElement =
       infoTableRows[hasTestFiles ? 5 : 4].children[1].children[0];

@@ -12,6 +12,6 @@ class GradeNotesController {
     var url = student
         .buildUrl("grades/grade_report.aspx?elevid=${student.studentId}");
     var response = await Requests.get(url);
-    return extractGradeNotes(BeautifulSoup(response.body));
+    return await extractGradeNotes(BeautifulSoup(response.body), student);
   }
 }

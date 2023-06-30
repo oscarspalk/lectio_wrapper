@@ -1,9 +1,12 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:lectio_wrapper/lectio/student.dart';
+import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/types/grades/grade.dart';
 import 'package:lectio_wrapper/types/grades/subject.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
-List<GradeRow> extractGrades(BeautifulSoup soup) {
+Future<List<GradeRow>> extractGrades(
+    BeautifulSoup soup, Student student) async {
   List<GradeRow> returnedRows = [];
   Bs4Element gradeTable =
       soup.find('*', id: 's_m_Content_Content_karakterView_KarakterGV')!;
@@ -20,7 +23,8 @@ List<GradeRow> extractGrades(BeautifulSoup soup) {
     var teamId =
         teamCell.getAttrValue("data-lectiocontextcard")!.replaceFirst('HE', '');
     var teamName = teamCell.text;
-    var team = Team(teamName, teamId);
+    var teamContext = (await student.context.get(teamId)) as TeamContext;
+    var team = Team(teamName, teamId, teamContext.subject);
 
     // extract all grades
     List<Grade?> grades = [];

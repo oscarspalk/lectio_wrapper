@@ -5,6 +5,7 @@ import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/topics/absence/controller.dart';
 import 'package:lectio_wrapper/topics/assignments/controller.dart';
 import 'package:lectio_wrapper/topics/classes/controller.dart';
+import 'package:lectio_wrapper/topics/context/controller.dart';
 import 'package:lectio_wrapper/topics/events/controller.dart';
 import 'package:lectio_wrapper/topics/grades/controller.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
@@ -35,6 +36,7 @@ class Student {
   late WeekController weeks;
   late AbsenceController absence;
   late GradeController grades;
+  late ContextController context;
   Map<String, Uint8List> images = {};
   Student(this.studentId, this.gymId) {
     homework = HomeworkController(this);
@@ -46,6 +48,7 @@ class Student {
     weeks = WeekController(this);
     absence = AbsenceController(this);
     grades = GradeController(this);
+    context = ContextController(this);
   }
 
   void setBasicInfo(BasicInfo basicInfo) {

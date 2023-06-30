@@ -1,9 +1,12 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/absence/entry.dart';
+import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
-Future<List<AbsenceEntry>> extractAbsence(BeautifulSoup soup) async {
+Future<List<AbsenceEntry>> extractAbsence(
+    BeautifulSoup soup, Student student) async {
   List<AbsenceEntry> entries = [];
   Bs4Element? absenceTable =
       soup.find('*', id: 's_m_Content_Content_SFTabStudentAbsenceDataTable');
@@ -22,7 +25,8 @@ Future<List<AbsenceEntry>> extractAbsence(BeautifulSoup soup) async {
     var teamName = teamLink.text;
     var teamId =
         queriesFromSoup(teamLink.getAttrValue("href")!)['holdelementid']!;
-    var team = Team(teamName, teamId);
+    var teamContext = (await student.context.get(teamId)) as TeamContext;
+    var team = Team(teamName, teamId, teamContext.subject);
     List<double> percentages = [];
     List<AbsenceFraction> fractions = [];
     for (int i = 0; i < 8; i++) {

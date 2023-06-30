@@ -22,6 +22,6 @@ class AssignmentsController {
     String url = student.buildUrl(
         "ElevAflevering.aspx?elevid=${student.studentId}&exerciseid=${ref.id}");
     var response = await Requests.get(url);
-    return extractAssignment(BeautifulSoup(response.body), ref);
+    return await extractAssignment(BeautifulSoup(response.body), ref, student);
   }
 }

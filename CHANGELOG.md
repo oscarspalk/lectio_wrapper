@@ -129,3 +129,7 @@
 ### 0.2.11
 
 * Updated dependencies
+
+### 0.3.0
+
+* Added context for teams, so you can get their actual names now.

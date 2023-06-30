@@ -1,12 +1,15 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
+import 'package:lectio_wrapper/lectio/student.dart';
+import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/types/grades/note.dart';
 import 'package:lectio_wrapper/types/grades/subject.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
 DateFormat registeredNoteFormat = DateFormat("dd/MM-yyyy HH:mm");
 
-List<GradeNote> extractGradeNotes(BeautifulSoup soup) {
+Future<List<GradeNote>> extractGradeNotes(
+    BeautifulSoup soup, Student student) async {
   List<GradeNote> notes = [];
   Bs4Element noteTable =
       soup.find("*", id: 's_m_Content_Content_karakterView_KarakterNoterGrid')!;
@@ -17,7 +20,8 @@ List<GradeNote> extractGradeNotes(BeautifulSoup soup) {
     var teamCell = noteRow.children[0].children[0];
     var teamId =
         teamCell.getAttrValue("data-lectiocontextcard")!.replaceFirst('HE', '');
-    var team = Team(teamCell.text, teamId);
+    var teamContext = (await student.context.get(teamId)) as TeamContext;
+    var team = Team(teamCell.text, teamId, teamContext.subject);
     var note = noteRow.children[4].text;
     var registeredList = noteRow.children[3].text.split(" - ");
     var registered = registeredNoteFormat.parse(registeredList[0]);

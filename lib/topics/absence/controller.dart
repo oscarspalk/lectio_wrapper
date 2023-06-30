@@ -16,6 +16,6 @@ class AbsenceController {
     var url =
         student.buildUrl("subnav/fravaerelev.aspx?elevid=${student.studentId}");
     var response = await Requests.get(url);
-    return await extractAbsence(BeautifulSoup(response.body));
+    return await extractAbsence(BeautifulSoup(response.body), student);
   }
 }

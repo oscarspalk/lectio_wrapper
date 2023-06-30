@@ -18,7 +18,7 @@ class Account {
       var loginGet =
           await Requests.get(loginUrl, headers: {'user-agent': 'Mozilla/5.0'});
       BeautifulSoup bs = BeautifulSoup(loginGet.body);
-      Map<String, String> extracted =
+      Map<String, String?> extracted =
           await extractASPData(bs, "m\$Content\$submitbtn2");
 
       extracted["m\$Content\$username"] = username;

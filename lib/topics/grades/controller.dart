@@ -16,6 +16,6 @@ class GradeController {
     var url = student
         .buildUrl("grades/grade_report.aspx?elevid=${student.studentId}");
     var response = await Requests.get(url);
-    return extractGrades(BeautifulSoup(response.body));
+    return await extractGrades(BeautifulSoup(response.body), student);
   }
 }
