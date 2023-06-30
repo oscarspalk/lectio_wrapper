@@ -24,7 +24,7 @@ Future<List<AbsenceEntry>> extractAbsence(
     var teamLink = teamColumn.children[0];
     var teamName = teamLink.text;
     var teamId =
-        queriesFromSoup(teamLink.getAttrValue("href")!)['holdelementid']!;
+        "HE${queriesFromSoup(teamLink.getAttrValue("href")!)['holdelementid']!}";
     var teamContext = (await student.context.get(teamId)) as TeamContext;
     var team = Team(teamName, teamId, teamContext.subject);
     List<double> percentages = [];

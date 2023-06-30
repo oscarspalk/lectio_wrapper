@@ -133,3 +133,7 @@
 ### 0.3.0
 
 * Added context for teams, so you can get their actual names now.
+
+### 0.3.1
+
+* Updated context for teams, and added availability to fetch events, which span for several days.

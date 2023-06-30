@@ -77,11 +77,8 @@ Future<Assignment> extractAssignment(
   String grading = soup.find('*', id: 'm_Content_gradeScaleIdLbl')!.text;
   Bs4Element responsibleElement =
       infoTableRows[hasTestFiles ? 5 : 4].children[1].children[0];
-  Person responsible = Person(
-      responsibleElement.text,
-      responsibleElement
-          .getAttrValue("data-lectiocontextcard")!
-          .replaceAll("T", ""));
+  Person responsible = Person(responsibleElement.text,
+      responsibleElement.getAttrValue("data-lectiocontextcard")!);
   double hours = double.parse(soup
       .find('*', id: 'm_Content_WeightLbl')!
       .text
@@ -104,11 +101,8 @@ Future<Assignment> extractAssignment(
 AssignmentEntry extractAssignmentEntry(Bs4Element row) {
   DateTime time = deadlineFormat.parse(row.children[0].text);
   Bs4Element personElement = row.children[1].children[0];
-  Person user = Person(
-      personElement.text,
-      personElement
-          .getAttrValue("data-lectiocontextcard")!
-          .replaceAll(RegExp(r'S|T'), ''));
+  Person user = Person(personElement.text,
+      personElement.getAttrValue("data-lectiocontextcard")!);
   String note = row.children[2].text;
   Bs4Element resource = row.children[3].children[0].children[0];
   File file = File(resource.getAttrValue("href")!, resource.text);

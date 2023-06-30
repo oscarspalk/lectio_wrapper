@@ -13,6 +13,6 @@ class ContextController {
         student.buildUrl("contextcard/contextcard.aspx?lectiocontextcard=$id");
     var response = await Requests.get(url);
     var soup = BeautifulSoup(response.body);
-    return extractTeamContext(soup);
+    return extractTeamContext(soup, id);
   }
 }

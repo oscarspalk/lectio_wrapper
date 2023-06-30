@@ -12,7 +12,7 @@ void main() {
   setUp(() async => {student = await account.login()});
 
   test('list weeks', () async {
-    var calendar = await student!.weeks.get(2023, 24);
+    var calendar = await student!.weeks.get(2023, 26);
     expect(calendar.days, isNotEmpty);
   });
 

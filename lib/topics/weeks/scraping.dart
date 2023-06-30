@@ -97,7 +97,7 @@ CalendarEvent extractModul(Bs4Element element) {
       String startTime =
           "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(0))}";
       String endTime =
-          "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(1))}";
+          "${regToStr(dates.elementAt(1))} ${regToStr(times.elementAt(1))}";
       DateFormat format = DateFormat("d/M-y HH:mm");
       start = format.parse(startTime);
       end = format.parse(endTime);

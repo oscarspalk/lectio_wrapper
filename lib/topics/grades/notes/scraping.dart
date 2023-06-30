@@ -18,8 +18,7 @@ Future<List<GradeNote>> extractGradeNotes(
 
   for (var noteRow in noteRows) {
     var teamCell = noteRow.children[0].children[0];
-    var teamId =
-        teamCell.getAttrValue("data-lectiocontextcard")!.replaceFirst('HE', '');
+    var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
     var teamContext = (await student.context.get(teamId)) as TeamContext;
     var team = Team(teamCell.text, teamId, teamContext.subject);
     var note = noteRow.children[4].text;

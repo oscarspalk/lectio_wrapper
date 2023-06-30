@@ -20,8 +20,7 @@ Future<List<GradeRow>> extractGrades(
         SubjectTypes.values
             .firstWhere((element) => element.name == subjectList[1]));
     var teamCell = gradeRow.children[0].children[0];
-    var teamId =
-        teamCell.getAttrValue("data-lectiocontextcard")!.replaceFirst('HE', '');
+    var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
     var teamName = teamCell.text;
     var teamContext = (await student.context.get(teamId)) as TeamContext;
     var team = Team(teamName, teamId, teamContext.subject);

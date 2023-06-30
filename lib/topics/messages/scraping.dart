@@ -85,11 +85,8 @@ Message extractMessage(BeautifulSoup soup) {
       senderAndReceiverElement.children[1].text.replaceAll("Til:", "").trim();
   Bs4Element senderElement =
       senderAndReceiverElement.children[0].children[2].children[0];
-  Person sender = Person(
-      senderElement.text,
-      senderElement
-          .getAttrValue("data-lectiocontextcard")!
-          .replaceAll(RegExp(r"U|T"), ""));
+  Person sender = Person(senderElement.text,
+      senderElement.getAttrValue("data-lectiocontextcard")!);
   List<ThreadEntry> thread = [];
   Bs4Element threadTable =
       soup.find('*', id: 's_m_Content_Content_ThreadList')!;
@@ -114,10 +111,7 @@ ThreadEntry extractMessageThread(Bs4Element threadListItem) {
   String topic = infos[0].trim();
   List<String> infosSplittedAgain = infos[1].split(", ");
   DateTime at = dateThreadFormat.parse(infosSplittedAgain[1]);
-  Person user = Person(
-      infosSplittedAgain[0],
-      messageElement.children[1]
-          .getAttrValue('data-lectiocontextcard')!
-          .replaceAll(RegExp(r"U|T"), ""));
+  Person user = Person(infosSplittedAgain[0],
+      messageElement.children[1].getAttrValue('data-lectiocontextcard')!);
   return ThreadEntry(at, user, content, topic, files);
 }
