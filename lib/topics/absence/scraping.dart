@@ -1,7 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/absence/entry.dart';
-import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
@@ -25,8 +24,8 @@ Future<List<AbsenceEntry>> extractAbsence(
     var teamName = teamLink.text;
     var teamId =
         "HE${queriesFromSoup(teamLink.getAttrValue("href")!)['holdelementid']!}";
-    var teamContext = (await student.context.get(teamId)) as TeamContext;
-    var team = Team(teamName, teamId, teamContext.subject);
+    //var teamContext = (await student.context.get(teamId)) as TeamContext;
+    var team = Team(teamName, teamId, teamName);
     List<double> percentages = [];
     List<AbsenceFraction> fractions = [];
     for (int i = 0; i < 8; i++) {

@@ -137,3 +137,7 @@
 ### 0.3.1
 
 * Updated context for teams, and added availability to fetch events, which span for several days.
+
+### 0.3.2
+
+* Avoid using context for now, as it is very time consuming making long load times.

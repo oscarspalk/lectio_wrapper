@@ -1,6 +1,5 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
-import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/types/grades/grade.dart';
 import 'package:lectio_wrapper/types/grades/subject.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
@@ -14,31 +13,35 @@ Future<List<GradeRow>> extractGrades(
   // remove headers
   gradeRows.removeAt(0);
   for (var gradeRow in gradeRows) {
-    var subjectList = gradeRow.children[1].text.split(", ");
-    var subject = Subject(
-        subjectList[0],
-        SubjectTypes.values
-            .firstWhere((element) => element.name == subjectList[1]));
-    var teamCell = gradeRow.children[0].children[0];
-    var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
-    var teamName = teamCell.text;
-    var teamContext = (await student.context.get(teamId)) as TeamContext;
-    var team = Team(teamName, teamId, teamContext.subject);
-
-    // extract all grades
-    List<Grade?> grades = [];
-    for (int i = 2; i < 8; i++) {
-      grades.add(extractSingleGrade(gradeRow.children[i]));
-    }
-    returnedRows.add(GradeRow(team, subject,
-        firstStandpunkt: grades[0],
-        secondStandpunkt: grades[1],
-        finalYearGrade: grades[2],
-        internalTest: grades[3],
-        yearGrade: grades[4],
-        examGrade: grades[5]));
+    returnedRows.add(extractGradeRow(gradeRow, student));
   }
   return returnedRows;
+}
+
+GradeRow extractGradeRow(Bs4Element gradeRow, Student student) {
+  var subjectList = gradeRow.children[1].text.split(", ");
+  var subject = Subject(
+      subjectList[0],
+      SubjectTypes.values
+          .firstWhere((element) => element.name == subjectList[1]));
+  var teamCell = gradeRow.children[0].children[0];
+  var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
+  var teamName = teamCell.text;
+  //var teamContext = (await student.context.get(teamId)) as TeamContext;
+  var team = Team(teamName, teamId, teamName);
+
+  // extract all grades
+  List<Grade?> grades = [];
+  for (int i = 2; i < 8; i++) {
+    grades.add(extractSingleGrade(gradeRow.children[i]));
+  }
+  return GradeRow(team, subject,
+      firstStandpunkt: grades[0],
+      secondStandpunkt: grades[1],
+      finalYearGrade: grades[2],
+      internalTest: grades[3],
+      yearGrade: grades[4],
+      examGrade: grades[5]);
 }
 
 Grade? extractSingleGrade(Bs4Element element) {
