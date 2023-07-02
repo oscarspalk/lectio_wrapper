@@ -1,7 +1,7 @@
 import 'package:lectio_wrapper/types/homework/detail.dart';
 
 class Homework {
-  String dato;
+  DateTime dato;
   String activity;
   String note;
   List<Detail> homework;
