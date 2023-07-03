@@ -16,8 +16,8 @@ class StudentsController {
     var studentScript =
         scripts.firstWhere((element) => element.queries['type'] == "bcstudent");
     var studentsAspx = await Requests.get(
-        "https://lectio.dk${studentScript.url}",
-        headers: {"Content-Type": "application/x-javascript"});
+      "https://lectio.dk${studentScript.url}",
+    );
     return extractStudents(BeautifulSoup(studentsAspx.body));
   }
 }

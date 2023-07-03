@@ -146,3 +146,7 @@
 
 * Get all students as `Person`
 * Fetch student context
+
+### 0.3.4
+
+* Inbuilt context cache

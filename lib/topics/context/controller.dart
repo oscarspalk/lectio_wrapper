@@ -1,23 +1,31 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/context/scraping.dart';
-import 'package:lectio_wrapper/types/context/team.dart';
+import 'package:lectio_wrapper/types/context/context.dart';
 import 'package:requests/requests.dart';
 
 class ContextController {
   final Student student;
   ContextController(this.student);
 
+  List<Context> contexts = [];
+
   Future<Context> get(String id) async {
+    var matches = contexts.where((element) => element.id == id);
+    Context context = Context('');
+    if (matches.isNotEmpty) {
+      return matches.first;
+    }
     var url =
         student.buildUrl("contextcard/contextcard.aspx?lectiocontextcard=$id");
     var response = await Requests.get(url);
     var soup = BeautifulSoup(response.body);
     if (id.startsWith('HE')) {
-      return extractTeamContext(soup);
+      context = extractTeamContext(soup, id);
     } else if (id.startsWith('S')) {
-      return extractStudentContext(soup);
+      context = extractStudentContext(soup, id);
     }
-    return Context();
+    contexts.add(context);
+    return context;
   }
 }
