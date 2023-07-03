@@ -158,3 +158,7 @@
 ### 0.3.6
 
 * Forgot to remove a debug line.
+
+### 0.3.7
+
+* Removed get team context from grade notes as it is way too time consuming.
