@@ -10,13 +10,8 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login()});
 
-  test('get team context', () async {
-    var context = await student!.context.get("HE53405469334");
-    expect(context, isNotNull);
-  });
-
-  test('get student context', () async {
-    var context = await student!.context.get('S54299107744');
-    expect(context, isNotNull);
+  test('list students', () async {
+    var students = await student!.students.list();
+    expect(students, isNotEmpty);
   });
 }
