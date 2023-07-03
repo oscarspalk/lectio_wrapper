@@ -154,3 +154,7 @@
 ### 0.3.5
 
 * Switched to http library for some operations as requests library seemed odd.
+
+### 0.3.6
+
+* Forgot to remove a debug line.
