@@ -150,3 +150,7 @@
 ### 0.3.4
 
 * Inbuilt context cache
+
+### 0.3.5
+
+* Switched to http library for some operations as requests library seemed odd.
