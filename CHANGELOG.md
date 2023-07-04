@@ -144,4 +144,21 @@
 
 ### 0.3.3
 
-* Fetches only first 2 digits of grades, as all led to bugs.
+* Get all students as `Person`
+* Fetch student context
+
+### 0.3.4
+
+* Inbuilt context cache
+
+### 0.3.5
+
+* Switched to http library for some operations as requests library seemed odd.
+
+### 0.3.6
+
+* Forgot to remove a debug line.
+
+### 0.3.7
+
+* Removed get team context from grade notes as it is way too time consuming.
