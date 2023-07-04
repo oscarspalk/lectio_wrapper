@@ -141,3 +141,7 @@
 ### 0.3.2
 
 * Avoid using context for now, as it is very time consuming making long load times.
+
+### 0.3.3
+
+* Fetches only first 2 digits of grades, as all led to bugs.
