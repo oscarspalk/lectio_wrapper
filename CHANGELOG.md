@@ -162,3 +162,7 @@
 ### 0.3.7
 
 * Removed get team context from grade notes as it is way too time consuming.
+
+### 0.3.8
+
+* Fetches only 2 first digits of grade.
