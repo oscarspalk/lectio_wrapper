@@ -45,17 +45,21 @@ GradeRow extractGradeRow(Bs4Element gradeRow, Student student) {
 }
 
 Grade? extractSingleGrade(Bs4Element element) {
-  if (element.children.isEmpty) {
+  try {
+    if (element.children.isEmpty) {
+      return null;
+    }
+    var child = element.children.first;
+    var text = child.text;
+    if (text == "--") {
+      return null;
+    }
+    int grade = int.parse(text);
+    List<String> infos = child.getAttrValue("title")!.split("\n");
+    List<String> weightList = infos.elementAt(2).split(": ");
+    double weight = double.parse(weightList.elementAt(1).replaceAll(",", "."));
+    return Grade(weight, grade);
+  } catch (_) {
     return null;
   }
-  var child = element.children.first;
-  var text = child.text;
-  if (text == "--") {
-    return null;
-  }
-  int grade = int.parse(text);
-  List<String> infos = child.getAttrValue("title")!.split("\n");
-  List<String> weightList = infos.elementAt(2).split(": ");
-  double weight = double.parse(weightList.elementAt(1).replaceAll(",", "."));
-  return Grade(weight, grade);
 }

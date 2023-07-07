@@ -17,8 +17,17 @@ Future<List<AbsenceEntry>> extractAbsence(
   unparsedRows.removeLast();
   for (var i = 0; i < unparsedRows.length; i++) {
     var row = unparsedRows[i];
-
+    var entry = extractAbsenceEntry(row);
+    if (entry != null) {
+      entries.add(entry);
+    }
     // get team
+  }
+  return entries;
+}
+
+AbsenceEntry? extractAbsenceEntry(Bs4Element row) {
+  try {
     var teamColumn = row.children[0];
     var teamLink = teamColumn.children[0];
     var teamName = teamLink.text;
@@ -36,14 +45,15 @@ Future<List<AbsenceEntry>> extractAbsence(
         fractions.add(extractAbsenceFraction(column));
       }
     }
-    entries.add(AbsenceEntry(
+    return AbsenceEntry(
         team,
         RegularEntryData(
             percentages[0], fractions[0], percentages[1], fractions[1]),
         AssignmentEntryData(
-            percentages[2], fractions[2], percentages[3], fractions[3])));
+            percentages[2], fractions[2], percentages[3], fractions[3]));
+  } catch (e) {
+    return null;
   }
-  return entries;
 }
 
 double extractAbsencePercent(Bs4Element cell) {

@@ -18,6 +18,16 @@ Future<List<AssignmentRef>> extractAssignments(BeautifulSoup soup) async {
   // remove first
   assigmentsChildren.removeAt(0).decompose();
   for (var assignmentRow in assigmentsChildren) {
+    var ref = extractAssignmentRef(assignmentRow);
+    if (ref != null) {
+      assignments.add(ref);
+    }
+  }
+  return assignments;
+}
+
+AssignmentRef? extractAssignmentRef(Bs4Element assignmentRow) {
+  try {
     var columns = assignmentRow.findAll("td");
     int week = int.parse(columns[0].text);
     String team = columns[1].text;
@@ -30,7 +40,7 @@ Future<List<AssignmentRef>> extractAssignments(BeautifulSoup soup) async {
     String status = columns[5].text;
     String absence = columns[6].text;
     String taskNote = columns[8].text;
-    assignments.add(AssignmentRef(
+    return AssignmentRef(
         week: week,
         team: team,
         title: title,
@@ -39,9 +49,10 @@ Future<List<AssignmentRef>> extractAssignments(BeautifulSoup soup) async {
         status: status,
         absence: absence,
         taskNote: taskNote,
-        id: id));
+        id: id);
+  } catch (_) {
+    return null;
   }
-  return assignments;
 }
 
 Future<Assignment> extractAssignment(

@@ -22,7 +22,10 @@ Future<List<AbsenceCauseEntry>> extractAbsenceCauses(BeautifulSoup soup) async {
     var listOfRegistrations = registrationTable.children;
     listOfRegistrations.removeAt(0);
     for (var row in listOfRegistrations) {
-      causesEntries.add(extractAbsenceCause(row, false));
+      var cause = extractAbsenceCause(row, false);
+      if (cause != null) {
+        causesEntries.add(cause);
+      }
     }
   }
 
@@ -30,24 +33,31 @@ Future<List<AbsenceCauseEntry>> extractAbsenceCauses(BeautifulSoup soup) async {
     var listOfRegistrations = unregistrationTable.children;
     listOfRegistrations.removeAt(0);
     for (var row in listOfRegistrations) {
-      causesEntries.add(extractAbsenceCause(row, true));
+      var cause = extractAbsenceCause(row, true);
+      if (cause != null) {
+        causesEntries.add(cause);
+      }
     }
   }
 
   return causesEntries;
 }
 
-AbsenceCauseEntry extractAbsenceCause(Bs4Element row, bool missingCause) {
-  double absencePercent = extractAbsencePercent(row.children[3]);
-  AbsenceCauses? cause = AbsenceCauses.values.firstWhere((element) =>
-      element.name.toLowerCase() == row.children[8].text.toLowerCase());
-  String extendedCause = row.children[9].text;
-  String id = queriesFromSoup(
-      row.children[10].children[0].getAttrValue("href")!)['id']!;
-  String note = row.children[7].text;
-  String registeredDateString = row.children[5].text;
-  DateTime registered = registeredTimeFormat.parse(registeredDateString);
-  var event = extractModul(row.children[2].children[0]);
-  return AbsenceCauseEntry(id, absencePercent, cause, extendedCause, note,
-      registered, event, missingCause);
+AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
+  try {
+    double absencePercent = extractAbsencePercent(row.children[3]);
+    AbsenceCauses? cause = AbsenceCauses.values.firstWhere((element) =>
+        element.name.toLowerCase() == row.children[8].text.toLowerCase());
+    String extendedCause = row.children[9].text;
+    String id = queriesFromSoup(
+        row.children[10].children[0].getAttrValue("href")!)['id']!;
+    String note = row.children[7].text;
+    String registeredDateString = row.children[5].text;
+    DateTime registered = registeredTimeFormat.parse(registeredDateString);
+    var event = extractModul(row.children[2].children[0]);
+    return AbsenceCauseEntry(id, absencePercent, cause, extendedCause, note,
+        registered, event, missingCause);
+  } catch (_) {
+    return null;
+  }
 }
