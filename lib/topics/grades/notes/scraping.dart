@@ -1,7 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
-import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/types/grades/note.dart';
 import 'package:lectio_wrapper/types/grades/subject.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
@@ -19,8 +18,7 @@ Future<List<GradeNote>> extractGradeNotes(
   for (var noteRow in noteRows) {
     var teamCell = noteRow.children[0].children[0];
     var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
-    var teamContext = (await student.context.get(teamId)) as TeamContext;
-    var team = Team(teamCell.text, teamId, teamContext.subject);
+    var team = Team(teamCell.text, teamId, teamCell.text);
     var note = noteRow.children[4].text;
     var registeredList = noteRow.children[3].text.split(" - ");
     var registered = registeredNoteFormat.parse(registeredList[0]);

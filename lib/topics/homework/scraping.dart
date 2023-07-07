@@ -3,6 +3,7 @@ import 'package:lectio_wrapper/types/homework/detail.dart';
 import 'package:lectio_wrapper/types/homework/homework.dart';
 import 'package:lectio_wrapper/types/homework/link_detail.dart';
 import 'package:lectio_wrapper/types/homework/text_detail.dart';
+import 'package:lectio_wrapper/utils/dating.dart';
 
 Future<List<Homework>> extractHomework(BeautifulSoup soup) async {
   const String baseUrl = "https://lectio.dk";
@@ -33,8 +34,8 @@ Future<List<Homework>> extractHomework(BeautifulSoup soup) async {
     }
 
     var hourLink = homework.children[1].children[0].attributes['href'];
-    homeworkList
-        .add(Homework(aktivitet, baseUrl + hourLink!, date, details, note));
+    homeworkList.add(Homework(
+        aktivitet, baseUrl + hourLink!, parseLectioDate(date), details, note));
   });
   return homeworkList;
 }

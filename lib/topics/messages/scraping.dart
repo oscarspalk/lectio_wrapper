@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
 import 'package:lectio_wrapper/types/primitives/person.dart';
+import 'package:lectio_wrapper/utils/dating.dart';
 
 DateFormat dateThreadFormat = DateFormat("dd/MM-yyyy HH:mm");
 
@@ -23,8 +24,6 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
   if (messageTableParent != null) {
     var messageTable = messageTableParent.children[0].children;
     messageTable.removeAt(0).decompose();
-    DateFormat format = DateFormat("d/M-y");
-    DateFormat daFormat = DateFormat("d/M");
     for (var messageRow in messageTable) {
       Bs4Element linkElement = messageRow.children[3].children[0].children[0];
       String postCode = linkElement.getAttrValue("onclick")!;
@@ -34,34 +33,7 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
       String topic = messageRow.children[3].text.trim();
       String receivers = messageRow.children[6].text.trim();
       String dateChanged = messageRow.children[7].text;
-      DateTime? parsedTime;
-      try {
-        parsedTime = format.parse(dateChanged);
-      } catch (e) {
-        try {
-          List<String> times = dateChanged.split(" ");
-          parsedTime = daFormat.parse(times[1]);
-          parsedTime = parsedTime.copyWith(year: DateTime.now().year);
-        } catch (e) {
-          try {
-            parsedTime = DateFormat("HH:mm").parse(dateChanged);
-            var now = DateTime.now();
-            parsedTime = parsedTime.copyWith(
-                year: now.year, month: now.month, day: now.day);
-          } catch (e) {
-            List<String> splittedTimes = dateChanged.split(" ");
-            int weekday = weekdays.indexWhere(
-                    (element) => element.startsWith(splittedTimes[0])) +
-                1;
-            parsedTime = DateFormat("HH:mm").parse(splittedTimes[1]);
-            var now = DateTime.now();
-            int weekdayDifference = now.weekday - weekday;
-            var realDate = now.subtract(Duration(days: weekdayDifference));
-            parsedTime = parsedTime.copyWith(
-                year: realDate.year, month: realDate.month, day: realDate.day);
-          }
-        }
-      }
+      DateTime parsedTime = parseLectioDate(dateChanged);
       messages.add(MessageRef(id, parsedTime, receivers, topic));
     }
   }

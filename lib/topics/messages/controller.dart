@@ -33,7 +33,6 @@ class MesssageController {
         .buildUrl("beskeder2.aspx?type=nybesked&elevid=${student.studentId}");
 
     var createNewResp = await Requests.get(messageUrl);
-    var uri = createNewResp.url;
     var maybeSoup = BeautifulSoup((createNewResp).body);
     soups.add(maybeSoup);
 

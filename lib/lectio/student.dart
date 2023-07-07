@@ -10,6 +10,7 @@ import 'package:lectio_wrapper/topics/events/controller.dart';
 import 'package:lectio_wrapper/topics/grades/controller.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/topics/messages/controller.dart';
+import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
@@ -37,6 +38,7 @@ class Student {
   late AbsenceController absence;
   late GradeController grades;
   late ContextController context;
+  late StudentsController students;
   Map<String, Uint8List> images = {};
   Student(this.studentId, this.gymId) {
     homework = HomeworkController(this);
@@ -49,6 +51,7 @@ class Student {
     absence = AbsenceController(this);
     grades = GradeController(this);
     context = ContextController(this);
+    students = StudentsController(this);
   }
 
   void setBasicInfo(BasicInfo basicInfo) {
@@ -95,58 +98,8 @@ class Student {
     return response.bodyBytes;
   }
 
-  /*def getBeskeder(self, year, folderID):
-        otherASPData = {"__EVENTARGUMENT" : str(folderID), "s$m$ChooseTerm$term" : str(year), "s$m$Content$Content$ListGridSelectionTree$folders" : str(folderID)}
-        beskederSoup = self.postLoggedInPageSoup(f"{self.rootURL}beskeder2.aspx?elevid={self.elevID}", "s$m$Content$Content$ListGridSelectionTree", otherASPData)
-
-        showAllEventTarget = extract.extractBeskederShowAllEventTarget(beskederSoup)
-        if showAllEventTarget:
-            otherASPData["__EVENTARGUMENT"] = ""
-            beskederSoup = self.postLoggedInPageSoup(f"{self.rootURL}beskeder2.aspx?elevid={self.elevID}", showAllEventTarget, otherASPData)
-
-        return extract.extractBeskeder(beskederSoup) if beskederSoup else beskederSoup*/
-
-  /*def getBeskedContent(self, beskedID):
-        beskedSoup = self.postLoggedInPageSoup(f"{self.rootURL}beskeder2.aspx?elevid={self.elevID}", "__Page", {"__EVENTARGUMENT" : beskedID})
-
-        return extract.extractBesked(beskedSoup) if beskedSoup else beskedSoup
-*/
-
   Future<Uint8List> getFile(String url) async {
     var res = await Requests.get(url);
     return res.bodyBytes;
   }
-
-  /* def getFravær(self, year, image=False):
-        otherASPData = {"s$m$ChooseTerm$term" : str(year)}
-        opgaverSoup = self.postLoggedInPageSoup(f"{self.rootURL}subnav/fravaerelev.aspx?elevid={self.elevID}", "s$m$ChooseTerm$term", otherASPData)
-        if image and opgaverSoup:
-            return self.getImage(extract.extractFraværImageURL(opgaverSoup))
-        elif opgaverSoup:
-            return extract.extractFravær(opgaverSoup)
-        else:
-            return opgaverSoup
-    */
-
-  Future<List<dynamic>> getGrades(int year, GradeType type) async {
-    throw "no implementation";
-  }
-  /*
-    def getKarakterer(self, year, karakterType):
-        otherASPData = {"s$m$ChooseTerm$term" : str(year)}
-        karakterSoup = self.postLoggedInPageSoup(f"{self.rootURL}grades/grade_report.aspx?elevid={self.elevID}", "s$m$ChooseTerm$term", otherASPData)
-
-        if not karakterSoup:
-            return karakterSoup
-        elif karakterType == "bevis":
-            return extract.extractKarakterBevis(karakterSoup)
-        elif karakterType == "nuværende":
-            return extract.extractCurrentKarakterer(karakterSoup)
-        elif karakterType == "kommentar":
-            return extract.extractKarakterComment(karakterSoup)
-        elif karakterType == "protokol":
-            return extract.extractKarakterProtokol(karakterSoup)
-        else:
-            return False
-    */
 }

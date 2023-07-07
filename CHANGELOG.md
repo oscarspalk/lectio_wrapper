@@ -141,3 +141,28 @@
 ### 0.3.2
 
 * Avoid using context for now, as it is very time consuming making long load times.
+
+### 0.3.3
+
+* Get all students as `Person`
+* Fetch student context
+
+### 0.3.4
+
+* Inbuilt context cache
+
+### 0.3.5
+
+* Switched to http library for some operations as requests library seemed odd.
+
+### 0.3.6
+
+* Forgot to remove a debug line.
+
+### 0.3.7
+
+* Removed get team context from grade notes as it is way too time consuming.
+
+### 0.3.8
+
+* Fetches only 2 first digits of grade.
