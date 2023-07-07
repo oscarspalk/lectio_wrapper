@@ -166,3 +166,7 @@
 ### 0.3.8
 
 * Fetches only 2 first digits of grade.
+
+### 0.3.9
+
+* Tried to make the library more error prone.
