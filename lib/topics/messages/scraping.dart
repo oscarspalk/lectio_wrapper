@@ -40,7 +40,7 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
   return messages;
 }
 
-Message extractMessage(BeautifulSoup soup) {
+Message extractMessage(BeautifulSoup soup, MessageRef ref) {
   Bs4Element printTable = soup.find("*", id: 'printmessagearea')!;
   List<Bs4Element> infoTableRows = printTable
       .children[0].children[0].children[0].children[0].children[0].children;
@@ -65,7 +65,7 @@ Message extractMessage(BeautifulSoup soup) {
   for (var entry in threadTable.children) {
     thread.add(extractMessageThread(entry));
   }
-  return Message(thread, sender, receivers, topic);
+  return Message(ref.id, thread, sender, receivers, topic);
 }
 
 ThreadEntry extractMessageThread(Bs4Element threadListItem) {
@@ -85,5 +85,11 @@ ThreadEntry extractMessageThread(Bs4Element threadListItem) {
   DateTime at = dateThreadFormat.parse(infosSplittedAgain[1]);
   Person user = Person(infosSplittedAgain[0],
       messageElement.children[1].getAttrValue('data-lectiocontextcard')!);
-  return ThreadEntry(at, user, content, topic, files);
+  List<Bs4Element> buttons = threadListItem.findAll('button');
+  String answerButtonEvent = buttons[0].getAttrValue("onclick")!;
+  String pattern = "ANSWERMESSAGE_";
+  int patternMatch = answerButtonEvent.indexOf(pattern) + pattern.length;
+  String id = answerButtonEvent.substring(
+      patternMatch, answerButtonEvent.indexOf('\');', patternMatch));
+  return ThreadEntry(id, at, user, content, topic, files);
 }

@@ -170,3 +170,7 @@
 ### 0.3.9
 
 * Tried to make the library more error prone.
+
+### 0.3.10
+
+* Create messages, reply to messages and edit messages

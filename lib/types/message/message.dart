@@ -17,19 +17,36 @@ class CreateMessage {
   CreateMessage(this.topic, this.content, this.isAnswerable, this.receivers);
 }
 
+class Edit {
+  ThreadEntry entry;
+  Message message;
+  Edit(this.entry, this.message);
+}
+
+class Reply {
+  ThreadEntry entry;
+  Message message;
+  String topic;
+  String content;
+  Reply(this.entry, this.topic, this.message, this.content);
+}
+
 class Message {
+  String id;
   String topic;
   Person sender;
   String receivers;
   List<ThreadEntry> thread;
-  Message(this.thread, this.sender, this.receivers, this.topic);
+  Message(this.id, this.thread, this.sender, this.receivers, this.topic);
 }
 
 class ThreadEntry {
+  String id;
   DateTime at;
   Person user;
   String content;
   String topic;
   List<File>? files;
-  ThreadEntry(this.at, this.user, this.content, this.topic, this.files);
+  ThreadEntry(
+      this.id, this.at, this.user, this.content, this.topic, this.files);
 }
