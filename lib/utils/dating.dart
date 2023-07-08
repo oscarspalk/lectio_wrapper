@@ -28,7 +28,7 @@ DateTime? formatTwo(String date) {
     maybeTime = format2.parse(times[1]);
     maybeTime = maybeTime.copyWith(year: DateTime.now().year);
     return maybeTime;
-  } on FormatException catch (_) {
+  } catch (_) {
     return maybeTime;
   }
 }
@@ -41,7 +41,7 @@ DateTime? formatThird(String date) {
     maybeTime =
         maybeTime.copyWith(year: now.year, month: now.month, day: now.day);
     return maybeTime;
-  } on FormatException catch (_) {
+  } catch (_) {
     return maybeTime;
   }
 }
@@ -60,7 +60,7 @@ DateTime? formatFourth(String date) {
     maybeTime = maybeTime.copyWith(
         year: realDate.year, month: realDate.month, day: realDate.day);
     return maybeTime;
-  } on FormatException catch (_) {
+  } catch (_) {
     return maybeTime;
   }
 }

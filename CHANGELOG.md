@@ -174,3 +174,7 @@
 ### 0.3.10
 
 * Create messages, reply to messages and edit messages
+
+### 0.3.11
+
+* Datetime parsing now catches all thrown errors.
