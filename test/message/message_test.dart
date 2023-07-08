@@ -30,9 +30,9 @@ void main() {
         "Dart",
         "Flutter is awesome!",
         true,
-        [Person("Oscar Gaardsted Spalk (1bx 12)", "S54299107744")]));
+        [Person("Oscar Gaardsted Spalk (2bx 12)", "S54299107744")]));
     for (var soup in soups) {
-      File file = File(r"C:\Users\knudi\Desktop\dev\lectio_wrapper\out\"
+      File file = File(r"/home/oscar/development/lectio_wrapper/out/"
           "${soups.indexOf(soup)}"
           ".html");
       await file.writeAsString(soup.prettify());
