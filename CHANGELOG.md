@@ -178,3 +178,7 @@
 ### 0.3.11
 
 * Datetime parsing now catches all thrown errors.
+
+### 0.3.12
+
+* Improved list students, so it doesn't fail.

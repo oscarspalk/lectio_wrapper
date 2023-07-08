@@ -26,11 +26,15 @@ class MesssageController {
     return extractMessage(BeautifulSoup(response.body), ref);
   }
 
-  Future<void> create(CreateMessage createMessage) async {
+  Future<BeautifulSoup> newMessage() async {
     String newMessageUrl = student
         .buildUrl("beskeder2.aspx?type=nybesked&elevid=${student.studentId}");
     var resp = await Requests.get(newMessageUrl);
-    BeautifulSoup latestSoup = BeautifulSoup(resp.body);
+    return BeautifulSoup(resp.body);
+  }
+
+  Future<void> create(CreateMessage createMessage) async {
+    BeautifulSoup latestSoup = await newMessage();
 
     var cookieExport = (await student.getCookies())
         .values
