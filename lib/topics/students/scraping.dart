@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/types/primitives/person.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
@@ -24,8 +22,6 @@ List<ScriptContent> extractScripts(BeautifulSoup soup) {
 
 List<Person> extractStudents(BeautifulSoup soup) {
   var text = soup.body!.text;
-  File file = File('/home/oscar/development/lectio_wrapper/out/script.html');
-  file.writeAsStringSync(soup.prettify());
   String withOutVariableDeclaration = text.substring(text.indexOf('=')).trim();
   int firstBracket = withOutVariableDeclaration.indexOf('[');
   String removedFirstBracket =

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/students/scraping.dart';
@@ -13,8 +11,6 @@ class StudentsController {
   Future<List<Person>> list() async {
     var soup = await student.messages.newMessage();
     var scripts = extractScripts(soup);
-    File file = File('/home/oscar/development/lectio_wrapper/out/msg.html');
-    file.writeAsStringSync(soup.prettify());
     var studentScript =
         scripts.firstWhere((element) => element.queries['type'] == "bcstudent");
     var studentsAspx =

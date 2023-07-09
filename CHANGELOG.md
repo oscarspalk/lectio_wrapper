@@ -186,3 +186,7 @@
 ### 0.3.13
 
 * More updates on previous topic
+
+### 0.3.14
+
+* Forgot to remove file writes.
