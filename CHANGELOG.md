@@ -182,3 +182,7 @@
 ### 0.3.12
 
 * Improved list students, so it doesn't fail.
+
+### 0.3.13
+
+* More updates on previous topic

@@ -1,20 +1,27 @@
+import 'dart:io';
+
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/students/scraping.dart';
 import 'package:lectio_wrapper/types/primitives/person.dart';
-import 'package:http/http.dart' as http;
+import 'package:requests/requests.dart';
 
 class StudentsController {
   final Student student;
   StudentsController(this.student);
 
   Future<List<Person>> list() async {
-    var scripts = extractScripts(await student.messages.newMessage());
-
+    var soup = await student.messages.newMessage();
+    var scripts = extractScripts(soup);
+    File file = File('/home/oscar/development/lectio_wrapper/out/msg.html');
+    file.writeAsStringSync(soup.prettify());
     var studentScript =
         scripts.firstWhere((element) => element.queries['type'] == "bcstudent");
     var studentsAspx =
-        await http.get(Uri.parse("https://lectio.dk${studentScript.url}"));
+        await Requests.get("https://lectio.dk${studentScript.url}", headers: {
+      "referer": student
+          .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}")
+    });
 
     return extractStudents(BeautifulSoup(studentsAspx.body));
   }
