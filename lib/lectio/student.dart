@@ -10,7 +10,7 @@ import 'package:lectio_wrapper/topics/events/controller.dart';
 import 'package:lectio_wrapper/topics/grades/controller.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/topics/messages/controller.dart';
-import 'package:lectio_wrapper/topics/students/controller.dart';
+import 'package:lectio_wrapper/topics/messages/meta/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';

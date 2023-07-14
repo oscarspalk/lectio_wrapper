@@ -190,3 +190,7 @@
 ### 0.3.14
 
 * Forgot to remove file writes.
+
+### 0.3.15
+
+* Major improvement on fetching people meta data.

@@ -1,6 +1,6 @@
-class Person {
-  String id;
-  String name;
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
+
+class Person extends MetaDataEntry {
   String? initialsOrClass;
-  Person(this.name, this.id, {this.initialsOrClass});
+  Person(super.name, super.id, {this.initialsOrClass});
 }
