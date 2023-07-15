@@ -19,7 +19,7 @@ void main() {
 
   test('get message', () async {
     var message = await student!.messages
-        .get(MessageRef('61017069925', DateTime.now(), "receivers", "topic"));
+        .get(MessageRef('61043227318', DateTime.now(), "receivers", "topic"));
     expect(message, isNotNull);
   });
 
@@ -36,7 +36,7 @@ void main() {
   test('reply to a thread', () async {
     await student!.messages.reply(Reply(
         ThreadEntry('61017078776', DateTime.now(), Person('name', 'id'), '',
-            'topic', []),
+            'topic', [], 0),
         "Wasm",
         Message('61017068542', [], Person('', 'id'), '', ''),
         "Rust hele vejen"));
@@ -45,7 +45,7 @@ void main() {
   test('edit a thread entry', () async {
     await student!.messages.edit(Edit(
         ThreadEntry('61017090824', DateTime.now(), Person('', ''), "Nyt emne",
-            "Ducati", []),
+            "Ducati", [], 0),
         Message('61017084133', [], Person('', ''), '', '')));
   });
 }

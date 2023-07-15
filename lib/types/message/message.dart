@@ -6,8 +6,8 @@ class MessageRef {
   String id;
   String topic;
   DateTime dateChanged;
-  String receivers;
-  MessageRef(this.id, this.dateChanged, this.receivers, this.topic);
+  String sender;
+  MessageRef(this.id, this.dateChanged, this.topic, this.sender);
 }
 
 class CreateMessage {
@@ -47,7 +47,8 @@ class ThreadEntry {
   Person user;
   String content;
   String topic;
+  int indent;
   List<File>? files;
-  ThreadEntry(
-      this.id, this.at, this.user, this.content, this.topic, this.files);
+  ThreadEntry(this.id, this.at, this.user, this.content, this.topic, this.files,
+      this.indent);
 }

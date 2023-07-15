@@ -198,3 +198,8 @@
 ### 0.3.16
 
 * Create message supports meta data entries.
+
+### 0.3.17
+
+* Edited sender name for message refs
+* Added indent support for message threads.

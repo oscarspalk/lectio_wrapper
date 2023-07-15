@@ -31,10 +31,11 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
       String id = postCode.substring(
           indexOfDollar, postCode.indexOf('\'', indexOfDollar));
       String topic = messageRow.children[3].text.trim();
-      String receivers = messageRow.children[6].text.trim();
+      String receivers =
+          messageRow.children[5].children[0].getAttrValue('title')!;
       String dateChanged = messageRow.children[7].text;
       DateTime parsedTime = parseLectioDate(dateChanged);
-      messages.add(MessageRef(id, parsedTime, receivers, topic));
+      messages.add(MessageRef(id, parsedTime, topic, receivers));
     }
   }
   return messages;
@@ -50,7 +51,8 @@ Message extractMessage(BeautifulSoup soup, MessageRef ref) {
       .children[0]
       .children[0]
       .children[1]
-      .text;
+      .text
+      .trim();
   Bs4Element senderAndReceiverElement =
       infoTableRows[1].children[0].children[0].children[0];
   String receivers =
@@ -91,5 +93,16 @@ ThreadEntry extractMessageThread(Bs4Element threadListItem) {
   int patternMatch = answerButtonEvent.indexOf(pattern) + pattern.length;
   String id = answerButtonEvent.substring(
       patternMatch, answerButtonEvent.indexOf('\');', patternMatch));
-  return ThreadEntry(id, at, user, content, topic, files);
+  int indent = 0;
+  String? cssString = threadListItem.getAttrValue('style');
+  if (cssString != null) {
+    int lPadIndex = cssString.indexOf(':');
+    int lPadEnd = cssString.indexOf('em;');
+    if (lPadIndex != -1 && lPadEnd != -1) {
+      String numStr = cssString.substring(lPadIndex + 1, lPadEnd);
+      double padLeft = double.parse(numStr);
+      indent = (padLeft / 1.6).floor();
+    }
+  }
+  return ThreadEntry(id, at, user, content, topic, files, indent);
 }
