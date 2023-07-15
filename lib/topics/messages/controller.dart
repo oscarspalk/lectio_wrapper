@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/messages/scraping.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
-import 'package:lectio_wrapper/types/primitives/person.dart';
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
 
@@ -73,7 +73,7 @@ class MesssageController {
   }
 
   Future<BeautifulSoup> _addPerson(
-      Person person, BeautifulSoup soup, String cookie) async {
+      MetaDataEntry person, BeautifulSoup soup, String cookie) async {
     String target = r"s$m$Content$Content$CreateThreadRelatedAddButton";
     String url = student
         .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");

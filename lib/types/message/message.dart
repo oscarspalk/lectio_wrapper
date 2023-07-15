@@ -1,3 +1,4 @@
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
 import 'package:lectio_wrapper/types/primitives/person.dart';
 
@@ -10,7 +11,7 @@ class MessageRef {
 }
 
 class CreateMessage {
-  List<Person> receivers;
+  List<MetaDataEntry> receivers;
   String topic;
   String content;
   bool isAnswerable;

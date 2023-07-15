@@ -194,3 +194,7 @@
 ### 0.3.15
 
 * Major improvement on fetching people meta data.
+
+### 0.3.16
+
+* Create message supports meta data entries.
