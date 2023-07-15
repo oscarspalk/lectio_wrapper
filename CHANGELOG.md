@@ -203,3 +203,7 @@
 
 * Edited sender name for message refs
 * Added indent support for message threads.
+
+### 0.3.18
+
+* Switched name and id on threads.

@@ -19,7 +19,7 @@ void main() {
 
   test('get message', () async {
     var message = await student!.messages
-        .get(MessageRef('61043227318', DateTime.now(), "receivers", "topic"));
+        .get(MessageRef('61043592754', DateTime.now(), "receivers", "topic"));
     expect(message, isNotNull);
   });
 

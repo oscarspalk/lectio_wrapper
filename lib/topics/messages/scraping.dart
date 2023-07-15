@@ -85,8 +85,9 @@ ThreadEntry extractMessageThread(Bs4Element threadListItem) {
   String topic = infos[0].trim();
   List<String> infosSplittedAgain = infos[1].split(", ");
   DateTime at = dateThreadFormat.parse(infosSplittedAgain[1]);
-  Person user = Person(infosSplittedAgain[0],
-      messageElement.children[1].getAttrValue('data-lectiocontextcard')!);
+  Person user = Person(
+      messageElement.children[1].getAttrValue('data-lectiocontextcard')!,
+      infosSplittedAgain[0].trim());
   List<Bs4Element> buttons = threadListItem.findAll('button');
   String answerButtonEvent = buttons[0].getAttrValue("onclick")!;
   String pattern = "ANSWERMESSAGE_";
