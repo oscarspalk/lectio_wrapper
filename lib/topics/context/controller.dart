@@ -22,7 +22,7 @@ class ContextController {
     var soup = BeautifulSoup(response.body);
     if (id.startsWith('HE')) {
       context = extractTeamContext(soup, id);
-    } else if (id.startsWith('S')) {
+    } else if (id.startsWith('S') || id.startsWith('U')) {
       context = extractStudentContext(soup, id);
     }
     contexts.add(context);

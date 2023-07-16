@@ -207,3 +207,7 @@
 ### 0.3.18
 
 * Switched name and id on threads.
+
+### 0.3.19
+
+* Added U-ids to context type
