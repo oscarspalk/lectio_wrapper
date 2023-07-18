@@ -219,3 +219,7 @@
 ### 0.4.1
 
 * Made as pure Dart-package making it suitable for any type of application.
+
+### 0.4.4
+
+* Overwrote last changes.
