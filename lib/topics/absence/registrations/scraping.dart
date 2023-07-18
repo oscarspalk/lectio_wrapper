@@ -46,8 +46,10 @@ Future<List<AbsenceCauseEntry>> extractAbsenceCauses(BeautifulSoup soup) async {
 AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
   try {
     double absencePercent = extractAbsencePercent(row.children[3]);
-    AbsenceCauses? cause = AbsenceCauses.values.firstWhere((element) =>
-        element.name.toLowerCase() == row.children[8].text.toLowerCase());
+    AbsenceCauses? cause = row.children[8].text.isEmpty
+        ? null
+        : AbsenceCauses.values.firstWhere((element) =>
+            element.name.toLowerCase() == row.children[8].text.toLowerCase());
     String extendedCause = row.children[9].text;
     String id = queriesFromSoup(
         row.children[10].children[0].getAttrValue("href")!)['id']!;
@@ -55,8 +57,8 @@ AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
     String registeredDateString = row.children[5].text;
     DateTime registered = registeredTimeFormat.parse(registeredDateString);
     var event = extractModul(row.children[2].children[0]);
-    return AbsenceCauseEntry(id, absencePercent, cause, extendedCause, note,
-        registered, event, missingCause);
+    return AbsenceCauseEntry(
+        id, absencePercent, cause, extendedCause, note, registered, event);
   } catch (_) {
     return null;
   }

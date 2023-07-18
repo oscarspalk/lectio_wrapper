@@ -3,14 +3,13 @@ import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 class AbsenceCauseEntry {
   String id;
   double absence;
-  AbsenceCauses cause;
+  AbsenceCauses? cause;
   String expandedCause;
   String note;
   DateTime registered;
   CalendarEvent module;
-  bool missingCause;
   AbsenceCauseEntry(this.id, this.absence, this.cause, this.expandedCause,
-      this.note, this.registered, this.module, this.missingCause);
+      this.note, this.registered, this.module);
 }
 
 enum AbsenceCauses { other, late, sick, schoolRelated, privateRelations }

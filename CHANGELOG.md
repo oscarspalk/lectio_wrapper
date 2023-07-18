@@ -211,3 +211,7 @@
 ### 0.3.19
 
 * Added U-ids to context type
+
+### 0.4.0
+
+* Nullable cause, meaning it isn't filled out yet.
