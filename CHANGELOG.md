@@ -215,3 +215,7 @@
 ### 0.4.0
 
 * Nullable cause, meaning it isn't filled out yet.
+
+### 0.4.1
+
+* Made as pure Dart-package making it suitable for any type of application.

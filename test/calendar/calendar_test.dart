@@ -1,7 +1,7 @@
 import 'package:dotenv/dotenv.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
+import 'package:test/test.dart';
 
 void main() {
   var env = DotEnv()..load();

@@ -1,5 +1,6 @@
+import 'dart:typed_data';
+
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/topics/absence/controller.dart';
