@@ -13,15 +13,15 @@ class ClassesController {
   Future<List<ClassRef>> list() async {
     String url = student.buildUrl("FindSkema.aspx?type=stamklasse");
     var soup = await Requests.get(url);
-    return await extractClasses(BeautifulSoup(soup.body));
+    return extractClasses(BeautifulSoup(soup.body));
   }
 
-  Future<Class> get(ClassRef ref) async {
-    String url = student
-        .buildUrl("subnav/members.aspx?klasseid=${ref.id}&showstudents=1");
+  Future<Class> get(ClassRef ref, {bool group = false}) async {
+    String url = student.buildUrl(
+        "subnav/members.aspx?${group ? "holdelementid" : "klasseid"}=${ref.id}&showstudents=1${group ? "&showteachers=1" : ""} ");
     var soup = await Requests.get(url);
     List<Student> students =
-        await extractStudents(BeautifulSoup(soup.body), student.gymId);
+        extractStudents(BeautifulSoup(soup.body), student.gymId, group: group);
     return Class(ref.id, ref.name, students);
   }
 }

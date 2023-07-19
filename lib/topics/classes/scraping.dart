@@ -3,7 +3,7 @@ import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/class.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
-Future<List<ClassRef>> extractClasses(BeautifulSoup soup) async {
+List<ClassRef> extractClasses(BeautifulSoup soup) {
   List<ClassRef> classes = [];
   Bs4Element? classTableParent =
       soup.find('div', id: "m_Content_listecontainer");
@@ -24,7 +24,8 @@ Future<List<ClassRef>> extractClasses(BeautifulSoup soup) async {
   return classes;
 }
 
-Future<List<Student>> extractStudents(BeautifulSoup soup, int gymId) async {
+List<Student> extractStudents(BeautifulSoup soup, int gymId,
+    {bool group = false}) {
   Bs4Element? studentTable = soup
       .find('table', id: "s_m_Content_Content_laerereleverpanel_alm_gv")!
       .children
@@ -33,10 +34,12 @@ Future<List<Student>> extractStudents(BeautifulSoup soup, int gymId) async {
   List<Bs4Element> studentRows =
       studentTable.children.sublist(1, studentTable.children.length);
   List<Student> students = [];
+  int offset = group ? 1 : 0;
   for (var student in studentRows) {
     Bs4Element imageElement = student.children[0].children[0];
-    Bs4Element firstNameElement = student.children[2].children[0].children[0];
-    Bs4Element lastNameElement = student.children[3].children[0];
+    Bs4Element firstNameElement =
+        student.children[2 + offset].children[0].children[0];
+    Bs4Element lastNameElement = student.children[3 + offset].children[0];
     String? href = firstNameElement.attributes['href'];
     String? pictureSrc = imageElement.attributes['src'];
     if (href != null && pictureSrc != null) {

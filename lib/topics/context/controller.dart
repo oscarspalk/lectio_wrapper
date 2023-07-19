@@ -24,6 +24,8 @@ class ContextController {
       context = extractTeamContext(soup, id);
     } else if (id.startsWith('S') || id.startsWith('U')) {
       context = extractStudentContext(soup, id);
+    } else if (id.startsWith("G")) {
+      context = extractGroupContext(soup);
     }
     contexts.add(context);
     return context;

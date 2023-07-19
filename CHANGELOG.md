@@ -223,3 +223,7 @@
 ### 0.4.4
 
 * Overwrote last changes.
+
+### 0.4.5
+
+* Ability to fetch all students and teachers with images.

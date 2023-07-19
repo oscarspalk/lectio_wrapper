@@ -3,7 +3,7 @@ import 'package:lectio_wrapper/topics/messages/meta/scraping.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:requests/requests.dart';
 
-class StudentsController {
+class MessageMetaController {
   final Student student;
   List<MetaDataEntry> students = [];
   List<MetaDataEntry> teachers = [];
@@ -11,7 +11,7 @@ class StudentsController {
   List<MetaDataEntry> teams = [];
   List<MetaDataEntry> favorites = [];
   List<MetaDataEntry> _favorites = [];
-  StudentsController(this.student);
+  MessageMetaController(this.student);
 
   Future<MessageMetaData> get() async {
     var soup = await student.messages.newMessage();

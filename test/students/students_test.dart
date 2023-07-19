@@ -11,7 +11,7 @@ void main() {
   setUp(() async => {student = await account.login()});
 
   test('list students', () async {
-    var metaData = await student!.meta.get();
-    expect(metaData, isNotNull);
+    var students = await student!.students.list();
+    expect(students, isNotEmpty);
   });
 }

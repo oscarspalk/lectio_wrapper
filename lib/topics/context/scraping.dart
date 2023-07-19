@@ -1,4 +1,5 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:lectio_wrapper/types/context/group.dart';
 import 'package:lectio_wrapper/types/context/student.dart';
 import 'package:lectio_wrapper/types/context/team.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
@@ -14,4 +15,12 @@ StudentContext extractStudentContext(BeautifulSoup soup, String rootId) {
       soup.find('*', id: 'ctl00_Content_ImageCtrlthumbimage')!;
   String id = queriesFromSoup(imageElement.getAttrValue("src")!)['pictureid']!;
   return StudentContext(id, rootId);
+}
+
+GroupContext extractGroupContext(BeautifulSoup soup) {
+  Bs4Element memberLinkElement =
+      soup.find('*', id: 'ctl00_Content_linksrep_ctl02_somelink')!;
+  String id = queriesFromSoup(
+      memberLinkElement.getAttrValue("href")!)['holdelementid']!;
+  return GroupContext(id);
 }

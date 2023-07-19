@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/person.dart';
@@ -22,7 +24,7 @@ List<ScriptContent> extractScripts(BeautifulSoup soup) {
 }
 
 List<MetaDataEntry> extractEntries(String body, String url) {
-  var text = BeautifulSoup(body).body!.text;
+  var text = utf8.decode(BeautifulSoup(body).body!.text.codeUnits);
   String withOutVariableDeclaration = text.substring(text.indexOf('=')).trim();
   int firstBracket = withOutVariableDeclaration.indexOf('[');
   String removedFirstBracket =

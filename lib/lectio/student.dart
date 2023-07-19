@@ -12,6 +12,7 @@ import 'package:lectio_wrapper/topics/grades/controller.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/topics/messages/controller.dart';
 import 'package:lectio_wrapper/topics/messages/meta/controller.dart';
+import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
@@ -39,6 +40,7 @@ class Student {
   late AbsenceController absence;
   late GradeController grades;
   late ContextController context;
+  late MessageMetaController meta;
   late StudentsController students;
   Map<String, Uint8List> images = {};
   Student(this.studentId, this.gymId) {
@@ -52,6 +54,7 @@ class Student {
     absence = AbsenceController(this);
     grades = GradeController(this);
     context = ContextController(this);
+    meta = MessageMetaController(this);
     students = StudentsController(this);
   }
 
