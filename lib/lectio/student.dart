@@ -12,6 +12,8 @@ import 'package:lectio_wrapper/topics/grades/controller.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/topics/messages/controller.dart';
 import 'package:lectio_wrapper/topics/messages/meta/controller.dart';
+import 'package:lectio_wrapper/topics/plans/controller.dart';
+import 'package:lectio_wrapper/topics/rooms/controller.dart';
 import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
@@ -42,6 +44,8 @@ class Student {
   late ContextController context;
   late MessageMetaController meta;
   late StudentsController students;
+  late RoomsController rooms;
+  late PlansController plans;
   Map<String, Uint8List> images = {};
   Student(this.studentId, this.gymId) {
     homework = HomeworkController(this);
@@ -56,6 +60,8 @@ class Student {
     context = ContextController(this);
     meta = MessageMetaController(this);
     students = StudentsController(this);
+    rooms = RoomsController(this);
+    plans = PlansController(this);
   }
 
   void setBasicInfo(BasicInfo basicInfo) {

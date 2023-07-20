@@ -8,7 +8,8 @@ DateTime parseLectioDate(String date) {
     formatOne(date),
     formatTwo(date),
     formatThird(date),
-    formatFourth(date)
+    formatFourth(date),
+    formatFive(date)
   ];
   return formats.firstWhere((element) => element != null)!;
 }
@@ -54,6 +55,25 @@ DateTime? formatFourth(String date) {
         weekdays.indexWhere((element) => element.startsWith(splittedTimes[0])) +
             1;
     maybeTime = DateFormat("HH:mm").parse(splittedTimes[1]);
+    var now = DateTime.now();
+    int weekdayDifference = now.weekday - weekday;
+    var realDate = now.subtract(Duration(days: weekdayDifference));
+    maybeTime = maybeTime.copyWith(
+        year: realDate.year, month: realDate.month, day: realDate.day);
+    return maybeTime;
+  } catch (_) {
+    return maybeTime;
+  }
+}
+
+DateTime? formatFive(String date) {
+  DateTime? maybeTime;
+  try {
+    List<String> splittedTimes = date.split(" ");
+    int weekday =
+        weekdays.indexWhere((element) => element.startsWith(splittedTimes[0])) +
+            1;
+    maybeTime = DateFormat("dd/MM-yy").parse(splittedTimes[1]);
     var now = DateTime.now();
     int weekdayDifference = now.weekday - weekday;
     var realDate = now.subtract(Duration(days: weekdayDifference));

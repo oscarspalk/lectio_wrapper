@@ -231,3 +231,9 @@
 ## 0.4.6
 
 * Flutter sdk is now required again, will make it up later.
+
+## 0.4.7
+
+* Added study plan
+* Added rooms
+* Get room schema
