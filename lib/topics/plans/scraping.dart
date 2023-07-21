@@ -85,7 +85,7 @@ StudyPlanEntry extractPlanEntry(BeautifulSoup soup) {
   var teacherElement = children[3].find('span')!;
   var teacherName = teacherElement.text;
   var teacherId = teacherElement.getAttrValue('data-lectiocontextcard')!;
-  var teacher = Person(teacherName, teacherId);
+  var teacher = Person(teacherId, teacherName);
   var description = children[5].children[1].text.trim();
   return StudyPlanEntry(teacher, description);
 }

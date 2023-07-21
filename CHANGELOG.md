@@ -237,3 +237,7 @@
 * Added study plan
 * Added rooms
 * Get room schema
+
+## 0.4.8
+
+* Fixed Person class swapped id and name.
