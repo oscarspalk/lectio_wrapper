@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
-import 'package:lectio_wrapper/types/primitives/person.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
 class ScriptContent {
@@ -56,7 +55,5 @@ MetaDataEntry _extractEntry(String person) {
     name = nameWithClass;
   }
   String id = person.substring(nextFirstQuote + 1, nextSecondQuote);
-  return classOrInitial != null
-      ? Person(id, name, initialsOrClass: classOrInitial)
-      : MetaDataEntry(id, name);
+  return MetaDataEntry(id: id, name: name, classOrInitials: classOrInitial);
 }

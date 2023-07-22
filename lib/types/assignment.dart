@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
-import 'package:lectio_wrapper/types/primitives/person.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
 class Assignment {
@@ -11,7 +11,7 @@ class Assignment {
   String note;
   Team team;
   String grading;
-  Person responsible;
+  MetaDataEntry responsible;
   double hours;
   DateTime deadline;
   List<AssignmentEntry> entries;
@@ -30,7 +30,7 @@ class Assignment {
 
 class AssignmentEntry {
   DateTime time;
-  Person user;
+  MetaDataEntry user;
   String note;
   File resource;
   AssignmentEntry(this.time, this.user, this.note, this.resource);

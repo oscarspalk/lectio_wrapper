@@ -1,3 +1,7 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'meta.freezed.dart';
+
 class MessageMetaData {
   List<MetaDataEntry> favorites;
   List<MetaDataEntry> groups;
@@ -8,8 +12,10 @@ class MessageMetaData {
       this.favorites, this.groups, this.students, this.teams, this.teachers);
 }
 
-class MetaDataEntry {
-  String id;
-  String name;
-  MetaDataEntry(this.id, this.name);
+@freezed
+class MetaDataEntry with _$MetaDataEntry {
+  factory MetaDataEntry(
+      {required String id,
+      required String name,
+      String? classOrInitials}) = _MetaDataEntry;
 }

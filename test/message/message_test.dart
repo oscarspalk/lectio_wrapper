@@ -2,7 +2,7 @@ import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
-import 'package:lectio_wrapper/types/primitives/person.dart';
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -24,28 +24,30 @@ void main() {
   });
 
   test('create message', () async {
-    await student!.messages.create(CreateMessage("Dart", "Flutter is awesome!",
-        true, [Person("Oscar Gaardsted Spalk (2bx 12)", "S54299107744")]));
+    await student!.messages.create(CreateMessage(
+        "Dart", "Flutter is awesome!", true, [
+      MetaDataEntry(name: "Oscar Gaardsted Spalk (2bx 12)", id: "S54299107744")
+    ]));
   });
 
   test('delete message', () async {
-    await student!.messages
-        .delete(Message("61017068482", [], Person('', ''), "", ""));
+    await student!.messages.delete(
+        Message("61017068482", [], MetaDataEntry(name: '', id: ''), "", ""));
   });
 
   test('reply to a thread', () async {
     await student!.messages.reply(Reply(
-        ThreadEntry('61017078776', DateTime.now(), Person('name', 'id'), '',
-            'topic', [], 0),
+        ThreadEntry('61017078776', DateTime.now(),
+            MetaDataEntry(name: 'name', id: 'id'), '', 'topic', [], 0),
         "Wasm",
-        Message('61017068542', [], Person('', 'id'), '', ''),
+        Message('61017068542', [], MetaDataEntry(name: '', id: 'id'), '', ''),
         "Rust hele vejen"));
   });
 
   test('edit a thread entry', () async {
     await student!.messages.edit(Edit(
-        ThreadEntry('61017090824', DateTime.now(), Person('', ''), "Nyt emne",
-            "Ducati", [], 0),
-        Message('61017084133', [], Person('', ''), '', '')));
+        ThreadEntry('61017090824', DateTime.now(),
+            MetaDataEntry(name: '', id: ''), "Nyt emne", "Ducati", [], 0),
+        Message('61017084133', [], MetaDataEntry(name: '', id: ''), '', '')));
   });
 }

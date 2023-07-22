@@ -1,8 +1,8 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
-import 'package:lectio_wrapper/types/primitives/person.dart';
 import 'package:lectio_wrapper/utils/dating.dart';
 
 DateFormat dateThreadFormat = DateFormat("dd/MM-yyyy HH:mm");
@@ -59,8 +59,9 @@ Message extractMessage(BeautifulSoup soup, MessageRef ref) {
       senderAndReceiverElement.children[1].text.replaceAll("Til:", "").trim();
   Bs4Element senderElement =
       senderAndReceiverElement.children[0].children[2].children[0];
-  Person sender = Person(senderElement.text,
-      senderElement.getAttrValue("data-lectiocontextcard")!);
+  MetaDataEntry sender = MetaDataEntry(
+      name: senderElement.text,
+      id: senderElement.getAttrValue("data-lectiocontextcard")!);
   List<ThreadEntry> thread = [];
   Bs4Element threadTable =
       soup.find('*', id: 's_m_Content_Content_ThreadList')!;
@@ -85,9 +86,9 @@ ThreadEntry extractMessageThread(Bs4Element threadListItem) {
   String topic = infos[0].trim();
   List<String> infosSplittedAgain = infos[1].split(", ");
   DateTime at = dateThreadFormat.parse(infosSplittedAgain[1]);
-  Person user = Person(
-      messageElement.children[1].getAttrValue('data-lectiocontextcard')!,
-      infosSplittedAgain[0].trim());
+  MetaDataEntry user = MetaDataEntry(
+      id: messageElement.children[1].getAttrValue('data-lectiocontextcard')!,
+      name: infosSplittedAgain[0].trim());
   List<Bs4Element> buttons = threadListItem.findAll('button');
   String answerButtonEvent = buttons[0].getAttrValue("onclick")!;
   String pattern = "ANSWERMESSAGE_";

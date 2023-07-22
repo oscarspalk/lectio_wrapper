@@ -1,4 +1,4 @@
-import 'package:lectio_wrapper/types/primitives/person.dart';
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
 class StudyTeamEntry {
@@ -16,7 +16,7 @@ class StudyPlanRef {
 }
 
 class StudyPlanEntry {
-  Person teacher;
+  MetaDataEntry teacher;
   String description;
   StudyPlanEntry(this.teacher, this.description);
 }

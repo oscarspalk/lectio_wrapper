@@ -241,3 +241,7 @@
 ## 0.4.8
 
 * Fixed Person class swapped id and name.
+
+## 0.4.9
+
+* Removed person class and made `MetaDataEntry` with named parameters.

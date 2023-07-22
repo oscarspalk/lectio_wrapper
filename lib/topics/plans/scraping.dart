@@ -1,6 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/plan/study_plan.dart';
-import 'package:lectio_wrapper/types/primitives/person.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 import 'package:lectio_wrapper/utils/dating.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
@@ -85,7 +85,7 @@ StudyPlanEntry extractPlanEntry(BeautifulSoup soup) {
   var teacherElement = children[3].find('span')!;
   var teacherName = teacherElement.text;
   var teacherId = teacherElement.getAttrValue('data-lectiocontextcard')!;
-  var teacher = Person(teacherId, teacherName);
+  var teacher = MetaDataEntry(id: teacherId, name: teacherName);
   var description = children[5].children[1].text.trim();
   return StudyPlanEntry(teacher, description);
 }

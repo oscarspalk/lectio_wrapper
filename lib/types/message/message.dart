@@ -1,6 +1,5 @@
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
-import 'package:lectio_wrapper/types/primitives/person.dart';
 
 class MessageRef {
   String id;
@@ -35,7 +34,7 @@ class Reply {
 class Message {
   String id;
   String topic;
-  Person sender;
+  MetaDataEntry sender;
   String receivers;
   List<ThreadEntry> thread;
   Message(this.id, this.thread, this.sender, this.receivers, this.topic);
@@ -44,7 +43,7 @@ class Message {
 class ThreadEntry {
   String id;
   DateTime at;
-  Person user;
+  MetaDataEntry user;
   String content;
   String topic;
   int indent;
