@@ -245,3 +245,8 @@
 ## 0.4.9
 
 * Removed person class and made `MetaDataEntry` with named parameters.
+
+## 0.4.10
+
+* Fetch all personal teams.
+* Fetch module statistics about teams.
