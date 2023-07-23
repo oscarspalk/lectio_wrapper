@@ -23,7 +23,7 @@ void main() {
         "team",
         "teacher",
         "room",
-        "56314099116",
+        "58747133996",
         DateTime.now(),
         DateTime.now(),
         note: ""));
@@ -59,9 +59,10 @@ void main() {
         DateTime.now(),
         DateTime.now(),
         note: ""));
-    expect(eventDetails4, isNotNull);
-    expect(eventDetails3, isNotNull);
+
     expect(eventDetails, isNotNull);
     expect(eventDetails2, isNotNull);
+    expect(eventDetails4, isNotNull);
+    expect(eventDetails3, isNotNull);
   });
 }

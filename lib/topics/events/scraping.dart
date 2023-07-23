@@ -85,7 +85,7 @@ RegularCalendarEventDetails extractRegularEventDetails(BeautifulSoup soup) {
   if (noteContainer != null) {
     note = noteContainer.text;
   }
-  if (contentContainer!.children.isNotEmpty) {
+  if (contentContainer != null && contentContainer.children.isNotEmpty) {
     if (contentContainer.children[0].text ==
         "Aktiviteten har ikke noget indhold.") {
       return RegularCalendarEventDetails([], note);
@@ -108,7 +108,7 @@ Content extractHomeworkArticle(Bs4Element element) {
     var linkElement = contentHeader.children[0];
     String? note;
     if (element.children.length > 1) {
-      note = element.children[1].children[0].text;
+      note = element.children[1].text;
     }
     return Content(linkElement.text,
         href: linkElement.getAttrValue("href"), note: note);

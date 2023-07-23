@@ -250,3 +250,7 @@
 
 * Fetch all personal teams.
 * Fetch module statistics about teams.
+
+## 0.4.11
+
+* Updated expand event, sometimes the title doesn't have a span child.
