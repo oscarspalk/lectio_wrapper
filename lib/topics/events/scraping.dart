@@ -101,10 +101,9 @@ RegularCalendarEventDetails extractRegularEventDetails(BeautifulSoup soup) {
 
 Content extractHomeworkArticle(Bs4Element element) {
   var contentHeader = element.children[0];
-  if (contentHeader.children.isEmpty) {
-    return Content(contentHeader.text);
-  }
-  if (contentHeader.children[0].name == "a") {
+
+  if (contentHeader.children.isNotEmpty &&
+      contentHeader.children[0].name == "a") {
     var linkElement = contentHeader.children[0];
     String? note;
     if (element.children.length > 1) {
@@ -112,6 +111,12 @@ Content extractHomeworkArticle(Bs4Element element) {
     }
     return Content(linkElement.text,
         href: linkElement.getAttrValue("href"), note: note);
+  } else {
+    String note = "";
+    var childrenClone = element.children..removeAt(0);
+    for (var child in childrenClone) {
+      note = "$note\n${child.text}";
+    }
+    return Content(contentHeader.text, note: note.trim());
   }
-  return Content("");
 }

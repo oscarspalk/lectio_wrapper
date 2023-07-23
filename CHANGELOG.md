@@ -254,3 +254,7 @@
 ## 0.4.11
 
 * Updated expand event, sometimes the title doesn't have a span child.
+
+## 0.4.12
+
+* Expand event didn't get all details.
