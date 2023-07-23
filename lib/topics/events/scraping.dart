@@ -92,31 +92,33 @@ RegularCalendarEventDetails extractRegularEventDetails(BeautifulSoup soup) {
     }
     List<Bs4Element> homework = contentContainer.findAll("article");
     for (var homeworkPiece in homework) {
-      contents.add(extractHomeworkArticle(homeworkPiece));
+      contents.addAll(extractHomeworkArticle(homeworkPiece));
     }
   }
 
   return RegularCalendarEventDetails(contents, note);
 }
 
-Content extractHomeworkArticle(Bs4Element element) {
+List<Content> extractHomeworkArticle(Bs4Element element) {
   var contentHeader = element.children[0];
+  var links = element.findAll('a');
 
-  if (contentHeader.children.isNotEmpty &&
-      contentHeader.children[0].name == "a") {
-    var linkElement = contentHeader.children[0];
-    String? note;
-    if (element.children.length > 1) {
-      note = element.children[1].text;
+  if (links.isNotEmpty) {
+    String text = element.text;
+    List<Content> contents = [];
+    for (var link in links) {
+      var linkText = link.text;
+      text.replaceAll(linkText, '');
+      var linkHref = link.getAttrValue('href')!;
+      contents.add(Content(linkText, href: linkHref));
     }
-    return Content(linkElement.text,
-        href: linkElement.getAttrValue("href"), note: note);
+    return contents;
   } else {
     String note = "";
     var childrenClone = element.children..removeAt(0);
     for (var child in childrenClone) {
       note = "$note\n${child.text}";
     }
-    return Content(contentHeader.text, note: note.trim());
+    return [Content(contentHeader.text, note: note.trim())];
   }
 }

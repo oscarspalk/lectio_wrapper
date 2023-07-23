@@ -258,3 +258,7 @@
 ## 0.4.12
 
 * Expand event didn't get all details.
+
+## 0.4.13
+
+* Still more changes to expand event details. It is a bit confusing with rich text.
