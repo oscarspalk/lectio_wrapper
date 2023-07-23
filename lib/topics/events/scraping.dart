@@ -102,15 +102,22 @@ RegularCalendarEventDetails extractRegularEventDetails(BeautifulSoup soup) {
 List<Content> extractHomeworkArticle(Bs4Element element) {
   var contentHeader = element.children[0];
   var links = element.findAll('a');
-
+  var children = element.children;
   if (links.isNotEmpty) {
     String text = element.text;
     List<Content> contents = [];
-    for (var link in links) {
-      var linkText = link.text;
-      text.replaceAll(linkText, '');
-      var linkHref = link.getAttrValue('href')!;
-      contents.add(Content(linkText, href: linkHref));
+    for (var child in children) {
+      if (child.a != null) {
+        var link = child.find('a');
+        if (link != null) {
+          var linkText = link.text;
+          text.replaceAll(linkText, '');
+          var linkHref = link.getAttrValue('href')!;
+          contents.add(Content(linkText.trim(), href: linkHref));
+        }
+      } else if (child.name == "blockquote") {
+        contents.last.note = child.text;
+      }
     }
     return contents;
   } else {

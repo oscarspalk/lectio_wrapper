@@ -262,3 +262,7 @@
 ## 0.4.13
 
 * Still more changes to expand event details. It is a bit confusing with rich text.
+
+## 0.4.14
+
+* What if links also has added notes? Now it fetches that too.

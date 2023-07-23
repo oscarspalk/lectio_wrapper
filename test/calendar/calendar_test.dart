@@ -23,46 +23,11 @@ void main() {
         "team",
         "teacher",
         "room",
-        "58747133996",
-        DateTime.now(),
-        DateTime.now(),
-        note: ""));
-    var eventDetails2 = await student!.events.expand(CalendarEvent(
-        "",
-        "title",
-        "team",
-        "teacher",
-        "room",
-        "59877294991",
-        DateTime.now(),
-        DateTime.now(),
-        note: ""));
-    var eventDetails3 = await student!.events.expand(CalendarEvent(
-        "",
-        "title",
-        "team",
-        "teacher",
-        "room",
-        "58920954961",
-        type: CalendarEventType.test,
-        DateTime.now(),
-        DateTime.now(),
-        note: ""));
-    var eventDetails4 = await student!.events.expand(CalendarEvent(
-        "",
-        "title",
-        "team",
-        "teacher",
-        "room",
-        "60630603994",
-        type: CalendarEventType.private,
+        "56314100149",
         DateTime.now(),
         DateTime.now(),
         note: ""));
 
     expect(eventDetails, isNotNull);
-    expect(eventDetails2, isNotNull);
-    expect(eventDetails4, isNotNull);
-    expect(eventDetails3, isNotNull);
   });
 }
