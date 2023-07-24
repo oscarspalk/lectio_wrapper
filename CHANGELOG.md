@@ -266,3 +266,7 @@
 ## 0.4.14
 
 * What if links also has added notes? Now it fetches that too.
+
+## 0.4.15
+
+* Assignment files are now fetched with a relative link instead of an id.

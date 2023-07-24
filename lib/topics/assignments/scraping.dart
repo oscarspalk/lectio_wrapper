@@ -71,10 +71,7 @@ Future<Assignment> extractAssignment(
     var entries = infoTableRows[1].children[1].children;
     for (var entry in entries) {
       if (entry.name == "a") {
-        testFiles.add(File(
-            queriesFromSoup(
-                entry.getAttrValue("href") ?? "")['exercisefileid']!,
-            entry.text));
+        testFiles.add(File(entry.getAttrValue("href")!, entry.text));
       }
     }
   }
