@@ -270,3 +270,7 @@
 ## 0.4.15
 
 * Assignment files are now fetched with a relative link instead of an id.
+
+## 0.4.16
+
+* Switched most things, not classes which inherit to freezed models, so they will be easier to json etc.

@@ -29,13 +29,19 @@ Future<List<GradeNote>> extractGradeNotes(
         subjectCellList[1].substring(0, subjectCellList[1].indexOf("\n"));
     var subjectName = subjectCellList[1].replaceFirst("$subjectType\n", '');
     var subject = Subject(
-        subjectName,
-        SubjectTypes.values.firstWhere(
+        name: subjectName,
+        type: SubjectTypes.values.firstWhere(
             (element) => element.name.toLowerCase() == subjectType));
     var teacherInitials = registeredList[1];
     var grade = int.tryParse(noteRow.children[2].text);
     notes.add(GradeNote(
-        registered, team, subject, note, grade, gradeType, teacherInitials));
+        registered: registered,
+        team: team,
+        subject: subject,
+        note: note,
+        grade: grade,
+        gradeType: gradeType,
+        teacherInitials: teacherInitials));
   }
   return notes;
 }

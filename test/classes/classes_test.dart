@@ -19,7 +19,8 @@ void main() {
   test(
     'get class',
     () async {
-      var klasse = await student!.classes.get(ClassRef("1bx", "55788763869"));
+      var klasse =
+          await student!.classes.get(ClassRef(name: "1bx", id: "55788763869"));
       expect(klasse, isNotNull);
     },
   );

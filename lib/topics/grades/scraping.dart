@@ -21,8 +21,8 @@ Future<List<GradeRow>> extractGrades(
 GradeRow extractGradeRow(Bs4Element gradeRow, Student student) {
   var subjectList = gradeRow.children[1].text.split(", ");
   var subject = Subject(
-      subjectList[0],
-      SubjectTypes.values
+      name: subjectList[0],
+      type: SubjectTypes.values
           .firstWhere((element) => element.name == subjectList[1]));
   var teamCell = gradeRow.children[0].children[0];
   var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
@@ -35,7 +35,9 @@ GradeRow extractGradeRow(Bs4Element gradeRow, Student student) {
   for (int i = 2; i < 8; i++) {
     grades.add(extractSingleGrade(gradeRow.children[i]));
   }
-  return GradeRow(team, subject,
+  return GradeRow(
+      team: team,
+      subject: subject,
       firstStandpunkt: grades[0],
       secondStandpunkt: grades[1],
       finalYearGrade: grades[2],
@@ -56,7 +58,7 @@ Grade? extractSingleGrade(Bs4Element element) {
     List<String> infos = child.getAttrValue("title")!.split("\n");
     List<String> weightList = infos.elementAt(2).split(": ");
     double weight = double.parse(weightList.elementAt(1).replaceAll(",", "."));
-    return Grade(weight, grade);
+    return Grade(weight: weight, grade: grade);
   } catch (_) {
     return null;
   }

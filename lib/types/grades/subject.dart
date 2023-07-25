@@ -1,3 +1,7 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'subject.freezed.dart';
+
 enum SubjectTypes { written, oral }
 
 extension SubjectTypesExtension on SubjectTypes {
@@ -11,8 +15,8 @@ extension SubjectTypesExtension on SubjectTypes {
   }
 }
 
-class Subject {
-  String name;
-  SubjectTypes type;
-  Subject(this.name, this.type);
+@freezed
+class Subject with _$Subject {
+  factory Subject({required String name, required SubjectTypes type}) =
+      _Subject;
 }

@@ -16,7 +16,8 @@ void main() {
   });
 
   test('get room', () async {
-    var room = await student!.rooms.get(Room('4772939802', '', ''), 2023, 24);
+    var room = await student!.rooms
+        .get(Room(id: '4772939802', short: '', name: ''), 2023, 24);
     expect(room, isNotNull);
   });
 }

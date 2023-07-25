@@ -17,8 +17,11 @@ void main() {
   });
 
   test('get plan', () async {
-    var plan = await student!.plans
-        .get(StudyPlanRef('', DateTime.now(), DateTime.now(), '59876844470'));
+    var plan = await student!.plans.get(StudyPlanRef(
+        title: '',
+        start: DateTime.now(),
+        end: DateTime.now(),
+        id: '59876844470'));
     expect(plan, isNotNull);
   });
 }
