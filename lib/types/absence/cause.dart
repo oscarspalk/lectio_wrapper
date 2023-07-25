@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 
 part 'cause.freezed.dart';
+part 'cause.g.dart';
 
 @freezed
 class AbsenceCauseEntry with _$AbsenceCauseEntry {

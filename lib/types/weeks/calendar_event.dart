@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'calendar_event.freezed.dart';
+part 'calendar_event.g.dart';
 
 @freezed
 class Week with _$Week {

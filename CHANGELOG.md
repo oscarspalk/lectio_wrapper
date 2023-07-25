@@ -278,3 +278,7 @@
 ## 0.4.17
 
 * Forgot to add with to some freezed classes.
+
+## 0.4.18
+
+* Freezed forgot to add .g.dart files.
