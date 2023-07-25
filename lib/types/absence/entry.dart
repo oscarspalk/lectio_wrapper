@@ -12,7 +12,7 @@ class AbsenceEntry with _$AbsenceEntry {
 }
 
 @freezed
-class RegularEntryData {
+class RegularEntryData with _$RegularEntryData {
   factory RegularEntryData(
       {required double currentPercent,
       required AbsenceFraction currentModules,
@@ -21,7 +21,7 @@ class RegularEntryData {
 }
 
 @freezed
-class AssignmentEntryData {
+class AssignmentEntryData with _$AssignmentEntryData {
   factory AssignmentEntryData(
       {required double currentPercent,
       required AbsenceFraction currentStudentTime,
@@ -30,7 +30,7 @@ class AssignmentEntryData {
 }
 
 @freezed
-class AbsenceFraction {
+class AbsenceFraction with _$AbsenceFraction {
   factory AbsenceFraction({required double current, required double total}) =
       _AbsenceFraction;
 }

@@ -6,7 +6,7 @@ import 'package:lectio_wrapper/types/primitives/team.dart';
 part 'assignment.freezed.dart';
 
 @freezed
-class Assignment {
+class Assignment with _$Assignment {
   factory Assignment(
       {required List<File> testFiles,
       required String id,

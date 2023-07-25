@@ -274,3 +274,7 @@
 ## 0.4.16
 
 * Switched most things, not classes which inherit to freezed models, so they will be easier to json etc.
+
+## 0.4.17
+
+* Forgot to add with to some freezed classes.
