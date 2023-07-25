@@ -34,7 +34,7 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
       calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
   calendarDays.removeAt(0).decompose();
 
-  Week week = Week([], weekNum);
+  Week week = Week(days: [], weekNum: weekNum);
   for (int i = 0; i < calendarDays.length; i++) {
     var day = calendarDays[i];
     var informationsForThisDay = informations[i];
@@ -52,7 +52,10 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
       var event = extractModul(piece);
       dayEvents.add(event);
     });
-    week.days.add(Day(informationsForThisDay, dayEvents, dayTime));
+    week.days.add(Day(
+        informations: informationsForThisDay,
+        events: dayEvents,
+        date: dayTime));
   }
   return week;
 }
@@ -124,6 +127,15 @@ CalendarEvent extractModul(Bs4Element element) {
       }
     }
   }
-  return CalendarEvent(status, title, team, teacher, room, id!, start, end,
-      type: type, note: note);
+  return CalendarEvent(
+      status: status,
+      title: title,
+      team: team,
+      teacher: teacher,
+      room: room,
+      id: id!,
+      start: start,
+      end: end,
+      type: type,
+      note: note);
 }

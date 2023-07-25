@@ -18,7 +18,7 @@ Future<List<Gym>> extractGyms(BeautifulSoup soup) async {
     for (var n in nums) {
       numBuffer = numBuffer + (href ?? "").substring(n.start, n.end);
     }
-    gyms.add(Gym(int.parse(numBuffer), name));
+    gyms.add(Gym(id: int.parse(numBuffer), name: name));
   }
   return gyms;
 }

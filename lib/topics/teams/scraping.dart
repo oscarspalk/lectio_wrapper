@@ -17,7 +17,7 @@ List<Team> extractTeams(BeautifulSoup soup) {
         var name = linkEl.text;
         var id =
             queriesFromSoup(linkEl.getAttrValue('href')!)['holdelementid']!;
-        teams.add(Team(name, id, name));
+        teams.add(Team(name: name, id: id, displayName: name));
       }
     }
   }
@@ -35,7 +35,8 @@ ModuleStatistics? extractModuleStats(BeautifulSoup soup) {
         var deviation = extractAbsencePercent(children[0]);
         var normal = int.parse(children[1].text);
         var total = int.parse(children[2].text);
-        return ModuleStatistics(deviation, total, normal);
+        return ModuleStatistics(
+            deviation: deviation, total: total, normal: normal);
       }
     }
   }

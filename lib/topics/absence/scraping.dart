@@ -34,7 +34,7 @@ AbsenceEntry? extractAbsenceEntry(Bs4Element row) {
     var teamId =
         "HE${queriesFromSoup(teamLink.getAttrValue("href")!)['holdelementid']!}";
     //var teamContext = (await student.context.get(teamId)) as TeamContext;
-    var team = Team(teamName, teamId, teamName);
+    var team = Team(name: teamName, id: teamId, displayName: teamName);
     List<double> percentages = [];
     List<AbsenceFraction> fractions = [];
     for (int i = 0; i < 8; i++) {
@@ -46,11 +46,17 @@ AbsenceEntry? extractAbsenceEntry(Bs4Element row) {
       }
     }
     return AbsenceEntry(
-        team,
-        RegularEntryData(
-            percentages[0], fractions[0], percentages[1], fractions[1]),
-        AssignmentEntryData(
-            percentages[2], fractions[2], percentages[3], fractions[3]));
+        team: team,
+        regular: RegularEntryData(
+            currentPercent: percentages[0],
+            currentModules: fractions[0],
+            finalPercent: percentages[1],
+            finalModules: fractions[1]),
+        assignment: AssignmentEntryData(
+            currentPercent: percentages[2],
+            currentStudentTime: fractions[2],
+            finalPercent: percentages[3],
+            finalStudentTime: fractions[3]));
   } catch (e) {
     return null;
   }
@@ -69,13 +75,14 @@ double extractAbsencePercent(Bs4Element cell) {
 }
 
 AbsenceFraction extractAbsenceFraction(Bs4Element cell) {
-  AbsenceFraction currentModules = AbsenceFraction(0, 0);
+  AbsenceFraction currentModules = AbsenceFraction(current: 0, total: 0);
   var currentModulerText = cell.text;
   if (currentModulerText.isNotEmpty) {
     List<String> currentModulesPieces =
         currentModulerText.replaceAll(r",", '.').split(r"/");
-    currentModules = AbsenceFraction(double.parse(currentModulesPieces[0]),
-        double.parse(currentModulesPieces[1]));
+    currentModules = AbsenceFraction(
+        current: double.parse(currentModulesPieces[0]),
+        total: double.parse(currentModulesPieces[1]));
   }
   return currentModules;
 }

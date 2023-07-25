@@ -22,6 +22,6 @@ class ClassesController {
     var soup = await Requests.get(url);
     List<Student> students =
         extractStudents(BeautifulSoup(soup.body), student.gymId, group: group);
-    return Class(ref.id, ref.name, students);
+    return Class(id: ref.id, name: ref.name, students: students);
   }
 }

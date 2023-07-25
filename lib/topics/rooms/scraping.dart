@@ -19,5 +19,5 @@ Room _extractRoom(Bs4Element row) {
   var short = element.children[0].text;
   var name = element.text.replaceFirst(short, '').trim();
   var id = queriesFromSoup(element.getAttrValue('href')!)['id']!;
-  return Room(id, short, name);
+  return Room(id: id, short: short, name: name);
 }

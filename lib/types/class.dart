@@ -1,15 +1,17 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 
-class Class {
-  String id;
-  String name;
-  List<Student> students;
+part 'class.freezed.dart';
 
-  Class(this.id, this.name, this.students);
+@freezed
+class Class with _$Class {
+  factory Class(
+      {required String id,
+      required String name,
+      required List<Student> students}) = _Class;
 }
 
-class ClassRef {
-  String name;
-  String id;
-  ClassRef(this.name, this.id);
+@freezed
+class ClassRef with _$ClassRef {
+  factory ClassRef({required String name, required String id}) = _ClassRef;
 }

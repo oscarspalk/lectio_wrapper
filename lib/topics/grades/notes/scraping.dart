@@ -18,7 +18,8 @@ Future<List<GradeNote>> extractGradeNotes(
   for (var noteRow in noteRows) {
     var teamCell = noteRow.children[0].children[0];
     var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
-    var team = Team(teamCell.text, teamId, teamCell.text);
+    var team =
+        Team(name: teamCell.text, id: teamId, displayName: teamCell.text);
     var note = noteRow.children[4].text;
     var registeredList = noteRow.children[3].text.split(" - ");
     var registered = registeredNoteFormat.parse(registeredList[0]);

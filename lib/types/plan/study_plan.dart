@@ -1,22 +1,28 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
-class StudyTeamEntry {
-  Team team;
-  List<StudyPlanRef> entries;
-  StudyTeamEntry(this.team, this.entries);
+part 'study_plan.freezed.dart';
+
+@freezed
+class StudyTeamEntry with _$StudyTeamEntry {
+  factory StudyTeamEntry(
+      {required Team team,
+      required List<StudyPlanRef> entries}) = _StudyTeamEntry;
 }
 
-class StudyPlanRef {
-  String title;
-  DateTime start;
-  DateTime end;
-  String id;
-  StudyPlanRef(this.title, this.start, this.end, this.id);
+@freezed
+class StudyPlanRef with _$StudyPlanRef {
+  factory StudyPlanRef(
+      {required String title,
+      required DateTime start,
+      required DateTime end,
+      required String id}) = _StudyPlanRef;
 }
 
-class StudyPlanEntry {
-  MetaDataEntry teacher;
-  String description;
-  StudyPlanEntry(this.teacher, this.description);
+@freezed
+class StudyPlanEntry with _$StudyPlanEntry {
+  factory StudyPlanEntry(
+      {required MetaDataEntry teacher,
+      required String description}) = _StudyPlanEntry;
 }

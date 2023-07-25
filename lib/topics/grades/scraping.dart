@@ -28,7 +28,7 @@ GradeRow extractGradeRow(Bs4Element gradeRow, Student student) {
   var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
   var teamName = teamCell.text;
   //var teamContext = (await student.context.get(teamId)) as TeamContext;
-  var team = Team(teamName, teamId, teamName);
+  var team = Team(name: teamName, id: teamId, displayName: teamName);
 
   // extract all grades
   List<Grade?> grades = [];

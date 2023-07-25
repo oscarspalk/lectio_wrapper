@@ -58,7 +58,13 @@ AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
     DateTime registered = registeredTimeFormat.parse(registeredDateString);
     var event = extractModul(row.children[2].children[0]);
     return AbsenceCauseEntry(
-        id, absencePercent, cause, extendedCause, note, registered, event);
+        id: id,
+        absence: absencePercent,
+        cause: cause,
+        expandedCause: extendedCause,
+        note: note,
+        registered: registered,
+        module: event);
   } catch (_) {
     return null;
   }

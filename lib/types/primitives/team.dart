@@ -1,13 +1,19 @@
-class Team {
-  final String name;
-  final String id;
-  final String displayName;
-  Team(this.name, this.id, this.displayName);
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'team.freezed.dart';
+
+@freezed
+class Team with _$Team {
+  factory Team(
+      {required String name,
+      required String id,
+      required String displayName}) = _Team;
 }
 
-class ModuleStatistics {
-  double deviation;
-  int total;
-  int normal;
-  ModuleStatistics(this.deviation, this.total, this.normal);
+@freezed
+class ModuleStatistics with _$ModuleStatistics {
+  factory ModuleStatistics(
+      {required double deviation,
+      required int total,
+      required int normal}) = _ModuleStatistics;
 }

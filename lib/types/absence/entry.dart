@@ -1,32 +1,36 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
-class AbsenceEntry {
-  Team team;
-  RegularEntryData regular;
-  AssignmentEntryData assignment;
-  AbsenceEntry(this.team, this.regular, this.assignment);
+part 'entry.freezed.dart';
+
+@freezed
+class AbsenceEntry with _$AbsenceEntry {
+  factory AbsenceEntry(
+      {required Team team,
+      required RegularEntryData regular,
+      required AssignmentEntryData assignment}) = _AbsenceEntry;
 }
 
+@freezed
 class RegularEntryData {
-  double currentPercent;
-  AbsenceFraction currentModules;
-  double finalPercent;
-  AbsenceFraction finalModules;
-  RegularEntryData(this.currentPercent, this.currentModules, this.finalPercent,
-      this.finalModules);
+  factory RegularEntryData(
+      {required double currentPercent,
+      required AbsenceFraction currentModules,
+      required double finalPercent,
+      required AbsenceFraction finalModules}) = _RegularEntryData;
 }
 
+@freezed
 class AssignmentEntryData {
-  double currentPercent;
-  AbsenceFraction currentStudentTime;
-  double finalPercent;
-  AbsenceFraction finalStudentTime;
-  AssignmentEntryData(this.currentPercent, this.currentStudentTime,
-      this.finalPercent, this.finalStudentTime);
+  factory AssignmentEntryData(
+      {required double currentPercent,
+      required AbsenceFraction currentStudentTime,
+      required double finalPercent,
+      required AbsenceFraction finalStudentTime}) = _AssignmentEntryData;
 }
 
+@freezed
 class AbsenceFraction {
-  double current;
-  double total;
-  AbsenceFraction(this.current, this.total);
+  factory AbsenceFraction({required double current, required double total}) =
+      _AbsenceFraction;
 }

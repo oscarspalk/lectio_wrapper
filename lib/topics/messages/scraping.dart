@@ -80,7 +80,7 @@ ThreadEntry extractMessageThread(Bs4Element threadListItem) {
   List<Bs4Element> fileLinks =
       messageElement.children.where((element) => element.name == 'a').toList();
   for (var fileLink in fileLinks) {
-    files.add(File(fileLink.getAttrValue("href")!, fileLink.text));
+    files.add(File(href: fileLink.getAttrValue("href")!, name: fileLink.text));
   }
   List<String> infos = messageInfo.split("Af");
   String topic = infos[0].trim();

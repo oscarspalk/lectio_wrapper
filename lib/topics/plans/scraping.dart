@@ -36,7 +36,7 @@ List<StudyTeamEntry> extractPlans(BeautifulSoup soup) {
             refs.add(_extractPlan(phase));
           }
         }
-        plans.add(StudyTeamEntry(header.team, refs));
+        plans.add(StudyTeamEntry(team: header.team, entries: refs));
       }
     }
   }
@@ -48,7 +48,7 @@ _HeaderEntry _extractHeader(Bs4Element header) {
   var aTag = header.children[0].children[0];
   var name = aTag.text;
   var id = aTag.getAttrValue('data-lectiocontextcard')!;
-  return _HeaderEntry(colSpan, Team(name, id, name));
+  return _HeaderEntry(colSpan, Team(name: name, id: id, displayName: name));
 }
 
 RegExp _periodReg = RegExp(r'\s-\s');
@@ -77,7 +77,7 @@ StudyPlanRef _extractPlan(Bs4Element row) {
       }
     }
   }
-  return StudyPlanRef(title, start, end, id);
+  return StudyPlanRef(title: title, start: start, end: end, id: id);
 }
 
 StudyPlanEntry extractPlanEntry(BeautifulSoup soup) {
@@ -87,5 +87,5 @@ StudyPlanEntry extractPlanEntry(BeautifulSoup soup) {
   var teacherId = teacherElement.getAttrValue('data-lectiocontextcard')!;
   var teacher = MetaDataEntry(id: teacherId, name: teacherName);
   var description = children[5].children[1].text.trim();
-  return StudyPlanEntry(teacher, description);
+  return StudyPlanEntry(teacher: teacher, description: description);
 }

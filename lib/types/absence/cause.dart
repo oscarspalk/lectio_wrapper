@@ -1,15 +1,21 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 
-class AbsenceCauseEntry {
-  String id;
-  double absence;
-  AbsenceCauses? cause;
-  String expandedCause;
-  String note;
-  DateTime registered;
-  CalendarEvent module;
-  AbsenceCauseEntry(this.id, this.absence, this.cause, this.expandedCause,
-      this.note, this.registered, this.module);
+part 'cause.freezed.dart';
+
+@freezed
+class AbsenceCauseEntry with _$AbsenceCauseEntry {
+  factory AbsenceCauseEntry(
+      {required String id,
+      required double absence,
+      AbsenceCauses? cause,
+      required String expandedCause,
+      required String note,
+      required DateTime registered,
+      required CalendarEvent module}) = _AbsenceCauseEntry;
+
+  factory AbsenceCauseEntry.fromJson(Map<String, Object?> json) =>
+      _$AbsenceCauseEntryFromJson(json);
 }
 
 enum AbsenceCauses { other, late, sick, schoolRelated, privateRelations }

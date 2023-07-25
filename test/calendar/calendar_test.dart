@@ -16,17 +16,6 @@ void main() {
   });
 
   test('getCalendarEventDetails', () async {
-    var eventDetails = await student!.events.expand(CalendarEvent(
-        "",
-        "title",
-        "team",
-        "teacher",
-        "room",
-        "56314100149",
-        DateTime.now(),
-        DateTime.now(),
-        note: ""));
-
-    expect(eventDetails, isNotNull);
+    throw "Need implementation";
   });
 }

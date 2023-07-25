@@ -19,7 +19,7 @@ class StudentsController {
     var contexts =
         await Future.wait(groups.map((group) => student.context.get(group.id)));
     var futures = await Future.wait(contexts.map((context) =>
-        student.classes.get(ClassRef('', context.id), group: true)));
+        student.classes.get(ClassRef(name: '', id: context.id), group: true)));
     for (var future in futures) {
       students.addAll(future.students);
     }

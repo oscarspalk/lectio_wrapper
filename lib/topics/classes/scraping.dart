@@ -15,7 +15,7 @@ List<ClassRef> extractClasses(BeautifulSoup soup) {
         if (/*group.text.contains(RegExp(r'^\d[a-z]*[a-z]')) &&*/ href !=
             null) {
           String classId = queriesFromSoup(href)['klasseid'] ?? "";
-          ClassRef classRef = ClassRef(group.text, classId);
+          ClassRef classRef = ClassRef(name: group.text, id: classId);
           classes.add(classRef);
         }
       }
