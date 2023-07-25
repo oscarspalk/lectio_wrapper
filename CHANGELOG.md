@@ -282,3 +282,7 @@
 ## 0.4.18
 
 * Freezed forgot to add .g.dart files.
+
+## 0.4.19
+
+* Some logic had to be changed as you cannot modify freezed classes.

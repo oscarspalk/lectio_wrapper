@@ -1,6 +1,7 @@
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
+import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -16,6 +17,17 @@ void main() {
   });
 
   test('getCalendarEventDetails', () async {
-    throw "Need implementation";
+    var item = await student!.events.expand(CalendarEvent(
+        type: CalendarEventType.regular,
+        status: "Aflyst",
+        title: "",
+        team: "",
+        teacher: "",
+        room: "",
+        id: "56314063041",
+        note: "",
+        start: DateTime.now(),
+        end: DateTime.now()));
+    expect(item, isNotNull);
   });
 }

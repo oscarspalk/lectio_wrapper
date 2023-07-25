@@ -9,6 +9,7 @@ RegExp timePattern = RegExp(r"\d{2}:\d{2}");
 RegExp modulTimePattern = RegExp(r"\d{1,2}\/\d{1,2}");
 
 Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
+  List<Day> days = [];
   var calendarSoup = soup.find("tbody")!;
   var titleSoup = calendarSoup.find("td", selector: "tr.s2dayHeader")!.children;
   titleSoup.removeAt(0).decompose();
@@ -34,7 +35,6 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
       calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
   calendarDays.removeAt(0).decompose();
 
-  Week week = Week(days: [], weekNum: weekNum);
   for (int i = 0; i < calendarDays.length; i++) {
     var day = calendarDays[i];
     var informationsForThisDay = informations[i];
@@ -52,12 +52,12 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
       var event = extractModul(piece);
       dayEvents.add(event);
     });
-    week.days.add(Day(
+    days.add(Day(
         informations: informationsForThisDay,
         events: dayEvents,
         date: dayTime));
   }
-  return week;
+  return Week(days: days, weekNum: weekNum);
 }
 
 CalendarEvent extractModul(Bs4Element element) {
