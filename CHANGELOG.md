@@ -286,3 +286,7 @@
 ## 0.4.19
 
 * Some logic had to be changed as you cannot modify freezed classes.
+
+## 0.4.20
+
+* So in theory, you could login each 30 days with the actual login, and autologin key everyother.

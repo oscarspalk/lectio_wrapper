@@ -11,6 +11,29 @@ class Account {
   String password;
   Account(this.gymId, this.username, this.password);
 
+  String? checkLoggedIn(BeautifulSoup soup) {
+    var link = soup.find('*', id: 's_m_HeaderContent_subnavigator_ctl01');
+    if (link != null) {
+      var src = link.getAttrValue("href");
+      return queriesFromSoup(src!)['elevid']!;
+    }
+    return null;
+  }
+
+  Future<Student?> loginWithCookies(String cookie) async {
+    Requests.setStoredCookies(
+        "www.lectio.dk", CookieJar.parseCookiesString(cookie));
+    String forsideUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
+
+    String? studentId =
+        checkLoggedIn(BeautifulSoup((await Requests.get(forsideUrl)).body));
+    if (studentId == null) {
+      throw InvalidCredentialsError();
+    }
+    var student = Student(studentId, gymId);
+    return student;
+  }
+
   Future<Student?> login() async {
     try {
       String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
@@ -31,8 +54,7 @@ class Account {
         throw InvalidCredentialsError();
       }
       var student = Student(studentId, gymId);
-      var basic = await student.getBasicInfo();
-      return student..setBasicInfo(basic);
+      return student;
     } catch (e) {
       return null;
     }
