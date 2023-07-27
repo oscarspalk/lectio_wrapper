@@ -1,5 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:requests/requests.dart';
 
@@ -26,7 +28,7 @@ class Account {
     String forsideUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
 
     String? studentId =
-        checkLoggedIn(BeautifulSoup((await Requests.get(forsideUrl)).body));
+        checkLoggedIn(BeautifulSoup((await lppDio.get(forsideUrl)).data));
     if (studentId == null) {
       throw InvalidCredentialsError();
     }
@@ -38,18 +40,21 @@ class Account {
     try {
       String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
       String forsideUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
-      var loginGet =
-          await Requests.get(loginUrl, headers: {'user-agent': 'Mozilla/5.0'});
-      BeautifulSoup bs = BeautifulSoup(loginGet.body);
+      var loginGet = await lppDio.get(loginUrl);
+      BeautifulSoup bs = BeautifulSoup(loginGet.data);
       Map<String, String?> extracted =
           await extractASPData(bs, "m\$Content\$submitbtn2");
 
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
       extracted[r'm$Content$AutologinCbx'] = "on";
-      var response = await Requests.post(loginUrl, body: extracted)
+      var loggedInSoup = await lppDio
+          .post(loginUrl,
+              data: extracted,
+              options:
+                  Options(contentType: "application/x-www-form-urlencoded"))
           .timeout(const Duration(seconds: 5));
-      String? studentId = getElevId((await loggedIn(forsideUrl))!);
+      String? studentId = checkLoggedIn(BeautifulSoup(loggedInSoup.data));
       if (studentId == null) {
         throw InvalidCredentialsError();
       }

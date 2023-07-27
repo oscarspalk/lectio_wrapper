@@ -2,6 +2,7 @@ import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -11,9 +12,10 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login()});
   test('login() with true credentials.', () async {
-    var cookies = await student!.getCookies();
+    var cookies =
+        await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
     var cookieString =
-        cookies.values.map((cook) => "${cook.name}=${cook.value}").join(',');
+        cookies.map((cookie) => "${cookie.name}=${cookie.value}").join(",");
     expect(student, isNotNull);
   });
 
