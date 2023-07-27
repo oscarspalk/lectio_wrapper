@@ -46,8 +46,8 @@ class Account {
 
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
-
-      await Requests.post(loginUrl, body: extracted)
+      extracted[r'm$Content$AutologinCbx'] = "on";
+      var response = await Requests.post(loginUrl, body: extracted)
           .timeout(const Duration(seconds: 5));
       String? studentId = getElevId((await loggedIn(forsideUrl))!);
       if (studentId == null) {

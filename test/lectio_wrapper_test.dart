@@ -11,6 +11,9 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login()});
   test('login() with true credentials.', () async {
+    var cookies = await student!.getCookies();
+    var cookieString =
+        cookies.values.map((cook) => "${cook.name}=${cook.value}").join(',');
     expect(student, isNotNull);
   });
 
