@@ -37,7 +37,6 @@ class MesssageController {
     BeautifulSoup latestSoup = await newMessage();
 
     var cookieExport = (await student.getCookies())
-        .values
         .map((e) => "${e.name}=${e.value}")
         .join(";");
 
@@ -108,7 +107,6 @@ class MesssageController {
 
   Future<void> reply(Reply reply) async {
     var cookie = (await student.getCookies())
-        .values
         .map((e) => "${e.name}=${e.value}")
         .join(";");
     String openUrl = student.buildUrl(
@@ -144,7 +142,6 @@ class MesssageController {
 
   Future<void> edit(Edit edit) async {
     var cookie = (await student.getCookies())
-        .values
         .map((e) => "${e.name}=${e.value}")
         .join(";");
     String openUrl = student.buildUrl(

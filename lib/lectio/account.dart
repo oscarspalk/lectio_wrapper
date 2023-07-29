@@ -39,7 +39,6 @@ class Account {
   Future<Student?> login() async {
     try {
       String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
-      String forsideUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
       var loginGet = await lppDio.get(loginUrl);
       BeautifulSoup bs = BeautifulSoup(loginGet.data);
       Map<String, String?> extracted =
@@ -47,7 +46,8 @@ class Account {
 
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
-      extracted[r'm$Content$AutologinCbx'] = "on";
+      //extracted[r'm$Content$AutologinCbx'] = "on";
+      // not figured out yet
       var loggedInSoup = await lppDio
           .post(loginUrl,
               data: extracted,

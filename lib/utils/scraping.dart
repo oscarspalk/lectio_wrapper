@@ -1,7 +1,7 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
-import 'package:requests/requests.dart';
-import 'package:http/http.dart' as http;
+import 'package:lectio_wrapper/utils/dio_client.dart';
 
 Future<Map<String, String>> extractASPData(
     BeautifulSoup soup, String target) async {
@@ -49,15 +49,15 @@ String? getElevId(BeautifulSoup soup) {
 }
 
 Future<BeautifulSoup?> loggedIn(String url, {Map<String, String>? data}) async {
-  http.Response response;
+  Response response;
   if (data != null) {
-    response = await Requests.post(url, body: data);
+    response = await lppDio.post(url, data: data);
   } else {
-    response = await Requests.get(url);
+    response = await lppDio.get(url);
   }
 
-  BeautifulSoup soup = BeautifulSoup(response.body);
-  if (response.url.toString().contains("login.aspx?prevurl")) {
+  BeautifulSoup soup = BeautifulSoup(response.data);
+  if (response.realUri.toString().contains("login.aspx?prevurl")) {
     return null;
   } else {
     return soup;

@@ -1,7 +1,8 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/topics/absence/controller.dart';
 import 'package:lectio_wrapper/topics/assignments/controller.dart';
@@ -17,8 +18,8 @@ import 'package:lectio_wrapper/topics/rooms/controller.dart';
 import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/teams/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
-import 'package:requests/requests.dart';
 import 'package:lectio_wrapper/topics/homework/controller.dart';
 
 enum GradeType { proof, actual, comment, protocol }
@@ -75,8 +76,8 @@ class Student {
   /// Returns a [BasicInfo] containing name and pictureId.
   Future<BasicInfo> getBasicInfo() async {
     String profileUrl = buildUrl("SkemaNy.aspx?type=elev&elevid=$studentId");
-    var resp = await Requests.get(profileUrl);
-    BeautifulSoup profileSoup = BeautifulSoup(resp.body);
+    var resp = await lppDio.get(profileUrl);
+    BeautifulSoup profileSoup = BeautifulSoup(resp.data);
     return extractBasicInfo(profileSoup);
   }
 
@@ -86,8 +87,8 @@ class Student {
     return baseUrl + path;
   }
 
-  Future<CookieJar> getCookies() {
-    return Requests.getStoredCookies("www.lectio.dk");
+  Future<List<Cookie>> getCookies() async {
+    return lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
   }
 
   /// Get an external student.
@@ -102,17 +103,19 @@ class Student {
       return images[imageId]!;
     }
     if (imageId.startsWith("https")) {
-      response = await Requests.get(imageId);
+      response = await lppDio.get(imageId);
     } else {
-      response = await Requests.get(
-          buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
+      response = await lppDio
+          .get(buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
     }
-    images.putIfAbsent(imageId, () => response.bodyBytes);
-    return response.bodyBytes;
+    var list = Uint8List.fromList((response.data as String).codeUnits);
+    images.putIfAbsent(imageId, () => list);
+    return list;
   }
 
   Future<Uint8List> getFile(String url) async {
-    var res = await Requests.get(url);
-    return res.bodyBytes;
+    var res = await lppDio.get(url);
+    var list = Uint8List.fromList((res.data as String).codeUnits);
+    return list;
   }
 }

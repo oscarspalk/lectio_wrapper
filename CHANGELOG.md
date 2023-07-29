@@ -290,3 +290,7 @@
 ## 0.4.20
 
 * So in theory, you could login each 30 days with the actual login, and autologin key everyother.
+
+## 0.4.21
+
+* Create messages is kind of unstable, but lets try.
