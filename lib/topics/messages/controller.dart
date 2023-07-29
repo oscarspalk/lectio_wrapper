@@ -4,45 +4,40 @@ import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/messages/scraping.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
-import 'package:requests/requests.dart';
 
 class MesssageController {
   final Student student;
-  final dio = Dio();
 
   MesssageController(this.student);
 
   Future<List<MessageRef>> list() async {
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
-    var response = await Requests.get(url);
-    return extractMessages(BeautifulSoup(response.body));
+    var response = await lppDio.get(url);
+    return extractMessages(BeautifulSoup(response.data));
   }
 
   Future<Message> get(MessageRef ref) async {
     var url = student.buildUrl(
         "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${ref.id}");
-    var response = await Requests.get(url);
-    return extractMessage(BeautifulSoup(response.body), ref);
+    var response = await lppDio.get(url);
+    return extractMessage(BeautifulSoup(response.data), ref);
   }
 
   Future<BeautifulSoup> newMessage() async {
     String newMessageUrl = student
         .buildUrl("beskeder2.aspx?type=nybesked&elevid=${student.studentId}");
-    var resp = await Requests.get(newMessageUrl);
-    return BeautifulSoup(resp.body);
+    var resp = await lppDio.get(newMessageUrl);
+    return BeautifulSoup(resp.data);
   }
 
   Future<void> create(CreateMessage createMessage) async {
     BeautifulSoup latestSoup = await newMessage();
 
-    var cookieExport = (await student.getCookies())
-        .map((e) => "${e.name}=${e.value}")
-        .join(";");
-
     // add people
     for (var person in createMessage.receivers) {
-      latestSoup = await _addPerson(person, latestSoup, cookieExport);
+      latestSoup = await _addPerson(person, latestSoup);
     }
 
     String target = r"s$m$Content$Content$CreateThreadEditMessageOkBtn";
@@ -63,16 +58,15 @@ class MesssageController {
     };
     var exportedSubmitData = await extractASPData(latestSoup, target);
     exportedSubmitData.addAll(submitData);
-    await dio.postUri(Uri.parse(url),
+    await lppDio.postUri(Uri.parse(url),
         data: exportedSubmitData,
         options: Options(
-            contentType: "application/x-www-form-urlencoded",
-            followRedirects: true,
-            headers: {"Cookie": cookieExport}));
+          contentType: "application/x-www-form-urlencoded",
+        ));
   }
 
   Future<BeautifulSoup> _addPerson(
-      MetaDataEntry person, BeautifulSoup soup, String cookie) async {
+      MetaDataEntry person, BeautifulSoup soup) async {
     String target = r"s$m$Content$Content$CreateThreadRelatedAddButton";
     String url = student
         .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
@@ -88,12 +82,11 @@ class MesssageController {
     };
     var aspData = await extractASPData(soup, target);
     aspData.addAll(data);
-    var response = await dio.postUri(Uri.parse(url),
+    var response = await lppDio.postUri(Uri.parse(url),
         data: aspData,
         options: Options(
-            contentType: "application/x-www-form-urlencoded",
-            followRedirects: true,
-            headers: {"Cookie": cookie}));
+          contentType: "application/x-www-form-urlencoded",
+        ));
     return BeautifulSoup(response.data);
   }
 
@@ -106,9 +99,6 @@ class MesssageController {
   }
 
   Future<void> reply(Reply reply) async {
-    var cookie = (await student.getCookies())
-        .map((e) => "${e.name}=${e.value}")
-        .join(";");
     String openUrl = student.buildUrl(
         "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${reply.message.id}");
     String openTarget = "__PAGE";
@@ -132,12 +122,11 @@ class MesssageController {
     };
     var aspData = await extractASPData(openingSoup!, target);
     aspData.addAll(data);
-    await dio.postUri(Uri.parse(url),
+    await lppDio.postUri(Uri.parse(url),
         data: aspData,
         options: Options(
-            contentType: "application/x-www-form-urlencoded",
-            followRedirects: true,
-            headers: {"Cookie": cookie}));
+          contentType: "application/x-www-form-urlencoded",
+        ));
   }
 
   Future<void> edit(Edit edit) async {
@@ -167,7 +156,7 @@ class MesssageController {
     };
     var aspData = await extractASPData(openingSoup!, target);
     aspData.addAll(data);
-    await dio.postUri(Uri.parse(url),
+    await lppDio.postUri(Uri.parse(url),
         data: aspData,
         options: Options(
             contentType: "application/x-www-form-urlencoded",

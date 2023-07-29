@@ -12,42 +12,56 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login()});
 
-  test('list all messages', () async {
+  test('reply', () async {
+    await student!.messages.reply(Reply(
+        ThreadEntry('61053261230', DateTime.now(),
+            MetaDataEntry(id: '', name: ''), '', '', [], 0),
+        'lol',
+        Message('61053261230', [], MetaDataEntry(id: '', name: ''), '', ''),
+        'bob bob'));
+  });
+
+  test('test message crud flow', () async {
     var messages = await student!.messages.list();
     expect(messages, anyOf(isNotEmpty, isEmpty));
-  });
-
-  test('get message', () async {
-    var message = await student!.messages
-        .get(MessageRef('61043592754', DateTime.now(), "receivers", "topic"));
-    expect(message, isNotNull);
-  });
-
-  test('create message', () async {
-    await student!.messages.create(CreateMessage(
-        "Dart", "Flutter is awesome!", true, [
+    const testName = "lpp2023";
+    const testContent = "what";
+    const test2Content = "what man!?";
+    const updatedText = "pas på den knaldrøde gummibåd";
+    const updatedTopic = "birthe kjær";
+    // create new
+    await student!.messages.create(CreateMessage(testName, testContent, true, [
       MetaDataEntry(name: "Oscar Gaardsted Spalk (2bx 12)", id: "S54299107744")
     ]));
-  });
-
-  test('delete message', () async {
-    await student!.messages.delete(
-        Message("61017068482", [], MetaDataEntry(name: '', id: ''), "", ""));
-  });
-
-  test('reply to a thread', () async {
-    await student!.messages.reply(Reply(
-        ThreadEntry('61017078776', DateTime.now(),
-            MetaDataEntry(name: 'name', id: 'id'), '', 'topic', [], 0),
-        "Wasm",
-        Message('61017068542', [], MetaDataEntry(name: '', id: 'id'), '', ''),
-        "Rust hele vejen"));
-  });
-
-  test('edit a thread entry', () async {
+    var messagesNow = await student!.messages.list();
+    MessageRef? newMessage;
+    for (var message in messagesNow) {
+      if (message.topic == testName) {
+        newMessage = message;
+      }
+    }
+    expect(newMessage, isNotNull);
+    var messageContent = await student!.messages.get(newMessage!);
+    expect(messageContent.thread.length, 1);
+    expect(messageContent.thread[0].content, testContent);
+    await student!.messages.reply(Reply(messageContent.thread[0],
+        "Re: $testName", messageContent, test2Content));
+    var newMessageContent = await student!.messages.get(newMessage);
+    expect(newMessageContent.thread.length, 2);
+    expect(newMessageContent.thread[1].topic, "Re: $testName");
+    expect(newMessageContent.thread[1].content, test2Content);
     await student!.messages.edit(Edit(
-        ThreadEntry('61017090824', DateTime.now(),
-            MetaDataEntry(name: '', id: ''), "Nyt emne", "Ducati", [], 0),
-        Message('61017084133', [], MetaDataEntry(name: '', id: ''), '', '')));
+        newMessageContent.thread[0]
+          ..content = updatedText
+          ..topic = updatedTopic,
+        newMessageContent));
+    var newMessageContent2 = await student!.messages.get(newMessage);
+    expect(newMessageContent2.thread[0].content, updatedText);
+    expect(newMessageContent2.thread.length, 2);
+    await student!.messages.delete(newMessageContent2);
+    var updatedList = await student!.messages.list();
+    var index =
+        updatedList.indexWhere((element) => element.topic == updatedTopic);
+    expect(index, -1);
   });
 }

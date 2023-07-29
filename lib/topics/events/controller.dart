@@ -4,7 +4,7 @@ import 'package:lectio_wrapper/topics/events/private/controller.dart';
 import 'package:lectio_wrapper/topics/events/scraping.dart';
 import 'package:lectio_wrapper/types/events/calendar_event_details.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
-import 'package:requests/requests.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 
 class EventController {
   final Student student;
@@ -26,8 +26,8 @@ class EventController {
       case CalendarEventType.private:
         url = student.buildUrl("privat_aftale.aspx?aftaleid=${event.id}");
     }
-    var response = await Requests.get(url);
+    var response = await lppDio.get(url);
     return await extractCalendarEventDetails(
-        BeautifulSoup(response.body), student, event);
+        BeautifulSoup(response.data), student, event);
   }
 }

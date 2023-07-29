@@ -2,7 +2,7 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/classes/scraping.dart';
 import 'package:lectio_wrapper/types/class.dart';
-import 'package:requests/requests.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 
 class ClassesController {
   final Student student;
@@ -12,16 +12,16 @@ class ClassesController {
   /// Get all classes as a [List] of [Class]
   Future<List<ClassRef>> list() async {
     String url = student.buildUrl("FindSkema.aspx?type=stamklasse");
-    var soup = await Requests.get(url);
-    return extractClasses(BeautifulSoup(soup.body));
+    var soup = await lppDio.get(url);
+    return extractClasses(BeautifulSoup(soup.data));
   }
 
   Future<Class> get(ClassRef ref, {bool group = false}) async {
     String url = student.buildUrl(
         "subnav/members.aspx?${group ? "holdelementid" : "klasseid"}=${ref.id}&showstudents=1${group ? "&showteachers=1" : ""} ");
-    var soup = await Requests.get(url);
+    var soup = await lppDio.get(url);
     List<Student> students =
-        extractStudents(BeautifulSoup(soup.body), student.gymId, group: group);
+        extractStudents(BeautifulSoup(soup.data), student.gymId, group: group);
     return Class(id: ref.id, name: ref.name, students: students);
   }
 }

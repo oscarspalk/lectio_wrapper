@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
-import 'package:requests/requests.dart';
 
 class InvalidCredentialsError extends Error {}
 
@@ -23,7 +22,7 @@ class Account {
   }
 
   Future<Student?> loginWithCookies(String cookie) async {
-    Requests.setStoredCookies(
+    /* Requests.setStoredCookies(
         "www.lectio.dk", CookieJar.parseCookiesString(cookie));
     String forsideUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
 
@@ -33,7 +32,8 @@ class Account {
       throw InvalidCredentialsError();
     }
     var student = Student(studentId, gymId);
-    return student;
+    return student;*/
+    return null;
   }
 
   Future<Student?> login() async {

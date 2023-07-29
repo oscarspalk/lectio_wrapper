@@ -3,7 +3,7 @@ import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/grades/notes/controller.dart';
 import 'package:lectio_wrapper/topics/grades/scraping.dart';
 import 'package:lectio_wrapper/types/grades/grade.dart';
-import 'package:requests/requests.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 
 class GradeController {
   final Student student;
@@ -15,7 +15,7 @@ class GradeController {
   Future<List<GradeRow>> list() async {
     var url = student
         .buildUrl("grades/grade_report.aspx?elevid=${student.studentId}");
-    var response = await Requests.get(url);
-    return await extractGrades(BeautifulSoup(response.body), student);
+    var response = await lppDio.get(url);
+    return await extractGrades(BeautifulSoup(response.data), student);
   }
 }

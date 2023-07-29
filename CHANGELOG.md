@@ -294,3 +294,7 @@
 ## 0.4.21
 
 * Create messages is kind of unstable, but lets try.
+
+## 0.5.0
+
+* Switched completely to dio
