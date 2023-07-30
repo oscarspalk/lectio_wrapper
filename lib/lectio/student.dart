@@ -95,13 +95,13 @@ class Student {
   }
 
   /// Returns an image from an id as a [Uint8List]
-  Future<DioImage> getImage(String imageId, {bool fullsize = false}) async {
+  DioImage getImage(String imageId, {bool fullsize = false}) {
     String url;
     if (imageId.startsWith("https")) {
       url = imageId;
     } else {
       url = buildUrl(
-          "GetImage.aspx?pictureid=$imageId&fullsize=${fullsize ? 1 : 0}");
+          "GetImage.aspx?pictureid=$imageId${fullsize ? "&fullsize=1" : ""}");
     }
     return DioImage.string(url);
   }
