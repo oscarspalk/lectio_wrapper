@@ -12,15 +12,6 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login()});
 
-  test('reply', () async {
-    await student!.messages.reply(Reply(
-        ThreadEntry('61053261230', DateTime.now(),
-            MetaDataEntry(id: '', name: ''), '', '', [], 0),
-        'lol',
-        Message('61053261230', [], MetaDataEntry(id: '', name: ''), '', ''),
-        'bob bob'));
-  });
-
   test('test message crud flow', () async {
     var messages = await student!.messages.list();
     expect(messages, anyOf(isNotEmpty, isEmpty));

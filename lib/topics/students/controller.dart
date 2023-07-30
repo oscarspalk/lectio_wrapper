@@ -10,19 +10,16 @@ class StudentsController {
     "Alle 3. G. elever",
     "Alle Lærere"
   ];
-  Future<List<Student>> list() async {
-    List<Student> students = [];
+  Stream<List<Student>> list() async* {
     var meta = await student.meta.get();
     var groups = meta.groups
         .where((element) => _groupNames.contains(element.name))
         .toList();
-    var contexts =
-        await Future.wait(groups.map((group) => student.context.get(group.id)));
-    var futures = await Future.wait(contexts.map((context) =>
-        student.classes.get(ClassRef(name: '', id: context.id), group: true)));
-    for (var future in futures) {
-      students.addAll(future.students);
+    for (var group in groups) {
+      var context = await student.context.get(group.id);
+      var groupFetched = await student.classes
+          .get(ClassRef(name: '', id: context.id), group: true);
+      yield groupFetched.students;
     }
-    return students;
   }
 }
