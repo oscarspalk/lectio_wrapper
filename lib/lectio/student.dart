@@ -30,6 +30,7 @@ String intFixed(int n, int count) => n.toString().padLeft(count, "0");
 class Student {
   String studentId;
   int gymId;
+  String? info;
   late String imageId;
   late String name;
   late HomeworkController homework;
@@ -48,7 +49,7 @@ class Student {
   late PlansController plans;
   late TeamsController teams;
   Map<String, Uint8List> images = {};
-  Student(this.studentId, this.gymId) {
+  Student(this.studentId, this.gymId, {this.info}) {
     homework = HomeworkController(this);
     gyms = GymController();
     classes = ClassesController(this);

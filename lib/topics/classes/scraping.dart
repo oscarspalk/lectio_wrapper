@@ -36,6 +36,10 @@ List<Student> extractStudents(BeautifulSoup soup, int gymId,
   List<Student> students = [];
   int offset = group ? 1 : 0;
   for (var student in studentRows) {
+    String? info;
+    if (group) {
+      info = student.children[2].text.trim();
+    }
     Bs4Element imageElement = student.children[0].children[0];
     Bs4Element firstNameElement =
         student.children[2 + offset].children[0].children[0];
@@ -51,7 +55,7 @@ List<Student> extractStudents(BeautifulSoup soup, int gymId,
         pictureId = queriesFromSoup(pictureSrc)['pictureid'];
       }
       if (id != null && pictureId != null) {
-        Student student = Student(id, gymId);
+        Student student = Student(id, gymId, info: info);
         student.imageId = pictureId;
         student.name = "${firstNameElement.text} ${lastNameElement.text}";
         students.add(student);

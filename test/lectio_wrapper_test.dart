@@ -23,7 +23,7 @@ void main() {
   test(
     'getImage()',
     () async {
-      var img = await student!.getImage("54828896107");
+      var img = student!.getImage("54828896107");
 
       expect(img, isNotNull);
     },

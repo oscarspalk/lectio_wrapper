@@ -310,3 +310,7 @@
 ## 0.5.3
 
 * getImage shouldn't be async
+
+## 0.5.4
+
+* Listing all students also provides their classes now.
