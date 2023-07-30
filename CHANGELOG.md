@@ -314,3 +314,8 @@
 ## 0.5.4
 
 * Listing all students also provides their classes now.
+
+## 0.5.5
+
+* Listing students as a stream, which will make the delay 2 seconds
+* Autologin key expires after 30 days instead of 2 hours.
