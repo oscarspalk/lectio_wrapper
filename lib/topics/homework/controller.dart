@@ -2,7 +2,7 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/homework/scraping.dart';
 import 'package:lectio_wrapper/types/homework/homework.dart';
-import 'package:requests/requests.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 
 class HomeworkController {
   final Student student;
@@ -11,7 +11,7 @@ class HomeworkController {
   Future<List<Homework>> list() async {
     var url = student
         .buildUrl("material_lektieoversigt.aspx?elevid=${student.studentId}");
-    var response = await Requests.get(url);
-    return await extractHomework(BeautifulSoup(response.body));
+    var response = await lppDio.get(url);
+    return await extractHomework(BeautifulSoup(response.data));
   }
 }

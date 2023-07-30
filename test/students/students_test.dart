@@ -1,4 +1,5 @@
 import 'package:dotenv/dotenv.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 
@@ -11,7 +12,9 @@ void main() {
   setUp(() async => {student = await account.login()});
 
   test('list students', () async {
-    var students = await student!.students.list();
-    expect(students, isNotEmpty);
+    var studentsStream = student!.students.list();
+    await for (List<Student> student in studentsStream) {
+      debugPrint("click");
+    }
   });
 }

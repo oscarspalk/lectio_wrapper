@@ -1,7 +1,7 @@
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/messages/meta/scraping.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
-import 'package:requests/requests.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 
 class MessageMetaController {
   final Student student;
@@ -39,8 +39,8 @@ class MessageMetaController {
 
   Future<void> _loadScript(ScriptContent script) async {
     String url = "https://www.lectio.dk${script.url}";
-    var data = await Requests.get(url);
-    var entries = extractEntries(data.body, url);
+    var data = await lppDio.get(url);
+    var entries = extractEntries(data.data, url);
     switch (script.queries['type']) {
       case 'bcteacher':
         teachers = entries;

@@ -1,7 +1,7 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:http/http.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/topics/absence/controller.dart';
 import 'package:lectio_wrapper/topics/assignments/controller.dart';
@@ -17,11 +17,10 @@ import 'package:lectio_wrapper/topics/rooms/controller.dart';
 import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/teams/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
+import 'package:lectio_wrapper/utils/dio_image_provider.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
-import 'package:requests/requests.dart';
 import 'package:lectio_wrapper/topics/homework/controller.dart';
-
-enum GradeType { proof, actual, comment, protocol }
 
 String intFixed(int n, int count) => n.toString().padLeft(count, "0");
 
@@ -31,6 +30,7 @@ String intFixed(int n, int count) => n.toString().padLeft(count, "0");
 class Student {
   String studentId;
   int gymId;
+  String? info;
   late String imageId;
   late String name;
   late HomeworkController homework;
@@ -49,7 +49,7 @@ class Student {
   late PlansController plans;
   late TeamsController teams;
   Map<String, Uint8List> images = {};
-  Student(this.studentId, this.gymId) {
+  Student(this.studentId, this.gymId, {this.info}) {
     homework = HomeworkController(this);
     gyms = GymController();
     classes = ClassesController(this);
@@ -75,8 +75,8 @@ class Student {
   /// Returns a [BasicInfo] containing name and pictureId.
   Future<BasicInfo> getBasicInfo() async {
     String profileUrl = buildUrl("SkemaNy.aspx?type=elev&elevid=$studentId");
-    var resp = await Requests.get(profileUrl);
-    BeautifulSoup profileSoup = BeautifulSoup(resp.body);
+    var resp = await lppDio.get(profileUrl);
+    BeautifulSoup profileSoup = BeautifulSoup(resp.data);
     return extractBasicInfo(profileSoup);
   }
 
@@ -86,8 +86,8 @@ class Student {
     return baseUrl + path;
   }
 
-  Future<CookieJar> getCookies() {
-    return Requests.getStoredCookies("www.lectio.dk");
+  Future<List<Cookie>> getCookies() async {
+    return lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
   }
 
   /// Get an external student.
@@ -96,23 +96,20 @@ class Student {
   }
 
   /// Returns an image from an id as a [Uint8List]
-  Future<Uint8List> getImage(String imageId) async {
-    Response response;
-    if (images.containsKey(imageId)) {
-      return images[imageId]!;
-    }
+  DioImage getImage(String imageId, {bool fullsize = false}) {
+    String url;
     if (imageId.startsWith("https")) {
-      response = await Requests.get(imageId);
+      url = imageId;
     } else {
-      response = await Requests.get(
-          buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
+      url = buildUrl(
+          "GetImage.aspx?pictureid=$imageId${fullsize ? "&fullsize=1" : ""}");
     }
-    images.putIfAbsent(imageId, () => response.bodyBytes);
-    return response.bodyBytes;
+    return DioImage.string(url);
   }
 
   Future<Uint8List> getFile(String url) async {
-    var res = await Requests.get(url);
-    return res.bodyBytes;
+    var res = await lppDio.get(url);
+    var list = Uint8List.fromList((res.data as String).codeUnits);
+    return list;
   }
 }

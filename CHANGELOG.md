@@ -290,3 +290,27 @@
 ## 0.4.20
 
 * So in theory, you could login each 30 days with the actual login, and autologin key everyother.
+
+## 0.4.21
+
+* Create messages is kind of unstable, but lets try.
+
+## 0.5.0
+
+* Switched completely to dio
+
+## 0.5.1
+
+* Get image now returns an image provider, which should make it a lot faster.
+
+## 0.5.2
+
+* Image provider adjustments
+
+## 0.5.3
+
+* getImage shouldn't be async
+
+## 0.5.4
+
+* Listing all students also provides their classes now.

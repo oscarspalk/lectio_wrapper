@@ -2,8 +2,8 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/assignments/scraping.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
+import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
-import 'package:requests/requests.dart';
 
 class AssignmentsController {
   final Student student;
@@ -21,7 +21,7 @@ class AssignmentsController {
   Future<Assignment> get(AssignmentRef ref) async {
     String url = student.buildUrl(
         "ElevAflevering.aspx?elevid=${student.studentId}&exerciseid=${ref.id}");
-    var response = await Requests.get(url);
-    return await extractAssignment(BeautifulSoup(response.body), ref, student);
+    var response = await lppDio.get(url);
+    return await extractAssignment(BeautifulSoup(response.data), ref, student);
   }
 }

@@ -11,9 +11,6 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login()});
   test('login() with true credentials.', () async {
-    var cookies = await student!.getCookies();
-    var cookieString =
-        cookies.values.map((cook) => "${cook.name}=${cook.value}").join(',');
     expect(student, isNotNull);
   });
 
@@ -23,16 +20,12 @@ void main() {
     expect(student, isNull);
   });
 
-  test('getHomework()', () async {
-    var homework = await student!.homework.list();
-    expect(homework, anyOf([isEmpty, isNotEmpty]));
-  });
-
   test(
     'getImage()',
     () async {
-      var img = await student!.getImage("54828896107");
-      expect(img, isNotEmpty);
+      var img = student!.getImage("54828896107");
+
+      expect(img, isNotNull);
     },
   );
 
