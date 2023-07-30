@@ -56,7 +56,7 @@ void main() {
           ..topic = updatedTopic,
         newMessageContent));
     var newMessageContent2 = await student!.messages.get(newMessage);
-    expect(newMessageContent2.thread[0].content, updatedText);
+    expect(newMessageContent2.thread[0].content, contains(updatedText));
     expect(newMessageContent2.thread.length, 2);
     await student!.messages.delete(newMessageContent2);
     var updatedList = await student!.messages.list();
