@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/topics/absence/controller.dart';
 import 'package:lectio_wrapper/topics/assignments/controller.dart';
@@ -19,10 +18,9 @@ import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/teams/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
+import 'package:lectio_wrapper/utils/dio_image_provider.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 import 'package:lectio_wrapper/topics/homework/controller.dart';
-
-enum GradeType { proof, actual, comment, protocol }
 
 String intFixed(int n, int count) => n.toString().padLeft(count, "0");
 
@@ -97,20 +95,15 @@ class Student {
   }
 
   /// Returns an image from an id as a [Uint8List]
-  Future<Uint8List> getImage(String imageId) async {
-    Response response;
-    if (images.containsKey(imageId)) {
-      return images[imageId]!;
-    }
+  Future<DioImage> getImage(String imageId, {bool fullsize = false}) async {
+    String url;
     if (imageId.startsWith("https")) {
-      response = await lppDio.get(imageId);
+      url = imageId;
     } else {
-      response = await lppDio
-          .get(buildUrl("GetImage.aspx?pictureid=$imageId&fullsize=1"));
+      url = buildUrl(
+          "GetImage.aspx?pictureid=$imageId&fullsize=${fullsize ? 1 : 0}");
     }
-    var list = Uint8List.fromList((response.data as String).codeUnits);
-    images.putIfAbsent(imageId, () => list);
-    return list;
+    return DioImage.string(url);
   }
 
   Future<Uint8List> getFile(String url) async {

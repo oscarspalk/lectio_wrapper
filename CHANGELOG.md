@@ -298,3 +298,7 @@
 ## 0.5.0
 
 * Switched completely to dio
+
+## 0.5.1
+
+* Get image now returns an image provider, which should make it a lot faster.
