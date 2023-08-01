@@ -8,7 +8,7 @@ void main() {
   Account account =
       Account(int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
   Student? student;
-  setUp(() async => {student = await account.login()});
+  setUp(() async => {student = await account.login(autologin: false)});
 
   test('list students', () async {
     var metaData = await student!.meta.get();

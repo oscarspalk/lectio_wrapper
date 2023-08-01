@@ -10,7 +10,7 @@ void main() {
   Account account =
       Account(int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
   Student? student;
-  setUp(() async => {student = await account.login()});
+  setUp(() async => {student = await account.login(autologin: false)});
 
   test('test message crud flow', () async {
     var messages = await student!.messages.list();

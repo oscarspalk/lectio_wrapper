@@ -2,7 +2,6 @@ import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/gyms/controller.dart';
-import 'package:lectio_wrapper/utils/dio_client.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -10,18 +9,14 @@ void main() {
   Account account =
       Account(int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
   Student? student;
-  setUp(() async => {student = await account.login()});
+  setUp(() async => {student = await account.login(autologin: false)});
   test('login() with true credentials.', () async {
-    var cookies =
-        await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
-    var cookieString =
-        cookies.map((cookie) => "${cookie.name}=${cookie.value}").join(',');
     expect(student, isNotNull);
   });
 
   test('login() with false credentials.', () async {
     Account fakeAccount = Account(account.gymId, "none", "lol");
-    Student? student = await fakeAccount.login();
+    Student? student = await fakeAccount.login(autologin: false);
     expect(student, isNull);
   });
 

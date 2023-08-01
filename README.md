@@ -2,7 +2,7 @@ A client wrapper for the popular Lectio app, mostly used by danish students.
 > This library is being developed, which means it isn't fully stable and needs a lot of refactoring. Things are bound to change.
 
 ## Usage
-Login by making an ``Account`` object, and calling ``.login()``, which returns a ``Student`` object. Student object has listed features to call:
+Login by making an ``Account`` object, and calling ``.login(autologin:false)``, which returns a ``Student`` object. Student object has listed features to call:
 
 | Feature             | Implementation |
 |---------------------|----------------|

@@ -5,7 +5,7 @@
 
 ## 0.0.2
 
-* `Account.login()` method which returns `Student` object.
+* `Account.login(autologin:false)` method which returns `Student` object.
 * Fetch your assignments
 * Fetch your messages (without the content)
 * Fetch your calendar
@@ -319,3 +319,7 @@
 
 * Listing students as a stream, which will make the delay 2 seconds
 * Autologin key expires after 30 days instead of 2 hours.
+
+## 0.5.6
+
+* Ability to list terms, and switch between them.

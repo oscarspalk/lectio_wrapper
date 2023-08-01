@@ -16,6 +16,7 @@ import 'package:lectio_wrapper/topics/plans/controller.dart';
 import 'package:lectio_wrapper/topics/rooms/controller.dart';
 import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/teams/controller.dart';
+import 'package:lectio_wrapper/topics/terms/controller.dart';
 import 'package:lectio_wrapper/topics/weeks/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/dio_image_provider.dart';
@@ -48,6 +49,7 @@ class Student {
   late RoomsController rooms;
   late PlansController plans;
   late TeamsController teams;
+  late TermsController terms;
   Map<String, Uint8List> images = {};
   Student(this.studentId, this.gymId, {this.info}) {
     homework = HomeworkController(this);
@@ -65,6 +67,7 @@ class Student {
     rooms = RoomsController(this);
     plans = PlansController(this);
     teams = TeamsController(this);
+    terms = TermsController(this);
   }
 
   void setBasicInfo(BasicInfo basicInfo) {

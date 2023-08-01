@@ -36,7 +36,7 @@ class Account {
     return student;
   }
 
-  Future<Student?> login() async {
+  Future<Student?> login({bool autologin = true}) async {
     try {
       String forsideUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
       String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
@@ -47,7 +47,7 @@ class Account {
 
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
-      extracted[r'm$Content$AutologinCbx'] = "on";
+      if (autologin) extracted[r'm$Content$AutologinCbx'] = "on";
       await lppDio
           .post(loginUrl,
               data: extracted,
