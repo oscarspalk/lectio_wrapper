@@ -323,3 +323,7 @@
 ## 0.5.6
 
 * Ability to list terms, and switch between them.
+
+## 0.5.7
+
+* Fetches all teachers too, and you can get their calendar

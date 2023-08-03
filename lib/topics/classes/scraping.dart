@@ -45,9 +45,19 @@ List<Student> extractStudents(BeautifulSoup soup, int gymId,
         student.children[2 + offset].children[0].children[0];
     Bs4Element lastNameElement = student.children[3 + offset].children[0];
     String? href = firstNameElement.attributes['href'];
+    bool teacher = false;
     String? pictureSrc = imageElement.attributes['src'];
     if (href != null && pictureSrc != null) {
-      String? id = queriesFromSoup(href)['elevid'];
+      var querySoup = queriesFromSoup(href);
+      String? elevId = querySoup['elevid'];
+      String? teacherId = querySoup['laererid'];
+      String? id;
+      if (elevId != null) {
+        id = elevId;
+      } else if (teacherId != null) {
+        id = teacherId;
+        teacher = true;
+      }
       String? pictureId;
       if (pictureSrc.contains("default")) {
         pictureId = "https://www.lectio.dk/lectio/img/defaultfoto_large.jpg";
@@ -55,7 +65,7 @@ List<Student> extractStudents(BeautifulSoup soup, int gymId,
         pictureId = queriesFromSoup(pictureSrc)['pictureid'];
       }
       if (id != null && pictureId != null) {
-        Student student = Student(id, gymId, info: info);
+        Student student = Student(id, gymId, info: info, teacher: teacher);
         student.imageId = pictureId;
         student.name = "${firstNameElement.text} ${lastNameElement.text}";
         students.add(student);

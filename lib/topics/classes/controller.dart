@@ -18,7 +18,7 @@ class ClassesController {
 
   Future<Class> get(ClassRef ref, {bool group = false}) async {
     String url = student.buildUrl(
-        "subnav/members.aspx?${group ? "holdelementid" : "klasseid"}=${ref.id}&showstudents=1${group ? "&showteachers=1" : ""} ");
+        "subnav/members.aspx?${group ? "holdelementid" : "klasseid"}=${ref.id}&showstudents=1${group ? "&showteachers=1" : ""}");
     var soup = await lppDio.get(url);
     List<Student> students =
         extractStudents(BeautifulSoup(soup.data), student.gymId, group: group);
