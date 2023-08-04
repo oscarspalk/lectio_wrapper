@@ -331,3 +331,7 @@
 ## 0.5.8
 
 * File fetching worked a bit odd
+
+## 0.5.9
+
+* Finally been able to update homework functions, now they can fetch text etc. in a good way.

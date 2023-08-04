@@ -1,8 +1,8 @@
-import 'package:lectio_wrapper/types/homework/detail.dart';
+import 'package:lectio_wrapper/lectio_wrapper.dart';
 
 class Homework {
   DateTime dato;
-  String activity;
+  CalendarEvent activity;
   String note;
   List<Detail> homework;
   String classLink;
