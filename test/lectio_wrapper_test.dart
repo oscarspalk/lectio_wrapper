@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
@@ -40,6 +42,8 @@ void main() {
   test('getFile()', () async {
     var file = await student!.getFile(
         "https://www.lectio.dk/lectio/256/lc/60231186938/res/60231186939/RetteGuide%20Afleveringer%201g.docx%202.docx");
+    File lFile = File("/Users/oscar/dev/lectio_wrapper/out/file.docx");
+    await lFile.writeAsBytes(file);
     expect(file, isNotEmpty);
   });
 

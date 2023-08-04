@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/topics/absence/controller.dart';
 import 'package:lectio_wrapper/topics/assignments/controller.dart';
@@ -112,8 +113,10 @@ class Student {
   }
 
   Future<Uint8List> getFile(String url) async {
-    var res = await lppDio.get(url);
-    var list = Uint8List.fromList((res.data as String).codeUnits);
-    return list;
+    var res = await lppDio.get(url,
+        options: Options(responseType: ResponseType.bytes));
+    var list = res.data;
+    if (list != null) return list;
+    return Uint8List.fromList([]);
   }
 }

@@ -327,3 +327,7 @@
 ## 0.5.7
 
 * Fetches all teachers too, and you can get their calendar
+
+## 0.5.8
+
+* File fetching worked a bit odd
