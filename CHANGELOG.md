@@ -339,3 +339,7 @@
 ## 0.5.10
 
 * Added info to each klasse member, so they don't look empty
+
+## 0.5.11
+
+* This should only apply to classes
