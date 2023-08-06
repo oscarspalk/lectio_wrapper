@@ -335,3 +335,7 @@
 ## 0.5.9
 
 * Finally been able to update homework functions, now they can fetch text etc. in a good way.
+
+## 0.5.10
+
+* Added info to each klasse member, so they don't look empty

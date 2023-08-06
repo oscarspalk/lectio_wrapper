@@ -22,6 +22,12 @@ class ClassesController {
     var soup = await lppDio.get(url);
     List<Student> students =
         extractStudents(BeautifulSoup(soup.data), student.gymId, group: group);
-    return Class(id: ref.id, name: ref.name, students: students);
+    return Class(
+        id: ref.id,
+        name: ref.name,
+        students: students
+          ..forEach((element) {
+            element.info = ref.name;
+          }));
   }
 }
