@@ -105,6 +105,8 @@ class Student {
     String url;
     if (imageId.startsWith("https")) {
       url = imageId;
+    } else if (imageId.contains("/")) {
+      url = "https://www.lectio.dk${imageId}";
     } else {
       url = buildUrl(
           "GetImage.aspx?pictureid=$imageId${fullsize ? "&fullsize=1" : ""}");

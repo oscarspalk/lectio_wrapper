@@ -26,8 +26,10 @@ void main() {
     'getImage()',
     () async {
       var img = student!.getImage("54828896107");
-
+      var img2 = student!.getImage(
+          "/lectio/256/lc/61126635686/res/61126635687/mandarin-jokes.jpg");
       expect(img, isNotNull);
+      expect(img2, isNotNull);
     },
   );
 

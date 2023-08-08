@@ -347,3 +347,7 @@
 ## 0.5.12
 
 * Added a wide variety of contents, which means content should be displayed nicely now.
+
+## 0.5.13
+
+* Get image supports not only ids and full links.
