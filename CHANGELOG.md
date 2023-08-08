@@ -351,3 +351,7 @@
 ## 0.5.13
 
 * Get image supports not only ids and full links.
+
+## 0.5.14
+
+* Improvement with content parsing.

@@ -106,32 +106,42 @@ List<Content> extractHomeworkArticle(Bs4Element element) {
   }
   List<Bs4Element> children = element.children;
   for (var child in children) {
+    var restText = editedText(child.text, child.children);
+    var newChildren = extractHomeworkArticle(child);
     switch (child.name) {
       case "h1":
-        if (child.text.isNotEmpty) {
-          contents.add(Header(child.text, extractHomeworkArticle(child)));
+        if (restText.isNotEmpty) {
+          contents.add(Header(restText, newChildren));
         } else {
-          contents.addAll(extractHomeworkArticle(child));
+          contents.addAll(newChildren);
         }
         break;
       case "img":
         String? maybeSrc = child.getAttrValue("src");
         if (maybeSrc != null) {
-          contents.add(Image(maybeSrc, extractHomeworkArticle(child)));
+          contents.add(Image(maybeSrc, newChildren));
         }
         break;
       case "a":
         String? maybeHref = child.getAttrValue("href");
         if (maybeHref != null) {
-          contents
-              .add(Link(child.text, maybeHref, extractHomeworkArticle(child)));
+          contents.add(Link(child.text, maybeHref, newChildren));
         }
         break;
       default:
-        if (child.text.trim().isNotEmpty) {
-          contents.add(Paragraph(child.text, extractHomeworkArticle(child)));
+        if (restText.isNotEmpty) {
+          contents.add(Paragraph(child.text, newChildren));
+        } else {
+          contents.addAll(newChildren);
         }
     }
   }
   return contents;
+}
+
+String editedText(String startString, List<Bs4Element> children) {
+  for (var child in children) {
+    startString = startString.replaceAll(child.text, "");
+  }
+  return startString.trim();
 }

@@ -12,7 +12,7 @@ void main() {
   setUp(() async => {student = await account.login(autologin: false)});
 
   test('list assignments', () async {
-    var assignments = await student!.assignments.list(2022);
+    var assignments = await student!.assignments.list();
     expect(assignments, isNotEmpty);
   });
 
