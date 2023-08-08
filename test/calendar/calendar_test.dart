@@ -13,8 +13,6 @@ void main() {
 
   test('list weeks', () async {
     var calendar = await student!.weeks.get(2023, 33);
-    var student1 = Student("1490258597", 256, teacher: true);
-    var week = await student1.weeks.get(2023, 33);
     expect(calendar.days, isNotEmpty);
   });
 
@@ -26,7 +24,7 @@ void main() {
         team: "",
         teacher: "",
         room: "",
-        id: "56314063041",
+        id: "60579254160",
         note: "",
         start: DateTime.now(),
         end: DateTime.now()));

@@ -100,32 +100,38 @@ RegularCalendarEventDetails extractRegularEventDetails(BeautifulSoup soup) {
 }
 
 List<Content> extractHomeworkArticle(Bs4Element element) {
-  var contentHeader = element.children[0];
-  var links = element.findAll('a');
-  var children = element.children;
-  if (links.isNotEmpty) {
-    String text = element.text;
-    List<Content> contents = [];
-    for (var child in children) {
-      if (child.a != null) {
-        var link = child.find('a');
-        if (link != null) {
-          var linkText = link.text;
-          text.replaceAll(linkText, '');
-          var linkHref = link.getAttrValue('href')!;
-          contents.add(Content(linkText.trim(), href: linkHref));
-        }
-      } else if (child.name == "blockquote") {
-        contents.last.note = child.text;
-      }
-    }
+  List<Content> contents = [];
+  if (element.children.isEmpty) {
     return contents;
-  } else {
-    String note = "";
-    var childrenClone = element.children..removeAt(0);
-    for (var child in childrenClone) {
-      note = "$note\n${child.text}";
-    }
-    return [Content(contentHeader.text, note: note.trim())];
   }
+  List<Bs4Element> children = element.children;
+  for (var child in children) {
+    switch (child.name) {
+      case "h1":
+        if (child.text.isNotEmpty) {
+          contents.add(Header(child.text, extractHomeworkArticle(child)));
+        } else {
+          contents.addAll(extractHomeworkArticle(child));
+        }
+        break;
+      case "img":
+        String? maybeSrc = child.getAttrValue("src");
+        if (maybeSrc != null) {
+          contents.add(Image(maybeSrc, extractHomeworkArticle(child)));
+        }
+        break;
+      case "a":
+        String? maybeHref = child.getAttrValue("href");
+        if (maybeHref != null) {
+          contents
+              .add(Link(child.text, maybeHref, extractHomeworkArticle(child)));
+        }
+        break;
+      default:
+        if (child.text.trim().isNotEmpty) {
+          contents.add(Paragraph(child.text, extractHomeworkArticle(child)));
+        }
+    }
+  }
+  return contents;
 }

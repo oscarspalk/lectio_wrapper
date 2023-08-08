@@ -343,3 +343,7 @@
 ## 0.5.11
 
 * This should only apply to classes
+
+## 0.5.12
+
+* Added a wide variety of contents, which means content should be displayed nicely now.

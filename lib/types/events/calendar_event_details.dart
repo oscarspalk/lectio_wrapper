@@ -15,10 +15,29 @@ class PrivateCalendarEventDetails extends CalendarEventDetails {
 }
 
 class Content {
-  String? href;
-  String content;
-  String? note;
-  Content(this.content, {this.href, this.note});
+  List<Content> children;
+  Content(this.children);
+}
+
+class Link extends Content {
+  String text;
+  String href;
+  Link(this.text, this.href, super.children);
+}
+
+class Header extends Content {
+  String text;
+  Header(this.text, super.children);
+}
+
+class Image extends Content {
+  String src;
+  Image(this.src, super.children);
+}
+
+class Paragraph extends Content {
+  String text;
+  Paragraph(this.text, super.children);
 }
 
 class TestCalendarEventDetails extends CalendarEventDetails {

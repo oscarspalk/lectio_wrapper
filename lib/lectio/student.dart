@@ -112,9 +112,13 @@ class Student {
     return DioImage.string(url);
   }
 
-  Future<Uint8List> getFile(String url) async {
+  Future<Uint8List> getFile(String url,
+      {void Function(int x, int? x1)? onReceiveProgress}) async {
     var res = await lppDio.get(url,
-        options: Options(responseType: ResponseType.bytes));
+        options: Options(
+          responseType: ResponseType.bytes,
+        ),
+        onReceiveProgress: onReceiveProgress);
     var list = res.data;
     if (list != null) return list;
     return Uint8List.fromList([]);
