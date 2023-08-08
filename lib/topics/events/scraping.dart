@@ -88,7 +88,7 @@ RegularCalendarEventDetails extractRegularEventDetails(BeautifulSoup soup) {
   if (contentContainer != null && contentContainer.children.isNotEmpty) {
     if (contentContainer.children[0].text ==
         "Aktiviteten har ikke noget indhold.") {
-      return RegularCalendarEventDetails([], note);
+      return RegularCalendarEventDetails(note, "");
     }
     List<Bs4Element> homework = contentContainer.findAll("article");
     for (var homeworkPiece in homework) {
@@ -96,7 +96,10 @@ RegularCalendarEventDetails extractRegularEventDetails(BeautifulSoup soup) {
     }
   }
 
-  return RegularCalendarEventDetails(contents, note);
+  var content =
+      soup.find('*', id: 's_m_Content_Content_tocAndToolbar_inlineHomeworkDiv');
+
+  return RegularCalendarEventDetails(note, content?.innerHtml ?? "");
 }
 
 List<Content> extractHomeworkArticle(Bs4Element element) {

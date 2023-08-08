@@ -1,9 +1,10 @@
 class CalendarEventDetails {}
 
 class RegularCalendarEventDetails extends CalendarEventDetails {
-  RegularCalendarEventDetails(this.content, this.note);
+  RegularCalendarEventDetails(this.note, this.htmlContent);
   String? note;
-  List<Content> content;
+  String htmlContent;
+  //List<Content> content;
 }
 
 class PrivateCalendarEventDetails extends CalendarEventDetails {

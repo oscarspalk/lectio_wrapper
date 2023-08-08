@@ -355,3 +355,7 @@
 ## 0.5.14
 
 * Improvement with content parsing.
+
+## 0.5.15
+
+* Added html content string, if needed
