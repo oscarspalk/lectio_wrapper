@@ -4,8 +4,7 @@ class Homework {
   DateTime dato;
   CalendarEvent activity;
   String note;
-  List<Detail> homework;
   String classLink;
-
-  Homework(this.activity, this.classLink, this.dato, this.homework, this.note);
+  int module;
+  Homework(this.activity, this.classLink, this.dato, this.note, this.module);
 }

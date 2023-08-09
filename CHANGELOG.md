@@ -359,3 +359,7 @@
 ## 0.5.15
 
 * Added html content string, if needed
+
+## 0.5.16
+
+* Added module annotation for homework.
