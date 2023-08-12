@@ -13,8 +13,16 @@ TeamContext extractTeamContext(BeautifulSoup soup, String rootId) {
 StudentContext extractStudentContext(BeautifulSoup soup, String rootId) {
   Bs4Element imageElement =
       soup.find('*', id: 'ctl00_Content_ImageCtrlthumbimage')!;
+  Bs4Element? titleElement = soup.find('*', id: 'ctl00_Content_cctitle');
   String id = queriesFromSoup(imageElement.getAttrValue("src")!)['pictureid']!;
-  return StudentContext(id, rootId);
+  String name = "";
+  if (titleElement != null) {
+    List<String> typeAndName = titleElement.text.split("-");
+    if (typeAndName.length == 2) {
+      name = typeAndName[1].trim();
+    }
+  }
+  return StudentContext(id, rootId, name);
 }
 
 GroupContext extractGroupContext(BeautifulSoup soup) {

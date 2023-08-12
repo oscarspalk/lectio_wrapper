@@ -372,3 +372,7 @@
 ## 0.5.18
 
 * Teacher context is a student context
+
+## 0.5.19
+
+* Names can also be extracted from student context
