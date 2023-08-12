@@ -21,11 +21,13 @@ void main() {
     const testUpdatedContent = "Smager godt og bedre";
     Duration newOffset = const Duration(hours: 1, minutes: 30);
     var calendarEvent = CalendarEvent(
+        teacherObjs: [],
+        teamObjs: [],
         type: CalendarEventType.private,
         status: "",
         title: testTitle,
         team: "",
-        teacher: "",
+        teachers: [""],
         room: "",
         id: "",
         note: testContent,

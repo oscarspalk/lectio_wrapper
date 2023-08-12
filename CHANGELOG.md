@@ -363,3 +363,8 @@
 ## 0.5.16
 
 * Added module annotation for homework.
+
+## 0.5.17
+
+* Week events include teacher objects with ids and team objects with ids
+* Week object includes modul ranges, so it is possible to split events into modules

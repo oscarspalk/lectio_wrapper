@@ -1,5 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:intl/intl.dart';
+import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
@@ -9,6 +10,7 @@ RegExp timePattern = RegExp(r"\d{2}:\d{2}");
 RegExp modulTimePattern = RegExp(r"\d{1,2}\/\d{1,2}");
 
 Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
+  List<ModulRange> modulRanges = [];
   List<Day> days = [];
   var calendarSoup = soup.find("tbody")!;
   var titleSoup = calendarSoup.find("td", selector: "tr.s2dayHeader")!.children;
@@ -33,7 +35,7 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
 
   var calendarDays =
       calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
-  calendarDays.removeAt(0).decompose();
+  Bs4Element modulRangesColumn = calendarDays.removeAt(0);
 
   for (int i = 0; i < calendarDays.length; i++) {
     var day = calendarDays[i];
@@ -57,7 +59,24 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
         events: dayEvents,
         date: dayTime));
   }
-  return Week(days: days, weekNum: weekNum);
+
+  List<Bs4Element> modulRangeContainers =
+      modulRangesColumn.findAll('*', class_: 's2module-info');
+  for (var modulRangeContainer in modulRangeContainers) {
+    List<String> modulAndTimes = modulRangeContainer.text.split(". modul");
+    if (modulAndTimes.length == 2) {
+      int? modulNumber = int.tryParse(modulAndTimes[0]);
+      List<String> times = modulAndTimes[1].split("-");
+      DayTime? start = dayTimeFromString(times[0]);
+      DayTime? end = dayTimeFromString(times[1]);
+      if (modulNumber != null && start != null && end != null) {
+        modulRanges
+            .add(ModulRange(number: modulNumber, start: start, end: end));
+      }
+    }
+  }
+
+  return Week(days: days, weekNum: weekNum, modulRanges: modulRanges);
 }
 
 CalendarEvent extractModul(Bs4Element element) {
@@ -72,12 +91,13 @@ CalendarEvent extractModul(Bs4Element element) {
     type = CalendarEventType.private;
     id = queriesFromSoup(element.getAttrValue('href') ?? "")['aftaleid'];
   }
+
   String title = "";
   DateTime start = DateTime.now();
   DateTime end = DateTime.now();
   String team = "";
   String room = "";
-  String teacher = "";
+  List<String> teacher = [];
   String note = "";
   List<String> pieceInformation =
       element.getAttrValue('data-additionalinfo')!.split("\n");
@@ -113,7 +133,10 @@ CalendarEvent extractModul(Bs4Element element) {
           team = data[1].trim();
           break;
         case "Lærer":
-          teacher = data[1].trim();
+          teacher = extractTeachers(data[1]);
+          break;
+        case "Lærere":
+          teacher = extractTeachers(data[1]);
           break;
         case "Lokale":
           room = data[1].trim();
@@ -127,15 +150,51 @@ CalendarEvent extractModul(Bs4Element element) {
       }
     }
   }
+  List<MetaDataEntry> teacherObjs = [];
+  List<MetaDataEntry> teamObjs = [];
+  Bs4Element? skemaContent = element.find('*', class_: 's2skemabrikcontent');
+  if (skemaContent != null) {
+    List<Bs4Element> dataSpans = skemaContent.findAll('span');
+    for (var dataSpan in dataSpans) {
+      var contextId = dataSpan.getAttrValue("data-lectiocontextcard");
+      if (contextId != null) {
+        var entry = MetaDataEntry(id: contextId, name: dataSpan.text);
+        if (contextId.startsWith("T")) {
+          teacherObjs.add(entry);
+        }
+        if (contextId.startsWith("HE")) {
+          teamObjs.add(entry);
+        }
+      }
+    }
+  }
   return CalendarEvent(
       status: status,
       title: title,
       team: team,
-      teacher: teacher,
+      teachers: teacher,
       room: room,
       id: id!,
       start: start,
       end: end,
       type: type,
-      note: note);
+      note: note,
+      teacherObjs: teacherObjs,
+      teamObjs: teamObjs);
+}
+
+List<String> extractTeachers(String text) {
+  return text.trim().split(",");
+}
+
+DayTime? dayTimeFromString(String time) {
+  List<String> hM = time.split(":");
+  if (hM.length != 2) {
+    return null;
+  }
+  int? hour = int.tryParse(hM[0]);
+  int? minute = int.tryParse(hM[1]);
+  return hour != null && minute != null
+      ? DayTime(hour: hour, minute: minute)
+      : null;
 }

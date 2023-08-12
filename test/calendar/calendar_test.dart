@@ -18,11 +18,13 @@ void main() {
 
   test('getCalendarEventDetails', () async {
     var item = await student!.events.expand(CalendarEvent(
+        teacherObjs: [],
+        teamObjs: [],
         type: CalendarEventType.regular,
         status: "Aflyst",
         title: "",
         team: "",
-        teacher: "",
+        teachers: [""],
         room: "",
         id: "60579254160",
         note: "",

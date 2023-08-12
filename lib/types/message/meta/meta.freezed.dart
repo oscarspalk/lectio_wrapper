@@ -14,12 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+MetaDataEntry _$MetaDataEntryFromJson(Map<String, dynamic> json) {
+  return _MetaDataEntry.fromJson(json);
+}
+
 /// @nodoc
 mixin _$MetaDataEntry {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get classOrInitials => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $MetaDataEntryCopyWith<MetaDataEntry> get copyWith =>
       throw _privateConstructorUsedError;
@@ -112,10 +117,13 @@ class __$$_MetaDataEntryCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_MetaDataEntry implements _MetaDataEntry {
   _$_MetaDataEntry(
       {required this.id, required this.name, this.classOrInitials});
+
+  factory _$_MetaDataEntry.fromJson(Map<String, dynamic> json) =>
+      _$$_MetaDataEntryFromJson(json);
 
   @override
   final String id;
@@ -140,6 +148,7 @@ class _$_MetaDataEntry implements _MetaDataEntry {
                 other.classOrInitials == classOrInitials));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, classOrInitials);
 
@@ -148,6 +157,13 @@ class _$_MetaDataEntry implements _MetaDataEntry {
   @pragma('vm:prefer-inline')
   _$$_MetaDataEntryCopyWith<_$_MetaDataEntry> get copyWith =>
       __$$_MetaDataEntryCopyWithImpl<_$_MetaDataEntry>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MetaDataEntryToJson(
+      this,
+    );
+  }
 }
 
 abstract class _MetaDataEntry implements MetaDataEntry {
@@ -155,6 +171,9 @@ abstract class _MetaDataEntry implements MetaDataEntry {
       {required final String id,
       required final String name,
       final String? classOrInitials}) = _$_MetaDataEntry;
+
+  factory _MetaDataEntry.fromJson(Map<String, dynamic> json) =
+      _$_MetaDataEntry.fromJson;
 
   @override
   String get id;

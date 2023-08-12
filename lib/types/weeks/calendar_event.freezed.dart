@@ -14,6 +14,349 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+DayTime _$DayTimeFromJson(Map<String, dynamic> json) {
+  return _DayTime.fromJson(json);
+}
+
+/// @nodoc
+mixin _$DayTime {
+  int get hour => throw _privateConstructorUsedError;
+  int get minute => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $DayTimeCopyWith<DayTime> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DayTimeCopyWith<$Res> {
+  factory $DayTimeCopyWith(DayTime value, $Res Function(DayTime) then) =
+      _$DayTimeCopyWithImpl<$Res, DayTime>;
+  @useResult
+  $Res call({int hour, int minute});
+}
+
+/// @nodoc
+class _$DayTimeCopyWithImpl<$Res, $Val extends DayTime>
+    implements $DayTimeCopyWith<$Res> {
+  _$DayTimeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hour = null,
+    Object? minute = null,
+  }) {
+    return _then(_value.copyWith(
+      hour: null == hour
+          ? _value.hour
+          : hour // ignore: cast_nullable_to_non_nullable
+              as int,
+      minute: null == minute
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_DayTimeCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
+  factory _$$_DayTimeCopyWith(
+          _$_DayTime value, $Res Function(_$_DayTime) then) =
+      __$$_DayTimeCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int hour, int minute});
+}
+
+/// @nodoc
+class __$$_DayTimeCopyWithImpl<$Res>
+    extends _$DayTimeCopyWithImpl<$Res, _$_DayTime>
+    implements _$$_DayTimeCopyWith<$Res> {
+  __$$_DayTimeCopyWithImpl(_$_DayTime _value, $Res Function(_$_DayTime) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hour = null,
+    Object? minute = null,
+  }) {
+    return _then(_$_DayTime(
+      hour: null == hour
+          ? _value.hour
+          : hour // ignore: cast_nullable_to_non_nullable
+              as int,
+      minute: null == minute
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_DayTime implements _DayTime {
+  _$_DayTime({required this.hour, required this.minute});
+
+  factory _$_DayTime.fromJson(Map<String, dynamic> json) =>
+      _$$_DayTimeFromJson(json);
+
+  @override
+  final int hour;
+  @override
+  final int minute;
+
+  @override
+  String toString() {
+    return 'DayTime(hour: $hour, minute: $minute)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DayTime &&
+            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.minute, minute) || other.minute == minute));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, hour, minute);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
+      __$$_DayTimeCopyWithImpl<_$_DayTime>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_DayTimeToJson(
+      this,
+    );
+  }
+}
+
+abstract class _DayTime implements DayTime {
+  factory _DayTime({required final int hour, required final int minute}) =
+      _$_DayTime;
+
+  factory _DayTime.fromJson(Map<String, dynamic> json) = _$_DayTime.fromJson;
+
+  @override
+  int get hour;
+  @override
+  int get minute;
+  @override
+  @JsonKey(ignore: true)
+  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ModulRange _$ModulRangeFromJson(Map<String, dynamic> json) {
+  return _ModulRange.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ModulRange {
+  int get number => throw _privateConstructorUsedError;
+  DayTime get start => throw _privateConstructorUsedError;
+  DayTime get end => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ModulRangeCopyWith<ModulRange> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ModulRangeCopyWith<$Res> {
+  factory $ModulRangeCopyWith(
+          ModulRange value, $Res Function(ModulRange) then) =
+      _$ModulRangeCopyWithImpl<$Res, ModulRange>;
+  @useResult
+  $Res call({int number, DayTime start, DayTime end});
+
+  $DayTimeCopyWith<$Res> get start;
+  $DayTimeCopyWith<$Res> get end;
+}
+
+/// @nodoc
+class _$ModulRangeCopyWithImpl<$Res, $Val extends ModulRange>
+    implements $ModulRangeCopyWith<$Res> {
+  _$ModulRangeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? number = null,
+    Object? start = null,
+    Object? end = null,
+  }) {
+    return _then(_value.copyWith(
+      number: null == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as int,
+      start: null == start
+          ? _value.start
+          : start // ignore: cast_nullable_to_non_nullable
+              as DayTime,
+      end: null == end
+          ? _value.end
+          : end // ignore: cast_nullable_to_non_nullable
+              as DayTime,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DayTimeCopyWith<$Res> get start {
+    return $DayTimeCopyWith<$Res>(_value.start, (value) {
+      return _then(_value.copyWith(start: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DayTimeCopyWith<$Res> get end {
+    return $DayTimeCopyWith<$Res>(_value.end, (value) {
+      return _then(_value.copyWith(end: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_ModulRangeCopyWith<$Res>
+    implements $ModulRangeCopyWith<$Res> {
+  factory _$$_ModulRangeCopyWith(
+          _$_ModulRange value, $Res Function(_$_ModulRange) then) =
+      __$$_ModulRangeCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int number, DayTime start, DayTime end});
+
+  @override
+  $DayTimeCopyWith<$Res> get start;
+  @override
+  $DayTimeCopyWith<$Res> get end;
+}
+
+/// @nodoc
+class __$$_ModulRangeCopyWithImpl<$Res>
+    extends _$ModulRangeCopyWithImpl<$Res, _$_ModulRange>
+    implements _$$_ModulRangeCopyWith<$Res> {
+  __$$_ModulRangeCopyWithImpl(
+      _$_ModulRange _value, $Res Function(_$_ModulRange) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? number = null,
+    Object? start = null,
+    Object? end = null,
+  }) {
+    return _then(_$_ModulRange(
+      number: null == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as int,
+      start: null == start
+          ? _value.start
+          : start // ignore: cast_nullable_to_non_nullable
+              as DayTime,
+      end: null == end
+          ? _value.end
+          : end // ignore: cast_nullable_to_non_nullable
+              as DayTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ModulRange implements _ModulRange {
+  _$_ModulRange({required this.number, required this.start, required this.end});
+
+  factory _$_ModulRange.fromJson(Map<String, dynamic> json) =>
+      _$$_ModulRangeFromJson(json);
+
+  @override
+  final int number;
+  @override
+  final DayTime start;
+  @override
+  final DayTime end;
+
+  @override
+  String toString() {
+    return 'ModulRange(number: $number, start: $start, end: $end)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ModulRange &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.start, start) || other.start == start) &&
+            (identical(other.end, end) || other.end == end));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, number, start, end);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ModulRangeCopyWith<_$_ModulRange> get copyWith =>
+      __$$_ModulRangeCopyWithImpl<_$_ModulRange>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ModulRangeToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ModulRange implements ModulRange {
+  factory _ModulRange(
+      {required final int number,
+      required final DayTime start,
+      required final DayTime end}) = _$_ModulRange;
+
+  factory _ModulRange.fromJson(Map<String, dynamic> json) =
+      _$_ModulRange.fromJson;
+
+  @override
+  int get number;
+  @override
+  DayTime get start;
+  @override
+  DayTime get end;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ModulRangeCopyWith<_$_ModulRange> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Week _$WeekFromJson(Map<String, dynamic> json) {
   return _Week.fromJson(json);
 }
@@ -22,6 +365,7 @@ Week _$WeekFromJson(Map<String, dynamic> json) {
 mixin _$Week {
   List<Day> get days => throw _privateConstructorUsedError;
   int get weekNum => throw _privateConstructorUsedError;
+  List<ModulRange> get modulRanges => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +377,7 @@ abstract class $WeekCopyWith<$Res> {
   factory $WeekCopyWith(Week value, $Res Function(Week) then) =
       _$WeekCopyWithImpl<$Res, Week>;
   @useResult
-  $Res call({List<Day> days, int weekNum});
+  $Res call({List<Day> days, int weekNum, List<ModulRange> modulRanges});
 }
 
 /// @nodoc
@@ -51,6 +395,7 @@ class _$WeekCopyWithImpl<$Res, $Val extends Week>
   $Res call({
     Object? days = null,
     Object? weekNum = null,
+    Object? modulRanges = null,
   }) {
     return _then(_value.copyWith(
       days: null == days
@@ -61,6 +406,10 @@ class _$WeekCopyWithImpl<$Res, $Val extends Week>
           ? _value.weekNum
           : weekNum // ignore: cast_nullable_to_non_nullable
               as int,
+      modulRanges: null == modulRanges
+          ? _value.modulRanges
+          : modulRanges // ignore: cast_nullable_to_non_nullable
+              as List<ModulRange>,
     ) as $Val);
   }
 }
@@ -71,7 +420,7 @@ abstract class _$$_WeekCopyWith<$Res> implements $WeekCopyWith<$Res> {
       __$$_WeekCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Day> days, int weekNum});
+  $Res call({List<Day> days, int weekNum, List<ModulRange> modulRanges});
 }
 
 /// @nodoc
@@ -85,6 +434,7 @@ class __$$_WeekCopyWithImpl<$Res> extends _$WeekCopyWithImpl<$Res, _$_Week>
   $Res call({
     Object? days = null,
     Object? weekNum = null,
+    Object? modulRanges = null,
   }) {
     return _then(_$_Week(
       days: null == days
@@ -95,6 +445,10 @@ class __$$_WeekCopyWithImpl<$Res> extends _$WeekCopyWithImpl<$Res, _$_Week>
           ? _value.weekNum
           : weekNum // ignore: cast_nullable_to_non_nullable
               as int,
+      modulRanges: null == modulRanges
+          ? _value._modulRanges
+          : modulRanges // ignore: cast_nullable_to_non_nullable
+              as List<ModulRange>,
     ));
   }
 }
@@ -102,8 +456,12 @@ class __$$_WeekCopyWithImpl<$Res> extends _$WeekCopyWithImpl<$Res, _$_Week>
 /// @nodoc
 @JsonSerializable()
 class _$_Week implements _Week {
-  _$_Week({required final List<Day> days, required this.weekNum})
-      : _days = days;
+  _$_Week(
+      {required final List<Day> days,
+      required this.weekNum,
+      required final List<ModulRange> modulRanges})
+      : _days = days,
+        _modulRanges = modulRanges;
 
   factory _$_Week.fromJson(Map<String, dynamic> json) => _$$_WeekFromJson(json);
 
@@ -117,10 +475,17 @@ class _$_Week implements _Week {
 
   @override
   final int weekNum;
+  final List<ModulRange> _modulRanges;
+  @override
+  List<ModulRange> get modulRanges {
+    if (_modulRanges is EqualUnmodifiableListView) return _modulRanges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_modulRanges);
+  }
 
   @override
   String toString() {
-    return 'Week(days: $days, weekNum: $weekNum)';
+    return 'Week(days: $days, weekNum: $weekNum, modulRanges: $modulRanges)';
   }
 
   @override
@@ -129,13 +494,18 @@ class _$_Week implements _Week {
         (other.runtimeType == runtimeType &&
             other is _$_Week &&
             const DeepCollectionEquality().equals(other._days, _days) &&
-            (identical(other.weekNum, weekNum) || other.weekNum == weekNum));
+            (identical(other.weekNum, weekNum) || other.weekNum == weekNum) &&
+            const DeepCollectionEquality()
+                .equals(other._modulRanges, _modulRanges));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_days), weekNum);
+      runtimeType,
+      const DeepCollectionEquality().hash(_days),
+      weekNum,
+      const DeepCollectionEquality().hash(_modulRanges));
 
   @JsonKey(ignore: true)
   @override
@@ -152,8 +522,10 @@ class _$_Week implements _Week {
 }
 
 abstract class _Week implements Week {
-  factory _Week({required final List<Day> days, required final int weekNum}) =
-      _$_Week;
+  factory _Week(
+      {required final List<Day> days,
+      required final int weekNum,
+      required final List<ModulRange> modulRanges}) = _$_Week;
 
   factory _Week.fromJson(Map<String, dynamic> json) = _$_Week.fromJson;
 
@@ -161,6 +533,8 @@ abstract class _Week implements Week {
   List<Day> get days;
   @override
   int get weekNum;
+  @override
+  List<ModulRange> get modulRanges;
   @override
   @JsonKey(ignore: true)
   _$$_WeekCopyWith<_$_Week> get copyWith => throw _privateConstructorUsedError;
@@ -361,12 +735,14 @@ mixin _$CalendarEvent {
   String get status => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get team => throw _privateConstructorUsedError;
-  String get teacher => throw _privateConstructorUsedError;
+  List<String> get teachers => throw _privateConstructorUsedError;
   String get room => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get note => throw _privateConstructorUsedError;
   DateTime get start => throw _privateConstructorUsedError;
   DateTime get end => throw _privateConstructorUsedError;
+  List<MetaDataEntry> get teacherObjs => throw _privateConstructorUsedError;
+  List<MetaDataEntry> get teamObjs => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -385,12 +761,14 @@ abstract class $CalendarEventCopyWith<$Res> {
       String status,
       String title,
       String team,
-      String teacher,
+      List<String> teachers,
       String room,
       String id,
       String note,
       DateTime start,
-      DateTime end});
+      DateTime end,
+      List<MetaDataEntry> teacherObjs,
+      List<MetaDataEntry> teamObjs});
 }
 
 /// @nodoc
@@ -410,12 +788,14 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
     Object? status = null,
     Object? title = null,
     Object? team = null,
-    Object? teacher = null,
+    Object? teachers = null,
     Object? room = null,
     Object? id = null,
     Object? note = null,
     Object? start = null,
     Object? end = null,
+    Object? teacherObjs = null,
+    Object? teamObjs = null,
   }) {
     return _then(_value.copyWith(
       type: null == type
@@ -434,10 +814,10 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as String,
-      teacher: null == teacher
-          ? _value.teacher
-          : teacher // ignore: cast_nullable_to_non_nullable
-              as String,
+      teachers: null == teachers
+          ? _value.teachers
+          : teachers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       room: null == room
           ? _value.room
           : room // ignore: cast_nullable_to_non_nullable
@@ -458,6 +838,14 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      teacherObjs: null == teacherObjs
+          ? _value.teacherObjs
+          : teacherObjs // ignore: cast_nullable_to_non_nullable
+              as List<MetaDataEntry>,
+      teamObjs: null == teamObjs
+          ? _value.teamObjs
+          : teamObjs // ignore: cast_nullable_to_non_nullable
+              as List<MetaDataEntry>,
     ) as $Val);
   }
 }
@@ -475,12 +863,14 @@ abstract class _$$_CalendarEventCopyWith<$Res>
       String status,
       String title,
       String team,
-      String teacher,
+      List<String> teachers,
       String room,
       String id,
       String note,
       DateTime start,
-      DateTime end});
+      DateTime end,
+      List<MetaDataEntry> teacherObjs,
+      List<MetaDataEntry> teamObjs});
 }
 
 /// @nodoc
@@ -498,12 +888,14 @@ class __$$_CalendarEventCopyWithImpl<$Res>
     Object? status = null,
     Object? title = null,
     Object? team = null,
-    Object? teacher = null,
+    Object? teachers = null,
     Object? room = null,
     Object? id = null,
     Object? note = null,
     Object? start = null,
     Object? end = null,
+    Object? teacherObjs = null,
+    Object? teamObjs = null,
   }) {
     return _then(_$_CalendarEvent(
       type: null == type
@@ -522,10 +914,10 @@ class __$$_CalendarEventCopyWithImpl<$Res>
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as String,
-      teacher: null == teacher
-          ? _value.teacher
-          : teacher // ignore: cast_nullable_to_non_nullable
-              as String,
+      teachers: null == teachers
+          ? _value._teachers
+          : teachers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       room: null == room
           ? _value.room
           : room // ignore: cast_nullable_to_non_nullable
@@ -546,6 +938,14 @@ class __$$_CalendarEventCopyWithImpl<$Res>
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      teacherObjs: null == teacherObjs
+          ? _value._teacherObjs
+          : teacherObjs // ignore: cast_nullable_to_non_nullable
+              as List<MetaDataEntry>,
+      teamObjs: null == teamObjs
+          ? _value._teamObjs
+          : teamObjs // ignore: cast_nullable_to_non_nullable
+              as List<MetaDataEntry>,
     ));
   }
 }
@@ -558,12 +958,17 @@ class _$_CalendarEvent implements _CalendarEvent {
       required this.status,
       required this.title,
       required this.team,
-      required this.teacher,
+      required final List<String> teachers,
       required this.room,
       required this.id,
       required this.note,
       required this.start,
-      required this.end});
+      required this.end,
+      required final List<MetaDataEntry> teacherObjs,
+      required final List<MetaDataEntry> teamObjs})
+      : _teachers = teachers,
+        _teacherObjs = teacherObjs,
+        _teamObjs = teamObjs;
 
   factory _$_CalendarEvent.fromJson(Map<String, dynamic> json) =>
       _$$_CalendarEventFromJson(json);
@@ -576,8 +981,14 @@ class _$_CalendarEvent implements _CalendarEvent {
   final String title;
   @override
   final String team;
+  final List<String> _teachers;
   @override
-  final String teacher;
+  List<String> get teachers {
+    if (_teachers is EqualUnmodifiableListView) return _teachers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_teachers);
+  }
+
   @override
   final String room;
   @override
@@ -588,10 +999,25 @@ class _$_CalendarEvent implements _CalendarEvent {
   final DateTime start;
   @override
   final DateTime end;
+  final List<MetaDataEntry> _teacherObjs;
+  @override
+  List<MetaDataEntry> get teacherObjs {
+    if (_teacherObjs is EqualUnmodifiableListView) return _teacherObjs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_teacherObjs);
+  }
+
+  final List<MetaDataEntry> _teamObjs;
+  @override
+  List<MetaDataEntry> get teamObjs {
+    if (_teamObjs is EqualUnmodifiableListView) return _teamObjs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_teamObjs);
+  }
 
   @override
   String toString() {
-    return 'CalendarEvent(type: $type, status: $status, title: $title, team: $team, teacher: $teacher, room: $room, id: $id, note: $note, start: $start, end: $end)';
+    return 'CalendarEvent(type: $type, status: $status, title: $title, team: $team, teachers: $teachers, room: $room, id: $id, note: $note, start: $start, end: $end, teacherObjs: $teacherObjs, teamObjs: $teamObjs)';
   }
 
   @override
@@ -603,18 +1029,33 @@ class _$_CalendarEvent implements _CalendarEvent {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.team, team) || other.team == team) &&
-            (identical(other.teacher, teacher) || other.teacher == teacher) &&
+            const DeepCollectionEquality().equals(other._teachers, _teachers) &&
             (identical(other.room, room) || other.room == room) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.start, start) || other.start == start) &&
-            (identical(other.end, end) || other.end == end));
+            (identical(other.end, end) || other.end == end) &&
+            const DeepCollectionEquality()
+                .equals(other._teacherObjs, _teacherObjs) &&
+            const DeepCollectionEquality().equals(other._teamObjs, _teamObjs));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, status, title, team,
-      teacher, room, id, note, start, end);
+  int get hashCode => Object.hash(
+      runtimeType,
+      type,
+      status,
+      title,
+      team,
+      const DeepCollectionEquality().hash(_teachers),
+      room,
+      id,
+      note,
+      start,
+      end,
+      const DeepCollectionEquality().hash(_teacherObjs),
+      const DeepCollectionEquality().hash(_teamObjs));
 
   @JsonKey(ignore: true)
   @override
@@ -636,12 +1077,14 @@ abstract class _CalendarEvent implements CalendarEvent {
       required final String status,
       required final String title,
       required final String team,
-      required final String teacher,
+      required final List<String> teachers,
       required final String room,
       required final String id,
       required final String note,
       required final DateTime start,
-      required final DateTime end}) = _$_CalendarEvent;
+      required final DateTime end,
+      required final List<MetaDataEntry> teacherObjs,
+      required final List<MetaDataEntry> teamObjs}) = _$_CalendarEvent;
 
   factory _CalendarEvent.fromJson(Map<String, dynamic> json) =
       _$_CalendarEvent.fromJson;
@@ -655,7 +1098,7 @@ abstract class _CalendarEvent implements CalendarEvent {
   @override
   String get team;
   @override
-  String get teacher;
+  List<String> get teachers;
   @override
   String get room;
   @override
@@ -666,6 +1109,10 @@ abstract class _CalendarEvent implements CalendarEvent {
   DateTime get start;
   @override
   DateTime get end;
+  @override
+  List<MetaDataEntry> get teacherObjs;
+  @override
+  List<MetaDataEntry> get teamObjs;
   @override
   @JsonKey(ignore: true)
   _$$_CalendarEventCopyWith<_$_CalendarEvent> get copyWith =>
