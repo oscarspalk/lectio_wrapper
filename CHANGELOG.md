@@ -368,3 +368,7 @@
 
 * Week events include teacher objects with ids and team objects with ids
 * Week object includes modul ranges, so it is possible to split events into modules
+
+## 0.5.18
+
+* Teacher context is a student context
