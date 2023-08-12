@@ -14,7 +14,8 @@ StudentContext extractStudentContext(BeautifulSoup soup, String rootId) {
   Bs4Element imageElement =
       soup.find('*', id: 'ctl00_Content_ImageCtrlthumbimage')!;
   Bs4Element? titleElement = soup.find('*', id: 'ctl00_Content_cctitle');
-  String id = queriesFromSoup(imageElement.getAttrValue("src")!)['pictureid']!;
+  String id = queriesFromSoup(imageElement.getAttrValue("src")!)['pictureid'] ??
+      "default";
   String name = "";
   if (titleElement != null) {
     List<String> typeAndName = titleElement.text.split("-");

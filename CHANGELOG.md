@@ -376,3 +376,7 @@
 ## 0.5.19
 
 * Names can also be extracted from student context
+
+## 0.5.20
+
+* If you are unlucky, teacher contexts sometimes doesn't have images, which fucks it up

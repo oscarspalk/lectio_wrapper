@@ -34,7 +34,7 @@ Map<String, String> queriesFromSoup(String url) {
       .split("&")
       .map((keyValue) {
     List<String> keyAndValue = keyValue.split("=");
-    if (keyValue.length < 2) {
+    if (keyAndValue.length < 2) {
       return const MapEntry("", "");
     }
     return MapEntry(keyAndValue[0], keyAndValue[1]);
