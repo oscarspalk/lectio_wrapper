@@ -380,3 +380,7 @@
 ## 0.5.20
 
 * If you are unlucky, teacher contexts sometimes doesn't have images, which fucks it up
+
+## 0.5.21
+
+* Switched to official ISO-week number function as I don't want to have anymore date bugs.

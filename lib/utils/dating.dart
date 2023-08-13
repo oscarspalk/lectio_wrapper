@@ -5,12 +5,21 @@ const int millisPerDay = 1000 * 3600 * 24;
 const int millisPerWeek = millisPerDay * 7;
 const int millisPerYear = millisPerDay * 365;
 
-int weekFromDateTime(DateTime dateTime) {
-  int actualYear = dateTime.year - 1970;
-  int millisToYear =
-      millisPerYear * (actualYear) + (millisPerDay * (actualYear / 4).floor());
-  int restMillis = dateTime.millisecondsSinceEpoch - millisToYear;
-  return (restMillis / millisPerWeek).floor() + 1;
+int numOfWeeks(int year) {
+  DateTime dec28 = DateTime(year, 12, 28);
+  int dayOfDec28 = int.parse(DateFormat("D").format(dec28));
+  return ((dayOfDec28 - dec28.weekday + 10) / 7).floor();
+}
+
+int weekFromDateTime(DateTime date) {
+  int dayOfYear = int.parse(DateFormat("D").format(date));
+  int woy = ((dayOfYear - date.weekday + 10) / 7).floor();
+  if (woy < 1) {
+    woy = numOfWeeks(date.year - 1);
+  } else if (woy > numOfWeeks(date.year)) {
+    woy = 1;
+  }
+  return woy;
 }
 
 DateFormat format1 = DateFormat("d/M-y");
