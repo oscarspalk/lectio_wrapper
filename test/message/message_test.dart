@@ -12,6 +12,12 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login(autologin: false)});
 
+  test('get message', () async {
+    var messages = await student!.messages
+        .get(MessageRef("61197657640", DateTime.now(), "", ""));
+    expect(messages, isNotNull);
+  });
+
   test('test message crud flow', () async {
     var messages = await student!.messages.list();
     expect(messages, anyOf(isNotEmpty, isEmpty));

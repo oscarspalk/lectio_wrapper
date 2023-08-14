@@ -72,7 +72,7 @@ Message extractMessage(BeautifulSoup soup, MessageRef ref) {
 }
 
 ThreadEntry extractMessageThread(Bs4Element threadListItem) {
-  String content = threadListItem.children[1].text.trim();
+  String content = threadListItem.children[1].innerHtml.trim();
   Bs4Element messageElement =
       threadListItem.children[0].children[0].children[0].children[0];
   String messageInfo = messageElement.text;
