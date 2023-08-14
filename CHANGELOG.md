@@ -384,3 +384,7 @@
 ## 0.5.21
 
 * Switched to official ISO-week number function as I don't want to have anymore date bugs.
+
+## 0.5.22
+
+* Never got to actually test absence, so apparently it didn't work 100% for not registered absence.
