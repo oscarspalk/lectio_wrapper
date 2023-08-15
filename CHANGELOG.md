@@ -396,3 +396,7 @@
 ## 0.5.24
 
 * You can now edit by opening an edit with the messages thread controller.
+
+## 0.5.25
+
+* Upgraded `intl` package version
