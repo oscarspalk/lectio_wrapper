@@ -391,4 +391,8 @@
 
 ## 0.5.23
 
+* Message content is now fetched as html string, which will allow for markup.
+
+## 0.5.24
+
 * You can now edit by opening an edit with the messages thread controller.

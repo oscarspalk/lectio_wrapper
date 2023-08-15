@@ -53,7 +53,8 @@ AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
     String? extendedCause = row.children.elementAtOrNull(9)?.text;
     String id = "";
     if (extendedCause == null) {
-      queriesFromSoup(row.children[8].find('a')!.getAttrValue("href")!)['id']!;
+      id = queriesFromSoup(
+          row.children[8].find('a')!.getAttrValue("href")!)['id']!;
     } else {
       id = queriesFromSoup(
           row.children[10].children[0].getAttrValue("href")!)['id']!;

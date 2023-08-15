@@ -33,7 +33,6 @@ AbsenceEntry? extractAbsenceEntry(Bs4Element row) {
     var teamName = teamLink.text;
     var teamId =
         "HE${queriesFromSoup(teamLink.getAttrValue("href")!)['holdelementid']!}";
-    //var teamContext = (await student.context.get(teamId)) as TeamContext;
     var team = Team(name: teamName, id: teamId, displayName: teamName);
     List<double> percentages = [];
     List<AbsenceFraction> fractions = [];
