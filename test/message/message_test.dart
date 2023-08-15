@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
+import 'package:lectio_wrapper/types/message/threads/edit.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -41,11 +42,15 @@ void main() {
     expect(newMessageContent.thread.length, 2);
     expect(newMessageContent.thread[1].topic, "Re: $testName");
     expect(newMessageContent.thread[1].content, test2Content);
-    await student!.messages.edit(Edit(
-        newMessageContent.thread[0]
-          ..content = updatedText
-          ..topic = updatedTopic,
-        newMessageContent));
+    var openedEdit = await student!.messages.threads
+        .openEdit(newMessageContent.thread[0], newMessageContent);
+    await student!.messages.threads.edit(
+        Edit(
+            newMessageContent.thread[0]
+              ..content = updatedText
+              ..topic = updatedTopic,
+            newMessageContent),
+        openedEdit.stateData);
     var newMessageContent2 = await student!.messages.get(newMessage);
     expect(newMessageContent2.thread[0].content, contains(updatedText));
     expect(newMessageContent2.thread.length, 2);

@@ -388,3 +388,7 @@
 ## 0.5.22
 
 * Never got to actually test absence, so apparently it didn't work 100% for not registered absence.
+
+## 0.5.23
+
+* You can now edit by opening an edit with the messages thread controller.

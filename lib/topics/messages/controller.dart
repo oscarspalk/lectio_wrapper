@@ -2,6 +2,7 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/messages/scraping.dart';
+import 'package:lectio_wrapper/topics/messages/threads/controller.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
@@ -9,8 +10,10 @@ import 'package:lectio_wrapper/utils/scraping.dart';
 
 class MesssageController {
   final Student student;
-
-  MesssageController(this.student);
+  late ThreadsController threads;
+  MesssageController(this.student) {
+    threads = ThreadsController(student);
+  }
 
   Future<List<MessageRef>> list() async {
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
@@ -99,16 +102,14 @@ class MesssageController {
   }
 
   Future<void> reply(Reply reply) async {
-    String openUrl = student.buildUrl(
+    String url = student.buildUrl(
         "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${reply.message.id}");
     String openTarget = "__PAGE";
     Map<String, String> openData = {
       "__EVENTARGUMENT": "ANSWERMESSAGE_${reply.entry.id}"
     };
-    var openingSoup = await postLoggedInPageSoup(openUrl, openTarget, openData);
+    var openingSoup = await postLoggedInPageSoup(url, openTarget, openData);
     String target = r"s$m$Content$Content$CreateAnswerOKBtn";
-    String url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&id=${reply.entry.id}&elevid=${student.studentId}");
     Map<String, String> data = {
       "__EVENTTARGET": target,
       r"s$m$searchinputfield": "",
@@ -127,40 +128,5 @@ class MesssageController {
         options: Options(
           contentType: "application/x-www-form-urlencoded",
         ));
-  }
-
-  Future<void> edit(Edit edit) async {
-    var cookie = (await student.getCookies())
-        .map((e) => "${e.name}=${e.value}")
-        .join(";");
-    String openUrl = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${edit.message.id}");
-    String openTarget = "__PAGE";
-    Map<String, String> openData = {
-      "__EVENTARGUMENT": "EDITMESSAGE_${edit.entry.id}"
-    };
-    var openingSoup = await postLoggedInPageSoup(openUrl, openTarget, openData);
-    String target = r"s$m$Content$Content$CreateThreadEditMessageOkBtn";
-    String url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${edit.message.id}");
-    Map<String, String> data = {
-      r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$addRecipientDD$inp": "",
-      r"s$m$Content$Content$addRecipientDD$inpid": "",
-      r"s$m$Content$Content$CreateThreadEditMessageTitle$tb": edit.entry.topic,
-      r"s$m$Content$Content$RepliesToThreadOrExistingMessageAllowedChk": "on",
-      r"s$m$Content$Content$CreateThreadAttachDocChooser$selectedDocumentId":
-          "",
-      r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb":
-          edit.entry.content
-    };
-    var aspData = await extractASPData(openingSoup!, target);
-    aspData.addAll(data);
-    await lppDio.postUri(Uri.parse(url),
-        data: aspData,
-        options: Options(
-            contentType: "application/x-www-form-urlencoded",
-            followRedirects: true,
-            headers: {"Cookie": cookie}));
   }
 }

@@ -17,12 +17,6 @@ class CreateMessage {
   CreateMessage(this.topic, this.content, this.isAnswerable, this.receivers);
 }
 
-class Edit {
-  ThreadEntry entry;
-  Message message;
-  Edit(this.entry, this.message);
-}
-
 class Reply {
   ThreadEntry entry;
   Message message;
