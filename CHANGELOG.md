@@ -400,3 +400,7 @@
 ## 0.5.25
 
 * Upgraded `intl` package version
+
+## 0.5.26
+
+* Lectio updated their homepage and links, so now the old login method didn't work.

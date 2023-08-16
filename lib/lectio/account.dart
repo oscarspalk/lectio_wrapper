@@ -21,11 +21,18 @@ class Account {
   Account(this.gymId, this.username, this.password);
 
   String? checkLoggedIn(BeautifulSoup soup) {
-    var link = soup.find('*', id: 's_m_HeaderContent_subnavigator_ctl01');
-    if (link != null) {
-      var src = link.getAttrValue("href");
-      return queriesFromSoup(src!)['elevid']!;
+    var links = soup.find('*', id: 's_m_HeaderContent_subnavigator_generic_tr');
+
+    if (links != null) {
+      for (var link in links.findAll('a')) {
+        var href = link.getAttrValue("href");
+        var elevId = href != null ? queriesFromSoup(href)['elevid'] : null;
+        if (elevId != null) {
+          return elevId;
+        }
+      }
     }
+
     return null;
   }
 
