@@ -19,6 +19,18 @@ void main() {
     expect(messages, isNotNull);
   });
 
+  test('request debugging', () async {
+    const testName = "lpp2023";
+    const testContent = "what";
+    const test2Content = "what man!?";
+    const updatedText = "pas på den knaldrøde gummibåd";
+    const updatedTopic = "birthe kjær";
+    // create new
+    await student!.messages.create(CreateMessage(testName, testContent, true, [
+      MetaDataEntry(name: "Oscar Gaardsted Spalk (2bx 12)", id: "S54299107744")
+    ]));
+  });
+
   test('test message crud flow', () async {
     var messages = await student!.messages.list();
     expect(messages, anyOf(isNotEmpty, isEmpty));

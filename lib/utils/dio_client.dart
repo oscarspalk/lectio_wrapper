@@ -40,15 +40,23 @@ Future<Response> request(String url,
     String redirectStr = redirect.isNotEmpty
         ? "${redirect.startsWith("https") ? "" : "${uri.scheme}://${uri.authority}"}$redirect"
         : url;
-    var request = await _lppDio.request(redirectStr,
-        data: data,
-        queryParameters: queryParameters,
-        cancelToken: cancelToken,
-        options: options,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress);
+    Response request;
+    if (redirectStr == url) {
+      request = await _lppDio.request(redirectStr,
+          data: data,
+          queryParameters: queryParameters,
+          cancelToken: cancelToken,
+          options: options,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress);
+    } else {
+      request = await _lppDio.get(redirectStr);
+    }
+
     var location = request.headers.value(HttpHeaders.locationHeader);
-    if (location != null && location.isNotEmpty) {
+    if (location != null &&
+        location.isNotEmpty &&
+        !redirectStr.endsWith(location)) {
       redirect = location;
     } else {
       if (_cookieCallback != null) {

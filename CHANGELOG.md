@@ -409,3 +409,7 @@
 
 * Cookie manager doesn't support redirects, so I made my own redirect handler.
 * This means crud actions messages and events can't be used.
+
+## 0.5.28
+
+* Messaging works again, only private appointments are not fully tested.
