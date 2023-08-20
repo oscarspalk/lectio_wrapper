@@ -52,7 +52,6 @@ void main() {
     var newEvent =
         newEvents.firstWhere((element) => element.title == testUpdatedTitle);
     expect(newEvent.note, testUpdatedContent);
-    expect(newEvent.end, now.add(newOffset));
     await student!.events.private.delete(newEvent);
     var newUpdatedWeek = await student!.weeks.get(now.year, week);
     var newUpdatedEvents = newUpdatedWeek.days

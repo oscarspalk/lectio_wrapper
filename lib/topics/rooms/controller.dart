@@ -13,14 +13,14 @@ class RoomsController {
 
   Future<List<Room>> list() async {
     var url = student.buildUrl("FindSkema.aspx?type=lokale");
-    var req = await lppDio.get(url);
+    var req = await request(url);
     return extractRooms(BeautifulSoup(req.data));
   }
 
   Future<Week> get(Room room, int year, int weekNum) async {
     var url = student.buildUrl(
         "SkemaNy.aspx?type=lokale&nosubnav=1&id=${room.id}&week=$weekNum$year");
-    var req = await lppDio.get(url);
+    var req = await request(url);
     return extractCalendar(BeautifulSoup(req.data), year, weekNum);
   }
 }

@@ -17,21 +17,21 @@ class MesssageController {
 
   Future<List<MessageRef>> list() async {
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return extractMessages(BeautifulSoup(response.data));
   }
 
   Future<Message> get(MessageRef ref) async {
     var url = student.buildUrl(
         "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${ref.id}");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return extractMessage(BeautifulSoup(response.data), ref);
   }
 
   Future<BeautifulSoup> newMessage() async {
     String newMessageUrl = student
         .buildUrl("beskeder2.aspx?type=nybesked&elevid=${student.studentId}");
-    var resp = await lppDio.get(newMessageUrl);
+    var resp = await request(newMessageUrl);
     return BeautifulSoup(resp.data);
   }
 
@@ -61,9 +61,10 @@ class MesssageController {
     };
     var exportedSubmitData = await extractASPData(latestSoup, target);
     exportedSubmitData.addAll(submitData);
-    await lppDio.postUri(Uri.parse(url),
+    await request(url,
         data: exportedSubmitData,
         options: Options(
+          method: 'POST',
           contentType: "application/x-www-form-urlencoded",
         ));
   }
@@ -85,9 +86,10 @@ class MesssageController {
     };
     var aspData = await extractASPData(soup, target);
     aspData.addAll(data);
-    var response = await lppDio.postUri(Uri.parse(url),
+    var response = await request(url,
         data: aspData,
         options: Options(
+          method: 'POST',
           contentType: "application/x-www-form-urlencoded",
         ));
     return BeautifulSoup(response.data);
@@ -123,9 +125,10 @@ class MesssageController {
     };
     var aspData = await extractASPData(openingSoup!, target);
     aspData.addAll(data);
-    await lppDio.postUri(Uri.parse(url),
+    await request(url,
         data: aspData,
         options: Options(
+          method: 'POST',
           contentType: "application/x-www-form-urlencoded",
         ));
   }

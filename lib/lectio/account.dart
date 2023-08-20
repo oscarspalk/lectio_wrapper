@@ -45,9 +45,8 @@ class Account {
 
   Future<Student?> login({bool autologin = true}) async {
     try {
-      String forsideUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
       String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
-      var loginGet = await lppDio.get(loginUrl);
+      var loginGet = await request(loginUrl);
       BeautifulSoup bs = BeautifulSoup(loginGet.data);
       Map<String, String?> extracted =
           await extractASPData(bs, "m\$Content\$submitbtn2");
@@ -55,21 +54,12 @@ class Account {
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
       if (autologin) extracted[r'm$Content$AutologinCbx'] = "on";
-      await lppDio
-          .post(loginUrl,
-              data: extracted,
-              options: Options(
-                contentType: "application/x-www-form-urlencoded",
-                followRedirects: false,
-                validateStatus: (status) {
-                  if (status != null) {
-                    return status < 500;
-                  }
-                  return false;
-                },
-              ))
-          .timeout(const Duration(seconds: 5));
-      var forsideSoup = await lppDio.get(forsideUrl);
+      var forsideSoup = await request(loginUrl,
+          data: extracted,
+          options: Options(
+            method: "POST",
+            contentType: "application/x-www-form-urlencoded",
+          )).timeout(const Duration(seconds: 5));
       String? studentId = checkLoggedIn(BeautifulSoup(forsideSoup.data));
       if (studentId == null) {
         throw InvalidCredentialsError();

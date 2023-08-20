@@ -12,7 +12,7 @@ class TermsController {
   Future<List<Term>> list() async {
     var url =
         student.buildUrl("SkemaNy.aspx?type=elev&elevid=${student.studentId}");
-    var req = await lppDio.getUri(Uri.parse(url));
+    var req = await request(url);
     return extractTerms(BeautifulSoup(req.data));
   }
 

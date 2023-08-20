@@ -404,3 +404,8 @@
 ## 0.5.26
 
 * Lectio updated their homepage and links, so now the old login method didn't work.
+
+## 0.5.27
+
+* Cookie manager doesn't support redirects, so I made my own redirect handler.
+* This means crud actions messages and events can't be used.

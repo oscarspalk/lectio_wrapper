@@ -80,7 +80,7 @@ class Student {
   /// Returns a [BasicInfo] containing name and pictureId.
   Future<BasicInfo> getBasicInfo() async {
     String profileUrl = buildUrl("SkemaNy.aspx?type=elev&elevid=$studentId");
-    var resp = await lppDio.get(profileUrl);
+    var resp = await request(profileUrl);
     BeautifulSoup profileSoup = BeautifulSoup(resp.data);
     return extractBasicInfo(profileSoup);
   }
@@ -88,7 +88,7 @@ class Student {
   String get baseUrl => "https://www.lectio.dk/lectio/$gymId/";
 
   String buildUrl(String path) {
-    return baseUrl + path;
+    return "$baseUrl$path";
   }
 
   Future<List<Cookie>> getCookies() async {
@@ -116,7 +116,7 @@ class Student {
 
   Future<Uint8List> getFile(String url,
       {void Function(int x, int? x1)? onReceiveProgress}) async {
-    var res = await lppDio.get(url,
+    var res = await request(url,
         options: Options(
           responseType: ResponseType.bytes,
         ),

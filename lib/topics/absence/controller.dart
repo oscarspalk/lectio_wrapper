@@ -15,7 +15,7 @@ class AbsenceController {
   Future<List<AbsenceEntry>> list() async {
     var url =
         student.buildUrl("subnav/fravaerelev.aspx?elevid=${student.studentId}");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return await extractAbsence(BeautifulSoup(response.data), student);
   }
 }

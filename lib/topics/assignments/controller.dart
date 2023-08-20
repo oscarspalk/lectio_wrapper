@@ -12,7 +12,7 @@ class AssignmentsController {
   Future<List<AssignmentRef>> list() async {
     String url =
         student.buildUrl("OpgaverElev.aspx?elevid=${student.studentId}");
-    var assignmentSoup = await lppDio.get(
+    var assignmentSoup = await request(
         url); /*await postLoggedInPageSoup(
         url, r"s$m$ChooseTerm$term", {r"s$m$ChooseTerm$term": year.toString()});*/
     return await extractAssignments(BeautifulSoup(assignmentSoup.data));
@@ -21,7 +21,7 @@ class AssignmentsController {
   Future<Assignment> get(AssignmentRef ref) async {
     String url = student.buildUrl(
         "ElevAflevering.aspx?elevid=${student.studentId}&exerciseid=${ref.id}");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return await extractAssignment(BeautifulSoup(response.data), ref, student);
   }
 }

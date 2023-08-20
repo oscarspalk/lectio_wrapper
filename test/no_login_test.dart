@@ -10,8 +10,8 @@ void main() {
   Account account =
       Account(int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
   Student? student;
-  const cook =
-      "lectiogsc=f210e417-3b8f-c66f-98e5-bf787b11fe8e,ASP.NET_SessionId=HMSM2P7N54IC3FPCAPKUQFUCX5XI6CKAOMVYMTBFXIBEWMA3KT7CAIBA,LastLoginExamno=256,autologinkey=LQ1ZxWWMclbQJG6BCqkPLWAPMPBXQcHHzM6LbS4h";
+  const cook = "";
+
   setUp(() async => {
         student = await account.loginWithCookies(
             cook.split(',').map((e) {
@@ -21,7 +21,8 @@ void main() {
             "54299107744")
       });
   test('login() with true credentials.', () async {
-    await student!.weeks.get(2023, 31);
+    var weeks = await student!.weeks.get(2023, 33);
     expect(student, isNotNull);
+    expect(weeks, isNotEmpty);
   });
 }

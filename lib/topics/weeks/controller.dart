@@ -11,7 +11,7 @@ class WeekController {
   Future<Week> get(int year, int week) async {
     var url = student.buildUrl(
         "SkemaNy.aspx?${student.teacher ? "laererid" : "elevid"}=${student.studentId}&week=${intFixed(week, 2)}$year");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return await extractCalendar(BeautifulSoup(response.data), year, week);
   }
 }

@@ -37,11 +37,11 @@ class ThreadsController {
           edit.entry.content
     };
     aspData.addAll(data);
-    await lppDio.postUri(Uri.parse(url),
+    await request(url,
         data: aspData,
         options: Options(
+          method: 'POST',
           contentType: "application/x-www-form-urlencoded",
-          followRedirects: true,
         ));
   }
 }

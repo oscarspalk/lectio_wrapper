@@ -26,7 +26,7 @@ class EventController {
       case CalendarEventType.private:
         url = student.buildUrl("privat_aftale.aspx?aftaleid=${event.id}");
     }
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return await extractCalendarEventDetails(
         BeautifulSoup(response.data), student, event);
   }

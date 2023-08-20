@@ -11,7 +11,7 @@ class HomeworkController {
   Future<List<Homework>> list() async {
     var url = student
         .buildUrl("material_lektieoversigt.aspx?elevid=${student.studentId}");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return await extractHomework(BeautifulSoup(response.data));
   }
 }

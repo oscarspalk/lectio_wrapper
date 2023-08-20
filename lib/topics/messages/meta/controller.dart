@@ -39,7 +39,7 @@ class MessageMetaController {
 
   Future<void> _loadScript(ScriptContent script) async {
     String url = "https://www.lectio.dk${script.url}";
-    var data = await lppDio.get(url);
+    var data = await request(url);
     var entries = extractEntries(data.data, url);
     switch (script.queries['type']) {
       case 'bcteacher':

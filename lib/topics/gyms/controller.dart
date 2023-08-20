@@ -7,7 +7,7 @@ class GymController {
   Future<List<Gym>> list() async {
     String gymsListUrl =
         "https://www.lectio.dk/lectio/login_list.aspx?showall=1";
-    var response = await lppDio.get(gymsListUrl);
+    var response = await request(gymsListUrl);
     return await extractGyms(BeautifulSoup(response.data));
   }
 }

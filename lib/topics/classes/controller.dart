@@ -12,14 +12,14 @@ class ClassesController {
   /// Get all classes as a [List] of [Class]
   Future<List<ClassRef>> list() async {
     String url = student.buildUrl("FindSkema.aspx?type=stamklasse");
-    var soup = await lppDio.get(url);
+    var soup = await request(url);
     return extractClasses(BeautifulSoup(soup.data));
   }
 
   Future<Class> get(ClassRef ref, {bool group = false}) async {
     String url = student.buildUrl(
         "subnav/members.aspx?${group ? "holdelementid" : "klasseid"}=${ref.id}&showstudents=1${group ? "&showteachers=1" : ""}");
-    var soup = await lppDio.get(url);
+    var soup = await request(url);
     List<Student> students =
         extractStudents(BeautifulSoup(soup.data), student.gymId, group: group);
     if (!group) {

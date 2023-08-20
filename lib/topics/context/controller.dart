@@ -20,7 +20,7 @@ class ContextController {
     }
     var url =
         student.buildUrl("contextcard/contextcard.aspx?lectiocontextcard=$id");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     var soup = BeautifulSoup(response.data);
     if (id.startsWith('HE')) {
       context = extractTeamContext(soup, id);

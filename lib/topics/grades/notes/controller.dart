@@ -11,7 +11,7 @@ class GradeNotesController {
   Future<List<GradeNote>> list() async {
     var url = student
         .buildUrl("grades/grade_report.aspx?elevid=${student.studentId}");
-    var response = await lppDio.get(url);
+    var response = await request(url);
     return await extractGradeNotes(BeautifulSoup(response.data), student);
   }
 }

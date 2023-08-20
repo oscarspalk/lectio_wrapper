@@ -51,13 +51,14 @@ String? getElevId(BeautifulSoup soup) {
 Future<BeautifulSoup?> loggedIn(String url, {Map<String, String>? data}) async {
   Response response;
   if (data != null) {
-    response = await lppDio.post(url,
+    response = await request(url,
         data: data,
         options: Options(
+          method: 'POST',
           contentType: "application/x-www-form-urlencoded",
         ));
   } else {
-    response = await lppDio.get(url);
+    response = await request(url);
   }
 
   BeautifulSoup soup = BeautifulSoup(response.data);
