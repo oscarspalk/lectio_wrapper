@@ -2,12 +2,11 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/classes/scraping.dart';
 import 'package:lectio_wrapper/types/class.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class ClassesController {
-  final Student student;
-
-  ClassesController(this.student);
+class ClassesController extends Controller {
+  ClassesController(super.student);
 
   /// Get all classes as a [List] of [Class]
   Future<List<ClassRef>> list() async {

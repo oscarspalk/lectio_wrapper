@@ -1,14 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/messages/threads/scraping.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
 import 'package:lectio_wrapper/types/message/threads/edit.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
-class ThreadsController {
-  final Student student;
-  ThreadsController(this.student);
+class ThreadsController extends Controller {
+  ThreadsController(super.student);
   Future<OpenedEdit> openEdit(ThreadEntry entry, Message message) async {
     String target = r"s$m$Content$Content$CreateThreadEditMessageOkBtn";
     String openUrl = student.buildUrl(

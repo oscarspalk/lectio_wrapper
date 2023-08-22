@@ -41,8 +41,6 @@ void main() {
 
   test('getCookies()', () async {
     var cookies = await student!.getCookies();
-    var cookieString =
-        cookies.map((cookie) => "${cookie.name}=${cookie.value}").join(',');
     expect(cookies, isNotNull);
   });
 }

@@ -1,14 +1,13 @@
 import 'package:intl/intl.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
 DateFormat dateFormat = DateFormat("dd/MM-yyyy");
 DateFormat timeFormat = DateFormat("HH:mm");
 
-class PrivateCalendarEventController {
-  final Student student;
-  PrivateCalendarEventController(this.student);
+class PrivateCalendarEventController extends Controller {
+  PrivateCalendarEventController(super.student);
 
   Future<void> update(CalendarEvent event) async {
     String target = r"m$Content$savebuttonsCtrl$svbtn";

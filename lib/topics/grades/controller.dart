@@ -1,14 +1,13 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/grades/notes/controller.dart';
 import 'package:lectio_wrapper/topics/grades/scraping.dart';
 import 'package:lectio_wrapper/types/grades/grade.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class GradeController {
-  final Student student;
+class GradeController extends Controller {
   late GradeNotesController notes;
-  GradeController(this.student) {
+  GradeController(super.student) {
     notes = GradeNotesController(student);
   }
 

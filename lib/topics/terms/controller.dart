@@ -1,13 +1,12 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/terms/scraping.dart';
 import 'package:lectio_wrapper/types/terms/term.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
-class TermsController {
-  final Student student;
-  TermsController(this.student);
+class TermsController extends Controller {
+  TermsController(super.student);
 
   Future<List<Term>> list() async {
     var url =

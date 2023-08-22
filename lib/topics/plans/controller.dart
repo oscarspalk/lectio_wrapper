@@ -1,12 +1,11 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/plans/scraping.dart';
 import 'package:lectio_wrapper/types/plan/study_plan.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class PlansController {
-  final Student student;
-  PlansController(this.student);
+class PlansController extends Controller {
+  PlansController(super.student);
 
   Future<List<StudyTeamEntry>> list() async {
     var url = student.buildUrl(

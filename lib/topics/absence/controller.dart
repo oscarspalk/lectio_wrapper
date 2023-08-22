@@ -1,14 +1,13 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/absence/registrations/controller.dart';
 import 'package:lectio_wrapper/topics/absence/scraping.dart';
 import 'package:lectio_wrapper/types/absence/entry.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class AbsenceController {
-  final Student student;
+class AbsenceController extends Controller {
   late AbsenceRegistrationsController registrations;
-  AbsenceController(this.student) {
+  AbsenceController(super.student) {
     registrations = AbsenceRegistrationsController(student);
   }
 

@@ -413,3 +413,7 @@
 ## 0.5.28
 
 * Messaging works again, only private appointments are not fully tested.
+
+## 0.6.0
+
+* Made almost every controller inherit `Controller` type

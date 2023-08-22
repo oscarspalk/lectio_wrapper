@@ -1,14 +1,12 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/absence/registrations/scraping.dart';
 import 'package:lectio_wrapper/types/absence/cause.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
-class AbsenceRegistrationsController {
-  final Student student;
-
-  AbsenceRegistrationsController(this.student);
+class AbsenceRegistrationsController extends Controller {
+  AbsenceRegistrationsController(super.student);
 
   Future<List<AbsenceCauseEntry>> list() async {
     var url = student.buildUrl(

@@ -1,12 +1,11 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/assignments/scraping.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class AssignmentsController {
-  final Student student;
-  AssignmentsController(this.student);
+class AssignmentsController extends Controller {
+  AssignmentsController(super.student);
 
   /// Returns all assignments for the specified year.
   Future<List<AssignmentRef>> list() async {

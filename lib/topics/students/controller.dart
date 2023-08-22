@@ -1,9 +1,9 @@
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/class.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 
-class StudentsController {
-  final Student student;
-  StudentsController(this.student);
+class StudentsController extends Controller {
+  StudentsController(super.student);
   final List<String> _groupNames = [
     "Alle 1. G. elever",
     "Alle 2. G. elever",

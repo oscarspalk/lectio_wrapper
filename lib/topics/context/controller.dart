@@ -1,14 +1,13 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/context/scraping.dart';
 import 'package:lectio_wrapper/types/context/context.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-final RegExp exp = RegExp("S|U|T");
+final RegExp studentUserOrTeacherRegex = RegExp("S|U|T");
 
-class ContextController {
-  final Student student;
-  ContextController(this.student);
+class ContextController extends Controller {
+  ContextController(super.student);
 
   List<Context> contexts = [];
 
@@ -24,7 +23,7 @@ class ContextController {
     var soup = BeautifulSoup(response.data);
     if (id.startsWith('HE')) {
       context = extractTeamContext(soup, id);
-    } else if (id.startsWith(exp)) {
+    } else if (id.startsWith(studentUserOrTeacherRegex)) {
       context = extractStudentContext(soup, id);
     } else if (id.startsWith("G")) {
       context = extractGroupContext(soup);

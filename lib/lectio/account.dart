@@ -8,11 +8,9 @@ import 'package:lectio_wrapper/utils/scraping.dart';
 
 class InvalidCredentialsError extends Error {}
 
-class Headers {
-  String name;
-  String value;
-  Headers(this.name, this.value);
-}
+const String laererIdKey = 'laererid';
+const String elevIdKey = 'elevid';
+const String appStartUrlName = 'msapplication-starturl';
 
 class Account {
   int gymId;
@@ -20,19 +18,18 @@ class Account {
   String password;
   Account(this.gymId, this.username, this.password);
 
-  String? checkLoggedIn(BeautifulSoup soup) {
-    var links = soup.find('*', id: 's_m_HeaderContent_subnavigator_generic_tr');
-
-    if (links != null) {
-      for (var link in links.findAll('a')) {
-        var href = link.getAttrValue("href");
-        var elevId = href != null ? queriesFromSoup(href)['elevid'] : null;
-        if (elevId != null) {
-          return elevId;
-        }
+  Student? checkLoggedIn(BeautifulSoup soup, int gymId) {
+    var metaElement = soup
+        .find('*', attrs: {'name': appStartUrlName})?.getAttrValue('content');
+    if (metaElement != null) {
+      var queries = queriesFromSoup(metaElement);
+      if (queries.containsKey(elevIdKey)) {
+        return Student(queries[elevIdKey]!, gymId);
+      }
+      if (queries.containsKey(laererIdKey)) {
+        return Student(queries[laererIdKey]!, gymId, teacher: true);
       }
     }
-
     return null;
   }
 
@@ -60,11 +57,10 @@ class Account {
             method: "POST",
             contentType: "application/x-www-form-urlencoded",
           )).timeout(const Duration(seconds: 5));
-      String? studentId = checkLoggedIn(BeautifulSoup(forsideSoup.data));
-      if (studentId == null) {
+      var student = checkLoggedIn(BeautifulSoup(forsideSoup.data), gymId);
+      if (student == null) {
         throw InvalidCredentialsError();
       }
-      var student = Student(studentId, gymId);
       return student;
     } catch (e) {
       return null;

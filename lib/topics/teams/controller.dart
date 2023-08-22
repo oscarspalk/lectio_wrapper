@@ -1,12 +1,11 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/teams/scraping.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class TeamsController {
-  final Student student;
-  TeamsController(this.student);
+class TeamsController extends Controller {
+  TeamsController(super.student);
 
   Future<List<Team>> list() async {
     var url = student.buildUrl('forside.aspx');

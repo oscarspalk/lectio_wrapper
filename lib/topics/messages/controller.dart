@@ -1,17 +1,16 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:dio/dio.dart';
-import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/messages/scraping.dart';
 import 'package:lectio_wrapper/topics/messages/threads/controller.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
-class MesssageController {
-  final Student student;
+class MesssageController extends Controller {
   late ThreadsController threads;
-  MesssageController(this.student) {
+  MesssageController(super.student) {
     threads = ThreadsController(student);
   }
 

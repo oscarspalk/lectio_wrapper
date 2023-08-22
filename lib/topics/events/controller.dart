@@ -1,15 +1,14 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
-import 'package:lectio_wrapper/lectio_wrapper.dart';
 import 'package:lectio_wrapper/topics/events/private/controller.dart';
 import 'package:lectio_wrapper/topics/events/scraping.dart';
 import 'package:lectio_wrapper/types/events/calendar_event_details.dart';
 import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class EventController {
-  final Student student;
+class EventController extends Controller {
   PrivateCalendarEventController private;
-  EventController(this.student)
+  EventController(super.student)
       : private = PrivateCalendarEventController(student);
 
   Future<CalendarEventDetails> expand(CalendarEvent event) async {

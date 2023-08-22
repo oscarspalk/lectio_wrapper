@@ -1,17 +1,16 @@
-import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/messages/meta/scraping.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
+import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-class MessageMetaController {
-  final Student student;
+class MessageMetaController extends Controller {
   List<MetaDataEntry> students = [];
   List<MetaDataEntry> teachers = [];
   List<MetaDataEntry> groups = [];
   List<MetaDataEntry> teams = [];
   List<MetaDataEntry> favorites = [];
   List<MetaDataEntry> _favorites = [];
-  MessageMetaController(this.student);
+  MessageMetaController(super.student);
 
   Future<MessageMetaData> get() async {
     var soup = await student.messages.newMessage();
