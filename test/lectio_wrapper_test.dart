@@ -9,7 +9,9 @@ void main() {
   Account account =
       Account(int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
   Student? student;
-  setUp(() async => {student = await account.login(autologin: false)});
+  setUp(() async {
+    student = await account.login(autologin: false);
+  });
   test('login() with true credentials.', () async {
     expect(student, isNotNull);
   });

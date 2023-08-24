@@ -421,3 +421,7 @@
 ## 0.6.1
 
 * Made request only follow as GET
+
+## 0.6.2
+
+* Apparently listing the gymnasiums appends Cookies, which aren't good for logging in.
