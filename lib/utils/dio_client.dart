@@ -41,7 +41,7 @@ Future<Response> request(String url,
         ? "${redirect.startsWith("https") ? "" : "${uri.scheme}://${uri.authority}"}$redirect"
         : url;
     Response request;
-    if (redirectStr == url) {
+    if (redirect.isEmpty) {
       request = await _lppDio.request(redirectStr,
           data: data,
           queryParameters: queryParameters,

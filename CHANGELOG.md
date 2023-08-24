@@ -417,3 +417,7 @@
 ## 0.6.0
 
 * Made almost every controller inherit `Controller` type
+
+## 0.6.1
+
+* Made request only follow as GET
