@@ -425,3 +425,7 @@
 ## 0.6.2
 
 * Apparently listing the gymnasiums appends Cookies, which aren't good for logging in.
+
+## 0.6.3
+
+* You can add auto re-login now to an account object.

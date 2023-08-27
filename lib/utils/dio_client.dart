@@ -6,12 +6,12 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 final CookieJar lppCookies = CookieJar();
 
-Function()? _cookieCallback;
+Future<void> Function()? _loginCallback;
 
 Dio get lppDio => _lppDio;
 
-void setCookieCallback(Function() callback) {
-  _cookieCallback = callback;
+void setLoginCallback(Future<void> Function() callback) {
+  _loginCallback = callback;
 }
 
 final Dio _lppDio = Dio(BaseOptions(
@@ -40,9 +40,9 @@ Future<Response> request(String url,
     String redirectStr = redirect.isNotEmpty
         ? "${redirect.startsWith("https") ? "" : "${uri.scheme}://${uri.authority}"}$redirect"
         : url;
-    Response request;
+    Response requestHttp;
     if (redirect.isEmpty) {
-      request = await _lppDio.request(redirectStr,
+      requestHttp = await _lppDio.request(redirectStr,
           data: data,
           queryParameters: queryParameters,
           cancelToken: cancelToken,
@@ -50,19 +50,28 @@ Future<Response> request(String url,
           onSendProgress: onSendProgress,
           onReceiveProgress: onReceiveProgress);
     } else {
-      request = await _lppDio.get(redirectStr);
+      requestHttp = await _lppDio.get(redirectStr);
     }
 
-    var location = request.headers.value(HttpHeaders.locationHeader);
+    var location = requestHttp.headers.value(HttpHeaders.locationHeader);
+    if (location != null && location.contains("login.aspx")) {
+      if (_loginCallback != null) {
+        await _loginCallback!();
+      }
+      return await request(url,
+          queryParameters: queryParameters,
+          cancelToken: cancelToken,
+          data: data,
+          onReceiveProgress: onReceiveProgress,
+          onSendProgress: onSendProgress,
+          options: options);
+    }
     if (location != null &&
         location.isNotEmpty &&
         !redirectStr.endsWith(location)) {
       redirect = location;
     } else {
-      if (_cookieCallback != null) {
-        _cookieCallback!();
-      }
-      return request;
+      return requestHttp;
     }
   }
 }

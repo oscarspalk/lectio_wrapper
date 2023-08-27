@@ -16,7 +16,8 @@ class Account {
   int gymId;
   String username;
   String password;
-  Account(this.gymId, this.username, this.password);
+  Future<Account> Function()? loginError;
+  Account(this.gymId, this.username, this.password, {this.loginError});
 
   Student? checkLoggedIn(BeautifulSoup soup, int gymId) {
     var metaElement = soup
@@ -60,6 +61,12 @@ class Account {
       var student = checkLoggedIn(BeautifulSoup(forsideSoup.data), gymId);
       if (student == null) {
         throw InvalidCredentialsError();
+      }
+      if (loginError != null) {
+        setLoginCallback(() async {
+          var account = await loginError!();
+          await account.login(autologin: autologin);
+        });
       }
       return student;
     } catch (e) {
