@@ -429,3 +429,7 @@
 ## 0.6.3
 
 * You can add auto re-login now to an account object.
+
+## 0.6.4
+
+* As lectio's autologin isn't actually neccesary, then the new request function is rewritten into a much simpler form.

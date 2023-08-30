@@ -15,7 +15,7 @@ void setLoginCallback(Future<void> Function() callback) {
 }
 
 final Dio _lppDio = Dio(BaseOptions(
-  followRedirects: false,
+  followRedirects: true,
   validateStatus: (status) {
     return status != null && status >= 200 && status < 400;
   },
@@ -33,45 +33,25 @@ Future<Response> request(String url,
     Options? options,
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress}) async {
-  bool requesting = true;
-  Uri uri = Uri.parse(url);
-  String redirect = "";
-  while (requesting) {
-    String redirectStr = redirect.isNotEmpty
-        ? "${redirect.startsWith("https") ? "" : "${uri.scheme}://${uri.authority}"}$redirect"
-        : url;
-    Response requestHttp;
-    if (redirect.isEmpty) {
-      requestHttp = await _lppDio.request(redirectStr,
-          data: data,
-          queryParameters: queryParameters,
-          cancelToken: cancelToken,
-          options: options,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress);
-    } else {
-      requestHttp = await _lppDio.get(redirectStr);
+  var dioRequest = await _lppDio.request(url,
+      data: data,
+      onReceiveProgress: onReceiveProgress,
+      onSendProgress: onSendProgress,
+      queryParameters: queryParameters,
+      cancelToken: cancelToken,
+      options: options);
+  if (dioRequest.headers[HttpHeaders.locationHeader]?.contains("login.aspx") ??
+      false) {
+    if (_loginCallback != null) {
+      await _loginCallback!();
     }
-
-    var location = requestHttp.headers.value(HttpHeaders.locationHeader);
-    if (location != null && location.contains("login.aspx")) {
-      if (_loginCallback != null) {
-        await _loginCallback!();
-      }
-      return await request(url,
-          queryParameters: queryParameters,
-          cancelToken: cancelToken,
-          data: data,
-          onReceiveProgress: onReceiveProgress,
-          onSendProgress: onSendProgress,
-          options: options);
-    }
-    if (location != null &&
-        location.isNotEmpty &&
-        !redirectStr.endsWith(location)) {
-      redirect = location;
-    } else {
-      return requestHttp;
-    }
+    return await request(url,
+        data: data,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onSendProgress,
+        options: options);
   }
+  return dioRequest;
 }
