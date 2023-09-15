@@ -26,6 +26,7 @@ mixin _$AbsenceCauseEntry {
   String get expandedCause => throw _privateConstructorUsedError;
   String get note => throw _privateConstructorUsedError;
   DateTime get registered => throw _privateConstructorUsedError;
+  AbsenceType get type => throw _privateConstructorUsedError;
   CalendarEvent get module => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $AbsenceCauseEntryCopyWith<$Res> {
       String expandedCause,
       String note,
       DateTime registered,
+      AbsenceType type,
       CalendarEvent module});
 
   $CalendarEventCopyWith<$Res> get module;
@@ -71,6 +73,7 @@ class _$AbsenceCauseEntryCopyWithImpl<$Res, $Val extends AbsenceCauseEntry>
     Object? expandedCause = null,
     Object? note = null,
     Object? registered = null,
+    Object? type = null,
     Object? module = null,
   }) {
     return _then(_value.copyWith(
@@ -98,6 +101,10 @@ class _$AbsenceCauseEntryCopyWithImpl<$Res, $Val extends AbsenceCauseEntry>
           ? _value.registered
           : registered // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AbsenceType,
       module: null == module
           ? _value.module
           : module // ignore: cast_nullable_to_non_nullable
@@ -129,6 +136,7 @@ abstract class _$$_AbsenceCauseEntryCopyWith<$Res>
       String expandedCause,
       String note,
       DateTime registered,
+      AbsenceType type,
       CalendarEvent module});
 
   @override
@@ -152,6 +160,7 @@ class __$$_AbsenceCauseEntryCopyWithImpl<$Res>
     Object? expandedCause = null,
     Object? note = null,
     Object? registered = null,
+    Object? type = null,
     Object? module = null,
   }) {
     return _then(_$_AbsenceCauseEntry(
@@ -179,6 +188,10 @@ class __$$_AbsenceCauseEntryCopyWithImpl<$Res>
           ? _value.registered
           : registered // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as AbsenceType,
       module: null == module
           ? _value.module
           : module // ignore: cast_nullable_to_non_nullable
@@ -197,6 +210,7 @@ class _$_AbsenceCauseEntry implements _AbsenceCauseEntry {
       required this.expandedCause,
       required this.note,
       required this.registered,
+      required this.type,
       required this.module});
 
   factory _$_AbsenceCauseEntry.fromJson(Map<String, dynamic> json) =>
@@ -215,11 +229,13 @@ class _$_AbsenceCauseEntry implements _AbsenceCauseEntry {
   @override
   final DateTime registered;
   @override
+  final AbsenceType type;
+  @override
   final CalendarEvent module;
 
   @override
   String toString() {
-    return 'AbsenceCauseEntry(id: $id, absence: $absence, cause: $cause, expandedCause: $expandedCause, note: $note, registered: $registered, module: $module)';
+    return 'AbsenceCauseEntry(id: $id, absence: $absence, cause: $cause, expandedCause: $expandedCause, note: $note, registered: $registered, type: $type, module: $module)';
   }
 
   @override
@@ -235,13 +251,14 @@ class _$_AbsenceCauseEntry implements _AbsenceCauseEntry {
             (identical(other.note, note) || other.note == note) &&
             (identical(other.registered, registered) ||
                 other.registered == registered) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.module, module) || other.module == module));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, absence, cause, expandedCause, note, registered, module);
+  int get hashCode => Object.hash(runtimeType, id, absence, cause,
+      expandedCause, note, registered, type, module);
 
   @JsonKey(ignore: true)
   @override
@@ -266,6 +283,7 @@ abstract class _AbsenceCauseEntry implements AbsenceCauseEntry {
       required final String expandedCause,
       required final String note,
       required final DateTime registered,
+      required final AbsenceType type,
       required final CalendarEvent module}) = _$_AbsenceCauseEntry;
 
   factory _AbsenceCauseEntry.fromJson(Map<String, dynamic> json) =
@@ -283,6 +301,8 @@ abstract class _AbsenceCauseEntry implements AbsenceCauseEntry {
   String get note;
   @override
   DateTime get registered;
+  @override
+  AbsenceType get type;
   @override
   CalendarEvent get module;
   @override

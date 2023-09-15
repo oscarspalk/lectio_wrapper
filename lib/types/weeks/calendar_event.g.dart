@@ -76,6 +76,8 @@ _$_CalendarEvent _$$_CalendarEventFromJson(Map<String, dynamic> json) =>
       note: json['note'] as String,
       start: DateTime.parse(json['start'] as String),
       end: DateTime.parse(json['end'] as String),
+      hasHomework: json['hasHomework'] as bool,
+      hasNote: json['hasNote'] as bool,
       teacherObjs: (json['teacherObjs'] as List<dynamic>)
           .map((e) => MetaDataEntry.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -96,6 +98,8 @@ Map<String, dynamic> _$$_CalendarEventToJson(_$_CalendarEvent instance) =>
       'note': instance.note,
       'start': instance.start.toIso8601String(),
       'end': instance.end.toIso8601String(),
+      'hasHomework': instance.hasHomework,
+      'hasNote': instance.hasNote,
       'teacherObjs': instance.teacherObjs,
       'teamObjs': instance.teamObjs,
     };

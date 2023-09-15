@@ -26,7 +26,10 @@ Future<Map<String, String>> extractASPData(
   return data;
 }
 
-Map<String, String> queriesFromSoup(String url) {
+Map<String, String> queriesFromSoup(String? url) {
+  if (url == null) {
+    return <String, String>{};
+  }
   int splitLocation = url.indexOf("?");
   var keys = Map.fromEntries(url
       .substring(splitLocation + 1)

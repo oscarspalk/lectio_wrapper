@@ -14,6 +14,7 @@ _$_AbsenceCauseEntry _$$_AbsenceCauseEntryFromJson(Map<String, dynamic> json) =>
       expandedCause: json['expandedCause'] as String,
       note: json['note'] as String,
       registered: DateTime.parse(json['registered'] as String),
+      type: $enumDecode(_$AbsenceTypeEnumMap, json['type']),
       module: CalendarEvent.fromJson(json['module'] as Map<String, dynamic>),
     );
 
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_AbsenceCauseEntryToJson(
       'expandedCause': instance.expandedCause,
       'note': instance.note,
       'registered': instance.registered.toIso8601String(),
+      'type': _$AbsenceTypeEnumMap[instance.type]!,
       'module': instance.module,
     };
 
@@ -35,4 +37,9 @@ const _$AbsenceCausesEnumMap = {
   AbsenceCauses.sick: 'sick',
   AbsenceCauses.schoolRelated: 'schoolRelated',
   AbsenceCauses.privateRelations: 'privateRelations',
+};
+
+const _$AbsenceTypeEnumMap = {
+  AbsenceType.accepted: 'accepted',
+  AbsenceType.absence: 'absence',
 };

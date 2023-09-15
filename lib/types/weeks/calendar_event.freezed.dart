@@ -741,6 +741,8 @@ mixin _$CalendarEvent {
   String get note => throw _privateConstructorUsedError;
   DateTime get start => throw _privateConstructorUsedError;
   DateTime get end => throw _privateConstructorUsedError;
+  bool get hasHomework => throw _privateConstructorUsedError;
+  bool get hasNote => throw _privateConstructorUsedError;
   List<MetaDataEntry> get teacherObjs => throw _privateConstructorUsedError;
   List<MetaDataEntry> get teamObjs => throw _privateConstructorUsedError;
 
@@ -767,6 +769,8 @@ abstract class $CalendarEventCopyWith<$Res> {
       String note,
       DateTime start,
       DateTime end,
+      bool hasHomework,
+      bool hasNote,
       List<MetaDataEntry> teacherObjs,
       List<MetaDataEntry> teamObjs});
 }
@@ -794,6 +798,8 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
     Object? note = null,
     Object? start = null,
     Object? end = null,
+    Object? hasHomework = null,
+    Object? hasNote = null,
     Object? teacherObjs = null,
     Object? teamObjs = null,
   }) {
@@ -838,6 +844,14 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      hasHomework: null == hasHomework
+          ? _value.hasHomework
+          : hasHomework // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasNote: null == hasNote
+          ? _value.hasNote
+          : hasNote // ignore: cast_nullable_to_non_nullable
+              as bool,
       teacherObjs: null == teacherObjs
           ? _value.teacherObjs
           : teacherObjs // ignore: cast_nullable_to_non_nullable
@@ -869,6 +883,8 @@ abstract class _$$_CalendarEventCopyWith<$Res>
       String note,
       DateTime start,
       DateTime end,
+      bool hasHomework,
+      bool hasNote,
       List<MetaDataEntry> teacherObjs,
       List<MetaDataEntry> teamObjs});
 }
@@ -894,6 +910,8 @@ class __$$_CalendarEventCopyWithImpl<$Res>
     Object? note = null,
     Object? start = null,
     Object? end = null,
+    Object? hasHomework = null,
+    Object? hasNote = null,
     Object? teacherObjs = null,
     Object? teamObjs = null,
   }) {
@@ -938,6 +956,14 @@ class __$$_CalendarEventCopyWithImpl<$Res>
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      hasHomework: null == hasHomework
+          ? _value.hasHomework
+          : hasHomework // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasNote: null == hasNote
+          ? _value.hasNote
+          : hasNote // ignore: cast_nullable_to_non_nullable
+              as bool,
       teacherObjs: null == teacherObjs
           ? _value._teacherObjs
           : teacherObjs // ignore: cast_nullable_to_non_nullable
@@ -964,6 +990,8 @@ class _$_CalendarEvent implements _CalendarEvent {
       required this.note,
       required this.start,
       required this.end,
+      required this.hasHomework,
+      required this.hasNote,
       required final List<MetaDataEntry> teacherObjs,
       required final List<MetaDataEntry> teamObjs})
       : _teachers = teachers,
@@ -999,6 +1027,10 @@ class _$_CalendarEvent implements _CalendarEvent {
   final DateTime start;
   @override
   final DateTime end;
+  @override
+  final bool hasHomework;
+  @override
+  final bool hasNote;
   final List<MetaDataEntry> _teacherObjs;
   @override
   List<MetaDataEntry> get teacherObjs {
@@ -1017,7 +1049,7 @@ class _$_CalendarEvent implements _CalendarEvent {
 
   @override
   String toString() {
-    return 'CalendarEvent(type: $type, status: $status, title: $title, team: $team, teachers: $teachers, room: $room, id: $id, note: $note, start: $start, end: $end, teacherObjs: $teacherObjs, teamObjs: $teamObjs)';
+    return 'CalendarEvent(type: $type, status: $status, title: $title, team: $team, teachers: $teachers, room: $room, id: $id, note: $note, start: $start, end: $end, hasHomework: $hasHomework, hasNote: $hasNote, teacherObjs: $teacherObjs, teamObjs: $teamObjs)';
   }
 
   @override
@@ -1035,6 +1067,9 @@ class _$_CalendarEvent implements _CalendarEvent {
             (identical(other.note, note) || other.note == note) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
+            (identical(other.hasHomework, hasHomework) ||
+                other.hasHomework == hasHomework) &&
+            (identical(other.hasNote, hasNote) || other.hasNote == hasNote) &&
             const DeepCollectionEquality()
                 .equals(other._teacherObjs, _teacherObjs) &&
             const DeepCollectionEquality().equals(other._teamObjs, _teamObjs));
@@ -1054,6 +1089,8 @@ class _$_CalendarEvent implements _CalendarEvent {
       note,
       start,
       end,
+      hasHomework,
+      hasNote,
       const DeepCollectionEquality().hash(_teacherObjs),
       const DeepCollectionEquality().hash(_teamObjs));
 
@@ -1083,6 +1120,8 @@ abstract class _CalendarEvent implements CalendarEvent {
       required final String note,
       required final DateTime start,
       required final DateTime end,
+      required final bool hasHomework,
+      required final bool hasNote,
       required final List<MetaDataEntry> teacherObjs,
       required final List<MetaDataEntry> teamObjs}) = _$_CalendarEvent;
 
@@ -1109,6 +1148,10 @@ abstract class _CalendarEvent implements CalendarEvent {
   DateTime get start;
   @override
   DateTime get end;
+  @override
+  bool get hasHomework;
+  @override
+  bool get hasNote;
   @override
   List<MetaDataEntry> get teacherObjs;
   @override

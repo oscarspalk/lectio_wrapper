@@ -27,11 +27,11 @@ Future<List<AssignmentRef>> extractAssignments(BeautifulSoup soup) async {
 }
 
 AssignmentRef? extractAssignmentRef(Bs4Element assignmentRow) {
-  try {
-    var columns = assignmentRow.findAll("td");
-    int week = int.parse(columns[0].text);
-    String team = columns[1].text;
-    var task = columns[2].children[0].children[0];
+  var columns = assignmentRow.findAll("td");
+  int week = int.parse(columns[0].text);
+  String team = columns[1].text;
+  var task = columns[2].find('a');
+  if (task != null) {
     String id = queriesFromSoup(task.getAttrValue('href')!)['exerciseid']!;
     String title = task.text;
     DateFormat format = DateFormat("d/M-y HH:mm");
@@ -50,9 +50,8 @@ AssignmentRef? extractAssignmentRef(Bs4Element assignmentRow) {
         absence: absence,
         taskNote: taskNote,
         id: id);
-  } catch (_) {
-    return null;
   }
+  return null;
 }
 
 Future<Assignment> extractAssignment(

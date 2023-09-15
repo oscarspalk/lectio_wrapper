@@ -44,27 +44,29 @@ Future<List<AbsenceCauseEntry>> extractAbsenceCauses(BeautifulSoup soup) async {
 }
 
 AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
-  try {
-    double absencePercent = extractAbsencePercent(row.children[3]);
-    AbsenceCauses? cause = AbsenceCauses.values
-        .where((element) =>
-            element.name.toLowerCase() == row.children[8].text.toLowerCase())
-        .firstOrNull;
-    String? extendedCause = row.children.elementAtOrNull(9)?.text;
-    String id = "";
-    if (extendedCause == null) {
-      id = queriesFromSoup(
-          row.children[8].find('a')!.getAttrValue("href")!)['id']!;
-    } else {
-      id = queriesFromSoup(
-          row.children[10].children[0].getAttrValue("href")!)['id']!;
-    }
+  double absencePercent = extractAbsencePercent(row.children[2]);
+  AbsenceType? type = _extractAbsenceType(row.children[3].text);
+  AbsenceCauses? cause = AbsenceCauses.values
+      .where((element) => row.children[6].text
+          .toLowerCase()
+          .startsWith(element.name.toLowerCase()))
+      .firstOrNull;
+  String? extendedCause =
+      _extractExtendedCause(row.children.elementAtOrNull(6));
+  Bs4Element? editButton = row.children[missingCause ? 6 : 7].find('a');
+  String? id = queriesFromSoup(editButton?.getAttrValue("href"))['id'];
 
-    String note = row.children[7].text;
-    String registeredDateString = row.children[5].text;
-    DateTime registered = registeredTimeFormat.parse(registeredDateString);
-    var event = extractModul(row.children[2].children[0]);
+  String note = extendedCause ?? "";
+  String registeredDateString = row.children[4].text;
+  int firstSpace = registeredDateString.indexOf(RegExp(r'\s'));
+  int secondSpace = registeredDateString.indexOf(RegExp(r'\s'), firstSpace + 1);
+  String dateString = registeredDateString.substring(0, secondSpace);
+  DateTime registered = registeredTimeFormat.parse(dateString);
+  Bs4Element? skemaBrik = row.children[1].find('a');
+  if (skemaBrik != null && id != null && type != null) {
+    var event = extractModul(skemaBrik);
     return AbsenceCauseEntry(
+        type: type,
         id: id,
         absence: absencePercent,
         cause: cause,
@@ -72,7 +74,27 @@ AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
         note: note,
         registered: registered,
         module: event);
-  } catch (_) {
-    return null;
   }
+
+  return null;
+}
+
+AbsenceType? _extractAbsenceType(String text) {
+  for (var type in AbsenceType.values) {
+    if (text.contains(type.alias)) {
+      return type;
+    }
+  }
+  return null;
+}
+
+String? _extractExtendedCause(Bs4Element? element) {
+  if (element != null) {
+    String text = element.text;
+    int splitIndex = text.indexOf('\n');
+    if (splitIndex != -1) {
+      return text.substring(splitIndex).trim();
+    }
+  }
+  return null;
 }

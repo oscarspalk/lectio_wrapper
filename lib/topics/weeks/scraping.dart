@@ -91,7 +91,14 @@ CalendarEvent extractModul(Bs4Element element) {
     type = CalendarEventType.private;
     id = queriesFromSoup(element.getAttrValue('href') ?? "")['aftaleid'];
   }
-
+  bool hasHomework = false;
+  bool hasNote = false;
+  if (type == CalendarEventType.regular) {
+    Bs4Element? homeworkIcon = element.find('*', class_: 'ls-lektier');
+    Bs4Element? noteIcon = element.find('*', class_: 'ls-note');
+    hasHomework = homeworkIcon != null;
+    hasNote = noteIcon != null;
+  }
   String title = "";
   DateTime start = DateTime.now();
   DateTime end = DateTime.now();
@@ -169,6 +176,8 @@ CalendarEvent extractModul(Bs4Element element) {
     }
   }
   return CalendarEvent(
+      hasHomework: hasHomework,
+      hasNote: hasNote,
       status: status,
       title: title,
       team: team,

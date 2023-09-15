@@ -21,6 +21,8 @@ void main() {
     const testUpdatedContent = "Smager godt og bedre";
     Duration newOffset = const Duration(hours: 1, minutes: 30);
     var calendarEvent = CalendarEvent(
+        hasHomework: false,
+        hasNote: false,
         teacherObjs: [],
         teamObjs: [],
         type: CalendarEventType.private,

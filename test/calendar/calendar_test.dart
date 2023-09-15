@@ -18,6 +18,8 @@ void main() {
 
   test('getCalendarEventDetails', () async {
     var item = await student!.events.expand(CalendarEvent(
+        hasHomework: false,
+        hasNote: false,
         teacherObjs: [],
         teamObjs: [],
         type: CalendarEventType.regular,

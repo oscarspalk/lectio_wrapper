@@ -57,6 +57,8 @@ class CalendarEvent with _$CalendarEvent {
       required String note,
       required DateTime start,
       required DateTime end,
+      required bool hasHomework,
+      required bool hasNote,
       required List<MetaDataEntry> teacherObjs,
       required List<MetaDataEntry> teamObjs}) = _CalendarEvent;
 

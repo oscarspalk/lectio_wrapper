@@ -4,6 +4,19 @@ import 'package:lectio_wrapper/types/weeks/calendar_event.dart';
 part 'cause.freezed.dart';
 part 'cause.g.dart';
 
+enum AbsenceType { accepted, absence }
+
+extension AbsenceTypeText on AbsenceType {
+  String get alias {
+    switch (this) {
+      case AbsenceType.absence:
+        return "Fravær";
+      case AbsenceType.accepted:
+        return "Godskrevet";
+    }
+  }
+}
+
 @freezed
 class AbsenceCauseEntry with _$AbsenceCauseEntry {
   factory AbsenceCauseEntry(
@@ -13,6 +26,7 @@ class AbsenceCauseEntry with _$AbsenceCauseEntry {
       required String expandedCause,
       required String note,
       required DateTime registered,
+      required AbsenceType type,
       required CalendarEvent module}) = _AbsenceCauseEntry;
 
   factory AbsenceCauseEntry.fromJson(Map<String, Object?> json) =>
