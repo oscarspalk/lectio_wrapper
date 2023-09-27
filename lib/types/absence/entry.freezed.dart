@@ -98,11 +98,11 @@ class _$AbsenceEntryCopyWithImpl<$Res, $Val extends AbsenceEntry>
 }
 
 /// @nodoc
-abstract class _$$_AbsenceEntryCopyWith<$Res>
+abstract class _$$AbsenceEntryImplCopyWith<$Res>
     implements $AbsenceEntryCopyWith<$Res> {
-  factory _$$_AbsenceEntryCopyWith(
-          _$_AbsenceEntry value, $Res Function(_$_AbsenceEntry) then) =
-      __$$_AbsenceEntryCopyWithImpl<$Res>;
+  factory _$$AbsenceEntryImplCopyWith(
+          _$AbsenceEntryImpl value, $Res Function(_$AbsenceEntryImpl) then) =
+      __$$AbsenceEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -117,11 +117,11 @@ abstract class _$$_AbsenceEntryCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AbsenceEntryCopyWithImpl<$Res>
-    extends _$AbsenceEntryCopyWithImpl<$Res, _$_AbsenceEntry>
-    implements _$$_AbsenceEntryCopyWith<$Res> {
-  __$$_AbsenceEntryCopyWithImpl(
-      _$_AbsenceEntry _value, $Res Function(_$_AbsenceEntry) _then)
+class __$$AbsenceEntryImplCopyWithImpl<$Res>
+    extends _$AbsenceEntryCopyWithImpl<$Res, _$AbsenceEntryImpl>
+    implements _$$AbsenceEntryImplCopyWith<$Res> {
+  __$$AbsenceEntryImplCopyWithImpl(
+      _$AbsenceEntryImpl _value, $Res Function(_$AbsenceEntryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -131,7 +131,7 @@ class __$$_AbsenceEntryCopyWithImpl<$Res>
     Object? regular = null,
     Object? assignment = null,
   }) {
-    return _then(_$_AbsenceEntry(
+    return _then(_$AbsenceEntryImpl(
       team: null == team
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -150,8 +150,8 @@ class __$$_AbsenceEntryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AbsenceEntry implements _AbsenceEntry {
-  _$_AbsenceEntry(
+class _$AbsenceEntryImpl implements _AbsenceEntry {
+  _$AbsenceEntryImpl(
       {required this.team, required this.regular, required this.assignment});
 
   @override
@@ -170,7 +170,7 @@ class _$_AbsenceEntry implements _AbsenceEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AbsenceEntry &&
+            other is _$AbsenceEntryImpl &&
             (identical(other.team, team) || other.team == team) &&
             (identical(other.regular, regular) || other.regular == regular) &&
             (identical(other.assignment, assignment) ||
@@ -183,15 +183,15 @@ class _$_AbsenceEntry implements _AbsenceEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AbsenceEntryCopyWith<_$_AbsenceEntry> get copyWith =>
-      __$$_AbsenceEntryCopyWithImpl<_$_AbsenceEntry>(this, _$identity);
+  _$$AbsenceEntryImplCopyWith<_$AbsenceEntryImpl> get copyWith =>
+      __$$AbsenceEntryImplCopyWithImpl<_$AbsenceEntryImpl>(this, _$identity);
 }
 
 abstract class _AbsenceEntry implements AbsenceEntry {
   factory _AbsenceEntry(
       {required final Team team,
       required final RegularEntryData regular,
-      required final AssignmentEntryData assignment}) = _$_AbsenceEntry;
+      required final AssignmentEntryData assignment}) = _$AbsenceEntryImpl;
 
   @override
   Team get team;
@@ -201,7 +201,7 @@ abstract class _AbsenceEntry implements AbsenceEntry {
   AssignmentEntryData get assignment;
   @override
   @JsonKey(ignore: true)
-  _$$_AbsenceEntryCopyWith<_$_AbsenceEntry> get copyWith =>
+  _$$AbsenceEntryImplCopyWith<_$AbsenceEntryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -289,11 +289,11 @@ class _$RegularEntryDataCopyWithImpl<$Res, $Val extends RegularEntryData>
 }
 
 /// @nodoc
-abstract class _$$_RegularEntryDataCopyWith<$Res>
+abstract class _$$RegularEntryDataImplCopyWith<$Res>
     implements $RegularEntryDataCopyWith<$Res> {
-  factory _$$_RegularEntryDataCopyWith(
-          _$_RegularEntryData value, $Res Function(_$_RegularEntryData) then) =
-      __$$_RegularEntryDataCopyWithImpl<$Res>;
+  factory _$$RegularEntryDataImplCopyWith(_$RegularEntryDataImpl value,
+          $Res Function(_$RegularEntryDataImpl) then) =
+      __$$RegularEntryDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -309,11 +309,11 @@ abstract class _$$_RegularEntryDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RegularEntryDataCopyWithImpl<$Res>
-    extends _$RegularEntryDataCopyWithImpl<$Res, _$_RegularEntryData>
-    implements _$$_RegularEntryDataCopyWith<$Res> {
-  __$$_RegularEntryDataCopyWithImpl(
-      _$_RegularEntryData _value, $Res Function(_$_RegularEntryData) _then)
+class __$$RegularEntryDataImplCopyWithImpl<$Res>
+    extends _$RegularEntryDataCopyWithImpl<$Res, _$RegularEntryDataImpl>
+    implements _$$RegularEntryDataImplCopyWith<$Res> {
+  __$$RegularEntryDataImplCopyWithImpl(_$RegularEntryDataImpl _value,
+      $Res Function(_$RegularEntryDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -324,7 +324,7 @@ class __$$_RegularEntryDataCopyWithImpl<$Res>
     Object? finalPercent = null,
     Object? finalModules = null,
   }) {
-    return _then(_$_RegularEntryData(
+    return _then(_$RegularEntryDataImpl(
       currentPercent: null == currentPercent
           ? _value.currentPercent
           : currentPercent // ignore: cast_nullable_to_non_nullable
@@ -347,8 +347,8 @@ class __$$_RegularEntryDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RegularEntryData implements _RegularEntryData {
-  _$_RegularEntryData(
+class _$RegularEntryDataImpl implements _RegularEntryData {
+  _$RegularEntryDataImpl(
       {required this.currentPercent,
       required this.currentModules,
       required this.finalPercent,
@@ -372,7 +372,7 @@ class _$_RegularEntryData implements _RegularEntryData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RegularEntryData &&
+            other is _$RegularEntryDataImpl &&
             (identical(other.currentPercent, currentPercent) ||
                 other.currentPercent == currentPercent) &&
             (identical(other.currentModules, currentModules) ||
@@ -390,8 +390,9 @@ class _$_RegularEntryData implements _RegularEntryData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RegularEntryDataCopyWith<_$_RegularEntryData> get copyWith =>
-      __$$_RegularEntryDataCopyWithImpl<_$_RegularEntryData>(this, _$identity);
+  _$$RegularEntryDataImplCopyWith<_$RegularEntryDataImpl> get copyWith =>
+      __$$RegularEntryDataImplCopyWithImpl<_$RegularEntryDataImpl>(
+          this, _$identity);
 }
 
 abstract class _RegularEntryData implements RegularEntryData {
@@ -399,7 +400,7 @@ abstract class _RegularEntryData implements RegularEntryData {
       {required final double currentPercent,
       required final AbsenceFraction currentModules,
       required final double finalPercent,
-      required final AbsenceFraction finalModules}) = _$_RegularEntryData;
+      required final AbsenceFraction finalModules}) = _$RegularEntryDataImpl;
 
   @override
   double get currentPercent;
@@ -411,7 +412,7 @@ abstract class _RegularEntryData implements RegularEntryData {
   AbsenceFraction get finalModules;
   @override
   @JsonKey(ignore: true)
-  _$$_RegularEntryDataCopyWith<_$_RegularEntryData> get copyWith =>
+  _$$RegularEntryDataImplCopyWith<_$RegularEntryDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -499,11 +500,11 @@ class _$AssignmentEntryDataCopyWithImpl<$Res, $Val extends AssignmentEntryData>
 }
 
 /// @nodoc
-abstract class _$$_AssignmentEntryDataCopyWith<$Res>
+abstract class _$$AssignmentEntryDataImplCopyWith<$Res>
     implements $AssignmentEntryDataCopyWith<$Res> {
-  factory _$$_AssignmentEntryDataCopyWith(_$_AssignmentEntryData value,
-          $Res Function(_$_AssignmentEntryData) then) =
-      __$$_AssignmentEntryDataCopyWithImpl<$Res>;
+  factory _$$AssignmentEntryDataImplCopyWith(_$AssignmentEntryDataImpl value,
+          $Res Function(_$AssignmentEntryDataImpl) then) =
+      __$$AssignmentEntryDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -519,11 +520,11 @@ abstract class _$$_AssignmentEntryDataCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AssignmentEntryDataCopyWithImpl<$Res>
-    extends _$AssignmentEntryDataCopyWithImpl<$Res, _$_AssignmentEntryData>
-    implements _$$_AssignmentEntryDataCopyWith<$Res> {
-  __$$_AssignmentEntryDataCopyWithImpl(_$_AssignmentEntryData _value,
-      $Res Function(_$_AssignmentEntryData) _then)
+class __$$AssignmentEntryDataImplCopyWithImpl<$Res>
+    extends _$AssignmentEntryDataCopyWithImpl<$Res, _$AssignmentEntryDataImpl>
+    implements _$$AssignmentEntryDataImplCopyWith<$Res> {
+  __$$AssignmentEntryDataImplCopyWithImpl(_$AssignmentEntryDataImpl _value,
+      $Res Function(_$AssignmentEntryDataImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -534,7 +535,7 @@ class __$$_AssignmentEntryDataCopyWithImpl<$Res>
     Object? finalPercent = null,
     Object? finalStudentTime = null,
   }) {
-    return _then(_$_AssignmentEntryData(
+    return _then(_$AssignmentEntryDataImpl(
       currentPercent: null == currentPercent
           ? _value.currentPercent
           : currentPercent // ignore: cast_nullable_to_non_nullable
@@ -557,8 +558,8 @@ class __$$_AssignmentEntryDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AssignmentEntryData implements _AssignmentEntryData {
-  _$_AssignmentEntryData(
+class _$AssignmentEntryDataImpl implements _AssignmentEntryData {
+  _$AssignmentEntryDataImpl(
       {required this.currentPercent,
       required this.currentStudentTime,
       required this.finalPercent,
@@ -582,7 +583,7 @@ class _$_AssignmentEntryData implements _AssignmentEntryData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AssignmentEntryData &&
+            other is _$AssignmentEntryDataImpl &&
             (identical(other.currentPercent, currentPercent) ||
                 other.currentPercent == currentPercent) &&
             (identical(other.currentStudentTime, currentStudentTime) ||
@@ -600,8 +601,8 @@ class _$_AssignmentEntryData implements _AssignmentEntryData {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AssignmentEntryDataCopyWith<_$_AssignmentEntryData> get copyWith =>
-      __$$_AssignmentEntryDataCopyWithImpl<_$_AssignmentEntryData>(
+  _$$AssignmentEntryDataImplCopyWith<_$AssignmentEntryDataImpl> get copyWith =>
+      __$$AssignmentEntryDataImplCopyWithImpl<_$AssignmentEntryDataImpl>(
           this, _$identity);
 }
 
@@ -611,7 +612,7 @@ abstract class _AssignmentEntryData implements AssignmentEntryData {
           required final AbsenceFraction currentStudentTime,
           required final double finalPercent,
           required final AbsenceFraction finalStudentTime}) =
-      _$_AssignmentEntryData;
+      _$AssignmentEntryDataImpl;
 
   @override
   double get currentPercent;
@@ -623,7 +624,7 @@ abstract class _AssignmentEntryData implements AssignmentEntryData {
   AbsenceFraction get finalStudentTime;
   @override
   @JsonKey(ignore: true)
-  _$$_AssignmentEntryDataCopyWith<_$_AssignmentEntryData> get copyWith =>
+  _$$AssignmentEntryDataImplCopyWith<_$AssignmentEntryDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -676,22 +677,22 @@ class _$AbsenceFractionCopyWithImpl<$Res, $Val extends AbsenceFraction>
 }
 
 /// @nodoc
-abstract class _$$_AbsenceFractionCopyWith<$Res>
+abstract class _$$AbsenceFractionImplCopyWith<$Res>
     implements $AbsenceFractionCopyWith<$Res> {
-  factory _$$_AbsenceFractionCopyWith(
-          _$_AbsenceFraction value, $Res Function(_$_AbsenceFraction) then) =
-      __$$_AbsenceFractionCopyWithImpl<$Res>;
+  factory _$$AbsenceFractionImplCopyWith(_$AbsenceFractionImpl value,
+          $Res Function(_$AbsenceFractionImpl) then) =
+      __$$AbsenceFractionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double current, double total});
 }
 
 /// @nodoc
-class __$$_AbsenceFractionCopyWithImpl<$Res>
-    extends _$AbsenceFractionCopyWithImpl<$Res, _$_AbsenceFraction>
-    implements _$$_AbsenceFractionCopyWith<$Res> {
-  __$$_AbsenceFractionCopyWithImpl(
-      _$_AbsenceFraction _value, $Res Function(_$_AbsenceFraction) _then)
+class __$$AbsenceFractionImplCopyWithImpl<$Res>
+    extends _$AbsenceFractionCopyWithImpl<$Res, _$AbsenceFractionImpl>
+    implements _$$AbsenceFractionImplCopyWith<$Res> {
+  __$$AbsenceFractionImplCopyWithImpl(
+      _$AbsenceFractionImpl _value, $Res Function(_$AbsenceFractionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -700,7 +701,7 @@ class __$$_AbsenceFractionCopyWithImpl<$Res>
     Object? current = null,
     Object? total = null,
   }) {
-    return _then(_$_AbsenceFraction(
+    return _then(_$AbsenceFractionImpl(
       current: null == current
           ? _value.current
           : current // ignore: cast_nullable_to_non_nullable
@@ -715,8 +716,8 @@ class __$$_AbsenceFractionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AbsenceFraction implements _AbsenceFraction {
-  _$_AbsenceFraction({required this.current, required this.total});
+class _$AbsenceFractionImpl implements _AbsenceFraction {
+  _$AbsenceFractionImpl({required this.current, required this.total});
 
   @override
   final double current;
@@ -732,7 +733,7 @@ class _$_AbsenceFraction implements _AbsenceFraction {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AbsenceFraction &&
+            other is _$AbsenceFractionImpl &&
             (identical(other.current, current) || other.current == current) &&
             (identical(other.total, total) || other.total == total));
   }
@@ -743,14 +744,15 @@ class _$_AbsenceFraction implements _AbsenceFraction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AbsenceFractionCopyWith<_$_AbsenceFraction> get copyWith =>
-      __$$_AbsenceFractionCopyWithImpl<_$_AbsenceFraction>(this, _$identity);
+  _$$AbsenceFractionImplCopyWith<_$AbsenceFractionImpl> get copyWith =>
+      __$$AbsenceFractionImplCopyWithImpl<_$AbsenceFractionImpl>(
+          this, _$identity);
 }
 
 abstract class _AbsenceFraction implements AbsenceFraction {
   factory _AbsenceFraction(
       {required final double current,
-      required final double total}) = _$_AbsenceFraction;
+      required final double total}) = _$AbsenceFractionImpl;
 
   @override
   double get current;
@@ -758,6 +760,6 @@ abstract class _AbsenceFraction implements AbsenceFraction {
   double get total;
   @override
   @JsonKey(ignore: true)
-  _$$_AbsenceFractionCopyWith<_$_AbsenceFraction> get copyWith =>
+  _$$AbsenceFractionImplCopyWith<_$AbsenceFractionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

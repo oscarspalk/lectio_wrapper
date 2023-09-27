@@ -61,20 +61,21 @@ class _$SubjectCopyWithImpl<$Res, $Val extends Subject>
 }
 
 /// @nodoc
-abstract class _$$_SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
-  factory _$$_SubjectCopyWith(
-          _$_Subject value, $Res Function(_$_Subject) then) =
-      __$$_SubjectCopyWithImpl<$Res>;
+abstract class _$$SubjectImplCopyWith<$Res> implements $SubjectCopyWith<$Res> {
+  factory _$$SubjectImplCopyWith(
+          _$SubjectImpl value, $Res Function(_$SubjectImpl) then) =
+      __$$SubjectImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, SubjectTypes type});
 }
 
 /// @nodoc
-class __$$_SubjectCopyWithImpl<$Res>
-    extends _$SubjectCopyWithImpl<$Res, _$_Subject>
-    implements _$$_SubjectCopyWith<$Res> {
-  __$$_SubjectCopyWithImpl(_$_Subject _value, $Res Function(_$_Subject) _then)
+class __$$SubjectImplCopyWithImpl<$Res>
+    extends _$SubjectCopyWithImpl<$Res, _$SubjectImpl>
+    implements _$$SubjectImplCopyWith<$Res> {
+  __$$SubjectImplCopyWithImpl(
+      _$SubjectImpl _value, $Res Function(_$SubjectImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -83,7 +84,7 @@ class __$$_SubjectCopyWithImpl<$Res>
     Object? name = null,
     Object? type = null,
   }) {
-    return _then(_$_Subject(
+    return _then(_$SubjectImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -98,8 +99,8 @@ class __$$_SubjectCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Subject implements _Subject {
-  _$_Subject({required this.name, required this.type});
+class _$SubjectImpl implements _Subject {
+  _$SubjectImpl({required this.name, required this.type});
 
   @override
   final String name;
@@ -115,7 +116,7 @@ class _$_Subject implements _Subject {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Subject &&
+            other is _$SubjectImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type));
   }
@@ -126,14 +127,14 @@ class _$_Subject implements _Subject {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SubjectCopyWith<_$_Subject> get copyWith =>
-      __$$_SubjectCopyWithImpl<_$_Subject>(this, _$identity);
+  _$$SubjectImplCopyWith<_$SubjectImpl> get copyWith =>
+      __$$SubjectImplCopyWithImpl<_$SubjectImpl>(this, _$identity);
 }
 
 abstract class _Subject implements Subject {
   factory _Subject(
       {required final String name,
-      required final SubjectTypes type}) = _$_Subject;
+      required final SubjectTypes type}) = _$SubjectImpl;
 
   @override
   String get name;
@@ -141,6 +142,6 @@ abstract class _Subject implements Subject {
   SubjectTypes get type;
   @override
   @JsonKey(ignore: true)
-  _$$_SubjectCopyWith<_$_Subject> get copyWith =>
+  _$$SubjectImplCopyWith<_$SubjectImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

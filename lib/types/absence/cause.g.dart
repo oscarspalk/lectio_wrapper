@@ -6,8 +6,9 @@ part of 'cause.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AbsenceCauseEntry _$$_AbsenceCauseEntryFromJson(Map<String, dynamic> json) =>
-    _$_AbsenceCauseEntry(
+_$AbsenceCauseEntryImpl _$$AbsenceCauseEntryImplFromJson(
+        Map<String, dynamic> json) =>
+    _$AbsenceCauseEntryImpl(
       id: json['id'] as String,
       absence: (json['absence'] as num).toDouble(),
       cause: $enumDecodeNullable(_$AbsenceCausesEnumMap, json['cause']),
@@ -18,8 +19,8 @@ _$_AbsenceCauseEntry _$$_AbsenceCauseEntryFromJson(Map<String, dynamic> json) =>
       module: CalendarEvent.fromJson(json['module'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_AbsenceCauseEntryToJson(
-        _$_AbsenceCauseEntry instance) =>
+Map<String, dynamic> _$$AbsenceCauseEntryImplToJson(
+        _$AbsenceCauseEntryImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'absence': instance.absence,

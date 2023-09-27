@@ -6,32 +6,33 @@ part of 'calendar_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DayTime _$$_DayTimeFromJson(Map<String, dynamic> json) => _$_DayTime(
+_$DayTimeImpl _$$DayTimeImplFromJson(Map<String, dynamic> json) =>
+    _$DayTimeImpl(
       hour: json['hour'] as int,
       minute: json['minute'] as int,
     );
 
-Map<String, dynamic> _$$_DayTimeToJson(_$_DayTime instance) =>
+Map<String, dynamic> _$$DayTimeImplToJson(_$DayTimeImpl instance) =>
     <String, dynamic>{
       'hour': instance.hour,
       'minute': instance.minute,
     };
 
-_$_ModulRange _$$_ModulRangeFromJson(Map<String, dynamic> json) =>
-    _$_ModulRange(
+_$ModulRangeImpl _$$ModulRangeImplFromJson(Map<String, dynamic> json) =>
+    _$ModulRangeImpl(
       number: json['number'] as int,
       start: DayTime.fromJson(json['start'] as Map<String, dynamic>),
       end: DayTime.fromJson(json['end'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_ModulRangeToJson(_$_ModulRange instance) =>
+Map<String, dynamic> _$$ModulRangeImplToJson(_$ModulRangeImpl instance) =>
     <String, dynamic>{
       'number': instance.number,
       'start': instance.start,
       'end': instance.end,
     };
 
-_$_Week _$$_WeekFromJson(Map<String, dynamic> json) => _$_Week(
+_$WeekImpl _$$WeekImplFromJson(Map<String, dynamic> json) => _$WeekImpl(
       days: (json['days'] as List<dynamic>)
           .map((e) => Day.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -41,13 +42,14 @@ _$_Week _$$_WeekFromJson(Map<String, dynamic> json) => _$_Week(
           .toList(),
     );
 
-Map<String, dynamic> _$$_WeekToJson(_$_Week instance) => <String, dynamic>{
+Map<String, dynamic> _$$WeekImplToJson(_$WeekImpl instance) =>
+    <String, dynamic>{
       'days': instance.days,
       'weekNum': instance.weekNum,
       'modulRanges': instance.modulRanges,
     };
 
-_$_Day _$$_DayFromJson(Map<String, dynamic> json) => _$_Day(
+_$DayImpl _$$DayImplFromJson(Map<String, dynamic> json) => _$DayImpl(
       informations: (json['informations'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -57,14 +59,14 @@ _$_Day _$$_DayFromJson(Map<String, dynamic> json) => _$_Day(
       date: DateTime.parse(json['date'] as String),
     );
 
-Map<String, dynamic> _$$_DayToJson(_$_Day instance) => <String, dynamic>{
+Map<String, dynamic> _$$DayImplToJson(_$DayImpl instance) => <String, dynamic>{
       'informations': instance.informations,
       'events': instance.events,
       'date': instance.date.toIso8601String(),
     };
 
-_$_CalendarEvent _$$_CalendarEventFromJson(Map<String, dynamic> json) =>
-    _$_CalendarEvent(
+_$CalendarEventImpl _$$CalendarEventImplFromJson(Map<String, dynamic> json) =>
+    _$CalendarEventImpl(
       type: $enumDecode(_$CalendarEventTypeEnumMap, json['type']),
       status: json['status'] as String,
       title: json['title'] as String,
@@ -86,7 +88,7 @@ _$_CalendarEvent _$$_CalendarEventFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_CalendarEventToJson(_$_CalendarEvent instance) =>
+Map<String, dynamic> _$$CalendarEventImplToJson(_$CalendarEventImpl instance) =>
     <String, dynamic>{
       'type': _$CalendarEventTypeEnumMap[instance.type]!,
       'status': instance.status,

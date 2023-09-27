@@ -61,18 +61,21 @@ class _$GradeCopyWithImpl<$Res, $Val extends Grade>
 }
 
 /// @nodoc
-abstract class _$$_GradeCopyWith<$Res> implements $GradeCopyWith<$Res> {
-  factory _$$_GradeCopyWith(_$_Grade value, $Res Function(_$_Grade) then) =
-      __$$_GradeCopyWithImpl<$Res>;
+abstract class _$$GradeImplCopyWith<$Res> implements $GradeCopyWith<$Res> {
+  factory _$$GradeImplCopyWith(
+          _$GradeImpl value, $Res Function(_$GradeImpl) then) =
+      __$$GradeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double weight, int grade});
 }
 
 /// @nodoc
-class __$$_GradeCopyWithImpl<$Res> extends _$GradeCopyWithImpl<$Res, _$_Grade>
-    implements _$$_GradeCopyWith<$Res> {
-  __$$_GradeCopyWithImpl(_$_Grade _value, $Res Function(_$_Grade) _then)
+class __$$GradeImplCopyWithImpl<$Res>
+    extends _$GradeCopyWithImpl<$Res, _$GradeImpl>
+    implements _$$GradeImplCopyWith<$Res> {
+  __$$GradeImplCopyWithImpl(
+      _$GradeImpl _value, $Res Function(_$GradeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -81,7 +84,7 @@ class __$$_GradeCopyWithImpl<$Res> extends _$GradeCopyWithImpl<$Res, _$_Grade>
     Object? weight = null,
     Object? grade = null,
   }) {
-    return _then(_$_Grade(
+    return _then(_$GradeImpl(
       weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
@@ -96,8 +99,8 @@ class __$$_GradeCopyWithImpl<$Res> extends _$GradeCopyWithImpl<$Res, _$_Grade>
 
 /// @nodoc
 
-class _$_Grade implements _Grade {
-  _$_Grade({required this.weight, required this.grade});
+class _$GradeImpl implements _Grade {
+  _$GradeImpl({required this.weight, required this.grade});
 
   @override
   final double weight;
@@ -113,7 +116,7 @@ class _$_Grade implements _Grade {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Grade &&
+            other is _$GradeImpl &&
             (identical(other.weight, weight) || other.weight == weight) &&
             (identical(other.grade, grade) || other.grade == grade));
   }
@@ -124,13 +127,13 @@ class _$_Grade implements _Grade {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GradeCopyWith<_$_Grade> get copyWith =>
-      __$$_GradeCopyWithImpl<_$_Grade>(this, _$identity);
+  _$$GradeImplCopyWith<_$GradeImpl> get copyWith =>
+      __$$GradeImplCopyWithImpl<_$GradeImpl>(this, _$identity);
 }
 
 abstract class _Grade implements Grade {
   factory _Grade({required final double weight, required final int grade}) =
-      _$_Grade;
+      _$GradeImpl;
 
   @override
   double get weight;
@@ -138,7 +141,7 @@ abstract class _Grade implements Grade {
   int get grade;
   @override
   @JsonKey(ignore: true)
-  _$$_GradeCopyWith<_$_Grade> get copyWith =>
+  _$$GradeImplCopyWith<_$GradeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -331,10 +334,11 @@ class _$GradeRowCopyWithImpl<$Res, $Val extends GradeRow>
 }
 
 /// @nodoc
-abstract class _$$_GradeRowCopyWith<$Res> implements $GradeRowCopyWith<$Res> {
-  factory _$$_GradeRowCopyWith(
-          _$_GradeRow value, $Res Function(_$_GradeRow) then) =
-      __$$_GradeRowCopyWithImpl<$Res>;
+abstract class _$$GradeRowImplCopyWith<$Res>
+    implements $GradeRowCopyWith<$Res> {
+  factory _$$GradeRowImplCopyWith(
+          _$GradeRowImpl value, $Res Function(_$GradeRowImpl) then) =
+      __$$GradeRowImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -366,11 +370,11 @@ abstract class _$$_GradeRowCopyWith<$Res> implements $GradeRowCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GradeRowCopyWithImpl<$Res>
-    extends _$GradeRowCopyWithImpl<$Res, _$_GradeRow>
-    implements _$$_GradeRowCopyWith<$Res> {
-  __$$_GradeRowCopyWithImpl(
-      _$_GradeRow _value, $Res Function(_$_GradeRow) _then)
+class __$$GradeRowImplCopyWithImpl<$Res>
+    extends _$GradeRowCopyWithImpl<$Res, _$GradeRowImpl>
+    implements _$$GradeRowImplCopyWith<$Res> {
+  __$$GradeRowImplCopyWithImpl(
+      _$GradeRowImpl _value, $Res Function(_$GradeRowImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -385,7 +389,7 @@ class __$$_GradeRowCopyWithImpl<$Res>
     Object? yearGrade = freezed,
     Object? examGrade = freezed,
   }) {
-    return _then(_$_GradeRow(
+    return _then(_$GradeRowImpl(
       team: null == team
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -424,8 +428,8 @@ class __$$_GradeRowCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GradeRow implements _GradeRow {
-  _$_GradeRow(
+class _$GradeRowImpl implements _GradeRow {
+  _$GradeRowImpl(
       {required this.team,
       required this.subject,
       this.firstStandpunkt,
@@ -461,7 +465,7 @@ class _$_GradeRow implements _GradeRow {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GradeRow &&
+            other is _$GradeRowImpl &&
             (identical(other.team, team) || other.team == team) &&
             (identical(other.subject, subject) || other.subject == subject) &&
             (identical(other.firstStandpunkt, firstStandpunkt) ||
@@ -485,8 +489,8 @@ class _$_GradeRow implements _GradeRow {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GradeRowCopyWith<_$_GradeRow> get copyWith =>
-      __$$_GradeRowCopyWithImpl<_$_GradeRow>(this, _$identity);
+  _$$GradeRowImplCopyWith<_$GradeRowImpl> get copyWith =>
+      __$$GradeRowImplCopyWithImpl<_$GradeRowImpl>(this, _$identity);
 }
 
 abstract class _GradeRow implements GradeRow {
@@ -498,7 +502,7 @@ abstract class _GradeRow implements GradeRow {
       final Grade? finalYearGrade,
       final Grade? internalTest,
       final Grade? yearGrade,
-      final Grade? examGrade}) = _$_GradeRow;
+      final Grade? examGrade}) = _$GradeRowImpl;
 
   @override
   Team get team;
@@ -518,6 +522,6 @@ abstract class _GradeRow implements GradeRow {
   Grade? get examGrade;
   @override
   @JsonKey(ignore: true)
-  _$$_GradeRowCopyWith<_$_GradeRow> get copyWith =>
+  _$$GradeRowImplCopyWith<_$GradeRowImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

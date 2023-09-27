@@ -66,20 +66,21 @@ class _$DayTimeCopyWithImpl<$Res, $Val extends DayTime>
 }
 
 /// @nodoc
-abstract class _$$_DayTimeCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
-  factory _$$_DayTimeCopyWith(
-          _$_DayTime value, $Res Function(_$_DayTime) then) =
-      __$$_DayTimeCopyWithImpl<$Res>;
+abstract class _$$DayTimeImplCopyWith<$Res> implements $DayTimeCopyWith<$Res> {
+  factory _$$DayTimeImplCopyWith(
+          _$DayTimeImpl value, $Res Function(_$DayTimeImpl) then) =
+      __$$DayTimeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int hour, int minute});
 }
 
 /// @nodoc
-class __$$_DayTimeCopyWithImpl<$Res>
-    extends _$DayTimeCopyWithImpl<$Res, _$_DayTime>
-    implements _$$_DayTimeCopyWith<$Res> {
-  __$$_DayTimeCopyWithImpl(_$_DayTime _value, $Res Function(_$_DayTime) _then)
+class __$$DayTimeImplCopyWithImpl<$Res>
+    extends _$DayTimeCopyWithImpl<$Res, _$DayTimeImpl>
+    implements _$$DayTimeImplCopyWith<$Res> {
+  __$$DayTimeImplCopyWithImpl(
+      _$DayTimeImpl _value, $Res Function(_$DayTimeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -88,7 +89,7 @@ class __$$_DayTimeCopyWithImpl<$Res>
     Object? hour = null,
     Object? minute = null,
   }) {
-    return _then(_$_DayTime(
+    return _then(_$DayTimeImpl(
       hour: null == hour
           ? _value.hour
           : hour // ignore: cast_nullable_to_non_nullable
@@ -103,11 +104,11 @@ class __$$_DayTimeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_DayTime implements _DayTime {
-  _$_DayTime({required this.hour, required this.minute});
+class _$DayTimeImpl implements _DayTime {
+  _$DayTimeImpl({required this.hour, required this.minute});
 
-  factory _$_DayTime.fromJson(Map<String, dynamic> json) =>
-      _$$_DayTimeFromJson(json);
+  factory _$DayTimeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DayTimeImplFromJson(json);
 
   @override
   final int hour;
@@ -123,7 +124,7 @@ class _$_DayTime implements _DayTime {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DayTime &&
+            other is _$DayTimeImpl &&
             (identical(other.hour, hour) || other.hour == hour) &&
             (identical(other.minute, minute) || other.minute == minute));
   }
@@ -135,12 +136,12 @@ class _$_DayTime implements _DayTime {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
-      __$$_DayTimeCopyWithImpl<_$_DayTime>(this, _$identity);
+  _$$DayTimeImplCopyWith<_$DayTimeImpl> get copyWith =>
+      __$$DayTimeImplCopyWithImpl<_$DayTimeImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DayTimeToJson(
+    return _$$DayTimeImplToJson(
       this,
     );
   }
@@ -148,9 +149,9 @@ class _$_DayTime implements _DayTime {
 
 abstract class _DayTime implements DayTime {
   factory _DayTime({required final int hour, required final int minute}) =
-      _$_DayTime;
+      _$DayTimeImpl;
 
-  factory _DayTime.fromJson(Map<String, dynamic> json) = _$_DayTime.fromJson;
+  factory _DayTime.fromJson(Map<String, dynamic> json) = _$DayTimeImpl.fromJson;
 
   @override
   int get hour;
@@ -158,7 +159,7 @@ abstract class _DayTime implements DayTime {
   int get minute;
   @override
   @JsonKey(ignore: true)
-  _$$_DayTimeCopyWith<_$_DayTime> get copyWith =>
+  _$$DayTimeImplCopyWith<_$DayTimeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -241,11 +242,11 @@ class _$ModulRangeCopyWithImpl<$Res, $Val extends ModulRange>
 }
 
 /// @nodoc
-abstract class _$$_ModulRangeCopyWith<$Res>
+abstract class _$$ModulRangeImplCopyWith<$Res>
     implements $ModulRangeCopyWith<$Res> {
-  factory _$$_ModulRangeCopyWith(
-          _$_ModulRange value, $Res Function(_$_ModulRange) then) =
-      __$$_ModulRangeCopyWithImpl<$Res>;
+  factory _$$ModulRangeImplCopyWith(
+          _$ModulRangeImpl value, $Res Function(_$ModulRangeImpl) then) =
+      __$$ModulRangeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int number, DayTime start, DayTime end});
@@ -257,11 +258,11 @@ abstract class _$$_ModulRangeCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ModulRangeCopyWithImpl<$Res>
-    extends _$ModulRangeCopyWithImpl<$Res, _$_ModulRange>
-    implements _$$_ModulRangeCopyWith<$Res> {
-  __$$_ModulRangeCopyWithImpl(
-      _$_ModulRange _value, $Res Function(_$_ModulRange) _then)
+class __$$ModulRangeImplCopyWithImpl<$Res>
+    extends _$ModulRangeCopyWithImpl<$Res, _$ModulRangeImpl>
+    implements _$$ModulRangeImplCopyWith<$Res> {
+  __$$ModulRangeImplCopyWithImpl(
+      _$ModulRangeImpl _value, $Res Function(_$ModulRangeImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -271,7 +272,7 @@ class __$$_ModulRangeCopyWithImpl<$Res>
     Object? start = null,
     Object? end = null,
   }) {
-    return _then(_$_ModulRange(
+    return _then(_$ModulRangeImpl(
       number: null == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
@@ -290,11 +291,12 @@ class __$$_ModulRangeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ModulRange implements _ModulRange {
-  _$_ModulRange({required this.number, required this.start, required this.end});
+class _$ModulRangeImpl implements _ModulRange {
+  _$ModulRangeImpl(
+      {required this.number, required this.start, required this.end});
 
-  factory _$_ModulRange.fromJson(Map<String, dynamic> json) =>
-      _$$_ModulRangeFromJson(json);
+  factory _$ModulRangeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ModulRangeImplFromJson(json);
 
   @override
   final int number;
@@ -312,7 +314,7 @@ class _$_ModulRange implements _ModulRange {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ModulRange &&
+            other is _$ModulRangeImpl &&
             (identical(other.number, number) || other.number == number) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end));
@@ -325,12 +327,12 @@ class _$_ModulRange implements _ModulRange {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ModulRangeCopyWith<_$_ModulRange> get copyWith =>
-      __$$_ModulRangeCopyWithImpl<_$_ModulRange>(this, _$identity);
+  _$$ModulRangeImplCopyWith<_$ModulRangeImpl> get copyWith =>
+      __$$ModulRangeImplCopyWithImpl<_$ModulRangeImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ModulRangeToJson(
+    return _$$ModulRangeImplToJson(
       this,
     );
   }
@@ -340,10 +342,10 @@ abstract class _ModulRange implements ModulRange {
   factory _ModulRange(
       {required final int number,
       required final DayTime start,
-      required final DayTime end}) = _$_ModulRange;
+      required final DayTime end}) = _$ModulRangeImpl;
 
   factory _ModulRange.fromJson(Map<String, dynamic> json) =
-      _$_ModulRange.fromJson;
+      _$ModulRangeImpl.fromJson;
 
   @override
   int get number;
@@ -353,7 +355,7 @@ abstract class _ModulRange implements ModulRange {
   DayTime get end;
   @override
   @JsonKey(ignore: true)
-  _$$_ModulRangeCopyWith<_$_ModulRange> get copyWith =>
+  _$$ModulRangeImplCopyWith<_$ModulRangeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -415,18 +417,20 @@ class _$WeekCopyWithImpl<$Res, $Val extends Week>
 }
 
 /// @nodoc
-abstract class _$$_WeekCopyWith<$Res> implements $WeekCopyWith<$Res> {
-  factory _$$_WeekCopyWith(_$_Week value, $Res Function(_$_Week) then) =
-      __$$_WeekCopyWithImpl<$Res>;
+abstract class _$$WeekImplCopyWith<$Res> implements $WeekCopyWith<$Res> {
+  factory _$$WeekImplCopyWith(
+          _$WeekImpl value, $Res Function(_$WeekImpl) then) =
+      __$$WeekImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<Day> days, int weekNum, List<ModulRange> modulRanges});
 }
 
 /// @nodoc
-class __$$_WeekCopyWithImpl<$Res> extends _$WeekCopyWithImpl<$Res, _$_Week>
-    implements _$$_WeekCopyWith<$Res> {
-  __$$_WeekCopyWithImpl(_$_Week _value, $Res Function(_$_Week) _then)
+class __$$WeekImplCopyWithImpl<$Res>
+    extends _$WeekCopyWithImpl<$Res, _$WeekImpl>
+    implements _$$WeekImplCopyWith<$Res> {
+  __$$WeekImplCopyWithImpl(_$WeekImpl _value, $Res Function(_$WeekImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -436,7 +440,7 @@ class __$$_WeekCopyWithImpl<$Res> extends _$WeekCopyWithImpl<$Res, _$_Week>
     Object? weekNum = null,
     Object? modulRanges = null,
   }) {
-    return _then(_$_Week(
+    return _then(_$WeekImpl(
       days: null == days
           ? _value._days
           : days // ignore: cast_nullable_to_non_nullable
@@ -455,15 +459,16 @@ class __$$_WeekCopyWithImpl<$Res> extends _$WeekCopyWithImpl<$Res, _$_Week>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Week implements _Week {
-  _$_Week(
+class _$WeekImpl implements _Week {
+  _$WeekImpl(
       {required final List<Day> days,
       required this.weekNum,
       required final List<ModulRange> modulRanges})
       : _days = days,
         _modulRanges = modulRanges;
 
-  factory _$_Week.fromJson(Map<String, dynamic> json) => _$$_WeekFromJson(json);
+  factory _$WeekImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WeekImplFromJson(json);
 
   final List<Day> _days;
   @override
@@ -492,7 +497,7 @@ class _$_Week implements _Week {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Week &&
+            other is _$WeekImpl &&
             const DeepCollectionEquality().equals(other._days, _days) &&
             (identical(other.weekNum, weekNum) || other.weekNum == weekNum) &&
             const DeepCollectionEquality()
@@ -510,12 +515,12 @@ class _$_Week implements _Week {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_WeekCopyWith<_$_Week> get copyWith =>
-      __$$_WeekCopyWithImpl<_$_Week>(this, _$identity);
+  _$$WeekImplCopyWith<_$WeekImpl> get copyWith =>
+      __$$WeekImplCopyWithImpl<_$WeekImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_WeekToJson(
+    return _$$WeekImplToJson(
       this,
     );
   }
@@ -525,9 +530,9 @@ abstract class _Week implements Week {
   factory _Week(
       {required final List<Day> days,
       required final int weekNum,
-      required final List<ModulRange> modulRanges}) = _$_Week;
+      required final List<ModulRange> modulRanges}) = _$WeekImpl;
 
-  factory _Week.fromJson(Map<String, dynamic> json) = _$_Week.fromJson;
+  factory _Week.fromJson(Map<String, dynamic> json) = _$WeekImpl.fromJson;
 
   @override
   List<Day> get days;
@@ -537,7 +542,8 @@ abstract class _Week implements Week {
   List<ModulRange> get modulRanges;
   @override
   @JsonKey(ignore: true)
-  _$$_WeekCopyWith<_$_Week> get copyWith => throw _privateConstructorUsedError;
+  _$$WeekImplCopyWith<_$WeekImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Day _$DayFromJson(Map<String, dynamic> json) {
@@ -598,9 +604,9 @@ class _$DayCopyWithImpl<$Res, $Val extends Day> implements $DayCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_DayCopyWith<$Res> implements $DayCopyWith<$Res> {
-  factory _$$_DayCopyWith(_$_Day value, $Res Function(_$_Day) then) =
-      __$$_DayCopyWithImpl<$Res>;
+abstract class _$$DayImplCopyWith<$Res> implements $DayCopyWith<$Res> {
+  factory _$$DayImplCopyWith(_$DayImpl value, $Res Function(_$DayImpl) then) =
+      __$$DayImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -608,9 +614,9 @@ abstract class _$$_DayCopyWith<$Res> implements $DayCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$_Day>
-    implements _$$_DayCopyWith<$Res> {
-  __$$_DayCopyWithImpl(_$_Day _value, $Res Function(_$_Day) _then)
+class __$$DayImplCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$DayImpl>
+    implements _$$DayImplCopyWith<$Res> {
+  __$$DayImplCopyWithImpl(_$DayImpl _value, $Res Function(_$DayImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -620,7 +626,7 @@ class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$_Day>
     Object? events = null,
     Object? date = null,
   }) {
-    return _then(_$_Day(
+    return _then(_$DayImpl(
       informations: null == informations
           ? _value._informations
           : informations // ignore: cast_nullable_to_non_nullable
@@ -639,15 +645,16 @@ class __$$_DayCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$_Day>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Day implements _Day {
-  _$_Day(
+class _$DayImpl implements _Day {
+  _$DayImpl(
       {required final List<String> informations,
       required final List<CalendarEvent> events,
       required this.date})
       : _informations = informations,
         _events = events;
 
-  factory _$_Day.fromJson(Map<String, dynamic> json) => _$$_DayFromJson(json);
+  factory _$DayImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DayImplFromJson(json);
 
   final List<String> _informations;
   @override
@@ -677,7 +684,7 @@ class _$_Day implements _Day {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Day &&
+            other is _$DayImpl &&
             const DeepCollectionEquality()
                 .equals(other._informations, _informations) &&
             const DeepCollectionEquality().equals(other._events, _events) &&
@@ -695,12 +702,12 @@ class _$_Day implements _Day {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DayCopyWith<_$_Day> get copyWith =>
-      __$$_DayCopyWithImpl<_$_Day>(this, _$identity);
+  _$$DayImplCopyWith<_$DayImpl> get copyWith =>
+      __$$DayImplCopyWithImpl<_$DayImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DayToJson(
+    return _$$DayImplToJson(
       this,
     );
   }
@@ -710,9 +717,9 @@ abstract class _Day implements Day {
   factory _Day(
       {required final List<String> informations,
       required final List<CalendarEvent> events,
-      required final DateTime date}) = _$_Day;
+      required final DateTime date}) = _$DayImpl;
 
-  factory _Day.fromJson(Map<String, dynamic> json) = _$_Day.fromJson;
+  factory _Day.fromJson(Map<String, dynamic> json) = _$DayImpl.fromJson;
 
   @override
   List<String> get informations;
@@ -722,7 +729,8 @@ abstract class _Day implements Day {
   DateTime get date;
   @override
   @JsonKey(ignore: true)
-  _$$_DayCopyWith<_$_Day> get copyWith => throw _privateConstructorUsedError;
+  _$$DayImplCopyWith<_$DayImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 CalendarEvent _$CalendarEventFromJson(Map<String, dynamic> json) {
@@ -865,11 +873,11 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
 }
 
 /// @nodoc
-abstract class _$$_CalendarEventCopyWith<$Res>
+abstract class _$$CalendarEventImplCopyWith<$Res>
     implements $CalendarEventCopyWith<$Res> {
-  factory _$$_CalendarEventCopyWith(
-          _$_CalendarEvent value, $Res Function(_$_CalendarEvent) then) =
-      __$$_CalendarEventCopyWithImpl<$Res>;
+  factory _$$CalendarEventImplCopyWith(
+          _$CalendarEventImpl value, $Res Function(_$CalendarEventImpl) then) =
+      __$$CalendarEventImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -890,11 +898,11 @@ abstract class _$$_CalendarEventCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_CalendarEventCopyWithImpl<$Res>
-    extends _$CalendarEventCopyWithImpl<$Res, _$_CalendarEvent>
-    implements _$$_CalendarEventCopyWith<$Res> {
-  __$$_CalendarEventCopyWithImpl(
-      _$_CalendarEvent _value, $Res Function(_$_CalendarEvent) _then)
+class __$$CalendarEventImplCopyWithImpl<$Res>
+    extends _$CalendarEventCopyWithImpl<$Res, _$CalendarEventImpl>
+    implements _$$CalendarEventImplCopyWith<$Res> {
+  __$$CalendarEventImplCopyWithImpl(
+      _$CalendarEventImpl _value, $Res Function(_$CalendarEventImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -915,7 +923,7 @@ class __$$_CalendarEventCopyWithImpl<$Res>
     Object? teacherObjs = null,
     Object? teamObjs = null,
   }) {
-    return _then(_$_CalendarEvent(
+    return _then(_$CalendarEventImpl(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -978,8 +986,8 @@ class __$$_CalendarEventCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_CalendarEvent implements _CalendarEvent {
-  _$_CalendarEvent(
+class _$CalendarEventImpl implements _CalendarEvent {
+  _$CalendarEventImpl(
       {required this.type,
       required this.status,
       required this.title,
@@ -998,8 +1006,8 @@ class _$_CalendarEvent implements _CalendarEvent {
         _teacherObjs = teacherObjs,
         _teamObjs = teamObjs;
 
-  factory _$_CalendarEvent.fromJson(Map<String, dynamic> json) =>
-      _$$_CalendarEventFromJson(json);
+  factory _$CalendarEventImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CalendarEventImplFromJson(json);
 
   @override
   final CalendarEventType type;
@@ -1056,7 +1064,7 @@ class _$_CalendarEvent implements _CalendarEvent {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_CalendarEvent &&
+            other is _$CalendarEventImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.title, title) || other.title == title) &&
@@ -1097,12 +1105,12 @@ class _$_CalendarEvent implements _CalendarEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CalendarEventCopyWith<_$_CalendarEvent> get copyWith =>
-      __$$_CalendarEventCopyWithImpl<_$_CalendarEvent>(this, _$identity);
+  _$$CalendarEventImplCopyWith<_$CalendarEventImpl> get copyWith =>
+      __$$CalendarEventImplCopyWithImpl<_$CalendarEventImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CalendarEventToJson(
+    return _$$CalendarEventImplToJson(
       this,
     );
   }
@@ -1123,10 +1131,10 @@ abstract class _CalendarEvent implements CalendarEvent {
       required final bool hasHomework,
       required final bool hasNote,
       required final List<MetaDataEntry> teacherObjs,
-      required final List<MetaDataEntry> teamObjs}) = _$_CalendarEvent;
+      required final List<MetaDataEntry> teamObjs}) = _$CalendarEventImpl;
 
   factory _CalendarEvent.fromJson(Map<String, dynamic> json) =
-      _$_CalendarEvent.fromJson;
+      _$CalendarEventImpl.fromJson;
 
   @override
   CalendarEventType get type;
@@ -1158,6 +1166,6 @@ abstract class _CalendarEvent implements CalendarEvent {
   List<MetaDataEntry> get teamObjs;
   @override
   @JsonKey(ignore: true)
-  _$$_CalendarEventCopyWith<_$_CalendarEvent> get copyWith =>
+  _$$CalendarEventImplCopyWith<_$CalendarEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

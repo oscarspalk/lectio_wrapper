@@ -437,3 +437,8 @@
 ## 0.6.5
 
 * Lectio updated their absence registrations and assignments meaning the library didn't work.
+
+## 0.6.6
+
+* Added room availability property.
+* Added caching for fetching teams.

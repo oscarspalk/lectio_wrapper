@@ -118,10 +118,11 @@ class _$GradeNoteCopyWithImpl<$Res, $Val extends GradeNote>
 }
 
 /// @nodoc
-abstract class _$$_GradeNoteCopyWith<$Res> implements $GradeNoteCopyWith<$Res> {
-  factory _$$_GradeNoteCopyWith(
-          _$_GradeNote value, $Res Function(_$_GradeNote) then) =
-      __$$_GradeNoteCopyWithImpl<$Res>;
+abstract class _$$GradeNoteImplCopyWith<$Res>
+    implements $GradeNoteCopyWith<$Res> {
+  factory _$$GradeNoteImplCopyWith(
+          _$GradeNoteImpl value, $Res Function(_$GradeNoteImpl) then) =
+      __$$GradeNoteImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -140,11 +141,11 @@ abstract class _$$_GradeNoteCopyWith<$Res> implements $GradeNoteCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GradeNoteCopyWithImpl<$Res>
-    extends _$GradeNoteCopyWithImpl<$Res, _$_GradeNote>
-    implements _$$_GradeNoteCopyWith<$Res> {
-  __$$_GradeNoteCopyWithImpl(
-      _$_GradeNote _value, $Res Function(_$_GradeNote) _then)
+class __$$GradeNoteImplCopyWithImpl<$Res>
+    extends _$GradeNoteCopyWithImpl<$Res, _$GradeNoteImpl>
+    implements _$$GradeNoteImplCopyWith<$Res> {
+  __$$GradeNoteImplCopyWithImpl(
+      _$GradeNoteImpl _value, $Res Function(_$GradeNoteImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -158,7 +159,7 @@ class __$$_GradeNoteCopyWithImpl<$Res>
     Object? grade = freezed,
     Object? teacherInitials = null,
   }) {
-    return _then(_$_GradeNote(
+    return _then(_$GradeNoteImpl(
       registered: null == registered
           ? _value.registered
           : registered // ignore: cast_nullable_to_non_nullable
@@ -193,8 +194,8 @@ class __$$_GradeNoteCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GradeNote implements _GradeNote {
-  _$_GradeNote(
+class _$GradeNoteImpl implements _GradeNote {
+  _$GradeNoteImpl(
       {required this.registered,
       required this.team,
       required this.subject,
@@ -227,7 +228,7 @@ class _$_GradeNote implements _GradeNote {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GradeNote &&
+            other is _$GradeNoteImpl &&
             (identical(other.registered, registered) ||
                 other.registered == registered) &&
             (identical(other.team, team) || other.team == team) &&
@@ -247,8 +248,8 @@ class _$_GradeNote implements _GradeNote {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GradeNoteCopyWith<_$_GradeNote> get copyWith =>
-      __$$_GradeNoteCopyWithImpl<_$_GradeNote>(this, _$identity);
+  _$$GradeNoteImplCopyWith<_$GradeNoteImpl> get copyWith =>
+      __$$GradeNoteImplCopyWithImpl<_$GradeNoteImpl>(this, _$identity);
 }
 
 abstract class _GradeNote implements GradeNote {
@@ -259,7 +260,7 @@ abstract class _GradeNote implements GradeNote {
       required final String note,
       required final String gradeType,
       final int? grade,
-      required final String teacherInitials}) = _$_GradeNote;
+      required final String teacherInitials}) = _$GradeNoteImpl;
 
   @override
   DateTime get registered;
@@ -277,6 +278,6 @@ abstract class _GradeNote implements GradeNote {
   String get teacherInitials;
   @override
   @JsonKey(ignore: true)
-  _$$_GradeNoteCopyWith<_$_GradeNote> get copyWith =>
+  _$$GradeNoteImplCopyWith<_$GradeNoteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

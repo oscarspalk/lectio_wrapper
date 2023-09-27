@@ -74,22 +74,22 @@ class _$MetaDataEntryCopyWithImpl<$Res, $Val extends MetaDataEntry>
 }
 
 /// @nodoc
-abstract class _$$_MetaDataEntryCopyWith<$Res>
+abstract class _$$MetaDataEntryImplCopyWith<$Res>
     implements $MetaDataEntryCopyWith<$Res> {
-  factory _$$_MetaDataEntryCopyWith(
-          _$_MetaDataEntry value, $Res Function(_$_MetaDataEntry) then) =
-      __$$_MetaDataEntryCopyWithImpl<$Res>;
+  factory _$$MetaDataEntryImplCopyWith(
+          _$MetaDataEntryImpl value, $Res Function(_$MetaDataEntryImpl) then) =
+      __$$MetaDataEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name, String? classOrInitials});
 }
 
 /// @nodoc
-class __$$_MetaDataEntryCopyWithImpl<$Res>
-    extends _$MetaDataEntryCopyWithImpl<$Res, _$_MetaDataEntry>
-    implements _$$_MetaDataEntryCopyWith<$Res> {
-  __$$_MetaDataEntryCopyWithImpl(
-      _$_MetaDataEntry _value, $Res Function(_$_MetaDataEntry) _then)
+class __$$MetaDataEntryImplCopyWithImpl<$Res>
+    extends _$MetaDataEntryCopyWithImpl<$Res, _$MetaDataEntryImpl>
+    implements _$$MetaDataEntryImplCopyWith<$Res> {
+  __$$MetaDataEntryImplCopyWithImpl(
+      _$MetaDataEntryImpl _value, $Res Function(_$MetaDataEntryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_MetaDataEntryCopyWithImpl<$Res>
     Object? name = null,
     Object? classOrInitials = freezed,
   }) {
-    return _then(_$_MetaDataEntry(
+    return _then(_$MetaDataEntryImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -118,12 +118,12 @@ class __$$_MetaDataEntryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MetaDataEntry implements _MetaDataEntry {
-  _$_MetaDataEntry(
+class _$MetaDataEntryImpl implements _MetaDataEntry {
+  _$MetaDataEntryImpl(
       {required this.id, required this.name, this.classOrInitials});
 
-  factory _$_MetaDataEntry.fromJson(Map<String, dynamic> json) =>
-      _$$_MetaDataEntryFromJson(json);
+  factory _$MetaDataEntryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MetaDataEntryImplFromJson(json);
 
   @override
   final String id;
@@ -141,7 +141,7 @@ class _$_MetaDataEntry implements _MetaDataEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MetaDataEntry &&
+            other is _$MetaDataEntryImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.classOrInitials, classOrInitials) ||
@@ -155,12 +155,12 @@ class _$_MetaDataEntry implements _MetaDataEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MetaDataEntryCopyWith<_$_MetaDataEntry> get copyWith =>
-      __$$_MetaDataEntryCopyWithImpl<_$_MetaDataEntry>(this, _$identity);
+  _$$MetaDataEntryImplCopyWith<_$MetaDataEntryImpl> get copyWith =>
+      __$$MetaDataEntryImplCopyWithImpl<_$MetaDataEntryImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_MetaDataEntryToJson(
+    return _$$MetaDataEntryImplToJson(
       this,
     );
   }
@@ -170,10 +170,10 @@ abstract class _MetaDataEntry implements MetaDataEntry {
   factory _MetaDataEntry(
       {required final String id,
       required final String name,
-      final String? classOrInitials}) = _$_MetaDataEntry;
+      final String? classOrInitials}) = _$MetaDataEntryImpl;
 
   factory _MetaDataEntry.fromJson(Map<String, dynamic> json) =
-      _$_MetaDataEntry.fromJson;
+      _$MetaDataEntryImpl.fromJson;
 
   @override
   String get id;
@@ -183,6 +183,6 @@ abstract class _MetaDataEntry implements MetaDataEntry {
   String? get classOrInitials;
   @override
   @JsonKey(ignore: true)
-  _$$_MetaDataEntryCopyWith<_$_MetaDataEntry> get copyWith =>
+  _$$MetaDataEntryImplCopyWith<_$MetaDataEntryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

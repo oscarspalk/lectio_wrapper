@@ -11,13 +11,13 @@ void main() {
   Student? student;
   setUp(() async => {student = await account.login(autologin: false)});
   test('list rooms', () async {
-    var rooms = await student!.rooms.list();
+    var rooms = await student?.rooms.list();
     expect(rooms, isNotEmpty);
   });
 
   test('get room', () async {
-    var room = await student!.rooms
-        .get(Room(id: '4772939802', short: '', name: ''), 2023, 24);
+    var room = await student!.rooms.get(
+        Room(id: '4772939802', short: '', name: '', inUse: false), 2023, 24);
     expect(room, isNotNull);
   });
 }
