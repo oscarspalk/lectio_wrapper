@@ -446,3 +446,7 @@
 ## 0.6.7
 
 * Auto relogging-in works now.
+
+## 0.6.8
+
+* Opgaver.list() should fetch all assignments for the current year.

@@ -3,6 +3,7 @@ import 'package:lectio_wrapper/topics/assignments/scraping.dart';
 import 'package:lectio_wrapper/types/assignment.dart';
 import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
+import 'package:lectio_wrapper/utils/scraping.dart';
 
 class AssignmentsController extends Controller {
   AssignmentsController(super.student);
@@ -11,10 +12,15 @@ class AssignmentsController extends Controller {
   Future<List<AssignmentRef>> list() async {
     String url =
         student.buildUrl("OpgaverElev.aspx?elevid=${student.studentId}");
-    var assignmentSoup = await request(
-        url); /*await postLoggedInPageSoup(
+    var assignmentSoup = await postLoggedInPageSoup(url, r"s$m$ChooseTerm$term",
+        {r"s$m$Content$Content$ShowThisTermOnlyCB": "on"});
+    /*await request(
+        url); await postLoggedInPageSoup(
         url, r"s$m$ChooseTerm$term", {r"s$m$ChooseTerm$term": year.toString()});*/
-    return await extractAssignments(BeautifulSoup(assignmentSoup.data));
+    if (assignmentSoup != null) {
+      return await extractAssignments(assignmentSoup);
+    }
+    return [];
   }
 
   Future<Assignment> get(AssignmentRef ref) async {
