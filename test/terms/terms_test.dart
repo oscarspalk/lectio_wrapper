@@ -5,10 +5,19 @@ import 'package:lectio_wrapper/lectio_wrapper.dart';
 void main() {
   var env = DotEnv()..load();
 
-  Account account =
-      Account(int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
+  Account account = Account(
+    int.parse(env['GYM_ID']!),
+    env['USERNAME']!,
+    env['PASSWORD']!,
+    loginError: () async {
+      return Account(
+          int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
+    },
+  );
   Student? student;
-  setUp(() async => {student = await account.login(autologin: false)});
+  setUp(() async {
+    student = await account.loginWithCookies([], "54299107744");
+  });
 
   test('list terms', () async {
     var terms = await student!.terms.list();

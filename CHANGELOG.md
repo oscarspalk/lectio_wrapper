@@ -442,3 +442,7 @@
 
 * Added room availability property.
 * Added caching for fetching teams.
+
+## 0.6.7
+
+* Auto relogging-in works now.

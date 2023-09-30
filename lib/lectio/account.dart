@@ -38,6 +38,7 @@ class Account {
       List<Cookie> cookies, String studentId) async {
     addCookies(Uri.parse("https://www.lectio.dk"), cookies);
     var student = Student(studentId, gymId);
+    setAutologin();
     return student;
   }
 
@@ -62,15 +63,19 @@ class Account {
       if (student == null) {
         throw InvalidCredentialsError();
       }
-      if (loginError != null) {
-        setLoginCallback(() async {
-          var account = await loginError!();
-          await account.login(autologin: autologin);
-        });
-      }
+      setAutologin();
       return student;
     } catch (e) {
       return null;
+    }
+  }
+
+  setAutologin() {
+    if (loginError != null) {
+      setLoginCallback(() async {
+        var account = await loginError!();
+        await account.login();
+      });
     }
   }
 }

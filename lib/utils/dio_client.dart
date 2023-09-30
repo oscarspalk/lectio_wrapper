@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
@@ -15,6 +16,7 @@ void setLoginCallback(Future<void> Function() callback) {
 }
 
 final Dio _lppDio = Dio(BaseOptions(
+  maxRedirects: 5,
   followRedirects: true,
   validateStatus: (status) {
     return status != null && status >= 200 && status < 400;
@@ -40,18 +42,21 @@ Future<Response> request(String url,
       queryParameters: queryParameters,
       cancelToken: cancelToken,
       options: options);
-  if (dioRequest.headers[HttpHeaders.locationHeader]?.contains("login.aspx") ??
-      false) {
+  var bsElement = BeautifulSoup(dioRequest.data);
+  var headerElement = bsElement.find('*', id: 'MainTitle');
+  if (headerElement != null &&
+      headerElement.text.toLowerCase().contains("log ind") &&
+      !url.endsWith("login.aspx")) {
     if (_loginCallback != null) {
       await _loginCallback!();
+      return await request(url,
+          data: data,
+          queryParameters: queryParameters,
+          cancelToken: cancelToken,
+          onReceiveProgress: onReceiveProgress,
+          onSendProgress: onSendProgress,
+          options: options);
     }
-    return await request(url,
-        data: data,
-        queryParameters: queryParameters,
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
-        onSendProgress: onSendProgress,
-        options: options);
   }
   return dioRequest;
 }

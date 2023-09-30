@@ -6,11 +6,18 @@ import 'package:lectio_wrapper/topics/gyms/controller.dart';
 void main() {
   var env = DotEnv()..load();
 
-  Account account =
-      Account(int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
+  Account account = Account(
+    int.parse(env['GYM_ID']!),
+    env['USERNAME']!,
+    env['PASSWORD']!,
+    loginError: () async {
+      return Account(
+          int.parse(env['GYM_ID']!), env['USERNAME']!, env['PASSWORD']!);
+    },
+  );
   Student? student;
   setUp(() async {
-    student = await account.login(autologin: false);
+    student = await account.loginWithCookies([], "54299107744");
   });
   test('login() with true credentials.', () async {
     expect(student, isNotNull);
