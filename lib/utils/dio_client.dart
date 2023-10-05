@@ -42,8 +42,10 @@ Future<Response> request(String url,
       queryParameters: queryParameters,
       cancelToken: cancelToken,
       options: options);
-  var bsElement = BeautifulSoup(dioRequest.data);
-  var headerElement = bsElement.find('*', id: 'MainTitle');
+
+  var bsElement =
+      dioRequest.data is String ? BeautifulSoup(dioRequest.data) : null;
+  var headerElement = bsElement?.find('*', id: 'MainTitle');
   if (headerElement != null &&
       headerElement.text.toLowerCase().contains("log ind") &&
       !url.endsWith("login.aspx")) {

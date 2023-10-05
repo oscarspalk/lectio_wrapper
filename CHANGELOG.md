@@ -450,3 +450,7 @@
 ## 0.6.8
 
 * Opgaver.list() should fetch all assignments for the current year.
+
+## 0.6.9
+
+* Forgot to check if the data received wasn't a String

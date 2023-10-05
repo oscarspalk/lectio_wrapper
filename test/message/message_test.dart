@@ -14,9 +14,9 @@ void main() {
   setUp(() async => {student = await account.login(autologin: false)});
 
   test('get message', () async {
-    var messages = await student!.messages
-        .get(MessageRef("61197657640", DateTime.now(), "", ""));
-    expect(messages, isNotNull);
+    var message = await student!.messages
+        .get(MessageRef("62380789225", DateTime.now(), "", "", -70));
+    expect(message, isNotNull);
   });
 
   test('test message crud flow', () async {
@@ -39,12 +39,12 @@ void main() {
       }
     }
     expect(newMessage, isNotNull);
-    var messageContent = await student!.messages.get(newMessage!);
+    var messageContent = (await student!.messages.get(newMessage!))!;
     expect(messageContent.thread.length, 1);
     expect(messageContent.thread[0].content, testContent);
     await student!.messages.reply(Reply(messageContent.thread[0],
         "Re: $testName", messageContent, test2Content));
-    var newMessageContent = await student!.messages.get(newMessage);
+    var newMessageContent = (await student!.messages.get(newMessage))!;
     expect(newMessageContent.thread.length, 2);
     expect(newMessageContent.thread[1].topic, "Re: $testName");
     expect(newMessageContent.thread[1].content, test2Content);
@@ -57,7 +57,7 @@ void main() {
               ..topic = updatedTopic,
             newMessageContent),
         openedEdit.stateData);
-    var newMessageContent2 = await student!.messages.get(newMessage);
+    var newMessageContent2 = (await student!.messages.get(newMessage))!;
     expect(newMessageContent2.thread[0].content, contains(updatedText));
     expect(newMessageContent2.thread.length, 2);
     await student!.messages.delete(newMessageContent2);

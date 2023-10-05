@@ -2,11 +2,12 @@ import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
 
 class MessageRef {
+  int folderId;
   String id;
   String topic;
   DateTime dateChanged;
   String sender;
-  MessageRef(this.id, this.dateChanged, this.topic, this.sender);
+  MessageRef(this.id, this.dateChanged, this.topic, this.sender, this.folderId);
 }
 
 class CreateMessage {

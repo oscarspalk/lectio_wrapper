@@ -20,10 +20,13 @@ class MesssageController extends Controller {
     return extractMessages(BeautifulSoup(response.data));
   }
 
-  Future<Message> get(MessageRef ref) async {
+  Future<Message?> get(MessageRef ref) async {
     var url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${ref.id}");
-    var response = await request(url);
+        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${ref.folderId}");
+    var response = await request(url, options: Options(method: 'POST'), data: {
+      "_EVENTTARGET": "__Page",
+      r"s$m$Content$Content$ListGridSelectionTree$folders": ref.folderId
+    });
     return extractMessage(BeautifulSoup(response.data), ref);
   }
 

@@ -21,7 +21,10 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
   List<MessageRef> messages = [];
   var messageTableParent =
       soup.find("table", id: "s_m_Content_Content_threadGV_ctl00");
-  if (messageTableParent != null) {
+  var folderIdInput =
+      soup.find('*', id: 's_m_Content_Content_ListGridSelectionTree_folders');
+  int? folderId = int.tryParse(folderIdInput?.getAttrValue("value") ?? "");
+  if (messageTableParent != null && folderId != null) {
     var messageTable = messageTableParent.children[0].children;
     messageTable.removeAt(0).decompose();
     for (var messageRow in messageTable) {
@@ -35,40 +38,57 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
           messageRow.children[5].children[0].getAttrValue('title')!;
       String dateChanged = messageRow.children[7].text;
       DateTime parsedTime = parseLectioDate(dateChanged);
-      messages.add(MessageRef(id, parsedTime, topic, receivers));
+      messages.add(MessageRef(id, parsedTime, topic, receivers, folderId));
     }
   }
   return messages;
 }
 
-Message extractMessage(BeautifulSoup soup, MessageRef ref) {
-  Bs4Element printTable = soup.find("*", id: 'printmessagearea')!;
-  List<Bs4Element> infoTableRows = printTable
-      .children[0].children[0].children[0].children[0].children[0].children;
-  String topic = infoTableRows[0]
-      .children[0]
-      .children[0]
-      .children[0]
-      .children[0]
-      .children[1]
-      .text
-      .trim();
-  Bs4Element senderAndReceiverElement =
-      infoTableRows[1].children[0].children[0].children[0];
-  String receivers =
-      senderAndReceiverElement.children[1].text.replaceAll("Til:", "").trim();
-  Bs4Element senderElement =
-      senderAndReceiverElement.children[0].children[2].children[0];
-  MetaDataEntry sender = MetaDataEntry(
-      name: senderElement.text,
-      id: senderElement.getAttrValue("data-lectiocontextcard")!);
+const senderKey = "Fra:";
+const receiverKey = "Til:";
+
+Message? extractMessage(BeautifulSoup soup, MessageRef ref) {
+  Bs4Element? printTable = soup.find("*", id: 'printmessagearea');
+  Bs4Element? infoTable = printTable?.find('ShowMessageRecipients');
+  List<Bs4Element> infoRows = infoTable?.findAll('td') ?? [];
+  String? topic;
+  MetaDataEntry? sender;
+  String? receivers;
+  for (int i = 0; i < infoRows.length; i++) {
+    var infoRow = infoRows.elementAt(i);
+    var infoText = infoRow.string.toLowerCase();
+    if (infoText.contains(senderKey.toLowerCase())) {
+      // is the sender field
+      // then the next element must be the sender's info
+      var nextRow = infoRows.elementAtOrNull(i + 1);
+      var spanChild = nextRow?.find('span');
+      var senderId = spanChild?.getAttrValue('data-lectiocontextcard');
+      var senderName = spanChild?.string;
+      if (senderId != null && senderName != null) {
+        sender = MetaDataEntry(id: senderId, name: senderName);
+      }
+    }
+    if (infoText.contains(receiverKey.toLowerCase())) {
+      // is the receiver field
+      var nextRow = infoRows.elementAtOrNull(i + 1);
+      receivers = nextRow?.string.trim();
+    }
+    if (infoText.isNotEmpty) {
+      // is the topic
+      topic = infoRow.string;
+    }
+  }
+
   List<ThreadEntry> thread = [];
-  Bs4Element threadTable =
-      soup.find('*', id: 's_m_Content_Content_ThreadList')!;
-  for (var entry in threadTable.children) {
+  Bs4Element? threadTable =
+      soup.find('*', id: 's_m_Content_Content_ThreadList');
+  for (var entry in (threadTable?.children ?? [])) {
     thread.add(extractMessageThread(entry));
   }
-  return Message(ref.id, thread, sender, receivers, topic);
+  if (sender != null && topic != null && receivers != null) {
+    return Message(ref.id, thread, sender, receivers, topic);
+  }
+  return null;
 }
 
 ThreadEntry extractMessageThread(Bs4Element threadListItem) {
