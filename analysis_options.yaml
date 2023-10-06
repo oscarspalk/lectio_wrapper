@@ -1,5 +1,7 @@
 include: package:flutter_lints/flutter.yaml
 analyzer:
+  language: 
+    strict-raw-types: true
   exclude:
     - lib/**.g.dart
     - lib/**.freezed.dart

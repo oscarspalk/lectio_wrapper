@@ -45,21 +45,22 @@ class Account {
   Future<Student?> login({bool autologin = true}) async {
     try {
       String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
-      var loginGet = await request(loginUrl);
-      BeautifulSoup bs = BeautifulSoup(loginGet.data);
+      var loginGet = await request<String>(loginUrl);
+      BeautifulSoup bs = BeautifulSoup(loginGet.data as String);
       Map<String, String?> extracted =
           extractASPData(bs, "m\$Content\$submitbtn2");
 
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;
       if (autologin) extracted[r'm$Content$AutologinCbx'] = "on";
-      var forsideSoup = await request(loginUrl,
+      var forsideSoup = await request<String>(loginUrl,
           data: extracted,
           options: Options(
             method: "POST",
             contentType: "application/x-www-form-urlencoded",
           )).timeout(const Duration(seconds: 5));
-      var student = checkLoggedIn(BeautifulSoup(forsideSoup.data), gymId);
+      var student =
+          checkLoggedIn(BeautifulSoup(forsideSoup.data as String), gymId);
       if (student == null) {
         throw InvalidCredentialsError();
       }

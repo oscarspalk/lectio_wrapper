@@ -51,7 +51,7 @@ String? getElevId(BeautifulSoup soup) {
 }
 
 Future<BeautifulSoup?> loggedIn(String url, {Map<String, String>? data}) async {
-  Response response;
+  Response<String> response;
   if (data != null) {
     response = await request(url,
         data: data,
@@ -62,13 +62,15 @@ Future<BeautifulSoup?> loggedIn(String url, {Map<String, String>? data}) async {
   } else {
     response = await request(url);
   }
-
-  BeautifulSoup soup = BeautifulSoup(response.data);
-  if (response.realUri.toString().contains("login.aspx?prevurl")) {
-    return null;
-  } else {
-    return soup;
+  if (response.data is String) {
+    BeautifulSoup soup = BeautifulSoup(response.data as String);
+    if (response.realUri.toString().contains("login.aspx?prevurl")) {
+      return null;
+    } else {
+      return soup;
+    }
   }
+  return null;
 }
 
 String regToStr(RegExpMatch match) {

@@ -80,8 +80,8 @@ class Student {
   /// Returns a [BasicInfo] containing name and pictureId.
   Future<BasicInfo> getBasicInfo() async {
     String profileUrl = buildUrl("SkemaNy.aspx?type=elev&elevid=$studentId");
-    var resp = await request(profileUrl);
-    BeautifulSoup profileSoup = BeautifulSoup(resp.data);
+    var resp = await request<String>(profileUrl);
+    BeautifulSoup profileSoup = BeautifulSoup(resp.data as String);
     return extractBasicInfo(profileSoup);
   }
 
@@ -116,7 +116,7 @@ class Student {
 
   Future<Uint8List> getFile(String url,
       {void Function(int x, int? x1)? onReceiveProgress}) async {
-    var res = await request(url,
+    var res = await request<Uint8List>(url,
         options: Options(
           responseType: ResponseType.bytes,
         ),

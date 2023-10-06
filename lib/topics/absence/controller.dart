@@ -14,7 +14,11 @@ class AbsenceController extends Controller {
   Future<List<AbsenceEntry>> list() async {
     var url =
         student.buildUrl("subnav/fravaerelev.aspx?elevid=${student.studentId}");
-    var response = await request(url);
-    return await extractAbsence(BeautifulSoup(response.data), student);
+    var response = await request<String>(url);
+    if (response.data != null) {
+      return await extractAbsence(
+          BeautifulSoup(response.data as String), student);
+    }
+    return [];
   }
 }

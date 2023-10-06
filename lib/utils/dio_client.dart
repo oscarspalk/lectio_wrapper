@@ -28,14 +28,14 @@ void addCookies(Uri uri, List<Cookie> cookies) {
   lppCookies.saveFromResponse(uri, cookies);
 }
 
-Future<Response> request(String url,
+Future<Response<T>> request<T>(String url,
     {Object? data,
     Map<String, dynamic>? queryParameters,
     CancelToken? cancelToken,
     Options? options,
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress}) async {
-  var dioRequest = await _lppDio.request(url,
+  var dioRequest = await _lppDio.request<T>(url,
       data: data,
       onReceiveProgress: onReceiveProgress,
       onSendProgress: onSendProgress,
@@ -43,15 +43,16 @@ Future<Response> request(String url,
       cancelToken: cancelToken,
       options: options);
 
-  var bsElement =
-      dioRequest.data is String ? BeautifulSoup(dioRequest.data) : null;
+  var bsElement = dioRequest.data is String
+      ? BeautifulSoup(dioRequest.data as String)
+      : null;
   var headerElement = bsElement?.find('*', id: 'MainTitle');
   if (headerElement != null &&
       headerElement.text.toLowerCase().contains("log ind") &&
       !url.endsWith("login.aspx")) {
     if (_loginCallback != null) {
       await _loginCallback!();
-      return await request(url,
+      dioRequest = await request<T>(url,
           data: data,
           queryParameters: queryParameters,
           cancelToken: cancelToken,

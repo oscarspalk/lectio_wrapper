@@ -454,3 +454,7 @@
 ## 0.6.9
 
 * Forgot to check if the data received wasn't a String
+
+## 0.6.10
+
+* Updated to the latest version of Lectio
