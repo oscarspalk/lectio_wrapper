@@ -30,7 +30,7 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
     for (var messageRow in messageTable) {
       Bs4Element linkElement = messageRow.children[3].children[0].children[0];
       String postCode = linkElement.getAttrValue("onclick")!;
-      int indexOfDollar = postCode.indexOf("_\$_") + 3;
+      int indexOfDollar = postCode.indexOf("\$");
       String id = postCode.substring(
           indexOfDollar, postCode.indexOf('\'', indexOfDollar));
       String topic = messageRow.children[3].text.trim();

@@ -14,19 +14,24 @@ class MesssageController extends Controller {
     threads = ThreadsController(student);
   }
 
-  Future<List<MessageRef>> list() async {
+  Future<(List<MessageRef>, BeautifulSoup)> list() async {
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
     var response = await request(url);
-    return extractMessages(BeautifulSoup(response.data));
+    var stateSoup = BeautifulSoup(response.data);
+    return (extractMessages(stateSoup), stateSoup);
   }
 
-  Future<Message?> get(MessageRef ref) async {
+  Future<Message?> get(MessageRef ref, BeautifulSoup stateSoup) async {
     var url = student.buildUrl(
         "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${ref.folderId}");
-    var response = await request(url, options: Options(method: 'POST'), data: {
-      "_EVENTTARGET": "__Page",
-      r"s$m$Content$Content$ListGridSelectionTree$folders": ref.folderId
-    });
+    var response = await request(url,
+        options: Options(method: 'POST'),
+        data: extractASPData(stateSoup, "__Page")
+          ..addAll({
+            "__EVENTARGUMENT": ref.id,
+            r"s$m$Content$Content$ListGridSelectionTree$folders":
+                ref.folderId.toString()
+          }));
     return extractMessage(BeautifulSoup(response.data), ref);
   }
 

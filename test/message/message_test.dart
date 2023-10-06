@@ -14,8 +14,10 @@ void main() {
   setUp(() async => {student = await account.login(autologin: false)});
 
   test('get message', () async {
-    var message = await student!.messages
-        .get(MessageRef("62380789225", DateTime.now(), "", "", -70));
+    var messages = await student!.messages.list();
+    var message = await student!.messages.get(
+        MessageRef(r"$LB2$_MC_$_62380789225", DateTime.now(), "", "", -70),
+        messages.$2);
     expect(message, isNotNull);
   });
 
@@ -33,18 +35,20 @@ void main() {
     ]));
     var messagesNow = await student!.messages.list();
     MessageRef? newMessage;
-    for (var message in messagesNow) {
+    for (var message in messagesNow.$1) {
       if (message.topic == testName) {
         newMessage = message;
       }
     }
     expect(newMessage, isNotNull);
-    var messageContent = (await student!.messages.get(newMessage!))!;
+    var messageContent =
+        (await student!.messages.get(newMessage!, messagesNow.$2))!;
     expect(messageContent.thread.length, 1);
     expect(messageContent.thread[0].content, testContent);
     await student!.messages.reply(Reply(messageContent.thread[0],
         "Re: $testName", messageContent, test2Content));
-    var newMessageContent = (await student!.messages.get(newMessage))!;
+    var newMessageContent =
+        (await student!.messages.get(newMessage, messagesNow.$2))!;
     expect(newMessageContent.thread.length, 2);
     expect(newMessageContent.thread[1].topic, "Re: $testName");
     expect(newMessageContent.thread[1].content, test2Content);
@@ -57,13 +61,14 @@ void main() {
               ..topic = updatedTopic,
             newMessageContent),
         openedEdit.stateData);
-    var newMessageContent2 = (await student!.messages.get(newMessage))!;
+    var newMessageContent2 =
+        (await student!.messages.get(newMessage, messagesNow.$2))!;
     expect(newMessageContent2.thread[0].content, contains(updatedText));
     expect(newMessageContent2.thread.length, 2);
     await student!.messages.delete(newMessageContent2);
     var updatedList = await student!.messages.list();
     var index =
-        updatedList.indexWhere((element) => element.topic == updatedTopic);
+        updatedList.$1.indexWhere((element) => element.topic == updatedTopic);
     expect(index, -1);
   });
 }

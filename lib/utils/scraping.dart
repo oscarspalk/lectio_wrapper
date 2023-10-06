@@ -3,8 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/basic_info.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 
-Future<Map<String, String>> extractASPData(
-    BeautifulSoup soup, String target) async {
+Map<String, String> extractASPData(BeautifulSoup soup, String target) {
   Map<String, String> data = {"__EVENTTARGET": target};
   List<String> checkStrings = [
     "__VIEWSTATEX",
