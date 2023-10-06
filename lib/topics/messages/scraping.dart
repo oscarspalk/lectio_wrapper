@@ -49,7 +49,8 @@ const receiverKey = "Til:";
 
 Message? extractMessage(BeautifulSoup soup, MessageRef ref) {
   Bs4Element? printTable = soup.find("*", id: 'printmessagearea');
-  Bs4Element? infoTable = printTable?.find('ShowMessageRecipients');
+  Bs4Element? infoTable =
+      printTable?.find('*', class_: 'ShowMessageRecipients');
   List<Bs4Element> infoRows = infoTable?.findAll('td') ?? [];
   String? topic;
   MetaDataEntry? sender;
@@ -73,9 +74,9 @@ Message? extractMessage(BeautifulSoup soup, MessageRef ref) {
       var nextRow = infoRows.elementAtOrNull(i + 1);
       receivers = nextRow?.string.trim();
     }
-    if (infoText.isNotEmpty) {
+    if (topic == null && infoText.isNotEmpty) {
       // is the topic
-      topic = infoRow.string;
+      topic = infoRow.string.trim();
     }
   }
 

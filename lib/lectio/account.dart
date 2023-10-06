@@ -48,7 +48,7 @@ class Account {
       var loginGet = await request(loginUrl);
       BeautifulSoup bs = BeautifulSoup(loginGet.data);
       Map<String, String?> extracted =
-          await extractASPData(bs, "m\$Content\$submitbtn2");
+          extractASPData(bs, "m\$Content\$submitbtn2");
 
       extracted["m\$Content\$username"] = username;
       extracted["m\$Content\$password"] = password;

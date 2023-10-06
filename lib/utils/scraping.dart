@@ -96,7 +96,7 @@ Future<BeautifulSoup?> postLoggedInPageSoup(
     String url, String target, Map<String, String> otherAspData) async {
   var getResponse = await loggedIn(url);
   if (getResponse != null) {
-    var aspData = await extractASPData(getResponse, target);
+    var aspData = extractASPData(getResponse, target);
     aspData.addAll(otherAspData);
     return await loggedIn(url, data: aspData);
   } else {

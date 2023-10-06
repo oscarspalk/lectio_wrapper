@@ -14,25 +14,25 @@ class MesssageController extends Controller {
     threads = ThreadsController(student);
   }
 
-  Future<(List<MessageRef>, BeautifulSoup)> list() async {
+  Future<List<MessageRef>> list() async {
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
     var response = await request(url);
     var stateSoup = BeautifulSoup(response.data);
-    return (extractMessages(stateSoup), stateSoup);
+    return extractMessages(stateSoup);
   }
 
-  Future<Message?> get(MessageRef ref, BeautifulSoup stateSoup) async {
-    var url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${ref.folderId}");
-    var response = await request(url,
-        options: Options(method: 'POST'),
-        data: extractASPData(stateSoup, "__Page")
-          ..addAll({
-            "__EVENTARGUMENT": ref.id,
-            r"s$m$Content$Content$ListGridSelectionTree$folders":
-                ref.folderId.toString()
-          }));
-    return extractMessage(BeautifulSoup(response.data), ref);
+  Future<Message?> get(MessageRef ref) async {
+    var url = student
+        .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
+    var customData = {
+      "__EVENTARGUMENT": r"$LB2$_MC_$_62382303765",
+      r"s$m$Content$Content$ListGridSelectionTree$folders": "-70",
+    };
+    var response = await postLoggedInPageSoup(url, "__Page", customData);
+    if (response != null) {
+      return extractMessage(response, ref);
+    }
+    return null;
   }
 
   Future<BeautifulSoup> newMessage() async {
@@ -66,7 +66,7 @@ class MesssageController extends Controller {
       r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb":
           createMessage.content
     };
-    var exportedSubmitData = await extractASPData(latestSoup, target);
+    var exportedSubmitData = extractASPData(latestSoup, target);
     exportedSubmitData.addAll(submitData);
     await request(url,
         data: exportedSubmitData,
@@ -91,7 +91,7 @@ class MesssageController extends Controller {
           "",
       r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb": ""
     };
-    var aspData = await extractASPData(soup, target);
+    var aspData = extractASPData(soup, target);
     aspData.addAll(data);
     var response = await request(url,
         data: aspData,
@@ -130,7 +130,7 @@ class MesssageController extends Controller {
       r"s$m$Content$Content$CreateAnswerDocChooser$selectedDocumentId": "",
       r"s$m$Content$Content$CreateAnswerContent$TbxNAME$tb": reply.content
     };
-    var aspData = await extractASPData(openingSoup!, target);
+    var aspData = extractASPData(openingSoup!, target);
     aspData.addAll(data);
     await request(url,
         data: aspData,

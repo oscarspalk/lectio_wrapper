@@ -17,7 +17,7 @@ class ThreadsController extends Controller {
       "__EVENTARGUMENT": "EDITMESSAGE_${entry.id}"
     };
     var openingSoup = await postLoggedInPageSoup(openUrl, openTarget, openData);
-    var stateData = await extractASPData(openingSoup!, target);
+    var stateData = extractASPData(openingSoup!, target);
     return extractContentAndTopic(openingSoup, stateData);
   }
 

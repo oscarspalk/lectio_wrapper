@@ -15,9 +15,10 @@ void main() {
 
   test('get message', () async {
     var messages = await student!.messages.list();
+
     var message = await student!.messages.get(
-        MessageRef(r"$LB2$_MC_$_62380789225", DateTime.now(), "", "", -70),
-        messages.$2);
+      MessageRef(messages[2].id, DateTime.now(), "", "", -70),
+    );
     expect(message, isNotNull);
   });
 
@@ -35,20 +36,18 @@ void main() {
     ]));
     var messagesNow = await student!.messages.list();
     MessageRef? newMessage;
-    for (var message in messagesNow.$1) {
+    for (var message in messagesNow) {
       if (message.topic == testName) {
         newMessage = message;
       }
     }
     expect(newMessage, isNotNull);
-    var messageContent =
-        (await student!.messages.get(newMessage!, messagesNow.$2))!;
+    var messageContent = (await student!.messages.get(newMessage!))!;
     expect(messageContent.thread.length, 1);
     expect(messageContent.thread[0].content, testContent);
     await student!.messages.reply(Reply(messageContent.thread[0],
         "Re: $testName", messageContent, test2Content));
-    var newMessageContent =
-        (await student!.messages.get(newMessage, messagesNow.$2))!;
+    var newMessageContent = (await student!.messages.get(newMessage))!;
     expect(newMessageContent.thread.length, 2);
     expect(newMessageContent.thread[1].topic, "Re: $testName");
     expect(newMessageContent.thread[1].content, test2Content);
@@ -61,14 +60,13 @@ void main() {
               ..topic = updatedTopic,
             newMessageContent),
         openedEdit.stateData);
-    var newMessageContent2 =
-        (await student!.messages.get(newMessage, messagesNow.$2))!;
+    var newMessageContent2 = (await student!.messages.get(newMessage))!;
     expect(newMessageContent2.thread[0].content, contains(updatedText));
     expect(newMessageContent2.thread.length, 2);
     await student!.messages.delete(newMessageContent2);
     var updatedList = await student!.messages.list();
     var index =
-        updatedList.$1.indexWhere((element) => element.topic == updatedTopic);
+        updatedList.indexWhere((element) => element.topic == updatedTopic);
     expect(index, -1);
   });
 }
