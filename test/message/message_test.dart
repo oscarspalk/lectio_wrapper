@@ -17,7 +17,7 @@ void main() {
     var messages = await student!.messages.list();
 
     var message = await student!.messages.get(
-      MessageRef(messages[2].id, DateTime.now(), "", "", -70),
+      MessageRef(messages[2].id, DateTime.now(), "", "", -70, ""),
     );
     expect(message, isNotNull);
   });
@@ -45,7 +45,7 @@ void main() {
     var messageContent = (await student!.messages.get(newMessage!))!;
     expect(messageContent.thread.length, 1);
     expect(messageContent.thread[0].content, testContent);
-    await student!.messages.reply(Reply(messageContent.thread[0],
+    await student!.messages.threads.reply(Reply(messageContent.thread[0],
         "Re: $testName", messageContent, test2Content));
     var newMessageContent = (await student!.messages.get(newMessage))!;
     expect(newMessageContent.thread.length, 2);

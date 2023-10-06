@@ -458,3 +458,11 @@
 ## 0.6.10
 
 * Updated to the latest version of Lectio
+
+## 0.6.11
+
+* Reference is now included in a Message object.
+
+## 0.6.12
+
+* Message CRUD-actions have been updated

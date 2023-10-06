@@ -11,8 +11,8 @@ class ThreadsController extends Controller {
   Future<OpenedEdit> openEdit(ThreadEntry entry, Message message) async {
     String target = r"s$m$Content$Content$CreateThreadEditMessageOkBtn";
     String openUrl = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${message.id}");
-    String openTarget = "__PAGE";
+        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${message.ref.folderId}&id=${message.ref.normalizedId}");
+    String openTarget = "__Page";
     Map<String, String> openData = {
       "__EVENTARGUMENT": "EDITMESSAGE_${entry.id}"
     };
@@ -23,7 +23,7 @@ class ThreadsController extends Controller {
 
   Future<void> edit(Edit edit, Map<String, String> aspData) async {
     String url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${edit.message.id}");
+        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${edit.message.ref.folderId}&id=${edit.message.ref.normalizedId}");
     Map<String, String> data = {
       r"s$m$searchinputfield": "",
       r"s$m$Content$Content$addRecipientDD$inp": "",
@@ -35,6 +35,36 @@ class ThreadsController extends Controller {
       r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb":
           edit.entry.content
     };
+    aspData.addAll(data);
+    await request(url,
+        data: aspData,
+        options: Options(
+          method: 'POST',
+          contentType: "application/x-www-form-urlencoded",
+        ));
+  }
+
+  Future<void> reply(Reply reply) async {
+    String url = student.buildUrl(
+        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${reply.message.ref.folderId}&id=${reply.message.ref.normalizedId}");
+    String openTarget = "__Page";
+    Map<String, String> openData = {
+      "__EVENTARGUMENT": "ANSWERMESSAGE_${reply.entry.id}"
+    };
+    var openingSoup = await postLoggedInPageSoup(url, openTarget, openData);
+    String target = r"s$m$Content$Content$CreateAnswerOKBtn";
+    Map<String, String> data = {
+      "__EVENTTARGET": target,
+      r"s$m$searchinputfield": "",
+      r"s$m$Content$Content$addRecipientToAnswerDD$inp": "",
+      r"s$m$Content$Content$addRecipientToAnswerDD$inpid": "",
+      r"s$m$Content$Content$Notification": "NotifyBtnAuthor",
+      r"s$m$Content$Content$RepliesToResponseAllowed": "on",
+      r"s$m$Content$Content$CreateAnswerHeading$tb": reply.topic,
+      r"s$m$Content$Content$CreateAnswerDocChooser$selectedDocumentId": "",
+      r"s$m$Content$Content$CreateAnswerContent$TbxNAME$tb": reply.content
+    };
+    var aspData = extractASPData(openingSoup!, target);
     aspData.addAll(data);
     await request(url,
         data: aspData,

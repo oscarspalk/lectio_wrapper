@@ -33,12 +33,15 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
       int indexOfDollar = postCode.indexOf("\$");
       String id = postCode.substring(
           indexOfDollar, postCode.indexOf('\'', indexOfDollar));
+      int indexOfUnderDollar = id.indexOf(r'_$_');
+      String normalizedId = id.substring(indexOfUnderDollar + 3);
       String topic = messageRow.children[3].text.trim();
       String receivers =
           messageRow.children[5].children[0].getAttrValue('title')!;
       String dateChanged = messageRow.children[7].text;
       DateTime parsedTime = parseLectioDate(dateChanged);
-      messages.add(MessageRef(id, parsedTime, topic, receivers, folderId));
+      messages.add(
+          MessageRef(id, parsedTime, topic, receivers, folderId, normalizedId));
     }
   }
   return messages;
@@ -87,7 +90,7 @@ Message? extractMessage(BeautifulSoup soup, MessageRef ref) {
     thread.add(extractMessageThread(entry));
   }
   if (sender != null && topic != null && receivers != null) {
-    return Message(ref.id, thread, sender, receivers, topic);
+    return Message(ref.id, thread, sender, receivers, topic, ref);
   }
   return null;
 }

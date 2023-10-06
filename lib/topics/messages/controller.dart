@@ -25,8 +25,9 @@ class MesssageController extends Controller {
     var url = student
         .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
     var customData = {
-      "__EVENTARGUMENT": r"$LB2$_MC_$_62382303765",
-      r"s$m$Content$Content$ListGridSelectionTree$folders": "-70",
+      "__EVENTARGUMENT": ref.id,
+      r"s$m$Content$Content$ListGridSelectionTree$folders":
+          ref.folderId.toString(),
     };
     var response = await postLoggedInPageSoup(url, "__Page", customData);
     if (response != null) {
@@ -103,40 +104,13 @@ class MesssageController extends Controller {
   }
 
   Future<void> delete(Message message) async {
-    String target = "__PAGE";
-    String url = student
-        .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
-    await postLoggedInPageSoup(
-        url, target, {"__EVENTARGUMENT": "HIDEMESSAGE_${message.id}"});
-  }
-
-  Future<void> reply(Reply reply) async {
+    String target = "__Page";
     String url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&id=${reply.message.id}");
-    String openTarget = "__PAGE";
-    Map<String, String> openData = {
-      "__EVENTARGUMENT": "ANSWERMESSAGE_${reply.entry.id}"
-    };
-    var openingSoup = await postLoggedInPageSoup(url, openTarget, openData);
-    String target = r"s$m$Content$Content$CreateAnswerOKBtn";
-    Map<String, String> data = {
-      "__EVENTTARGET": target,
-      r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$addRecipientToAnswerDD$inp": "",
-      r"s$m$Content$Content$addRecipientToAnswerDD$inpid": "",
-      r"s$m$Content$Content$Notification": "NotifyBtnAuthor",
-      r"s$m$Content$Content$RepliesToResponseAllowed": "on",
-      r"s$m$Content$Content$CreateAnswerHeading$tb": reply.topic,
-      r"s$m$Content$Content$CreateAnswerDocChooser$selectedDocumentId": "",
-      r"s$m$Content$Content$CreateAnswerContent$TbxNAME$tb": reply.content
-    };
-    var aspData = extractASPData(openingSoup!, target);
-    aspData.addAll(data);
-    await request(url,
-        data: aspData,
-        options: Options(
-          method: 'POST',
-          contentType: "application/x-www-form-urlencoded",
-        ));
+        "beskeder2.aspx?elevid=${student.studentId}&selectedfolderid=${message.ref.folderId}");
+    await postLoggedInPageSoup(url, target, {
+      "__EVENTARGUMENT": "HIDEMESSAGE_${message.ref.normalizedId}",
+      r"s$m$Content$Content$ListGridSelectionTree$folders":
+          message.ref.folderId.toString()
+    });
   }
 }

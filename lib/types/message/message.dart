@@ -7,7 +7,9 @@ class MessageRef {
   String topic;
   DateTime dateChanged;
   String sender;
-  MessageRef(this.id, this.dateChanged, this.topic, this.sender, this.folderId);
+  String normalizedId;
+  MessageRef(this.id, this.dateChanged, this.topic, this.sender, this.folderId,
+      this.normalizedId);
 }
 
 class CreateMessage {
@@ -32,7 +34,9 @@ class Message {
   MetaDataEntry sender;
   String receivers;
   List<ThreadEntry> thread;
-  Message(this.id, this.thread, this.sender, this.receivers, this.topic);
+  MessageRef ref;
+  Message(
+      this.id, this.thread, this.sender, this.receivers, this.topic, this.ref);
 }
 
 class ThreadEntry {
