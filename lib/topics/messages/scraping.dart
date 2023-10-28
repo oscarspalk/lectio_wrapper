@@ -5,7 +5,7 @@ import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
 import 'package:lectio_wrapper/utils/dating.dart';
 
-DateFormat dateThreadFormat = DateFormat("dd/MM-yyyy HH:mm");
+DateFormat dateThreadFormat = DateFormat("dd-MM-yyyy HH:mm:ss");
 
 List<String> weekdays = [
   "mandag",
@@ -47,88 +47,78 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
   return messages;
 }
 
-const senderKey = "Fra:";
-const receiverKey = "Til:";
+const lectioContextKey = "data-lectiocontextcard";
 
 Message? extractMessage(BeautifulSoup soup, MessageRef ref) {
-  Bs4Element? printTable = soup.find("*", id: 'printmessagearea');
-  Bs4Element? infoTable =
-      printTable?.find('*', class_: 'ShowMessageRecipients');
-  List<Bs4Element> infoRows = infoTable?.findAll('td') ?? [];
-  String? topic;
-  MetaDataEntry? sender;
-  String? receivers;
-  for (int i = 0; i < infoRows.length; i++) {
-    var infoRow = infoRows.elementAt(i);
-    var infoText = infoRow.string.toLowerCase();
-    if (infoText.contains(senderKey.toLowerCase())) {
-      // is the sender field
-      // then the next element must be the sender's info
-      var nextRow = infoRows.elementAtOrNull(i + 1);
-      var spanChild = nextRow?.find('span');
-      var senderId = spanChild?.getAttrValue('data-lectiocontextcard');
-      var senderName = spanChild?.string;
-      if (senderId != null && senderName != null) {
-        sender = MetaDataEntry(id: senderId, name: senderName);
+  // extract receivers
+  List<MetaDataEntry> receivers = [];
+  Bs4Element? receiverField = soup.find('*',
+      id: 's_m_Content_Content_MessageThreadCtrl_RecipientsReadMode');
+  List<Bs4Element>? receiverSpans = receiverField?.findAll('span');
+  if (receiverSpans != null) {
+    for (var receiverSpan in receiverSpans) {
+      String? id = receiverSpan.getAttrValue(lectioContextKey);
+      String name = receiverSpan.text;
+      if (id != null) {
+        receivers.add(MetaDataEntry(id: id, name: name));
       }
     }
-    if (infoText.contains(receiverKey.toLowerCase())) {
-      // is the receiver field
-      var nextRow = infoRows.elementAtOrNull(i + 1);
-      receivers = nextRow?.string.trim();
-    }
-    if (topic == null && infoText.isNotEmpty) {
-      // is the topic
-      topic = infoRow.string.trim();
-    }
   }
 
+  // extract threads
   List<ThreadEntry> thread = [];
-  Bs4Element? threadTable =
-      soup.find('*', id: 's_m_Content_Content_ThreadList');
-  for (var entry in (threadTable?.children ?? [])) {
-    thread.add(extractMessageThread(entry));
+  List<Bs4Element> messageThreads = soup.findAll('*', id: 'GridRowMessage');
+  for (var entry in messageThreads) {
+    var extractedEntry = extractMessageThread(entry);
+    if (extractedEntry != null) {
+      thread.add(extractedEntry);
+    }
   }
-  if (sender != null && topic != null && receivers != null) {
-    return Message(ref.id, thread, sender, receivers, topic, ref);
-  }
-  return null;
+  return Message(ref.id, thread, receivers, ref);
 }
 
-ThreadEntry extractMessageThread(Bs4Element threadListItem) {
-  String content = threadListItem.children[1].innerHtml.trim();
-  Bs4Element messageElement =
-      threadListItem.children[0].children[0].children[0].children[0];
-  String messageInfo = messageElement.text;
+ThreadEntry? extractMessageThread(Bs4Element threadListItem) {
+  // extract the topic and the content
+  String? topic;
+  String? content;
+  Bs4Element? topicElement =
+      threadListItem.find('*', class_: 'message-thread-message-header');
+  Bs4Element? contentElement =
+      threadListItem.find('*', class_: 'message-thread-message-content');
+  topic = topicElement?.text.trim();
+  content = contentElement?.innerHtml.trim();
+
+  // extract info about the message and the sender
+  Bs4Element? infoElement =
+      threadListItem.find('*', class_: 'message-thread-message-sender');
+  Bs4Element? senderElement = infoElement?.find('span');
+  String? senderId = senderElement?.getAttrValue(lectioContextKey);
+  String? senderName = senderElement?.text;
+  MetaDataEntry? sender;
+  if (senderId != null && senderName != null) {
+    sender = MetaDataEntry(id: senderId, name: senderName);
+  }
+  String? timestampInfo = infoElement?.text
+      .replaceFirst(sender?.name ?? "", "")
+      .replaceFirst(',', '')
+      .trim();
+  DateTime? at;
+  if (timestampInfo != null) {
+    at = dateThreadFormat.parse(timestampInfo);
+  }
+
+  // find files, if there are any
+  Bs4Element? fileRow =
+      threadListItem.find('*', class_: 'message-attachements');
+  List<Bs4Element> fileEntries = fileRow?.findAll('a') ?? [];
   List<File> files = [];
-  List<Bs4Element> fileLinks =
-      messageElement.children.where((element) => element.name == 'a').toList();
-  for (var fileLink in fileLinks) {
-    files.add(File(href: fileLink.getAttrValue("href")!, name: fileLink.text));
+  for (var fileLink in fileEntries) {
+    files.add(
+        File(href: fileLink.getAttrValue("href") ?? "", name: fileLink.text));
   }
-  List<String> infos = messageInfo.split("Af");
-  String topic = infos[0].trim();
-  List<String> infosSplittedAgain = infos[1].split(", ");
-  DateTime at = dateThreadFormat.parse(infosSplittedAgain[1]);
-  MetaDataEntry user = MetaDataEntry(
-      id: messageElement.children[1].getAttrValue('data-lectiocontextcard')!,
-      name: infosSplittedAgain[0].trim());
-  List<Bs4Element> buttons = threadListItem.findAll('button');
-  String answerButtonEvent = buttons[0].getAttrValue("onclick")!;
-  String pattern = "ANSWERMESSAGE_";
-  int patternMatch = answerButtonEvent.indexOf(pattern) + pattern.length;
-  String id = answerButtonEvent.substring(
-      patternMatch, answerButtonEvent.indexOf('\');', patternMatch));
-  int indent = 0;
-  String? cssString = threadListItem.getAttrValue('style');
-  if (cssString != null) {
-    int lPadIndex = cssString.indexOf(':');
-    int lPadEnd = cssString.indexOf('em;');
-    if (lPadIndex != -1 && lPadEnd != -1) {
-      String numStr = cssString.substring(lPadIndex + 1, lPadEnd);
-      double padLeft = double.parse(numStr);
-      indent = (padLeft / 1.6).floor();
-    }
+
+  if (content != null && topic != null && at != null && sender != null) {
+    return ThreadEntry(at, sender, content, topic, files);
   }
-  return ThreadEntry(id, at, user, content, topic, files, indent);
+  return null;
 }

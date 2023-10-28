@@ -22,8 +22,7 @@ class MesssageController extends Controller {
   }
 
   Future<Message?> get(MessageRef ref) async {
-    var url = student
-        .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
+    var url = student.buildUrl("beskeder2.aspx");
     var customData = {
       "__EVENTARGUMENT": ref.id,
       r"s$m$Content$Content$ListGridSelectionTree$folders":

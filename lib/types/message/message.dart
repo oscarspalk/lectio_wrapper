@@ -30,23 +30,17 @@ class Reply {
 
 class Message {
   String id;
-  String topic;
-  MetaDataEntry sender;
-  String receivers;
+  List<MetaDataEntry> receivers;
   List<ThreadEntry> thread;
   MessageRef ref;
-  Message(
-      this.id, this.thread, this.sender, this.receivers, this.topic, this.ref);
+  Message(this.id, this.thread, this.receivers, this.ref);
 }
 
 class ThreadEntry {
-  String id;
   DateTime at;
   MetaDataEntry user;
   String content;
   String topic;
-  int indent;
   List<File>? files;
-  ThreadEntry(this.id, this.at, this.user, this.content, this.topic, this.files,
-      this.indent);
+  ThreadEntry(this.at, this.user, this.content, this.topic, this.files);
 }
