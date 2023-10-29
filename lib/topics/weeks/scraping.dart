@@ -112,6 +112,7 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
   List<String> pieceInformation =
       element.getAttrValue('data-additionalinfo')!.split("\n");
 
+  // check for title and timestamps
   for (var pieceInfo in pieceInformation) {
     var dates = datePattern.allMatches(pieceInfo);
     var times = timePattern.allMatches(pieceInfo);
@@ -134,33 +135,39 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
       }
     } else if (states.contains(pieceInfo)) {
       status = pieceInfo;
-    } else {
-      List<String> data = pieceInfo.split(":");
-      switch (data[0]) {
-        case "Hold":
-          team = data[1].trim();
-          break;
-        case "Lærer":
-          teacher = extractTeachers(data[1]);
-          break;
-        case "Lærere":
-          teacher = extractTeachers(data[1]);
-          break;
-        case "Lokale":
-          room = data[1].trim();
-          break;
-        case "Note":
-          var index = pieceInformation.indexOf(pieceInfo);
-          if (index < pieceInformation.length - 1) {
-            note = pieceInformation.sublist(index + 1).join("\n");
-          }
-          break;
-      }
     }
   }
-  if (status == "Uændret" && pieceInformation[0].isNotEmpty) {
-    title = pieceInformation[0];
+
+  // extract all named info
+  for (var namedInfo in pieceInformation) {
+    List<String> data = namedInfo.split(":");
+    switch (data[0]) {
+      case "Hold":
+        team = data[1].trim();
+        break;
+      case "Lærer":
+        teacher = extractTeachers(data[1]);
+        break;
+      case "Lærere":
+        teacher = extractTeachers(data[1]);
+        break;
+      case "Lokale":
+        room = data[1].trim();
+        break;
+      case "Note":
+        var index = pieceInformation.indexOf(namedInfo);
+        if (index < pieceInformation.length - 1) {
+          note = pieceInformation
+              .sublist(index, pieceInformation.length)
+              .join("\n")
+              .replaceFirst('Note:', "")
+              .trim();
+        }
+        break;
+    }
   }
+
+  // extract teacher and team objects
   List<MetaDataEntry> teacherObjs = [];
   List<MetaDataEntry> teamObjs = [];
   Bs4Element? skemaContent = element.find('*', class_: 's2skemabrikcontent');
@@ -179,6 +186,14 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
       }
     }
   }
+
+  if (pieceInformation.isNotEmpty && pieceInformation[0].isNotEmpty) {
+    if (!states.contains(pieceInformation[0]) &&
+        timePattern.allMatches(pieceInformation[0]).isEmpty) {
+      title = pieceInformation[0];
+    }
+  }
+
   if (start != null && end != null) {
     return CalendarEvent(
         hasHomework: hasHomework,

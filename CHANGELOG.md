@@ -476,3 +476,11 @@
 ## 0.6.14
 
 * The timestamps weren't given 100% correctly
+
+## 0.6.15
+
+* Sometimes the timestamp was entered as the title
+
+## 0.6.16
+
+* More modification to the modul information from Lectio
