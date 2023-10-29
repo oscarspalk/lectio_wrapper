@@ -484,3 +484,7 @@
 ## 0.6.16
 
 * More modification to the modul information from Lectio
+
+## 0.6.17
+
+* Messages don't read files as text anymore

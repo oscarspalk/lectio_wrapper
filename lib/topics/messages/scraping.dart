@@ -89,6 +89,20 @@ ThreadEntry? extractMessageThread(Bs4Element threadListItem) {
       threadListItem.find('*', class_: 'message-thread-message-header');
   Bs4Element? contentElement =
       threadListItem.find('*', class_: 'message-thread-message-content');
+
+  // find files, if there are any
+  // remove the attachments text, but keep it for later
+  Bs4Element? fileRow = contentElement?.descendants
+      .where((element) => element.className.contains("message-attachements"))
+      .firstOrNull
+      ?.extract();
+
+  List<Bs4Element> fileEntries = fileRow?.findAll('a') ?? [];
+  List<File> files = [];
+  for (var fileLink in fileEntries) {
+    files.add(
+        File(href: fileLink.getAttrValue("href") ?? "", name: fileLink.text));
+  }
   topic = topicElement?.text.trim();
   content = contentElement?.innerHtml.trim();
 
@@ -109,16 +123,6 @@ ThreadEntry? extractMessageThread(Bs4Element threadListItem) {
   DateTime? at;
   if (timestampInfo != null) {
     at = dateThreadFormat.parse(timestampInfo);
-  }
-
-  // find files, if there are any
-  Bs4Element? fileRow =
-      threadListItem.find('*', class_: 'message-attachements');
-  List<Bs4Element> fileEntries = fileRow?.findAll('a') ?? [];
-  List<File> files = [];
-  for (var fileLink in fileEntries) {
-    files.add(
-        File(href: fileLink.getAttrValue("href") ?? "", name: fileLink.text));
   }
 
   if (content != null && topic != null && at != null && sender != null) {
