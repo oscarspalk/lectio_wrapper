@@ -65,15 +65,17 @@ AbsenceCauseEntry? extractAbsenceCause(Bs4Element row, bool missingCause) {
   Bs4Element? skemaBrik = row.children[1].find('a');
   if (skemaBrik != null && id != null && type != null) {
     var event = extractModul(skemaBrik);
-    return AbsenceCauseEntry(
-        type: type,
-        id: id,
-        absence: absencePercent,
-        cause: cause,
-        expandedCause: extendedCause ?? "",
-        note: note,
-        registered: registered,
-        module: event);
+    if (event != null) {
+      return AbsenceCauseEntry(
+          type: type,
+          id: id,
+          absence: absencePercent,
+          cause: cause,
+          expandedCause: extendedCause ?? "",
+          note: note,
+          registered: registered,
+          module: event);
+    }
   }
 
   return null;

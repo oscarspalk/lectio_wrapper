@@ -1,6 +1,6 @@
 name: lectio_wrapper
 description: A client wrapper for Lectio. Everything runs and is scraped without thirdparty. This means it is as secure as typical Lectio browsing.
-version: 0.6.13
+version: 0.6.14
 homepage: https://oscarspalk.com
 repository: https://github.com/oscarspalk/lectio_wrapper
 

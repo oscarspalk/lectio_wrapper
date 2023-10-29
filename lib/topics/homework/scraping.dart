@@ -18,7 +18,8 @@ Future<List<Homework>> extractHomework(BeautifulSoup soup) async {
   }
   homeworkSoup.contents[1].findAll("tr").forEach((homework) {
     String date = homework.children[0].text;
-    CalendarEvent aktivitet = extractModul(homework.children[1].children.first);
+    CalendarEvent? aktivitet =
+        extractModul(homework.children[1].children.first);
     String note = homework.children[2].text;
     int modul = 0;
     String modulText =
@@ -29,8 +30,10 @@ Future<List<Homework>> extractHomework(BeautifulSoup soup) async {
       modul = int.parse(modulStr);
     }
     var hourLink = homework.children[1].children[0].attributes['href'];
-    homeworkList.add(Homework(
-        aktivitet, baseUrl + hourLink!, parseLectioDate(date), note, modul));
+    if (aktivitet != null) {
+      homeworkList.add(Homework(
+          aktivitet, baseUrl + hourLink!, parseLectioDate(date), note, modul));
+    }
   });
   return homeworkList;
 }

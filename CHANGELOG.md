@@ -472,3 +472,7 @@
 * Updated messaging, as they always change that shit
 * Deprecated editing messages, I won't make an actual implementation before Lectio stops changing it all the time
 * Updated the calendar time parser
+
+## 0.6.14
+
+* The timestamps weren't given 100% correctly
