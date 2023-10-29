@@ -466,3 +466,9 @@
 ## 0.6.12
 
 * Message CRUD-actions have been updated
+
+## 0.6.13
+
+* Updated messaging, as they always change that shit
+* Deprecated editing messages, I won't make an actual implementation before Lectio stops changing it all the time
+* Updated the calendar time parser

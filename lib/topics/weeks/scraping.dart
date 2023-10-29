@@ -51,7 +51,7 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
     var dayTime = DateTime(year, dayMonthAndDay[1], dayMonthAndDay[0]);
     List<CalendarEvent> dayEvents = [];
     day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
-      var event = extractModul(piece);
+      var event = extractModul(piece, day: dayTime);
       dayEvents.add(event);
     });
     days.add(Day(
@@ -79,7 +79,8 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
   return Week(days: days, weekNum: weekNum, modulRanges: modulRanges);
 }
 
-CalendarEvent extractModul(Bs4Element element) {
+CalendarEvent extractModul(Bs4Element element, {DateTime? day}) {
+  day = day ?? DateTime.now();
   CalendarEventType type = CalendarEventType.regular;
   String status = "Uændret";
   String? id = queriesFromSoup(element.getAttrValue('href') ?? "")['absid'];
@@ -123,14 +124,23 @@ CalendarEvent extractModul(Bs4Element element) {
     var dates = datePattern.allMatches(pieceInfo);
     var times = timePattern.allMatches(pieceInfo);
 
-    if (dates.isNotEmpty && times.isNotEmpty) {
-      String startTime =
-          "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(0))}";
-      String endTime =
-          "${regToStr(dates.length > 1 ? dates.elementAt(1) : dates.elementAt(0))} ${regToStr(times.elementAt(1))}";
-      DateFormat format = DateFormat("d/M-y HH:mm");
-      start = format.parse(startTime);
-      end = format.parse(endTime);
+    if (times.isNotEmpty) {
+      if (dates.isNotEmpty) {
+        String startTime =
+            "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(0))}";
+        String endTime =
+            "${regToStr(dates.length > 1 ? dates.elementAt(1) : dates.elementAt(0))} ${regToStr(times.elementAt(1))}";
+        DateFormat format = DateFormat("d/M-y HH:mm");
+        start = format.parse(startTime);
+        end = format.parse(endTime);
+      } else {
+        DateFormat hhMM = DateFormat("HH:mm");
+        var startHHmm = hhMM.parse(regToStr(times.elementAt(0)));
+        var endHHmm = hhMM.parse(regToStr(times.elementAt(1)));
+
+        start = day.copyWith(hour: startHHmm.hour, minute: startHHmm.minute);
+        end = day.copyWith(hour: endHHmm.hour, minute: endHHmm.minute);
+      }
     } else if (states.contains(pieceInfo)) {
       status = pieceInfo;
     } else {
