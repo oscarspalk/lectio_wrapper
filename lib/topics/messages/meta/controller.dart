@@ -12,28 +12,31 @@ class MessageMetaController extends Controller {
   List<MetaDataEntry> _favorites = [];
   MessageMetaController(super.student);
 
-  Future<MessageMetaData> get() async {
+  Future<MessageMetaData?> get() async {
     var soup = await student.messages.newMessage();
-    var scripts = extractScripts(soup);
-    await Future.wait(scripts.map((e) => _loadScript(e)));
+    if (soup != null) {
+      var scripts = extractScripts(soup);
+      await Future.wait(scripts.map((e) => _loadScript(e)));
 
-    List<MetaDataEntry> concatenatedEntries = [
-      ...students,
-      ...teachers,
-      ...groups,
-      ...teams
-    ];
+      List<MetaDataEntry> concatenatedEntries = [
+        ...students,
+        ...teachers,
+        ...groups,
+        ...teams
+      ];
 
-    for (var favorite in _favorites) {
-      List<MetaDataEntry> matches = concatenatedEntries
-          .where((element) => element.id == favorite.id)
-          .toList();
-      if (matches.isNotEmpty) {
-        favorites.add(matches[0]);
+      for (var favorite in _favorites) {
+        List<MetaDataEntry> matches = concatenatedEntries
+            .where((element) => element.id == favorite.id)
+            .toList();
+        if (matches.isNotEmpty) {
+          favorites.add(matches[0]);
+        }
       }
-    }
 
-    return MessageMetaData(favorites, groups, students, teams, teachers);
+      return MessageMetaData(favorites, groups, students, teams, teachers);
+    }
+    return null;
   }
 
   Future<void> _loadScript(ScriptContent script) async {

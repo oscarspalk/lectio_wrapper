@@ -1,68 +1,63 @@
 import 'package:dio/dio.dart';
-import 'package:lectio_wrapper/topics/messages/threads/scraping.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
-import 'package:lectio_wrapper/types/message/threads/edit.dart';
 import 'package:lectio_wrapper/utils/controller.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
+String _formatNumberWide(int i) {
+  if (i < 10) {
+    return "0$i";
+  }
+  return "$i";
+}
+
+String _calculateIdNumberFromThreadAndMessage(
+    ThreadEntry? entry, Message message) {
+  int startingN = 2;
+  int completeNumber;
+  if (entry != null) {
+    int indexOfThread = message.thread.indexOf(entry);
+    completeNumber = startingN + indexOfThread;
+  } else {
+    completeNumber = startingN + message.thread.length;
+  }
+
+  return _formatNumberWide(completeNumber);
+}
+
 class ThreadsController extends Controller {
   ThreadsController(super.student);
-  Future<OpenedEdit> openEdit(ThreadEntry entry, Message message) async {
-    String target = r"s$m$Content$Content$CreateThreadEditMessageOkBtn";
-    String openUrl = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${message.ref.folderId}&id=${message.ref.normalizedId}");
-    String openTarget = "__Page";
-    Map<String, String> openData = {
-      "__EVENTARGUMENT": "EDITMESSAGE_${entry.id}"
-    };
-    var openingSoup = await postLoggedInPageSoup(openUrl, openTarget, openData);
-    var stateData = extractASPData(openingSoup!, target);
-    return extractContentAndTopic(openingSoup, stateData);
-  }
-
-  Future<void> edit(Edit edit, Map<String, String> aspData) async {
-    String url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${edit.message.ref.folderId}&id=${edit.message.ref.normalizedId}");
-    Map<String, String> data = {
-      r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$addRecipientDD$inp": "",
-      r"s$m$Content$Content$addRecipientDD$inpid": "",
-      r"s$m$Content$Content$CreateThreadEditMessageTitle$tb": edit.entry.topic,
-      r"s$m$Content$Content$RepliesToThreadOrExistingMessageAllowedChk": "on",
-      r"s$m$Content$Content$CreateThreadAttachDocChooser$selectedDocumentId":
-          "",
-      r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb":
-          edit.entry.content
-    };
-    aspData.addAll(data);
-    await request(url,
-        data: aspData,
-        options: Options(
-          method: 'POST',
-          contentType: "application/x-www-form-urlencoded",
-        ));
-  }
 
   Future<void> reply(Reply reply) async {
-    String url = student.buildUrl(
-        "beskeder2.aspx?type=showthread&elevid=${student.studentId}&selectedfolderid=${reply.message.ref.folderId}&id=${reply.message.ref.normalizedId}");
-    String openTarget = "__Page";
-    Map<String, String> openData = {
-      "__EVENTARGUMENT": "ANSWERMESSAGE_${reply.entry.id}"
-    };
-    var openingSoup = await postLoggedInPageSoup(url, openTarget, openData);
-    String target = r"s$m$Content$Content$CreateAnswerOKBtn";
+    var updatedMessage = await student.messages.get(reply.message.ref);
+    if (updatedMessage == null) {
+      return;
+    }
+    String id = _calculateIdNumberFromThreadAndMessage(null, updatedMessage);
+    String url = student.buildUrl("beskeder2.aspx");
+    String openingUrl = student
+        .buildUrl("beskeder2.aspx?mappeid=${reply.message.ref.folderId}");
+    var openingSoup = await postLoggedInPageSoup(openingUrl, "__Page", {
+      r"__EVENTARGUMENT": reply.message.ref.id,
+      r"s$m$Content$Content$ListGridSelectionTree$folders":
+          reply.message.ref.folderId.toString()
+    });
+    String target = r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl" +
+        id +
+        r"$SendMessageBtn";
     Map<String, String> data = {
-      "__EVENTTARGET": target,
       r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$addRecipientToAnswerDD$inp": "",
-      r"s$m$Content$Content$addRecipientToAnswerDD$inpid": "",
-      r"s$m$Content$Content$Notification": "NotifyBtnAuthor",
-      r"s$m$Content$Content$RepliesToResponseAllowed": "on",
-      r"s$m$Content$Content$CreateAnswerHeading$tb": reply.topic,
-      r"s$m$Content$Content$CreateAnswerDocChooser$selectedDocumentId": "",
-      r"s$m$Content$Content$CreateAnswerContent$TbxNAME$tb": reply.content
+      r"s$m$Content$Content$ListGridSelectionTree$folders":
+          reply.message.ref.folderId.toString(),
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl" +
+          id +
+          r"$EditModeHeaderTitleTB$tb": reply.topic,
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl" +
+          id +
+          r"$AttachmentDocChooser$selectedDocumentId": "",
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl" +
+          id +
+          r"$EditModeContentBBTB$TbxNAME$tb": reply.content
     };
     var aspData = extractASPData(openingSoup!, target);
     aspData.addAll(data);

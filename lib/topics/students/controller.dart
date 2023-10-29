@@ -12,10 +12,10 @@ class StudentsController extends Controller {
   ];
   Stream<List<Student>> list() async* {
     var meta = await student.meta.get();
-    var groups = meta.groups
+    var groups = meta?.groups
         .where((element) => _groupNames.contains(element.name))
         .toList();
-    for (var group in groups) {
+    for (var group in groups ?? []) {
       var context = await student.context.get(group.id);
       var groupFetched = await student.classes
           .get(ClassRef(name: '', id: context.id), group: true);

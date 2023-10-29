@@ -35,38 +35,38 @@ class MesssageController extends Controller {
     return null;
   }
 
-  Future<BeautifulSoup> newMessage() async {
-    String newMessageUrl = student
-        .buildUrl("beskeder2.aspx?type=nybesked&elevid=${student.studentId}");
-    var resp = await request(newMessageUrl);
-    return BeautifulSoup(resp.data);
+  Future<BeautifulSoup?> newMessage() async {
+    String newMessageUrl = student.buildUrl("beskeder2.aspx");
+    var resp = await postLoggedInPageSoup(
+        newMessageUrl, r"s$m$Content$Content$NewMessageLnk", {});
+    return resp;
   }
 
   Future<void> create(CreateMessage createMessage) async {
-    BeautifulSoup latestSoup = await newMessage();
-
+    BeautifulSoup? latestSoup = await newMessage();
+    if (latestSoup == null) {
+      return;
+    }
     // add people
     for (var person in createMessage.receivers) {
-      latestSoup = await _addPerson(person, latestSoup);
+      latestSoup = await _addPerson(person, latestSoup!);
     }
 
-    String target = r"s$m$Content$Content$CreateThreadEditMessageOkBtn";
-    String url = student
-        .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
+    String target =
+        r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl02$SendMessageBtn";
+    String url = student.buildUrl("beskeder2.aspx");
     Map<String, String> submitData = {
       r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$addRecipientDD$inp": "",
-      r"s$m$Content$Content$addRecipientDD$inpid": "",
-      r"s$m$Content$Content$CreateThreadEditMessageTitle$tb":
+      r"s$m$Content$Content$MessageThreadCtrl$addRecipientDD$inp": "",
+      r"s$m$Content$Content$MessageThreadCtrl$addRecipientDD$inpid": "",
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl02$EditModeHeaderTitleTB$tb":
           createMessage.topic,
-      r"s$m$Content$Content$RepliesToThreadOrExistingMessageAllowedChk":
-          createMessage.isAnswerable ? "on" : "false",
-      r"s$m$Content$Content$CreateThreadAttachDocChooser$selectedDocumentId":
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl02$AttachmentDocChooser$selectedDocumentId":
           "",
-      r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb":
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl02$EditModeContentBBTB$TbxNAME$tb":
           createMessage.content
     };
-    var exportedSubmitData = extractASPData(latestSoup, target);
+    var exportedSubmitData = extractASPData(latestSoup!, target);
     exportedSubmitData.addAll(submitData);
     await request(url,
         data: exportedSubmitData,
@@ -78,18 +78,20 @@ class MesssageController extends Controller {
 
   Future<BeautifulSoup> _addPerson(
       MetaDataEntry person, BeautifulSoup soup) async {
-    String target = r"s$m$Content$Content$CreateThreadRelatedAddButton";
+    String target = r"s$m$Content$Content$MessageThreadCtrl$AddRecipientBtn";
     String url = student
         .buildUrl("beskeder2.aspx?type=liste&elevid=${student.studentId}");
     Map<String, String> data = {
       r"s$m$searchinputfield": "",
-      r"s$m$Content$Content$addRecipientDD$inp": person.name,
-      r"s$m$Content$Content$addRecipientDD$inpid": person.id,
-      r"s$m$Content$Content$CreateThreadEditMessageTitle$tb": "",
-      r"s$m$Content$Content$RepliesToThreadOrExistingMessageAllowedChk": "on",
-      r"s$m$Content$Content$CreateThreadAttachDocChooser$selectedDocumentId":
+      r"s$m$Content$Content$MessageThreadCtrl$addRecipientDD$inp": person.name,
+      r"s$m$Content$Content$MessageThreadCtrl$addRecipientDD$inpid": person.id,
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl02$EditModeHeaderTitleTB$tb":
           "",
-      r"s$m$Content$Content$CreateThreadEditMessageContent$TbxNAME$tb": ""
+      r"s$m$Content$Content$RepliesToThreadOrExistingMessageAllowedChk": "on",
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl02$AttachmentDocChooser$selectedDocumentId":
+          "",
+      r"s$m$Content$Content$MessageThreadCtrl$MessagesGV$ctl02$EditModeContentBBTB$TbxNAME$tb":
+          ""
     };
     var aspData = extractASPData(soup, target);
     aspData.addAll(data);

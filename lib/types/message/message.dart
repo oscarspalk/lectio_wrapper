@@ -16,16 +16,14 @@ class CreateMessage {
   List<MetaDataEntry> receivers;
   String topic;
   String content;
-  bool isAnswerable;
-  CreateMessage(this.topic, this.content, this.isAnswerable, this.receivers);
+  CreateMessage(this.topic, this.content, this.receivers);
 }
 
 class Reply {
-  ThreadEntry entry;
   Message message;
   String topic;
   String content;
-  Reply(this.entry, this.topic, this.message, this.content);
+  Reply(this.topic, this.message, this.content);
 }
 
 class Message {

@@ -48,7 +48,8 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
 }
 
 const lectioContextKey = "data-lectiocontextcard";
-
+final editPattern = RegExp(r"s\$m\$");
+final editEndPattern = RegExp(r"\$ctl[[:alnum:]]+\$");
 Message? extractMessage(BeautifulSoup soup, MessageRef ref) {
   // extract receivers
   List<MetaDataEntry> receivers = [];
@@ -68,12 +69,15 @@ Message? extractMessage(BeautifulSoup soup, MessageRef ref) {
   // extract threads
   List<ThreadEntry> thread = [];
   List<Bs4Element> messageThreads = soup.findAll('*', id: 'GridRowMessage');
-  for (var entry in messageThreads) {
+  for (int i = 0; i < messageThreads.length; i++) {
+    var entry = messageThreads.elementAt(i);
+
     var extractedEntry = extractMessageThread(entry);
     if (extractedEntry != null) {
       thread.add(extractedEntry);
     }
   }
+
   return Message(ref.id, thread, receivers, ref);
 }
 
