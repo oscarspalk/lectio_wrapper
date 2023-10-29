@@ -52,7 +52,9 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
     List<CalendarEvent> dayEvents = [];
     day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
       var event = extractModul(piece, day: dayTime);
-      dayEvents.add(event);
+      if (event != null) {
+        dayEvents.add(event);
+      }
     });
     days.add(Day(
         informations: informationsForThisDay,
@@ -79,7 +81,7 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
   return Week(days: days, weekNum: weekNum, modulRanges: modulRanges);
 }
 
-CalendarEvent extractModul(Bs4Element element, {DateTime? day}) {
+CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
   day = day ?? DateTime.now();
   CalendarEventType type = CalendarEventType.regular;
   String status = "Uændret";
@@ -101,24 +103,14 @@ CalendarEvent extractModul(Bs4Element element, {DateTime? day}) {
     hasNote = noteIcon != null;
   }
   String title = "";
-  DateTime start = DateTime.now();
-  DateTime end = DateTime.now();
+  DateTime? start;
+  DateTime? end;
   String team = "";
   String room = "";
   List<String> teacher = [];
   String note = "";
   List<String> pieceInformation =
       element.getAttrValue('data-additionalinfo')!.split("\n");
-  for (int j = 0; j < 2; j++) {
-    if (!(datePattern.stringMatch(pieceInformation[j]) != null) &&
-        !states.contains(pieceInformation[j]) &&
-        !pieceInformation[j]
-            .toLowerCase()
-            .startsWith(RegExp(r"hold|lærer|lokale"))) {
-      title = pieceInformation.removeAt(j);
-      break;
-    }
-  }
 
   for (var pieceInfo in pieceInformation) {
     var dates = datePattern.allMatches(pieceInfo);
@@ -137,7 +129,6 @@ CalendarEvent extractModul(Bs4Element element, {DateTime? day}) {
         DateFormat hhMM = DateFormat("HH:mm");
         var startHHmm = hhMM.parse(regToStr(times.elementAt(0)));
         var endHHmm = hhMM.parse(regToStr(times.elementAt(1)));
-
         start = day.copyWith(hour: startHHmm.hour, minute: startHHmm.minute);
         end = day.copyWith(hour: endHHmm.hour, minute: endHHmm.minute);
       }
@@ -167,6 +158,9 @@ CalendarEvent extractModul(Bs4Element element, {DateTime? day}) {
       }
     }
   }
+  if (status == "Uændret" && pieceInformation[0].isNotEmpty) {
+    title = pieceInformation[0];
+  }
   List<MetaDataEntry> teacherObjs = [];
   List<MetaDataEntry> teamObjs = [];
   Bs4Element? skemaContent = element.find('*', class_: 's2skemabrikcontent');
@@ -185,21 +179,24 @@ CalendarEvent extractModul(Bs4Element element, {DateTime? day}) {
       }
     }
   }
-  return CalendarEvent(
-      hasHomework: hasHomework,
-      hasNote: hasNote,
-      status: status,
-      title: title,
-      team: team,
-      teachers: teacher,
-      room: room,
-      id: id!,
-      start: start,
-      end: end,
-      type: type,
-      note: note,
-      teacherObjs: teacherObjs,
-      teamObjs: teamObjs);
+  if (start != null && end != null) {
+    return CalendarEvent(
+        hasHomework: hasHomework,
+        hasNote: hasNote,
+        status: status,
+        title: title,
+        team: team,
+        teachers: teacher,
+        room: room,
+        id: id!,
+        start: start,
+        end: end,
+        type: type,
+        note: note,
+        teacherObjs: teacherObjs,
+        teamObjs: teamObjs);
+  }
+  return null;
 }
 
 List<String> extractTeachers(String text) {
