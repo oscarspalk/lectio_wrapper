@@ -8,8 +8,7 @@ class HomeworkController extends Controller {
   HomeworkController(super.student);
 
   Future<List<Homework>> list() async {
-    var url = student
-        .buildUrl("material_lektieoversigt.aspx?elevid=${student.studentId}");
+    var url = student.buildUrl("material_lektieoversigt.aspx");
     var response = await request(url);
     return await extractHomework(BeautifulSoup(response.data));
   }

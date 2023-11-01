@@ -488,3 +488,7 @@
 ## 0.6.17
 
 * Messages don't read files as text anymore
+
+## 0.6.18
+
+* Fixed homework listing
