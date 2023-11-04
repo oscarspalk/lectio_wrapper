@@ -492,3 +492,7 @@
 ## 0.6.18
 
 * Fixed homework listing
+
+## 0.6.19
+
+* Auto relogin should be working now

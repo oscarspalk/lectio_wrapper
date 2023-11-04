@@ -11,8 +11,12 @@ void main() {
   setUp(() async => {student = await account.login(autologin: false)});
 
   test('get team context', () async {
-    var context = await student!.context.get("HE53405469334");
-    expect(context, isNotNull);
+    var teams = await student!.teams.list();
+    for (var team in teams) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      var context = await student!.context.get("HE${team.id}");
+      expect(context, isNotNull);
+    }
   });
 
   test('get student context', () async {

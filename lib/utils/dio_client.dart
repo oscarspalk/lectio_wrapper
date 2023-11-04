@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
@@ -43,12 +42,7 @@ Future<Response<T>> request<T>(String url,
       cancelToken: cancelToken,
       options: options);
 
-  var bsElement = dioRequest.data is String
-      ? BeautifulSoup(dioRequest.data as String)
-      : null;
-  var headerElement = bsElement?.find('*', id: 'MainTitle');
-  if (headerElement != null &&
-      headerElement.text.toLowerCase().contains("log ind") &&
+  if (dioRequest.realUri.path.endsWith("login.aspx") &&
       !url.endsWith("login.aspx")) {
     if (_loginCallback != null) {
       await _loginCallback!();
