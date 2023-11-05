@@ -42,7 +42,7 @@ class Account {
     return student;
   }
 
-  Future<Student?> login({bool autologin = true}) async {
+  Future<Student?> login({bool autologin = false}) async {
     try {
       String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
       var loginGet = await request<String>(loginUrl);

@@ -34,16 +34,20 @@ Future<Response<T>> request<T>(String url,
     Options? options,
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress}) async {
-  var dioRequest = await _lppDio.request<T>(url,
-      data: data,
-      onReceiveProgress: onReceiveProgress,
-      onSendProgress: onSendProgress,
-      queryParameters: queryParameters,
-      cancelToken: cancelToken,
-      options: options);
-
-  if (dioRequest.realUri.path.endsWith("login.aspx") &&
-      !url.endsWith("login.aspx")) {
+  Response<T> dioRequest = Response(requestOptions: RequestOptions());
+  try {
+    dioRequest = await _lppDio.request<T>(url,
+        data: data,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onSendProgress,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        options: options);
+    if (dioRequest.realUri.path.endsWith("login.aspx") &&
+        !url.endsWith("login.aspx")) {
+      throw Exception("Redirect loop");
+    }
+  } catch (e) {
     if (_loginCallback != null) {
       await _loginCallback!();
       dioRequest = await request<T>(url,
@@ -55,5 +59,6 @@ Future<Response<T>> request<T>(String url,
           options: options);
     }
   }
+
   return dioRequest;
 }

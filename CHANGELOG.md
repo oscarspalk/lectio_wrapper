@@ -496,3 +496,11 @@
 ## 0.6.19
 
 * Auto relogin should be working now
+
+## 0.6.20
+
+* Autologin is false now by default
+
+## 0.6.21
+
+* Avoids redirect loops
