@@ -64,6 +64,7 @@ class Account {
       if (student == null) {
         throw InvalidCredentialsError();
       }
+      addCookies(Uri.https("www.lectio.dk"), [Cookie("isloggedin3", "Y")]);
       setAutologin();
       return student;
     } catch (e) {

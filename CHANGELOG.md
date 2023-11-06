@@ -504,3 +504,7 @@
 ## 0.6.21
 
 * Avoids redirect loops
+
+## 0.6.22
+
+* Added a logged in request cookie, which is apparently required now.

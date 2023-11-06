@@ -36,3 +36,5 @@ output
 .VSCodeCounter
 
 debug/
+
+out/

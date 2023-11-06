@@ -6,6 +6,8 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 final CookieJar lppCookies = CookieJar();
 
+int retries = 0;
+
 Future<void> Function()? _loginCallback;
 
 Dio get lppDio => _lppDio;
@@ -34,7 +36,7 @@ Future<Response<T>> request<T>(String url,
     Options? options,
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress}) async {
-  Response<T> dioRequest = Response(requestOptions: RequestOptions());
+  Response<T>? dioRequest;
   try {
     dioRequest = await _lppDio.request<T>(url,
         data: data,
@@ -45,11 +47,12 @@ Future<Response<T>> request<T>(String url,
         options: options);
     if (dioRequest.realUri.path.endsWith("login.aspx") &&
         !url.endsWith("login.aspx")) {
-      throw Exception("Redirect loop");
+      throw Exception("Trying to login");
     }
   } catch (e) {
-    if (_loginCallback != null) {
+    if (_loginCallback != null && retries < 10) {
       await _loginCallback!();
+      retries++;
       dioRequest = await request<T>(url,
           data: data,
           queryParameters: queryParameters,
@@ -59,6 +62,8 @@ Future<Response<T>> request<T>(String url,
           options: options);
     }
   }
-
+  if (dioRequest == null) {
+    throw Exception("Request went wrong");
+  }
   return dioRequest;
 }
