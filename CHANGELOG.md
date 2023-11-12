@@ -508,3 +508,7 @@
 ## 0.6.22
 
 * Added a logged in request cookie, which is apparently required now.
+
+## 0.6.23
+
+* Should be able to fetch people now

@@ -4,6 +4,8 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
+class LoginException implements Exception {}
+
 final CookieJar lppCookies = CookieJar();
 
 int retries = 0;
@@ -47,9 +49,9 @@ Future<Response<T>> request<T>(String url,
         options: options);
     if (dioRequest.realUri.path.endsWith("login.aspx") &&
         !url.endsWith("login.aspx")) {
-      throw Exception("Trying to login");
+      throw LoginException();
     }
-  } catch (e) {
+  } on LoginException {
     if (_loginCallback != null && retries < 10) {
       await _loginCallback!();
       retries++;

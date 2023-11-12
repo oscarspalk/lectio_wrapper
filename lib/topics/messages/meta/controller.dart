@@ -16,7 +16,9 @@ class MessageMetaController extends Controller {
     var soup = await student.messages.newMessage();
     if (soup != null) {
       var scripts = extractScripts(soup);
-      await Future.wait(scripts.map((e) => _loadScript(e)));
+      for (var script in scripts) {
+        await _loadScript(script);
+      }
 
       List<MetaDataEntry> concatenatedEntries = [
         ...students,
