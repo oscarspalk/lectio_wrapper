@@ -516,3 +516,7 @@
 ## 0.6.24
 
 * Added referer to login, otherwise Lectio won't let you login
+
+## 0.6.25
+
+* Referer had to be added multiple places

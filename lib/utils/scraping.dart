@@ -56,9 +56,9 @@ Future<BeautifulSoup?> loggedIn(String url, {Map<String, String>? data}) async {
     response = await request(url,
         data: data,
         options: Options(
-          method: 'POST',
-          contentType: "application/x-www-form-urlencoded",
-        ));
+            method: 'POST',
+            contentType: "application/x-www-form-urlencoded",
+            headers: {"Referer": "https://www.lectio.dk"}));
   } else {
     response = await request(url);
   }
