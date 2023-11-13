@@ -70,8 +70,8 @@ class Account {
           Uri.https("www.lectio.dk"), [Cookie("isloggedin3", "Y")]);
 
       var forsideSoup = await request<String>(
-          "https://www.lectio.dk/lectio/$gymId/forside.aspx",
-          options: Options(headers: {"Referer": "https://www.lectio.dk"}));
+        "https://www.lectio.dk/lectio/$gymId/forside.aspx",
+      );
 
       var student =
           checkLoggedIn(BeautifulSoup(forsideSoup.data as String), gymId);

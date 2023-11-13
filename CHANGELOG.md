@@ -520,3 +520,7 @@
 ## 0.6.25
 
 * Referer had to be added multiple places
+
+## 0.6.26
+
+* Referer is now a global part of the requesting

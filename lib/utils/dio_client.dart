@@ -43,6 +43,14 @@ Future<Response<T>> request<T>(String url,
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress}) async {
   Response<T>? dioRequest;
+  const referHeader = {"Referer": "https://www.lectio.dk"};
+  if (options == null) {
+    options = Options(headers: referHeader);
+  } else if (options.headers == null) {
+    options.headers = referHeader;
+  } else {
+    options.headers?.addAll(referHeader);
+  }
   try {
     dioRequest = await _lppDio.request<T>(url,
         data: data,
