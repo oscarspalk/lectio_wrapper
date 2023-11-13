@@ -55,24 +55,29 @@ class Account {
       extracted["m\$Content\$password"] = password;
       if (autologin) {
         extracted[r'm$Content$AutologinCbx'] = "on";
-      } else {
-        extracted[r'm$Content$AutologinCbx'] = "off";
       }
-      String content =
-          extracted.entries.map((e) => "${e.key}:${e.value}").join("\n");
-      var forsideSoup = await request<String>(loginUrl,
-              data: extracted,
-              options: Options(
-                  method: "POST",
-                  contentType: "application/x-www-form-urlencoded",
-                  headers: {"Cache-Control": "no-cache"}))
-          .timeout(const Duration(seconds: 5));
+      await request<String>(loginUrl,
+          data: extracted,
+          options: Options(
+              followRedirects: false,
+              method: "POST",
+              contentType: "application/x-www-form-urlencoded",
+              headers: {
+                "Cache-Control": "no-cache",
+                "Referer": "https://www.lectio.dk"
+              })).timeout(const Duration(seconds: 5));
+      await addCookies(
+          Uri.https("www.lectio.dk"), [Cookie("isloggedin3", "Y")]);
+
+      var forsideSoup = await request<String>(
+          "https://www.lectio.dk/lectio/$gymId/forside.aspx",
+          options: Options(headers: {"Referer": "https://www.lectio.dk"}));
+
       var student =
           checkLoggedIn(BeautifulSoup(forsideSoup.data as String), gymId);
       if (student == null) {
         throw InvalidCredentialsError();
       }
-      addCookies(Uri.https("www.lectio.dk"), [Cookie("isloggedin3", "Y")]);
       setAutologin();
       return student;
     } catch (e) {

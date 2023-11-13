@@ -27,8 +27,8 @@ final Dio _lppDio = Dio(BaseOptions(
 ))
   ..interceptors.add(CookieManager(lppCookies));
 
-void addCookies(Uri uri, List<Cookie> cookies) {
-  lppCookies.saveFromResponse(uri, cookies);
+Future<void> addCookies(Uri uri, List<Cookie> cookies) async {
+  await lppCookies.saveFromResponse(uri, cookies);
 }
 
 Future<void> clearCookies() async {
@@ -67,6 +67,8 @@ Future<Response<T>> request<T>(String url,
           onSendProgress: onSendProgress,
           options: options);
     }
+  } catch (e) {
+    rethrow;
   }
   if (dioRequest == null) {
     throw Exception("Request went wrong");

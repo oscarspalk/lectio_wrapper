@@ -512,3 +512,7 @@
 ## 0.6.23
 
 * Should be able to fetch people now
+
+## 0.6.24
+
+* Added referer to login, otherwise Lectio won't let you login
