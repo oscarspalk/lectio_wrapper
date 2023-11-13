@@ -31,6 +31,10 @@ void addCookies(Uri uri, List<Cookie> cookies) {
   lppCookies.saveFromResponse(uri, cookies);
 }
 
+Future<void> clearCookies() async {
+  await lppCookies.deleteAll();
+}
+
 Future<Response<T>> request<T>(String url,
     {Object? data,
     Map<String, dynamic>? queryParameters,
