@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
@@ -66,18 +67,22 @@ Future<Response<T>> request<T>(String url,
         !url.endsWith("login.aspx")) {
       throw LoginException();
     }
+  } on RedirectException {
+    dioRequest = await _retryRequestWithLogin(url,
+        data: data,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onSendProgress,
+        options: options);
   } on LoginException {
-    if (_loginCallback != null && retries < 10) {
-      await _loginCallback!();
-      retries++;
-      dioRequest = await request<T>(url,
-          data: data,
-          queryParameters: queryParameters,
-          cancelToken: cancelToken,
-          onReceiveProgress: onReceiveProgress,
-          onSendProgress: onSendProgress,
-          options: options);
-    }
+    dioRequest = await _retryRequestWithLogin(url,
+        data: data,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onSendProgress,
+        options: options);
   } catch (e) {
     rethrow;
   }
@@ -85,4 +90,25 @@ Future<Response<T>> request<T>(String url,
     throw Exception("Request went wrong");
   }
   return dioRequest;
+}
+
+Future<Response<T>?> _retryRequestWithLogin<T>(String url,
+    {Object? data,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress}) async {
+  if (_loginCallback != null && retries < 10) {
+    await _loginCallback!();
+    retries++;
+    return await request<T>(url,
+        data: data,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onSendProgress,
+        options: options);
+  }
+  return null;
 }

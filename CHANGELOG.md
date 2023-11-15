@@ -528,3 +528,7 @@
 ## 0.6.27
 
 * Referer wasn't added quite correctly.
+
+## 0.6.28
+
+* This should fix autologin
