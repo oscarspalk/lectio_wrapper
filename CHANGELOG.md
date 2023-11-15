@@ -524,3 +524,7 @@
 ## 0.6.26
 
 * Referer is now a global part of the requesting
+
+## 0.6.27
+
+* Referer wasn't added quite correctly.

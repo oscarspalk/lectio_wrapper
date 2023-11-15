@@ -49,7 +49,10 @@ Future<Response<T>> request<T>(String url,
   } else if (options.headers == null) {
     options.headers = referHeader;
   } else {
-    options.headers?.addAll(referHeader);
+    Map<String, dynamic> newHeaders =
+        options.headers?.map((key, value) => MapEntry(key, value)) ?? {};
+    newHeaders.addAll(referHeader);
+    options.headers = newHeaders;
   }
   try {
     dioRequest = await _lppDio.request<T>(url,
