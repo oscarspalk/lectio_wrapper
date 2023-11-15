@@ -122,11 +122,11 @@ class _$AbsenceCauseEntryCopyWithImpl<$Res, $Val extends AbsenceCauseEntry>
 }
 
 /// @nodoc
-abstract class _$$AbsenceCauseEntryImplCopyWith<$Res>
+abstract class _$$_AbsenceCauseEntryCopyWith<$Res>
     implements $AbsenceCauseEntryCopyWith<$Res> {
-  factory _$$AbsenceCauseEntryImplCopyWith(_$AbsenceCauseEntryImpl value,
-          $Res Function(_$AbsenceCauseEntryImpl) then) =
-      __$$AbsenceCauseEntryImplCopyWithImpl<$Res>;
+  factory _$$_AbsenceCauseEntryCopyWith(_$_AbsenceCauseEntry value,
+          $Res Function(_$_AbsenceCauseEntry) then) =
+      __$$_AbsenceCauseEntryCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -144,11 +144,11 @@ abstract class _$$AbsenceCauseEntryImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AbsenceCauseEntryImplCopyWithImpl<$Res>
-    extends _$AbsenceCauseEntryCopyWithImpl<$Res, _$AbsenceCauseEntryImpl>
-    implements _$$AbsenceCauseEntryImplCopyWith<$Res> {
-  __$$AbsenceCauseEntryImplCopyWithImpl(_$AbsenceCauseEntryImpl _value,
-      $Res Function(_$AbsenceCauseEntryImpl) _then)
+class __$$_AbsenceCauseEntryCopyWithImpl<$Res>
+    extends _$AbsenceCauseEntryCopyWithImpl<$Res, _$_AbsenceCauseEntry>
+    implements _$$_AbsenceCauseEntryCopyWith<$Res> {
+  __$$_AbsenceCauseEntryCopyWithImpl(
+      _$_AbsenceCauseEntry _value, $Res Function(_$_AbsenceCauseEntry) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -163,7 +163,7 @@ class __$$AbsenceCauseEntryImplCopyWithImpl<$Res>
     Object? type = null,
     Object? module = null,
   }) {
-    return _then(_$AbsenceCauseEntryImpl(
+    return _then(_$_AbsenceCauseEntry(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -202,8 +202,8 @@ class __$$AbsenceCauseEntryImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AbsenceCauseEntryImpl implements _AbsenceCauseEntry {
-  _$AbsenceCauseEntryImpl(
+class _$_AbsenceCauseEntry implements _AbsenceCauseEntry {
+  _$_AbsenceCauseEntry(
       {required this.id,
       required this.absence,
       this.cause,
@@ -213,8 +213,8 @@ class _$AbsenceCauseEntryImpl implements _AbsenceCauseEntry {
       required this.type,
       required this.module});
 
-  factory _$AbsenceCauseEntryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AbsenceCauseEntryImplFromJson(json);
+  factory _$_AbsenceCauseEntry.fromJson(Map<String, dynamic> json) =>
+      _$$_AbsenceCauseEntryFromJson(json);
 
   @override
   final String id;
@@ -242,7 +242,7 @@ class _$AbsenceCauseEntryImpl implements _AbsenceCauseEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AbsenceCauseEntryImpl &&
+            other is _$_AbsenceCauseEntry &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.absence, absence) || other.absence == absence) &&
             (identical(other.cause, cause) || other.cause == cause) &&
@@ -263,13 +263,13 @@ class _$AbsenceCauseEntryImpl implements _AbsenceCauseEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AbsenceCauseEntryImplCopyWith<_$AbsenceCauseEntryImpl> get copyWith =>
-      __$$AbsenceCauseEntryImplCopyWithImpl<_$AbsenceCauseEntryImpl>(
+  _$$_AbsenceCauseEntryCopyWith<_$_AbsenceCauseEntry> get copyWith =>
+      __$$_AbsenceCauseEntryCopyWithImpl<_$_AbsenceCauseEntry>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AbsenceCauseEntryImplToJson(
+    return _$$_AbsenceCauseEntryToJson(
       this,
     );
   }
@@ -284,10 +284,10 @@ abstract class _AbsenceCauseEntry implements AbsenceCauseEntry {
       required final String note,
       required final DateTime registered,
       required final AbsenceType type,
-      required final CalendarEvent module}) = _$AbsenceCauseEntryImpl;
+      required final CalendarEvent module}) = _$_AbsenceCauseEntry;
 
   factory _AbsenceCauseEntry.fromJson(Map<String, dynamic> json) =
-      _$AbsenceCauseEntryImpl.fromJson;
+      _$_AbsenceCauseEntry.fromJson;
 
   @override
   String get id;
@@ -307,6 +307,6 @@ abstract class _AbsenceCauseEntry implements AbsenceCauseEntry {
   CalendarEvent get module;
   @override
   @JsonKey(ignore: true)
-  _$$AbsenceCauseEntryImplCopyWith<_$AbsenceCauseEntryImpl> get copyWith =>
+  _$$_AbsenceCauseEntryCopyWith<_$_AbsenceCauseEntry> get copyWith =>
       throw _privateConstructorUsedError;
 }

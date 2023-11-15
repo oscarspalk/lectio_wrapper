@@ -67,21 +67,18 @@ class _$ClassCopyWithImpl<$Res, $Val extends Class>
 }
 
 /// @nodoc
-abstract class _$$ClassImplCopyWith<$Res> implements $ClassCopyWith<$Res> {
-  factory _$$ClassImplCopyWith(
-          _$ClassImpl value, $Res Function(_$ClassImpl) then) =
-      __$$ClassImplCopyWithImpl<$Res>;
+abstract class _$$_ClassCopyWith<$Res> implements $ClassCopyWith<$Res> {
+  factory _$$_ClassCopyWith(_$_Class value, $Res Function(_$_Class) then) =
+      __$$_ClassCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String name, List<Student> students});
 }
 
 /// @nodoc
-class __$$ClassImplCopyWithImpl<$Res>
-    extends _$ClassCopyWithImpl<$Res, _$ClassImpl>
-    implements _$$ClassImplCopyWith<$Res> {
-  __$$ClassImplCopyWithImpl(
-      _$ClassImpl _value, $Res Function(_$ClassImpl) _then)
+class __$$_ClassCopyWithImpl<$Res> extends _$ClassCopyWithImpl<$Res, _$_Class>
+    implements _$$_ClassCopyWith<$Res> {
+  __$$_ClassCopyWithImpl(_$_Class _value, $Res Function(_$_Class) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -91,7 +88,7 @@ class __$$ClassImplCopyWithImpl<$Res>
     Object? name = null,
     Object? students = null,
   }) {
-    return _then(_$ClassImpl(
+    return _then(_$_Class(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -110,8 +107,8 @@ class __$$ClassImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ClassImpl implements _Class {
-  _$ClassImpl(
+class _$_Class implements _Class {
+  _$_Class(
       {required this.id,
       required this.name,
       required final List<Student> students})
@@ -138,7 +135,7 @@ class _$ClassImpl implements _Class {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ClassImpl &&
+            other is _$_Class &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._students, _students));
@@ -151,15 +148,15 @@ class _$ClassImpl implements _Class {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClassImplCopyWith<_$ClassImpl> get copyWith =>
-      __$$ClassImplCopyWithImpl<_$ClassImpl>(this, _$identity);
+  _$$_ClassCopyWith<_$_Class> get copyWith =>
+      __$$_ClassCopyWithImpl<_$_Class>(this, _$identity);
 }
 
 abstract class _Class implements Class {
   factory _Class(
       {required final String id,
       required final String name,
-      required final List<Student> students}) = _$ClassImpl;
+      required final List<Student> students}) = _$_Class;
 
   @override
   String get id;
@@ -169,7 +166,7 @@ abstract class _Class implements Class {
   List<Student> get students;
   @override
   @JsonKey(ignore: true)
-  _$$ClassImplCopyWith<_$ClassImpl> get copyWith =>
+  _$$_ClassCopyWith<_$_Class> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -221,22 +218,21 @@ class _$ClassRefCopyWithImpl<$Res, $Val extends ClassRef>
 }
 
 /// @nodoc
-abstract class _$$ClassRefImplCopyWith<$Res>
-    implements $ClassRefCopyWith<$Res> {
-  factory _$$ClassRefImplCopyWith(
-          _$ClassRefImpl value, $Res Function(_$ClassRefImpl) then) =
-      __$$ClassRefImplCopyWithImpl<$Res>;
+abstract class _$$_ClassRefCopyWith<$Res> implements $ClassRefCopyWith<$Res> {
+  factory _$$_ClassRefCopyWith(
+          _$_ClassRef value, $Res Function(_$_ClassRef) then) =
+      __$$_ClassRefCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String id});
 }
 
 /// @nodoc
-class __$$ClassRefImplCopyWithImpl<$Res>
-    extends _$ClassRefCopyWithImpl<$Res, _$ClassRefImpl>
-    implements _$$ClassRefImplCopyWith<$Res> {
-  __$$ClassRefImplCopyWithImpl(
-      _$ClassRefImpl _value, $Res Function(_$ClassRefImpl) _then)
+class __$$_ClassRefCopyWithImpl<$Res>
+    extends _$ClassRefCopyWithImpl<$Res, _$_ClassRef>
+    implements _$$_ClassRefCopyWith<$Res> {
+  __$$_ClassRefCopyWithImpl(
+      _$_ClassRef _value, $Res Function(_$_ClassRef) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -245,7 +241,7 @@ class __$$ClassRefImplCopyWithImpl<$Res>
     Object? name = null,
     Object? id = null,
   }) {
-    return _then(_$ClassRefImpl(
+    return _then(_$_ClassRef(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -260,8 +256,8 @@ class __$$ClassRefImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ClassRefImpl implements _ClassRef {
-  _$ClassRefImpl({required this.name, required this.id});
+class _$_ClassRef implements _ClassRef {
+  _$_ClassRef({required this.name, required this.id});
 
   @override
   final String name;
@@ -277,7 +273,7 @@ class _$ClassRefImpl implements _ClassRef {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ClassRefImpl &&
+            other is _$_ClassRef &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id));
   }
@@ -288,13 +284,13 @@ class _$ClassRefImpl implements _ClassRef {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClassRefImplCopyWith<_$ClassRefImpl> get copyWith =>
-      __$$ClassRefImplCopyWithImpl<_$ClassRefImpl>(this, _$identity);
+  _$$_ClassRefCopyWith<_$_ClassRef> get copyWith =>
+      __$$_ClassRefCopyWithImpl<_$_ClassRef>(this, _$identity);
 }
 
 abstract class _ClassRef implements ClassRef {
   factory _ClassRef({required final String name, required final String id}) =
-      _$ClassRefImpl;
+      _$_ClassRef;
 
   @override
   String get name;
@@ -302,6 +298,6 @@ abstract class _ClassRef implements ClassRef {
   String get id;
   @override
   @JsonKey(ignore: true)
-  _$$ClassRefImplCopyWith<_$ClassRefImpl> get copyWith =>
+  _$$_ClassRefCopyWith<_$_ClassRef> get copyWith =>
       throw _privateConstructorUsedError;
 }

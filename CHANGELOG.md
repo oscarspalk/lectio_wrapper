@@ -532,3 +532,8 @@
 ## 0.6.28
 
 * This should fix autologin
+
+## 0.6.29
+
+* added studiekort data fetching
+* added studiekort qr code
