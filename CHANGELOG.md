@@ -537,3 +537,7 @@
 
 * added studiekort data fetching
 * added studiekort qr code
+
+## 0.6.30
+
+* grade fetching improved, hopefully

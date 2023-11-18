@@ -7,18 +7,21 @@ import 'package:lectio_wrapper/types/primitives/team.dart';
 Future<List<GradeRow>> extractGrades(
     BeautifulSoup soup, Student student) async {
   List<GradeRow> returnedRows = [];
-  Bs4Element gradeTable =
-      soup.find('*', id: 's_m_Content_Content_karakterView_KarakterGV')!;
-  List<Bs4Element> gradeRows = gradeTable.children[0].children;
+  Bs4Element? gradeTable =
+      soup.find('*', id: 's_m_Content_Content_karakterView_KarakterGV');
+  List<Bs4Element>? gradeRows = gradeTable?.children[0].children;
   // remove headers
-  gradeRows.removeAt(0);
-  for (var gradeRow in gradeRows) {
-    returnedRows.add(extractGradeRow(gradeRow, student));
+  gradeRows?.removeAt(0);
+  for (var gradeRow in gradeRows ?? []) {
+    var row = extractGradeRow(gradeRow, student);
+    if (row != null) {
+      returnedRows.add(row);
+    }
   }
   return returnedRows;
 }
 
-GradeRow extractGradeRow(Bs4Element gradeRow, Student student) {
+GradeRow? extractGradeRow(Bs4Element gradeRow, Student student) {
   var subjectList = gradeRow.children[1].text.split(", ");
   var subject = Subject(
       name: subjectList[0],
@@ -27,13 +30,18 @@ GradeRow extractGradeRow(Bs4Element gradeRow, Student student) {
   var teamCell = gradeRow.children[0].children[0];
   var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
   var teamName = teamCell.text;
-  //var teamContext = (await student.context.get(teamId)) as TeamContext;
   var team = Team(name: teamName, id: teamId, displayName: teamName);
 
   // extract all grades
   List<Grade?> grades = [];
   for (int i = 2; i < 8; i++) {
-    grades.add(extractSingleGrade(gradeRow.children[i]));
+    var child = gradeRow.children.elementAtOrNull(i);
+    if (child == null) {
+      grades.add(null);
+    } else {
+      var grade = extractSingleGrade(gradeRow.children[i]);
+      grades.add(grade);
+    }
   }
   return GradeRow(
       team: team,
