@@ -541,3 +541,7 @@
 ## 0.6.30
 
 * grade fetching improved, hopefully
+
+## 0.6.31
+
+* auto relogin is perfected now

@@ -67,6 +67,16 @@ Future<Response<T>> request<T>(String url,
         !url.endsWith("login.aspx")) {
       throw LoginException();
     }
+  } on DioException catch (e) {
+    if (e.error is RedirectException) {
+      dioRequest = await _retryRequestWithLogin(url,
+          data: data,
+          queryParameters: queryParameters,
+          cancelToken: cancelToken,
+          onReceiveProgress: onReceiveProgress,
+          onSendProgress: onSendProgress,
+          options: options);
+    }
   } on RedirectException {
     dioRequest = await _retryRequestWithLogin(url,
         data: data,
