@@ -76,6 +76,8 @@ Future<Response<T>> request<T>(String url,
           onReceiveProgress: onReceiveProgress,
           onSendProgress: onSendProgress,
           options: options);
+    } else {
+      rethrow;
     }
   } on RedirectException {
     dioRequest = await _retryRequestWithLogin(url,

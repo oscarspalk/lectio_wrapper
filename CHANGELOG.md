@@ -545,3 +545,7 @@
 ## 0.6.31
 
 * auto relogin is perfected now
+
+## 0.6.32
+
+* Forgot we have to rethrow
