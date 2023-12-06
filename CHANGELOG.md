@@ -553,3 +553,7 @@
 ## 0.6.33
 
 * Lectio made a very weird indexing update to modules
+
+## 0.6.34
+
+* Updated titling of modules

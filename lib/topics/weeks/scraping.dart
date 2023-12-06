@@ -233,7 +233,8 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
 
   if (pieceInformation.isNotEmpty && pieceInformation[0].isNotEmpty) {
     if (!states.contains(pieceInformation[0]) &&
-        timePattern.allMatches(pieceInformation[0]).isEmpty) {
+        timePattern.allMatches(pieceInformation[0]).isEmpty &&
+        !pieceInformation[0].contains("Hold")) {
       title = pieceInformation[0];
     }
   }
