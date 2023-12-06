@@ -735,9 +735,11 @@ mixin _$CalendarEvent {
   String get status => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get team => throw _privateConstructorUsedError;
+  double? get index => throw _privateConstructorUsedError;
   List<String> get teachers => throw _privateConstructorUsedError;
   String get room => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
+  DateTime get day => throw _privateConstructorUsedError;
   String get note => throw _privateConstructorUsedError;
   DateTime get start => throw _privateConstructorUsedError;
   DateTime get end => throw _privateConstructorUsedError;
@@ -763,9 +765,11 @@ abstract class $CalendarEventCopyWith<$Res> {
       String status,
       String title,
       String team,
+      double? index,
       List<String> teachers,
       String room,
       String id,
+      DateTime day,
       String note,
       DateTime start,
       DateTime end,
@@ -792,9 +796,11 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
     Object? status = null,
     Object? title = null,
     Object? team = null,
+    Object? index = freezed,
     Object? teachers = null,
     Object? room = null,
     Object? id = null,
+    Object? day = null,
     Object? note = null,
     Object? start = null,
     Object? end = null,
@@ -820,6 +826,10 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as String,
+      index: freezed == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as double?,
       teachers: null == teachers
           ? _value.teachers
           : teachers // ignore: cast_nullable_to_non_nullable
@@ -832,6 +842,10 @@ class _$CalendarEventCopyWithImpl<$Res, $Val extends CalendarEvent>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       note: null == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -877,9 +891,11 @@ abstract class _$$_CalendarEventCopyWith<$Res>
       String status,
       String title,
       String team,
+      double? index,
       List<String> teachers,
       String room,
       String id,
+      DateTime day,
       String note,
       DateTime start,
       DateTime end,
@@ -904,9 +920,11 @@ class __$$_CalendarEventCopyWithImpl<$Res>
     Object? status = null,
     Object? title = null,
     Object? team = null,
+    Object? index = freezed,
     Object? teachers = null,
     Object? room = null,
     Object? id = null,
+    Object? day = null,
     Object? note = null,
     Object? start = null,
     Object? end = null,
@@ -932,6 +950,10 @@ class __$$_CalendarEventCopyWithImpl<$Res>
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
               as String,
+      index: freezed == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as double?,
       teachers: null == teachers
           ? _value._teachers
           : teachers // ignore: cast_nullable_to_non_nullable
@@ -944,6 +966,10 @@ class __$$_CalendarEventCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       note: null == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -984,9 +1010,11 @@ class _$_CalendarEvent implements _CalendarEvent {
       required this.status,
       required this.title,
       required this.team,
+      this.index,
       required final List<String> teachers,
       required this.room,
       required this.id,
+      required this.day,
       required this.note,
       required this.start,
       required this.end,
@@ -1009,6 +1037,8 @@ class _$_CalendarEvent implements _CalendarEvent {
   final String title;
   @override
   final String team;
+  @override
+  final double? index;
   final List<String> _teachers;
   @override
   List<String> get teachers {
@@ -1021,6 +1051,8 @@ class _$_CalendarEvent implements _CalendarEvent {
   final String room;
   @override
   final String id;
+  @override
+  final DateTime day;
   @override
   final String note;
   @override
@@ -1049,7 +1081,7 @@ class _$_CalendarEvent implements _CalendarEvent {
 
   @override
   String toString() {
-    return 'CalendarEvent(type: $type, status: $status, title: $title, team: $team, teachers: $teachers, room: $room, id: $id, note: $note, start: $start, end: $end, hasHomework: $hasHomework, hasNote: $hasNote, teacherObjs: $teacherObjs, teamObjs: $teamObjs)';
+    return 'CalendarEvent(type: $type, status: $status, title: $title, team: $team, index: $index, teachers: $teachers, room: $room, id: $id, day: $day, note: $note, start: $start, end: $end, hasHomework: $hasHomework, hasNote: $hasNote, teacherObjs: $teacherObjs, teamObjs: $teamObjs)';
   }
 
   @override
@@ -1061,9 +1093,11 @@ class _$_CalendarEvent implements _CalendarEvent {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.team, team) || other.team == team) &&
+            (identical(other.index, index) || other.index == index) &&
             const DeepCollectionEquality().equals(other._teachers, _teachers) &&
             (identical(other.room, room) || other.room == room) &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.day, day) || other.day == day) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
@@ -1083,9 +1117,11 @@ class _$_CalendarEvent implements _CalendarEvent {
       status,
       title,
       team,
+      index,
       const DeepCollectionEquality().hash(_teachers),
       room,
       id,
+      day,
       note,
       start,
       end,
@@ -1114,9 +1150,11 @@ abstract class _CalendarEvent implements CalendarEvent {
       required final String status,
       required final String title,
       required final String team,
+      final double? index,
       required final List<String> teachers,
       required final String room,
       required final String id,
+      required final DateTime day,
       required final String note,
       required final DateTime start,
       required final DateTime end,
@@ -1137,11 +1175,15 @@ abstract class _CalendarEvent implements CalendarEvent {
   @override
   String get team;
   @override
+  double? get index;
+  @override
   List<String> get teachers;
   @override
   String get room;
   @override
   String get id;
+  @override
+  DateTime get day;
   @override
   String get note;
   @override

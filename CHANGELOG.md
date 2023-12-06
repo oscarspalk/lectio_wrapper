@@ -549,3 +549,7 @@
 ## 0.6.32
 
 * Forgot we have to rethrow
+
+## 0.6.33
+
+* Lectio made a very weird indexing update to modules

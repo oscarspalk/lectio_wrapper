@@ -67,20 +67,18 @@ class _$TeamCopyWithImpl<$Res, $Val extends Team>
 }
 
 /// @nodoc
-abstract class _$$TeamImplCopyWith<$Res> implements $TeamCopyWith<$Res> {
-  factory _$$TeamImplCopyWith(
-          _$TeamImpl value, $Res Function(_$TeamImpl) then) =
-      __$$TeamImplCopyWithImpl<$Res>;
+abstract class _$$_TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
+  factory _$$_TeamCopyWith(_$_Team value, $Res Function(_$_Team) then) =
+      __$$_TeamCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String id, String displayName});
 }
 
 /// @nodoc
-class __$$TeamImplCopyWithImpl<$Res>
-    extends _$TeamCopyWithImpl<$Res, _$TeamImpl>
-    implements _$$TeamImplCopyWith<$Res> {
-  __$$TeamImplCopyWithImpl(_$TeamImpl _value, $Res Function(_$TeamImpl) _then)
+class __$$_TeamCopyWithImpl<$Res> extends _$TeamCopyWithImpl<$Res, _$_Team>
+    implements _$$_TeamCopyWith<$Res> {
+  __$$_TeamCopyWithImpl(_$_Team _value, $Res Function(_$_Team) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -90,7 +88,7 @@ class __$$TeamImplCopyWithImpl<$Res>
     Object? id = null,
     Object? displayName = null,
   }) {
-    return _then(_$TeamImpl(
+    return _then(_$_Team(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -109,8 +107,8 @@ class __$$TeamImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TeamImpl implements _Team {
-  _$TeamImpl({required this.name, required this.id, required this.displayName});
+class _$_Team implements _Team {
+  _$_Team({required this.name, required this.id, required this.displayName});
 
   @override
   final String name;
@@ -128,7 +126,7 @@ class _$TeamImpl implements _Team {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TeamImpl &&
+            other is _$_Team &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.displayName, displayName) ||
@@ -141,15 +139,15 @@ class _$TeamImpl implements _Team {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TeamImplCopyWith<_$TeamImpl> get copyWith =>
-      __$$TeamImplCopyWithImpl<_$TeamImpl>(this, _$identity);
+  _$$_TeamCopyWith<_$_Team> get copyWith =>
+      __$$_TeamCopyWithImpl<_$_Team>(this, _$identity);
 }
 
 abstract class _Team implements Team {
   factory _Team(
       {required final String name,
       required final String id,
-      required final String displayName}) = _$TeamImpl;
+      required final String displayName}) = _$_Team;
 
   @override
   String get name;
@@ -159,8 +157,7 @@ abstract class _Team implements Team {
   String get displayName;
   @override
   @JsonKey(ignore: true)
-  _$$TeamImplCopyWith<_$TeamImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_TeamCopyWith<_$_Team> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -218,22 +215,22 @@ class _$ModuleStatisticsCopyWithImpl<$Res, $Val extends ModuleStatistics>
 }
 
 /// @nodoc
-abstract class _$$ModuleStatisticsImplCopyWith<$Res>
+abstract class _$$_ModuleStatisticsCopyWith<$Res>
     implements $ModuleStatisticsCopyWith<$Res> {
-  factory _$$ModuleStatisticsImplCopyWith(_$ModuleStatisticsImpl value,
-          $Res Function(_$ModuleStatisticsImpl) then) =
-      __$$ModuleStatisticsImplCopyWithImpl<$Res>;
+  factory _$$_ModuleStatisticsCopyWith(
+          _$_ModuleStatistics value, $Res Function(_$_ModuleStatistics) then) =
+      __$$_ModuleStatisticsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({double deviation, int total, int normal});
 }
 
 /// @nodoc
-class __$$ModuleStatisticsImplCopyWithImpl<$Res>
-    extends _$ModuleStatisticsCopyWithImpl<$Res, _$ModuleStatisticsImpl>
-    implements _$$ModuleStatisticsImplCopyWith<$Res> {
-  __$$ModuleStatisticsImplCopyWithImpl(_$ModuleStatisticsImpl _value,
-      $Res Function(_$ModuleStatisticsImpl) _then)
+class __$$_ModuleStatisticsCopyWithImpl<$Res>
+    extends _$ModuleStatisticsCopyWithImpl<$Res, _$_ModuleStatistics>
+    implements _$$_ModuleStatisticsCopyWith<$Res> {
+  __$$_ModuleStatisticsCopyWithImpl(
+      _$_ModuleStatistics _value, $Res Function(_$_ModuleStatistics) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -243,7 +240,7 @@ class __$$ModuleStatisticsImplCopyWithImpl<$Res>
     Object? total = null,
     Object? normal = null,
   }) {
-    return _then(_$ModuleStatisticsImpl(
+    return _then(_$_ModuleStatistics(
       deviation: null == deviation
           ? _value.deviation
           : deviation // ignore: cast_nullable_to_non_nullable
@@ -262,8 +259,8 @@ class __$$ModuleStatisticsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ModuleStatisticsImpl implements _ModuleStatistics {
-  _$ModuleStatisticsImpl(
+class _$_ModuleStatistics implements _ModuleStatistics {
+  _$_ModuleStatistics(
       {required this.deviation, required this.total, required this.normal});
 
   @override
@@ -282,7 +279,7 @@ class _$ModuleStatisticsImpl implements _ModuleStatistics {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ModuleStatisticsImpl &&
+            other is _$_ModuleStatistics &&
             (identical(other.deviation, deviation) ||
                 other.deviation == deviation) &&
             (identical(other.total, total) || other.total == total) &&
@@ -295,16 +292,15 @@ class _$ModuleStatisticsImpl implements _ModuleStatistics {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ModuleStatisticsImplCopyWith<_$ModuleStatisticsImpl> get copyWith =>
-      __$$ModuleStatisticsImplCopyWithImpl<_$ModuleStatisticsImpl>(
-          this, _$identity);
+  _$$_ModuleStatisticsCopyWith<_$_ModuleStatistics> get copyWith =>
+      __$$_ModuleStatisticsCopyWithImpl<_$_ModuleStatistics>(this, _$identity);
 }
 
 abstract class _ModuleStatistics implements ModuleStatistics {
   factory _ModuleStatistics(
       {required final double deviation,
       required final int total,
-      required final int normal}) = _$ModuleStatisticsImpl;
+      required final int normal}) = _$_ModuleStatistics;
 
   @override
   double get deviation;
@@ -314,6 +310,6 @@ abstract class _ModuleStatistics implements ModuleStatistics {
   int get normal;
   @override
   @JsonKey(ignore: true)
-  _$$ModuleStatisticsImplCopyWith<_$ModuleStatisticsImpl> get copyWith =>
+  _$$_ModuleStatisticsCopyWith<_$_ModuleStatistics> get copyWith =>
       throw _privateConstructorUsedError;
 }

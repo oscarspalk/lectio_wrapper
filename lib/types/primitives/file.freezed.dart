@@ -61,20 +61,18 @@ class _$FileCopyWithImpl<$Res, $Val extends File>
 }
 
 /// @nodoc
-abstract class _$$FileImplCopyWith<$Res> implements $FileCopyWith<$Res> {
-  factory _$$FileImplCopyWith(
-          _$FileImpl value, $Res Function(_$FileImpl) then) =
-      __$$FileImplCopyWithImpl<$Res>;
+abstract class _$$_FileCopyWith<$Res> implements $FileCopyWith<$Res> {
+  factory _$$_FileCopyWith(_$_File value, $Res Function(_$_File) then) =
+      __$$_FileCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String href, String name});
 }
 
 /// @nodoc
-class __$$FileImplCopyWithImpl<$Res>
-    extends _$FileCopyWithImpl<$Res, _$FileImpl>
-    implements _$$FileImplCopyWith<$Res> {
-  __$$FileImplCopyWithImpl(_$FileImpl _value, $Res Function(_$FileImpl) _then)
+class __$$_FileCopyWithImpl<$Res> extends _$FileCopyWithImpl<$Res, _$_File>
+    implements _$$_FileCopyWith<$Res> {
+  __$$_FileCopyWithImpl(_$_File _value, $Res Function(_$_File) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -83,7 +81,7 @@ class __$$FileImplCopyWithImpl<$Res>
     Object? href = null,
     Object? name = null,
   }) {
-    return _then(_$FileImpl(
+    return _then(_$_File(
       href: null == href
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
@@ -98,8 +96,8 @@ class __$$FileImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FileImpl implements _File {
-  _$FileImpl({required this.href, required this.name});
+class _$_File implements _File {
+  _$_File({required this.href, required this.name});
 
   @override
   final String href;
@@ -115,7 +113,7 @@ class _$FileImpl implements _File {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FileImpl &&
+            other is _$_File &&
             (identical(other.href, href) || other.href == href) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -126,13 +124,13 @@ class _$FileImpl implements _File {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FileImplCopyWith<_$FileImpl> get copyWith =>
-      __$$FileImplCopyWithImpl<_$FileImpl>(this, _$identity);
+  _$$_FileCopyWith<_$_File> get copyWith =>
+      __$$_FileCopyWithImpl<_$_File>(this, _$identity);
 }
 
 abstract class _File implements File {
   factory _File({required final String href, required final String name}) =
-      _$FileImpl;
+      _$_File;
 
   @override
   String get href;
@@ -140,6 +138,5 @@ abstract class _File implements File {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$FileImplCopyWith<_$FileImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_FileCopyWith<_$_File> get copyWith => throw _privateConstructorUsedError;
 }

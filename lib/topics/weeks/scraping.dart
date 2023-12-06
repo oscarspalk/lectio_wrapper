@@ -9,10 +9,55 @@ RegExp datePattern = RegExp(r"\d{1,2}\/\d{1,2}-\d{4}");
 RegExp timePattern = RegExp(r"\d{2}:\d{2}");
 RegExp modulTimePattern = RegExp(r"\d{1,2}\/\d{1,2}");
 
+List<CalendarEvent> _sortEvents(
+    List<CalendarEvent> events, List<ModulRange> ranges) {
+  List<CalendarEvent> eventsWithIndex = events
+      .where((element) => element.index != null)
+      .toList()
+    ..sort((eventA, eventB) => eventA.index!.compareTo(eventB.index!));
+  List<CalendarEvent> completeList =
+      events.where((element) => element.index == null).toList();
+  double modulFactor = 7.64;
+  for (var indexedModul in eventsWithIndex) {
+    int modulNumber = (indexedModul.index! / modulFactor).round();
+    ModulRange? range = ranges
+        .where((element) => element.number == modulNumber + 1)
+        .firstOrNull;
+    if (range != null) {
+      completeList.add(indexedModul.copyWith(
+          start: indexedModul.day
+              .copyWith(hour: range.start.hour, minute: range.start.minute),
+          end: indexedModul.day
+              .copyWith(hour: range.end.hour, minute: range.end.minute)));
+    }
+  }
+  return completeList;
+}
+
 Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
   List<ModulRange> modulRanges = [];
-  List<Day> days = [];
   var calendarSoup = soup.find("tbody")!;
+
+  var calendarDays =
+      calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
+  Bs4Element modulRangesColumn = calendarDays.removeAt(0);
+  List<Bs4Element> modulRangeContainers =
+      modulRangesColumn.findAll('*', class_: 's2module-info');
+  for (var modulRangeContainer in modulRangeContainers) {
+    List<String> modulAndTimes = modulRangeContainer.text.split(". modul");
+    if (modulAndTimes.length == 2) {
+      int? modulNumber = int.tryParse(modulAndTimes[0]);
+      List<String> times = modulAndTimes[1].split("-");
+      DayTime? start = dayTimeFromString(times[0]);
+      DayTime? end = dayTimeFromString(times[1]);
+      if (modulNumber != null && start != null && end != null) {
+        modulRanges
+            .add(ModulRange(number: modulNumber, start: start, end: end));
+      }
+    }
+  }
+
+  List<Day> days = [];
   var titleSoup = calendarSoup.find("td", selector: "tr.s2dayHeader")!.children;
   titleSoup.removeAt(0).decompose();
   List<String> titles = [];
@@ -33,10 +78,6 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
     informations.add(informationsInner);
   }
 
-  var calendarDays =
-      calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
-  Bs4Element modulRangesColumn = calendarDays.removeAt(0);
-
   for (int i = 0; i < calendarDays.length; i++) {
     var day = calendarDays[i];
     var informationsForThisDay = informations[i];
@@ -56,29 +97,32 @@ Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
         dayEvents.add(event);
       }
     });
+
+    dayEvents = _sortEvents(dayEvents, modulRanges);
+
     days.add(Day(
         informations: informationsForThisDay,
         events: dayEvents,
         date: dayTime));
   }
 
-  List<Bs4Element> modulRangeContainers =
-      modulRangesColumn.findAll('*', class_: 's2module-info');
-  for (var modulRangeContainer in modulRangeContainers) {
-    List<String> modulAndTimes = modulRangeContainer.text.split(". modul");
-    if (modulAndTimes.length == 2) {
-      int? modulNumber = int.tryParse(modulAndTimes[0]);
-      List<String> times = modulAndTimes[1].split("-");
-      DayTime? start = dayTimeFromString(times[0]);
-      DayTime? end = dayTimeFromString(times[1]);
-      if (modulNumber != null && start != null && end != null) {
-        modulRanges
-            .add(ModulRange(number: modulNumber, start: start, end: end));
+  return Week(days: days, weekNum: weekNum, modulRanges: modulRanges);
+}
+
+double? _extractStyleOffset(Bs4Element element) {
+  String? styleAttribute = element.getAttrValue("style");
+  List<String>? styles = styleAttribute?.split(";");
+  if (styles != null) {
+    for (var style in styles) {
+      var contents = style.split(":");
+      if (contents.length >= 2) {
+        if (contents[0].trim() == "top") {
+          return double.tryParse(contents[1].replaceAll("em", ""));
+        }
       }
     }
   }
-
-  return Week(days: days, weekNum: weekNum, modulRanges: modulRanges);
+  return null;
 }
 
 CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
@@ -193,25 +237,30 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
       title = pieceInformation[0];
     }
   }
-
-  if (start != null && end != null) {
-    return CalendarEvent(
-        hasHomework: hasHomework,
-        hasNote: hasNote,
-        status: status,
-        title: title,
-        team: team,
-        teachers: teacher,
-        room: room,
-        id: id!,
-        start: start,
-        end: end,
-        type: type,
-        note: note,
-        teacherObjs: teacherObjs,
-        teamObjs: teamObjs);
+  double? index;
+  if (start == null && end == null) {
+    DateTime placeholder = DateTime.now();
+    start = placeholder;
+    end = placeholder;
+    index = _extractStyleOffset(element);
   }
-  return null;
+  return CalendarEvent(
+      index: index,
+      hasHomework: hasHomework,
+      hasNote: hasNote,
+      status: status,
+      title: title,
+      team: team,
+      teachers: teacher,
+      room: room,
+      id: id!,
+      start: start!,
+      end: end!,
+      type: type,
+      note: note,
+      teacherObjs: teacherObjs,
+      teamObjs: teamObjs,
+      day: day);
 }
 
 List<String> extractTeachers(String text) {

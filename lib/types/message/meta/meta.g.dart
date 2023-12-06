@@ -6,14 +6,14 @@ part of 'meta.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MetaDataEntryImpl _$$MetaDataEntryImplFromJson(Map<String, dynamic> json) =>
-    _$MetaDataEntryImpl(
+_$_MetaDataEntry _$$_MetaDataEntryFromJson(Map<String, dynamic> json) =>
+    _$_MetaDataEntry(
       id: json['id'] as String,
       name: json['name'] as String,
       classOrInitials: json['classOrInitials'] as String?,
     );
 
-Map<String, dynamic> _$$MetaDataEntryImplToJson(_$MetaDataEntryImpl instance) =>
+Map<String, dynamic> _$$_MetaDataEntryToJson(_$_MetaDataEntry instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

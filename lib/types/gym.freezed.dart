@@ -60,18 +60,18 @@ class _$GymCopyWithImpl<$Res, $Val extends Gym> implements $GymCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$GymImplCopyWith<$Res> implements $GymCopyWith<$Res> {
-  factory _$$GymImplCopyWith(_$GymImpl value, $Res Function(_$GymImpl) then) =
-      __$$GymImplCopyWithImpl<$Res>;
+abstract class _$$_GymCopyWith<$Res> implements $GymCopyWith<$Res> {
+  factory _$$_GymCopyWith(_$_Gym value, $Res Function(_$_Gym) then) =
+      __$$_GymCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, int id});
 }
 
 /// @nodoc
-class __$$GymImplCopyWithImpl<$Res> extends _$GymCopyWithImpl<$Res, _$GymImpl>
-    implements _$$GymImplCopyWith<$Res> {
-  __$$GymImplCopyWithImpl(_$GymImpl _value, $Res Function(_$GymImpl) _then)
+class __$$_GymCopyWithImpl<$Res> extends _$GymCopyWithImpl<$Res, _$_Gym>
+    implements _$$_GymCopyWith<$Res> {
+  __$$_GymCopyWithImpl(_$_Gym _value, $Res Function(_$_Gym) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -80,7 +80,7 @@ class __$$GymImplCopyWithImpl<$Res> extends _$GymCopyWithImpl<$Res, _$GymImpl>
     Object? name = null,
     Object? id = null,
   }) {
-    return _then(_$GymImpl(
+    return _then(_$_Gym(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -95,8 +95,8 @@ class __$$GymImplCopyWithImpl<$Res> extends _$GymCopyWithImpl<$Res, _$GymImpl>
 
 /// @nodoc
 
-class _$GymImpl implements _Gym {
-  _$GymImpl({required this.name, required this.id});
+class _$_Gym implements _Gym {
+  _$_Gym({required this.name, required this.id});
 
   @override
   final String name;
@@ -112,7 +112,7 @@ class _$GymImpl implements _Gym {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GymImpl &&
+            other is _$_Gym &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id));
   }
@@ -123,12 +123,12 @@ class _$GymImpl implements _Gym {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$GymImplCopyWith<_$GymImpl> get copyWith =>
-      __$$GymImplCopyWithImpl<_$GymImpl>(this, _$identity);
+  _$$_GymCopyWith<_$_Gym> get copyWith =>
+      __$$_GymCopyWithImpl<_$_Gym>(this, _$identity);
 }
 
 abstract class _Gym implements Gym {
-  factory _Gym({required final String name, required final int id}) = _$GymImpl;
+  factory _Gym({required final String name, required final int id}) = _$_Gym;
 
   @override
   String get name;
@@ -136,6 +136,5 @@ abstract class _Gym implements Gym {
   int get id;
   @override
   @JsonKey(ignore: true)
-  _$$GymImplCopyWith<_$GymImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_GymCopyWith<_$_Gym> get copyWith => throw _privateConstructorUsedError;
 }

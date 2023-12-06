@@ -73,11 +73,11 @@ class _$StudyTeamEntryCopyWithImpl<$Res, $Val extends StudyTeamEntry>
 }
 
 /// @nodoc
-abstract class _$$StudyTeamEntryImplCopyWith<$Res>
+abstract class _$$_StudyTeamEntryCopyWith<$Res>
     implements $StudyTeamEntryCopyWith<$Res> {
-  factory _$$StudyTeamEntryImplCopyWith(_$StudyTeamEntryImpl value,
-          $Res Function(_$StudyTeamEntryImpl) then) =
-      __$$StudyTeamEntryImplCopyWithImpl<$Res>;
+  factory _$$_StudyTeamEntryCopyWith(
+          _$_StudyTeamEntry value, $Res Function(_$_StudyTeamEntry) then) =
+      __$$_StudyTeamEntryCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({Team team, List<StudyPlanRef> entries});
@@ -87,11 +87,11 @@ abstract class _$$StudyTeamEntryImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$StudyTeamEntryImplCopyWithImpl<$Res>
-    extends _$StudyTeamEntryCopyWithImpl<$Res, _$StudyTeamEntryImpl>
-    implements _$$StudyTeamEntryImplCopyWith<$Res> {
-  __$$StudyTeamEntryImplCopyWithImpl(
-      _$StudyTeamEntryImpl _value, $Res Function(_$StudyTeamEntryImpl) _then)
+class __$$_StudyTeamEntryCopyWithImpl<$Res>
+    extends _$StudyTeamEntryCopyWithImpl<$Res, _$_StudyTeamEntry>
+    implements _$$_StudyTeamEntryCopyWith<$Res> {
+  __$$_StudyTeamEntryCopyWithImpl(
+      _$_StudyTeamEntry _value, $Res Function(_$_StudyTeamEntry) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -100,7 +100,7 @@ class __$$StudyTeamEntryImplCopyWithImpl<$Res>
     Object? team = null,
     Object? entries = null,
   }) {
-    return _then(_$StudyTeamEntryImpl(
+    return _then(_$_StudyTeamEntry(
       team: null == team
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -115,8 +115,8 @@ class __$$StudyTeamEntryImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StudyTeamEntryImpl implements _StudyTeamEntry {
-  _$StudyTeamEntryImpl(
+class _$_StudyTeamEntry implements _StudyTeamEntry {
+  _$_StudyTeamEntry(
       {required this.team, required final List<StudyPlanRef> entries})
       : _entries = entries;
 
@@ -139,7 +139,7 @@ class _$StudyTeamEntryImpl implements _StudyTeamEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$StudyTeamEntryImpl &&
+            other is _$_StudyTeamEntry &&
             (identical(other.team, team) || other.team == team) &&
             const DeepCollectionEquality().equals(other._entries, _entries));
   }
@@ -151,15 +151,14 @@ class _$StudyTeamEntryImpl implements _StudyTeamEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$StudyTeamEntryImplCopyWith<_$StudyTeamEntryImpl> get copyWith =>
-      __$$StudyTeamEntryImplCopyWithImpl<_$StudyTeamEntryImpl>(
-          this, _$identity);
+  _$$_StudyTeamEntryCopyWith<_$_StudyTeamEntry> get copyWith =>
+      __$$_StudyTeamEntryCopyWithImpl<_$_StudyTeamEntry>(this, _$identity);
 }
 
 abstract class _StudyTeamEntry implements StudyTeamEntry {
   factory _StudyTeamEntry(
       {required final Team team,
-      required final List<StudyPlanRef> entries}) = _$StudyTeamEntryImpl;
+      required final List<StudyPlanRef> entries}) = _$_StudyTeamEntry;
 
   @override
   Team get team;
@@ -167,7 +166,7 @@ abstract class _StudyTeamEntry implements StudyTeamEntry {
   List<StudyPlanRef> get entries;
   @override
   @JsonKey(ignore: true)
-  _$$StudyTeamEntryImplCopyWith<_$StudyTeamEntryImpl> get copyWith =>
+  _$$_StudyTeamEntryCopyWith<_$_StudyTeamEntry> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -232,22 +231,22 @@ class _$StudyPlanRefCopyWithImpl<$Res, $Val extends StudyPlanRef>
 }
 
 /// @nodoc
-abstract class _$$StudyPlanRefImplCopyWith<$Res>
+abstract class _$$_StudyPlanRefCopyWith<$Res>
     implements $StudyPlanRefCopyWith<$Res> {
-  factory _$$StudyPlanRefImplCopyWith(
-          _$StudyPlanRefImpl value, $Res Function(_$StudyPlanRefImpl) then) =
-      __$$StudyPlanRefImplCopyWithImpl<$Res>;
+  factory _$$_StudyPlanRefCopyWith(
+          _$_StudyPlanRef value, $Res Function(_$_StudyPlanRef) then) =
+      __$$_StudyPlanRefCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String title, DateTime start, DateTime end, String id});
 }
 
 /// @nodoc
-class __$$StudyPlanRefImplCopyWithImpl<$Res>
-    extends _$StudyPlanRefCopyWithImpl<$Res, _$StudyPlanRefImpl>
-    implements _$$StudyPlanRefImplCopyWith<$Res> {
-  __$$StudyPlanRefImplCopyWithImpl(
-      _$StudyPlanRefImpl _value, $Res Function(_$StudyPlanRefImpl) _then)
+class __$$_StudyPlanRefCopyWithImpl<$Res>
+    extends _$StudyPlanRefCopyWithImpl<$Res, _$_StudyPlanRef>
+    implements _$$_StudyPlanRefCopyWith<$Res> {
+  __$$_StudyPlanRefCopyWithImpl(
+      _$_StudyPlanRef _value, $Res Function(_$_StudyPlanRef) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -258,7 +257,7 @@ class __$$StudyPlanRefImplCopyWithImpl<$Res>
     Object? end = null,
     Object? id = null,
   }) {
-    return _then(_$StudyPlanRefImpl(
+    return _then(_$_StudyPlanRef(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -281,8 +280,8 @@ class __$$StudyPlanRefImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StudyPlanRefImpl implements _StudyPlanRef {
-  _$StudyPlanRefImpl(
+class _$_StudyPlanRef implements _StudyPlanRef {
+  _$_StudyPlanRef(
       {required this.title,
       required this.start,
       required this.end,
@@ -306,7 +305,7 @@ class _$StudyPlanRefImpl implements _StudyPlanRef {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$StudyPlanRefImpl &&
+            other is _$_StudyPlanRef &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
@@ -319,8 +318,8 @@ class _$StudyPlanRefImpl implements _StudyPlanRef {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$StudyPlanRefImplCopyWith<_$StudyPlanRefImpl> get copyWith =>
-      __$$StudyPlanRefImplCopyWithImpl<_$StudyPlanRefImpl>(this, _$identity);
+  _$$_StudyPlanRefCopyWith<_$_StudyPlanRef> get copyWith =>
+      __$$_StudyPlanRefCopyWithImpl<_$_StudyPlanRef>(this, _$identity);
 }
 
 abstract class _StudyPlanRef implements StudyPlanRef {
@@ -328,7 +327,7 @@ abstract class _StudyPlanRef implements StudyPlanRef {
       {required final String title,
       required final DateTime start,
       required final DateTime end,
-      required final String id}) = _$StudyPlanRefImpl;
+      required final String id}) = _$_StudyPlanRef;
 
   @override
   String get title;
@@ -340,7 +339,7 @@ abstract class _StudyPlanRef implements StudyPlanRef {
   String get id;
   @override
   @JsonKey(ignore: true)
-  _$$StudyPlanRefImplCopyWith<_$StudyPlanRefImpl> get copyWith =>
+  _$$_StudyPlanRefCopyWith<_$_StudyPlanRef> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -403,11 +402,11 @@ class _$StudyPlanEntryCopyWithImpl<$Res, $Val extends StudyPlanEntry>
 }
 
 /// @nodoc
-abstract class _$$StudyPlanEntryImplCopyWith<$Res>
+abstract class _$$_StudyPlanEntryCopyWith<$Res>
     implements $StudyPlanEntryCopyWith<$Res> {
-  factory _$$StudyPlanEntryImplCopyWith(_$StudyPlanEntryImpl value,
-          $Res Function(_$StudyPlanEntryImpl) then) =
-      __$$StudyPlanEntryImplCopyWithImpl<$Res>;
+  factory _$$_StudyPlanEntryCopyWith(
+          _$_StudyPlanEntry value, $Res Function(_$_StudyPlanEntry) then) =
+      __$$_StudyPlanEntryCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({MetaDataEntry teacher, String description});
@@ -417,11 +416,11 @@ abstract class _$$StudyPlanEntryImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$StudyPlanEntryImplCopyWithImpl<$Res>
-    extends _$StudyPlanEntryCopyWithImpl<$Res, _$StudyPlanEntryImpl>
-    implements _$$StudyPlanEntryImplCopyWith<$Res> {
-  __$$StudyPlanEntryImplCopyWithImpl(
-      _$StudyPlanEntryImpl _value, $Res Function(_$StudyPlanEntryImpl) _then)
+class __$$_StudyPlanEntryCopyWithImpl<$Res>
+    extends _$StudyPlanEntryCopyWithImpl<$Res, _$_StudyPlanEntry>
+    implements _$$_StudyPlanEntryCopyWith<$Res> {
+  __$$_StudyPlanEntryCopyWithImpl(
+      _$_StudyPlanEntry _value, $Res Function(_$_StudyPlanEntry) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -430,7 +429,7 @@ class __$$StudyPlanEntryImplCopyWithImpl<$Res>
     Object? teacher = null,
     Object? description = null,
   }) {
-    return _then(_$StudyPlanEntryImpl(
+    return _then(_$_StudyPlanEntry(
       teacher: null == teacher
           ? _value.teacher
           : teacher // ignore: cast_nullable_to_non_nullable
@@ -445,8 +444,8 @@ class __$$StudyPlanEntryImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StudyPlanEntryImpl implements _StudyPlanEntry {
-  _$StudyPlanEntryImpl({required this.teacher, required this.description});
+class _$_StudyPlanEntry implements _StudyPlanEntry {
+  _$_StudyPlanEntry({required this.teacher, required this.description});
 
   @override
   final MetaDataEntry teacher;
@@ -462,7 +461,7 @@ class _$StudyPlanEntryImpl implements _StudyPlanEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$StudyPlanEntryImpl &&
+            other is _$_StudyPlanEntry &&
             (identical(other.teacher, teacher) || other.teacher == teacher) &&
             (identical(other.description, description) ||
                 other.description == description));
@@ -474,15 +473,14 @@ class _$StudyPlanEntryImpl implements _StudyPlanEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$StudyPlanEntryImplCopyWith<_$StudyPlanEntryImpl> get copyWith =>
-      __$$StudyPlanEntryImplCopyWithImpl<_$StudyPlanEntryImpl>(
-          this, _$identity);
+  _$$_StudyPlanEntryCopyWith<_$_StudyPlanEntry> get copyWith =>
+      __$$_StudyPlanEntryCopyWithImpl<_$_StudyPlanEntry>(this, _$identity);
 }
 
 abstract class _StudyPlanEntry implements StudyPlanEntry {
   factory _StudyPlanEntry(
       {required final MetaDataEntry teacher,
-      required final String description}) = _$StudyPlanEntryImpl;
+      required final String description}) = _$_StudyPlanEntry;
 
   @override
   MetaDataEntry get teacher;
@@ -490,6 +488,6 @@ abstract class _StudyPlanEntry implements StudyPlanEntry {
   String get description;
   @override
   @JsonKey(ignore: true)
-  _$$StudyPlanEntryImplCopyWith<_$StudyPlanEntryImpl> get copyWith =>
+  _$$_StudyPlanEntryCopyWith<_$_StudyPlanEntry> get copyWith =>
       throw _privateConstructorUsedError;
 }
