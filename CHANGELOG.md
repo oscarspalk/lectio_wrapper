@@ -549,3 +549,9 @@
 ## 0.6.32
 
 * Forgot we have to rethrow
+
+## 0.6.35
+
+* Removed last 2 versions, as their implementations were overwritten
+* Updated from `data-additionalinfo` to `data-tooltip
+

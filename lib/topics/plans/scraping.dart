@@ -56,7 +56,7 @@ RegExp _periodReg = RegExp(r'\s-\s');
 StudyPlanRef _extractPlan(Bs4Element row) {
   var aTag = row.children[0];
   var id = queriesFromSoup(aTag.getAttrValue('href')!)['phaseid']!;
-  var additionalInfo = aTag.getAttrValue('data-additionalinfo')!.split('\n');
+  var additionalInfo = aTag.getAttrValue('data-tooltip')!.split('\n');
   String title = "";
   DateTime start = DateTime.now();
   DateTime end = DateTime.now();

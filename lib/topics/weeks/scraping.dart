@@ -110,7 +110,7 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
   List<String> teacher = [];
   String note = "";
   List<String> pieceInformation =
-      element.getAttrValue('data-additionalinfo')!.split("\n");
+      element.getAttrValue('data-tooltip')!.split("\n");
 
   // check for title and timestamps
   for (var pieceInfo in pieceInformation) {
