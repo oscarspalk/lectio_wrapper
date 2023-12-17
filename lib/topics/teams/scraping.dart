@@ -33,10 +33,12 @@ ModuleStatistics? extractModuleStats(BeautifulSoup soup) {
       if (tdMiddle != null && tdMiddle.text.contains("Holdet:")) {
         var children = tRow.children.reversed.toList();
         var deviation = extractAbsencePercent(children[0]);
-        var normal = int.parse(children[1].text);
-        var total = int.parse(children[2].text);
-        return ModuleStatistics(
-            deviation: deviation, total: total, normal: normal);
+        var normal = int.tryParse(children[1].text);
+        var total = int.tryParse(children[2].text);
+        if (normal != null && total != null) {
+          return ModuleStatistics(
+              deviation: deviation, total: total, normal: normal);
+        }
       }
     }
   }

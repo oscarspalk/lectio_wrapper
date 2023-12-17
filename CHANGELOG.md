@@ -566,3 +566,7 @@
 ## 0.6.38
 
 * Previous didn't work exactly
+
+## 0.6.39
+
+* More error prone modul statistics
