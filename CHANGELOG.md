@@ -555,3 +555,6 @@
 * Removed last 2 versions, as their implementations were overwritten
 * Updated from `data-additionalinfo` to `data-tooltip
 
+## 0.6.36
+
+* Added check as some dates were weird in some special cases

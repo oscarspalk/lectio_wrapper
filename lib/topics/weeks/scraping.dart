@@ -127,11 +127,13 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
         start = format.parse(startTime);
         end = format.parse(endTime);
       } else {
-        DateFormat hhMM = DateFormat("HH:mm");
-        var startHHmm = hhMM.parse(regToStr(times.elementAt(0)));
-        var endHHmm = hhMM.parse(regToStr(times.elementAt(1)));
-        start = day.copyWith(hour: startHHmm.hour, minute: startHHmm.minute);
-        end = day.copyWith(hour: endHHmm.hour, minute: endHHmm.minute);
+        if (times.length >= 2) {
+          DateFormat hhMM = DateFormat("HH:mm");
+          var startHHmm = hhMM.parse(regToStr(times.elementAt(0)));
+          var endHHmm = hhMM.parse(regToStr(times.elementAt(1)));
+          start = day.copyWith(hour: startHHmm.hour, minute: startHHmm.minute);
+          end = day.copyWith(hour: endHHmm.hour, minute: endHHmm.minute);
+        }
       }
     } else if (states.contains(pieceInfo)) {
       status = pieceInfo;
