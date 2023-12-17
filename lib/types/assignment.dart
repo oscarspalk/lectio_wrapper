@@ -17,6 +17,9 @@ class Assignment with _$Assignment {
       required MetaDataEntry responsible,
       required double hours,
       required DateTime deadline,
+      required int? grade,
+      required double absence,
+      required String gradeNote,
       required List<AssignmentEntry> entries}) = _Assignment;
 }
 

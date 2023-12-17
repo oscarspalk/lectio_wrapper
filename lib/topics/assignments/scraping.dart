@@ -104,6 +104,26 @@ Future<Assignment> extractAssignment(
   for (var row in entryRows) {
     entries.add(extractAssignmentEntry(row));
   }
+  int? grade;
+  double absence = 0.0;
+  String gradeNote = "";
+  List<Bs4Element> deliveredBy =
+      soup.find('m_Content_StudentGV')?.findAll("tr") ?? [];
+  if (deliveredBy.length >= 2) {
+    Bs4Element studentRow = deliveredBy.elementAt(1);
+
+    Bs4Element? absenceElement = studentRow.children.elementAtOrNull(3);
+    Bs4Element? gradeElement = studentRow.children.elementAtOrNull(5);
+    Bs4Element? gradeNoteElement = studentRow.children.elementAtOrNull(6);
+    grade = int.tryParse(gradeElement?.text ?? "");
+    gradeNote = gradeNoteElement?.text ?? "";
+    String? rightSideAbsence =
+        absenceElement?.text.split("/").elementAtOrNull(1);
+    String? percentageString =
+        rightSideAbsence?.split(":").last.replaceAll("%", "");
+    absence = double.parse(percentageString ?? "100");
+  }
+
   return Assignment(
       id: ref.id,
       title: title,
@@ -114,7 +134,10 @@ Future<Assignment> extractAssignment(
       hours: hours,
       deadline: deadline,
       entries: entries,
-      testFiles: testFiles);
+      testFiles: testFiles,
+      grade: grade,
+      gradeNote: gradeNote,
+      absence: absence);
 }
 
 AssignmentEntry extractAssignmentEntry(Bs4Element row) {

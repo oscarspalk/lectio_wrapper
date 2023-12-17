@@ -558,3 +558,7 @@
 ## 0.6.36
 
 * Added check as some dates were weird in some special cases
+
+## 0.6.37
+
+* Added assignment grade and absence
