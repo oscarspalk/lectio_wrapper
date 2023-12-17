@@ -562,3 +562,7 @@
 ## 0.6.37
 
 * Added assignment grade and absence
+
+## 0.6.38
+
+* Previous didn't work exactly

@@ -25,7 +25,7 @@ mixin _$Assignment {
   MetaDataEntry get responsible => throw _privateConstructorUsedError;
   double get hours => throw _privateConstructorUsedError;
   DateTime get deadline => throw _privateConstructorUsedError;
-  int? get grade => throw _privateConstructorUsedError;
+  String get grade => throw _privateConstructorUsedError;
   double get absence => throw _privateConstructorUsedError;
   String get gradeNote => throw _privateConstructorUsedError;
   List<AssignmentEntry> get entries => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $AssignmentCopyWith<$Res> {
       MetaDataEntry responsible,
       double hours,
       DateTime deadline,
-      int? grade,
+      String grade,
       double absence,
       String gradeNote,
       List<AssignmentEntry> entries});
@@ -82,7 +82,7 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
     Object? responsible = null,
     Object? hours = null,
     Object? deadline = null,
-    Object? grade = freezed,
+    Object? grade = null,
     Object? absence = null,
     Object? gradeNote = null,
     Object? entries = null,
@@ -124,10 +124,10 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      grade: freezed == grade
+      grade: null == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       absence: null == absence
           ? _value.absence
           : absence // ignore: cast_nullable_to_non_nullable
@@ -178,7 +178,7 @@ abstract class _$$_AssignmentCopyWith<$Res>
       MetaDataEntry responsible,
       double hours,
       DateTime deadline,
-      int? grade,
+      String grade,
       double absence,
       String gradeNote,
       List<AssignmentEntry> entries});
@@ -209,7 +209,7 @@ class __$$_AssignmentCopyWithImpl<$Res>
     Object? responsible = null,
     Object? hours = null,
     Object? deadline = null,
-    Object? grade = freezed,
+    Object? grade = null,
     Object? absence = null,
     Object? gradeNote = null,
     Object? entries = null,
@@ -251,10 +251,10 @@ class __$$_AssignmentCopyWithImpl<$Res>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      grade: freezed == grade
+      grade: null == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String,
       absence: null == absence
           ? _value.absence
           : absence // ignore: cast_nullable_to_non_nullable
@@ -316,7 +316,7 @@ class _$_Assignment implements _Assignment {
   @override
   final DateTime deadline;
   @override
-  final int? grade;
+  final String grade;
   @override
   final double absence;
   @override
@@ -393,7 +393,7 @@ abstract class _Assignment implements Assignment {
       required final MetaDataEntry responsible,
       required final double hours,
       required final DateTime deadline,
-      required final int? grade,
+      required final String grade,
       required final double absence,
       required final String gradeNote,
       required final List<AssignmentEntry> entries}) = _$_Assignment;
@@ -417,7 +417,7 @@ abstract class _Assignment implements Assignment {
   @override
   DateTime get deadline;
   @override
-  int? get grade;
+  String get grade;
   @override
   double get absence;
   @override
