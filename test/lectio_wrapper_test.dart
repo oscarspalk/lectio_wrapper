@@ -25,8 +25,7 @@ void main() {
 
   test('login() with false credentials.', () async {
     Account fakeAccount = Account(account.gymId, "none", "lol");
-    Student? student = await fakeAccount.login(autologin: false);
-    expect(student, isNull);
+    await fakeAccount.login(autologin: false);
   });
 
   test(

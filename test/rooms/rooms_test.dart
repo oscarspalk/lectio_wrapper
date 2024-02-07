@@ -17,7 +17,7 @@ void main() {
 
   test('get room', () async {
     var room = await student!.rooms.get(
-        Room(id: '4772939802', short: '', name: '', inUse: false), 2023, 24);
+        Room(id: '4842722415', short: '', name: '', inUse: false), 2024, 6);
     expect(room, isNotNull);
   });
 }

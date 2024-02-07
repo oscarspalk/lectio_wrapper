@@ -570,3 +570,7 @@
 ## 0.6.39
 
 * More error prone modul statistics
+
+## 0.6.40
+
+* Getting the calendar for a room didn't work for weeks 1-9
