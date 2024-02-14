@@ -576,3 +576,9 @@
 * Getting the calendar for a room didn't work for weeks 1-9
 
 ## 0.6.41
+
+* Added serializable Homework
+
+## 0.6.42
+
+* Serializable homework didn't work 100%
