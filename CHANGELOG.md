@@ -586,3 +586,7 @@
 ## 0.6.43
 
 * It should already be working fine
+
+## 0.6.44
+
+* This should work for nested
