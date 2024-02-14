@@ -8,24 +8,18 @@ part 'homework.g.dart';
 class Homework with _$Homework {
   factory Homework(
       {required DateTime dato,
-      @CalendarEventConverter() required CalendarEvent activity,
+      @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
+      required CalendarEvent activity,
       required String note}) = _Homework;
 
   factory Homework.fromJson(Map<String, dynamic> json) =>
       _$HomeworkFromJson(json);
 }
 
-class CalendarEventConverter
-    extends JsonConverter<CalendarEvent, Map<String, dynamic>> {
-  const CalendarEventConverter();
+CalendarEvent eventFromJson(Map<String, Object> json) {
+  return CalendarEvent.fromJson(json);
+}
 
-  @override
-  fromJson(json) {
-    return CalendarEvent.fromJson(json);
-  }
-
-  @override
-  toJson(object) {
-    return object.toJson();
-  }
+Map<String, dynamic> eventToJson(CalendarEvent event) {
+  return event.toJson();
 }

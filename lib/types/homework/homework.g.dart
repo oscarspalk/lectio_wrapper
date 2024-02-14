@@ -9,14 +9,13 @@ part of 'homework.dart';
 _$HomeworkImpl _$$HomeworkImplFromJson(Map<String, dynamic> json) =>
     _$HomeworkImpl(
       dato: DateTime.parse(json['dato'] as String),
-      activity: const CalendarEventConverter()
-          .fromJson(json['activity'] as Map<String, dynamic>),
+      activity: eventFromJson(json['activity'] as Map<String, Object>),
       note: json['note'] as String,
     );
 
 Map<String, dynamic> _$$HomeworkImplToJson(_$HomeworkImpl instance) =>
     <String, dynamic>{
       'dato': instance.dato.toIso8601String(),
-      'activity': const CalendarEventConverter().toJson(instance.activity),
+      'activity': eventToJson(instance.activity),
       'note': instance.note,
     };
