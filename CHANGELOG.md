@@ -590,3 +590,7 @@
 ## 0.6.44
 
 * This should work for nested
+
+## 0.6.45
+
+* More json stuff

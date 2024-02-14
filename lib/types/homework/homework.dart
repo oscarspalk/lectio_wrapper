@@ -4,6 +4,7 @@ import 'package:lectio_wrapper/lectio_wrapper.dart';
 part 'homework.freezed.dart';
 part 'homework.g.dart';
 
+@JsonSerializable()
 @freezed
 class Homework with _$Homework {
   factory Homework(
