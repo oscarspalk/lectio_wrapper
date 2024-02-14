@@ -73,18 +73,20 @@ class _$RoomCopyWithImpl<$Res, $Val extends Room>
 }
 
 /// @nodoc
-abstract class _$$_RoomCopyWith<$Res> implements $RoomCopyWith<$Res> {
-  factory _$$_RoomCopyWith(_$_Room value, $Res Function(_$_Room) then) =
-      __$$_RoomCopyWithImpl<$Res>;
+abstract class _$$RoomImplCopyWith<$Res> implements $RoomCopyWith<$Res> {
+  factory _$$RoomImplCopyWith(
+          _$RoomImpl value, $Res Function(_$RoomImpl) then) =
+      __$$RoomImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String short, bool inUse, String name});
 }
 
 /// @nodoc
-class __$$_RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res, _$_Room>
-    implements _$$_RoomCopyWith<$Res> {
-  __$$_RoomCopyWithImpl(_$_Room _value, $Res Function(_$_Room) _then)
+class __$$RoomImplCopyWithImpl<$Res>
+    extends _$RoomCopyWithImpl<$Res, _$RoomImpl>
+    implements _$$RoomImplCopyWith<$Res> {
+  __$$RoomImplCopyWithImpl(_$RoomImpl _value, $Res Function(_$RoomImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -95,7 +97,7 @@ class __$$_RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res, _$_Room>
     Object? inUse = null,
     Object? name = null,
   }) {
-    return _then(_$_Room(
+    return _then(_$RoomImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -118,8 +120,8 @@ class __$$_RoomCopyWithImpl<$Res> extends _$RoomCopyWithImpl<$Res, _$_Room>
 
 /// @nodoc
 
-class _$_Room implements _Room {
-  _$_Room(
+class _$RoomImpl implements _Room {
+  _$RoomImpl(
       {required this.id,
       required this.short,
       required this.inUse,
@@ -143,7 +145,7 @@ class _$_Room implements _Room {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Room &&
+            other is _$RoomImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.short, short) || other.short == short) &&
             (identical(other.inUse, inUse) || other.inUse == inUse) &&
@@ -156,8 +158,8 @@ class _$_Room implements _Room {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RoomCopyWith<_$_Room> get copyWith =>
-      __$$_RoomCopyWithImpl<_$_Room>(this, _$identity);
+  _$$RoomImplCopyWith<_$RoomImpl> get copyWith =>
+      __$$RoomImplCopyWithImpl<_$RoomImpl>(this, _$identity);
 }
 
 abstract class _Room implements Room {
@@ -165,7 +167,7 @@ abstract class _Room implements Room {
       {required final String id,
       required final String short,
       required final bool inUse,
-      required final String name}) = _$_Room;
+      required final String name}) = _$RoomImpl;
 
   @override
   String get id;
@@ -177,7 +179,8 @@ abstract class _Room implements Room {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$_RoomCopyWith<_$_Room> get copyWith => throw _privateConstructorUsedError;
+  _$$RoomImplCopyWith<_$RoomImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -235,22 +238,22 @@ class _$RoomAvailabilityCopyWithImpl<$Res, $Val extends RoomAvailability>
 }
 
 /// @nodoc
-abstract class _$$_RoomAvailabilityCopyWith<$Res>
+abstract class _$$RoomAvailabilityImplCopyWith<$Res>
     implements $RoomAvailabilityCopyWith<$Res> {
-  factory _$$_RoomAvailabilityCopyWith(
-          _$_RoomAvailability value, $Res Function(_$_RoomAvailability) then) =
-      __$$_RoomAvailabilityCopyWithImpl<$Res>;
+  factory _$$RoomAvailabilityImplCopyWith(_$RoomAvailabilityImpl value,
+          $Res Function(_$RoomAvailabilityImpl) then) =
+      __$$RoomAvailabilityImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String short, bool inUse, String name});
 }
 
 /// @nodoc
-class __$$_RoomAvailabilityCopyWithImpl<$Res>
-    extends _$RoomAvailabilityCopyWithImpl<$Res, _$_RoomAvailability>
-    implements _$$_RoomAvailabilityCopyWith<$Res> {
-  __$$_RoomAvailabilityCopyWithImpl(
-      _$_RoomAvailability _value, $Res Function(_$_RoomAvailability) _then)
+class __$$RoomAvailabilityImplCopyWithImpl<$Res>
+    extends _$RoomAvailabilityCopyWithImpl<$Res, _$RoomAvailabilityImpl>
+    implements _$$RoomAvailabilityImplCopyWith<$Res> {
+  __$$RoomAvailabilityImplCopyWithImpl(_$RoomAvailabilityImpl _value,
+      $Res Function(_$RoomAvailabilityImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -260,7 +263,7 @@ class __$$_RoomAvailabilityCopyWithImpl<$Res>
     Object? inUse = null,
     Object? name = null,
   }) {
-    return _then(_$_RoomAvailability(
+    return _then(_$RoomAvailabilityImpl(
       short: null == short
           ? _value.short
           : short // ignore: cast_nullable_to_non_nullable
@@ -279,8 +282,8 @@ class __$$_RoomAvailabilityCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RoomAvailability implements _RoomAvailability {
-  _$_RoomAvailability(
+class _$RoomAvailabilityImpl implements _RoomAvailability {
+  _$RoomAvailabilityImpl(
       {required this.short, required this.inUse, required this.name});
 
   @override
@@ -299,7 +302,7 @@ class _$_RoomAvailability implements _RoomAvailability {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RoomAvailability &&
+            other is _$RoomAvailabilityImpl &&
             (identical(other.short, short) || other.short == short) &&
             (identical(other.inUse, inUse) || other.inUse == inUse) &&
             (identical(other.name, name) || other.name == name));
@@ -311,15 +314,16 @@ class _$_RoomAvailability implements _RoomAvailability {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RoomAvailabilityCopyWith<_$_RoomAvailability> get copyWith =>
-      __$$_RoomAvailabilityCopyWithImpl<_$_RoomAvailability>(this, _$identity);
+  _$$RoomAvailabilityImplCopyWith<_$RoomAvailabilityImpl> get copyWith =>
+      __$$RoomAvailabilityImplCopyWithImpl<_$RoomAvailabilityImpl>(
+          this, _$identity);
 }
 
 abstract class _RoomAvailability implements RoomAvailability {
   factory _RoomAvailability(
       {required final String short,
       required final bool inUse,
-      required final String name}) = _$_RoomAvailability;
+      required final String name}) = _$RoomAvailabilityImpl;
 
   @override
   String get short;
@@ -329,6 +333,6 @@ abstract class _RoomAvailability implements RoomAvailability {
   String get name;
   @override
   @JsonKey(ignore: true)
-  _$$_RoomAvailabilityCopyWith<_$_RoomAvailability> get copyWith =>
+  _$$RoomAvailabilityImplCopyWith<_$RoomAvailabilityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

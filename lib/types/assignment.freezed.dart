@@ -161,11 +161,11 @@ class _$AssignmentCopyWithImpl<$Res, $Val extends Assignment>
 }
 
 /// @nodoc
-abstract class _$$_AssignmentCopyWith<$Res>
+abstract class _$$AssignmentImplCopyWith<$Res>
     implements $AssignmentCopyWith<$Res> {
-  factory _$$_AssignmentCopyWith(
-          _$_Assignment value, $Res Function(_$_Assignment) then) =
-      __$$_AssignmentCopyWithImpl<$Res>;
+  factory _$$AssignmentImplCopyWith(
+          _$AssignmentImpl value, $Res Function(_$AssignmentImpl) then) =
+      __$$AssignmentImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -190,11 +190,11 @@ abstract class _$$_AssignmentCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AssignmentCopyWithImpl<$Res>
-    extends _$AssignmentCopyWithImpl<$Res, _$_Assignment>
-    implements _$$_AssignmentCopyWith<$Res> {
-  __$$_AssignmentCopyWithImpl(
-      _$_Assignment _value, $Res Function(_$_Assignment) _then)
+class __$$AssignmentImplCopyWithImpl<$Res>
+    extends _$AssignmentCopyWithImpl<$Res, _$AssignmentImpl>
+    implements _$$AssignmentImplCopyWith<$Res> {
+  __$$AssignmentImplCopyWithImpl(
+      _$AssignmentImpl _value, $Res Function(_$AssignmentImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -214,7 +214,7 @@ class __$$_AssignmentCopyWithImpl<$Res>
     Object? gradeNote = null,
     Object? entries = null,
   }) {
-    return _then(_$_Assignment(
+    return _then(_$AssignmentImpl(
       testFiles: null == testFiles
           ? _value._testFiles
           : testFiles // ignore: cast_nullable_to_non_nullable
@@ -273,8 +273,8 @@ class __$$_AssignmentCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Assignment implements _Assignment {
-  _$_Assignment(
+class _$AssignmentImpl implements _Assignment {
+  _$AssignmentImpl(
       {required final List<File> testFiles,
       required this.id,
       required this.title,
@@ -338,7 +338,7 @@ class _$_Assignment implements _Assignment {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Assignment &&
+            other is _$AssignmentImpl &&
             const DeepCollectionEquality()
                 .equals(other._testFiles, _testFiles) &&
             (identical(other.id, id) || other.id == id) &&
@@ -378,8 +378,8 @@ class _$_Assignment implements _Assignment {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AssignmentCopyWith<_$_Assignment> get copyWith =>
-      __$$_AssignmentCopyWithImpl<_$_Assignment>(this, _$identity);
+  _$$AssignmentImplCopyWith<_$AssignmentImpl> get copyWith =>
+      __$$AssignmentImplCopyWithImpl<_$AssignmentImpl>(this, _$identity);
 }
 
 abstract class _Assignment implements Assignment {
@@ -396,7 +396,7 @@ abstract class _Assignment implements Assignment {
       required final String grade,
       required final double absence,
       required final String gradeNote,
-      required final List<AssignmentEntry> entries}) = _$_Assignment;
+      required final List<AssignmentEntry> entries}) = _$AssignmentImpl;
 
   @override
   List<File> get testFiles;
@@ -426,7 +426,7 @@ abstract class _Assignment implements Assignment {
   List<AssignmentEntry> get entries;
   @override
   @JsonKey(ignore: true)
-  _$$_AssignmentCopyWith<_$_Assignment> get copyWith =>
+  _$$AssignmentImplCopyWith<_$AssignmentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -510,11 +510,11 @@ class _$AssignmentEntryCopyWithImpl<$Res, $Val extends AssignmentEntry>
 }
 
 /// @nodoc
-abstract class _$$_AssignmentEntryCopyWith<$Res>
+abstract class _$$AssignmentEntryImplCopyWith<$Res>
     implements $AssignmentEntryCopyWith<$Res> {
-  factory _$$_AssignmentEntryCopyWith(
-          _$_AssignmentEntry value, $Res Function(_$_AssignmentEntry) then) =
-      __$$_AssignmentEntryCopyWithImpl<$Res>;
+  factory _$$AssignmentEntryImplCopyWith(_$AssignmentEntryImpl value,
+          $Res Function(_$AssignmentEntryImpl) then) =
+      __$$AssignmentEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({DateTime time, MetaDataEntry user, String note, File resource});
@@ -526,11 +526,11 @@ abstract class _$$_AssignmentEntryCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AssignmentEntryCopyWithImpl<$Res>
-    extends _$AssignmentEntryCopyWithImpl<$Res, _$_AssignmentEntry>
-    implements _$$_AssignmentEntryCopyWith<$Res> {
-  __$$_AssignmentEntryCopyWithImpl(
-      _$_AssignmentEntry _value, $Res Function(_$_AssignmentEntry) _then)
+class __$$AssignmentEntryImplCopyWithImpl<$Res>
+    extends _$AssignmentEntryCopyWithImpl<$Res, _$AssignmentEntryImpl>
+    implements _$$AssignmentEntryImplCopyWith<$Res> {
+  __$$AssignmentEntryImplCopyWithImpl(
+      _$AssignmentEntryImpl _value, $Res Function(_$AssignmentEntryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -541,7 +541,7 @@ class __$$_AssignmentEntryCopyWithImpl<$Res>
     Object? note = null,
     Object? resource = null,
   }) {
-    return _then(_$_AssignmentEntry(
+    return _then(_$AssignmentEntryImpl(
       time: null == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -564,8 +564,8 @@ class __$$_AssignmentEntryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AssignmentEntry implements _AssignmentEntry {
-  _$_AssignmentEntry(
+class _$AssignmentEntryImpl implements _AssignmentEntry {
+  _$AssignmentEntryImpl(
       {required this.time,
       required this.user,
       required this.note,
@@ -589,7 +589,7 @@ class _$_AssignmentEntry implements _AssignmentEntry {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AssignmentEntry &&
+            other is _$AssignmentEntryImpl &&
             (identical(other.time, time) || other.time == time) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.note, note) || other.note == note) &&
@@ -603,8 +603,9 @@ class _$_AssignmentEntry implements _AssignmentEntry {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AssignmentEntryCopyWith<_$_AssignmentEntry> get copyWith =>
-      __$$_AssignmentEntryCopyWithImpl<_$_AssignmentEntry>(this, _$identity);
+  _$$AssignmentEntryImplCopyWith<_$AssignmentEntryImpl> get copyWith =>
+      __$$AssignmentEntryImplCopyWithImpl<_$AssignmentEntryImpl>(
+          this, _$identity);
 }
 
 abstract class _AssignmentEntry implements AssignmentEntry {
@@ -612,7 +613,7 @@ abstract class _AssignmentEntry implements AssignmentEntry {
       {required final DateTime time,
       required final MetaDataEntry user,
       required final String note,
-      required final File resource}) = _$_AssignmentEntry;
+      required final File resource}) = _$AssignmentEntryImpl;
 
   @override
   DateTime get time;
@@ -624,7 +625,7 @@ abstract class _AssignmentEntry implements AssignmentEntry {
   File get resource;
   @override
   @JsonKey(ignore: true)
-  _$$_AssignmentEntryCopyWith<_$_AssignmentEntry> get copyWith =>
+  _$$AssignmentEntryImplCopyWith<_$AssignmentEntryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -728,11 +729,11 @@ class _$AssignmentRefCopyWithImpl<$Res, $Val extends AssignmentRef>
 }
 
 /// @nodoc
-abstract class _$$_AssignmentRefCopyWith<$Res>
+abstract class _$$AssignmentRefImplCopyWith<$Res>
     implements $AssignmentRefCopyWith<$Res> {
-  factory _$$_AssignmentRefCopyWith(
-          _$_AssignmentRef value, $Res Function(_$_AssignmentRef) then) =
-      __$$_AssignmentRefCopyWithImpl<$Res>;
+  factory _$$AssignmentRefImplCopyWith(
+          _$AssignmentRefImpl value, $Res Function(_$AssignmentRefImpl) then) =
+      __$$AssignmentRefImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -748,11 +749,11 @@ abstract class _$$_AssignmentRefCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AssignmentRefCopyWithImpl<$Res>
-    extends _$AssignmentRefCopyWithImpl<$Res, _$_AssignmentRef>
-    implements _$$_AssignmentRefCopyWith<$Res> {
-  __$$_AssignmentRefCopyWithImpl(
-      _$_AssignmentRef _value, $Res Function(_$_AssignmentRef) _then)
+class __$$AssignmentRefImplCopyWithImpl<$Res>
+    extends _$AssignmentRefCopyWithImpl<$Res, _$AssignmentRefImpl>
+    implements _$$AssignmentRefImplCopyWith<$Res> {
+  __$$AssignmentRefImplCopyWithImpl(
+      _$AssignmentRefImpl _value, $Res Function(_$AssignmentRefImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -768,7 +769,7 @@ class __$$_AssignmentRefCopyWithImpl<$Res>
     Object? taskNote = null,
     Object? id = null,
   }) {
-    return _then(_$_AssignmentRef(
+    return _then(_$AssignmentRefImpl(
       week: null == week
           ? _value.week
           : week // ignore: cast_nullable_to_non_nullable
@@ -811,8 +812,8 @@ class __$$_AssignmentRefCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AssignmentRef implements _AssignmentRef {
-  _$_AssignmentRef(
+class _$AssignmentRefImpl implements _AssignmentRef {
+  _$AssignmentRefImpl(
       {required this.week,
       required this.team,
       required this.title,
@@ -851,7 +852,7 @@ class _$_AssignmentRef implements _AssignmentRef {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AssignmentRef &&
+            other is _$AssignmentRefImpl &&
             (identical(other.week, week) || other.week == week) &&
             (identical(other.team, team) || other.team == team) &&
             (identical(other.title, title) || other.title == title) &&
@@ -873,8 +874,8 @@ class _$_AssignmentRef implements _AssignmentRef {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AssignmentRefCopyWith<_$_AssignmentRef> get copyWith =>
-      __$$_AssignmentRefCopyWithImpl<_$_AssignmentRef>(this, _$identity);
+  _$$AssignmentRefImplCopyWith<_$AssignmentRefImpl> get copyWith =>
+      __$$AssignmentRefImplCopyWithImpl<_$AssignmentRefImpl>(this, _$identity);
 }
 
 abstract class _AssignmentRef implements AssignmentRef {
@@ -887,7 +888,7 @@ abstract class _AssignmentRef implements AssignmentRef {
       required final String status,
       required final String absence,
       required final String taskNote,
-      required final String id}) = _$_AssignmentRef;
+      required final String id}) = _$AssignmentRefImpl;
 
   @override
   int get week;
@@ -909,6 +910,6 @@ abstract class _AssignmentRef implements AssignmentRef {
   String get id;
   @override
   @JsonKey(ignore: true)
-  _$$_AssignmentRefCopyWith<_$_AssignmentRef> get copyWith =>
+  _$$AssignmentRefImplCopyWith<_$AssignmentRefImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

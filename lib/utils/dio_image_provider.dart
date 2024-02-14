@@ -53,10 +53,7 @@ class DioImage extends ImageProvider<DioImage> {
   }
 
   @override
-  ImageStreamCompleter loadBuffer(DioImage key, DecoderBufferCallback decode) {
-    // Ownership of this controller is handed off to [_loadAsync]; it is that
-    // method's responsibility to close the controller's stream when the image
-    // has been loaded or an error is thrown.
+  ImageStreamCompleter loadImage(DioImage key, ImageDecoderCallback decode) {
     final chunkEvents = StreamController<ImageChunkEvent>();
 
     return MultiFrameImageStreamCompleter(
@@ -74,7 +71,7 @@ class DioImage extends ImageProvider<DioImage> {
   Future<ui.Codec> _loadAsync(
     DioImage key,
     StreamController<ImageChunkEvent> chunkEvents,
-    DecoderBufferCallback decode,
+    ImageDecoderCallback decode,
   ) async {
     try {
       assert(key == this);

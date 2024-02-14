@@ -25,7 +25,8 @@ Future<List<Homework>> extractHomework(BeautifulSoup soup) async {
     CalendarEvent? aktivitet = extractModul(homeworkActivity);
     String note = homework.children[2].text;
     if (aktivitet != null) {
-      homeworkList.add(Homework(aktivitet, parseLectioDate(date), note));
+      homeworkList.add(Homework(
+          activity: aktivitet, dato: parseLectioDate(date), note: note));
     }
   }
   return homeworkList;

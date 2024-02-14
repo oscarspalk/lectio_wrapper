@@ -74,9 +74,10 @@ class _$KortCopyWithImpl<$Res, $Val extends Kort>
 }
 
 /// @nodoc
-abstract class _$$_KortCopyWith<$Res> implements $KortCopyWith<$Res> {
-  factory _$$_KortCopyWith(_$_Kort value, $Res Function(_$_Kort) then) =
-      __$$_KortCopyWithImpl<$Res>;
+abstract class _$$KortImplCopyWith<$Res> implements $KortCopyWith<$Res> {
+  factory _$$KortImplCopyWith(
+          _$KortImpl value, $Res Function(_$KortImpl) then) =
+      __$$KortImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -84,9 +85,10 @@ abstract class _$$_KortCopyWith<$Res> implements $KortCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_KortCopyWithImpl<$Res> extends _$KortCopyWithImpl<$Res, _$_Kort>
-    implements _$$_KortCopyWith<$Res> {
-  __$$_KortCopyWithImpl(_$_Kort _value, $Res Function(_$_Kort) _then)
+class __$$KortImplCopyWithImpl<$Res>
+    extends _$KortCopyWithImpl<$Res, _$KortImpl>
+    implements _$$KortImplCopyWith<$Res> {
+  __$$KortImplCopyWithImpl(_$KortImpl _value, $Res Function(_$KortImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -97,7 +99,7 @@ class __$$_KortCopyWithImpl<$Res> extends _$KortCopyWithImpl<$Res, _$_Kort>
     Object? birthday = null,
     Object? picture = null,
   }) {
-    return _then(_$_Kort(
+    return _then(_$KortImpl(
       gymnasium: null == gymnasium
           ? _value.gymnasium
           : gymnasium // ignore: cast_nullable_to_non_nullable
@@ -120,8 +122,8 @@ class __$$_KortCopyWithImpl<$Res> extends _$KortCopyWithImpl<$Res, _$_Kort>
 
 /// @nodoc
 
-class _$_Kort implements _Kort {
-  _$_Kort(
+class _$KortImpl implements _Kort {
+  _$KortImpl(
       {required this.gymnasium,
       required this.name,
       required this.birthday,
@@ -145,7 +147,7 @@ class _$_Kort implements _Kort {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Kort &&
+            other is _$KortImpl &&
             (identical(other.gymnasium, gymnasium) ||
                 other.gymnasium == gymnasium) &&
             (identical(other.name, name) || other.name == name) &&
@@ -161,8 +163,8 @@ class _$_Kort implements _Kort {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_KortCopyWith<_$_Kort> get copyWith =>
-      __$$_KortCopyWithImpl<_$_Kort>(this, _$identity);
+  _$$KortImplCopyWith<_$KortImpl> get copyWith =>
+      __$$KortImplCopyWithImpl<_$KortImpl>(this, _$identity);
 }
 
 abstract class _Kort implements Kort {
@@ -170,7 +172,7 @@ abstract class _Kort implements Kort {
       {required final String gymnasium,
       required final String name,
       required final DateTime birthday,
-      required final DioImage picture}) = _$_Kort;
+      required final DioImage picture}) = _$KortImpl;
 
   @override
   String get gymnasium;
@@ -182,5 +184,6 @@ abstract class _Kort implements Kort {
   DioImage get picture;
   @override
   @JsonKey(ignore: true)
-  _$$_KortCopyWith<_$_Kort> get copyWith => throw _privateConstructorUsedError;
+  _$$KortImplCopyWith<_$KortImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
