@@ -44,7 +44,6 @@ class Day with _$Day {
 
 enum CalendarEventType { test, regular, private }
 
-@JsonSerializable()
 @freezed
 class CalendarEvent with _$CalendarEvent {
   factory CalendarEvent(

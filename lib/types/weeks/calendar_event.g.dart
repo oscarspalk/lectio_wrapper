@@ -6,53 +6,6 @@ part of 'calendar_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CalendarEvent _$CalendarEventFromJson(Map<String, dynamic> json) =>
-    CalendarEvent(
-      type: $enumDecode(_$CalendarEventTypeEnumMap, json['type']),
-      status: json['status'] as String,
-      title: json['title'] as String,
-      team: json['team'] as String,
-      teachers:
-          (json['teachers'] as List<dynamic>).map((e) => e as String).toList(),
-      room: json['room'] as String,
-      id: json['id'] as String,
-      note: json['note'] as String,
-      start: DateTime.parse(json['start'] as String),
-      end: DateTime.parse(json['end'] as String),
-      hasHomework: json['hasHomework'] as bool,
-      hasNote: json['hasNote'] as bool,
-      teacherObjs: (json['teacherObjs'] as List<dynamic>)
-          .map((e) => MetaDataEntry.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      teamObjs: (json['teamObjs'] as List<dynamic>)
-          .map((e) => MetaDataEntry.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$CalendarEventToJson(CalendarEvent instance) =>
-    <String, dynamic>{
-      'type': _$CalendarEventTypeEnumMap[instance.type]!,
-      'status': instance.status,
-      'title': instance.title,
-      'team': instance.team,
-      'teachers': instance.teachers,
-      'room': instance.room,
-      'id': instance.id,
-      'note': instance.note,
-      'start': instance.start.toIso8601String(),
-      'end': instance.end.toIso8601String(),
-      'hasHomework': instance.hasHomework,
-      'hasNote': instance.hasNote,
-      'teacherObjs': instance.teacherObjs.map((e) => e.toJson()).toList(),
-      'teamObjs': instance.teamObjs.map((e) => e.toJson()).toList(),
-    };
-
-const _$CalendarEventTypeEnumMap = {
-  CalendarEventType.test: 'test',
-  CalendarEventType.regular: 'regular',
-  CalendarEventType.private: 'private',
-};
-
 _$DayTimeImpl _$$DayTimeImplFromJson(Map<String, dynamic> json) =>
     _$DayTimeImpl(
       hour: json['hour'] as int,
@@ -152,3 +105,9 @@ Map<String, dynamic> _$$CalendarEventImplToJson(_$CalendarEventImpl instance) =>
       'teacherObjs': instance.teacherObjs.map((e) => e.toJson()).toList(),
       'teamObjs': instance.teamObjs.map((e) => e.toJson()).toList(),
     };
+
+const _$CalendarEventTypeEnumMap = {
+  CalendarEventType.test: 'test',
+  CalendarEventType.regular: 'regular',
+  CalendarEventType.private: 'private',
+};

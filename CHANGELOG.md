@@ -594,3 +594,7 @@
 ## 0.6.45
 
 * More json stuff
+
+## 0.6.46
+
+* Json
