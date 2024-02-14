@@ -21,7 +21,6 @@ Homework _$HomeworkFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Homework {
   DateTime get dato => throw _privateConstructorUsedError;
-  @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
   CalendarEvent get activity => throw _privateConstructorUsedError;
   String get note => throw _privateConstructorUsedError;
 
@@ -36,11 +35,7 @@ abstract class $HomeworkCopyWith<$Res> {
   factory $HomeworkCopyWith(Homework value, $Res Function(Homework) then) =
       _$HomeworkCopyWithImpl<$Res, Homework>;
   @useResult
-  $Res call(
-      {DateTime dato,
-      @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
-      CalendarEvent activity,
-      String note});
+  $Res call({DateTime dato, CalendarEvent activity, String note});
 
   $CalendarEventCopyWith<$Res> get activity;
 }
@@ -95,11 +90,7 @@ abstract class _$$HomeworkImplCopyWith<$Res>
       __$$HomeworkImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {DateTime dato,
-      @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
-      CalendarEvent activity,
-      String note});
+  $Res call({DateTime dato, CalendarEvent activity, String note});
 
   @override
   $CalendarEventCopyWith<$Res> get activity;
@@ -141,10 +132,7 @@ class __$$HomeworkImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$HomeworkImpl implements _Homework {
   _$HomeworkImpl(
-      {required this.dato,
-      @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
-      required this.activity,
-      required this.note});
+      {required this.dato, required this.activity, required this.note});
 
   factory _$HomeworkImpl.fromJson(Map<String, dynamic> json) =>
       _$$HomeworkImplFromJson(json);
@@ -152,7 +140,6 @@ class _$HomeworkImpl implements _Homework {
   @override
   final DateTime dato;
   @override
-  @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
   final CalendarEvent activity;
   @override
   final String note;
@@ -194,7 +181,6 @@ class _$HomeworkImpl implements _Homework {
 abstract class _Homework implements Homework {
   factory _Homework(
       {required final DateTime dato,
-      @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
       required final CalendarEvent activity,
       required final String note}) = _$HomeworkImpl;
 
@@ -204,7 +190,6 @@ abstract class _Homework implements Homework {
   @override
   DateTime get dato;
   @override
-  @JsonKey(name: "activity", fromJson: eventFromJson, toJson: eventToJson)
   CalendarEvent get activity;
   @override
   String get note;

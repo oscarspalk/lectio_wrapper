@@ -582,3 +582,7 @@
 ## 0.6.42
 
 * Serializable homework didn't work 100%
+
+## 0.6.43
+
+* It should already be working fine
