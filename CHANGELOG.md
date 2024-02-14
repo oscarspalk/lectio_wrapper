@@ -598,3 +598,7 @@
 ## 0.6.46
 
 * Json
+
+## 0.6.47
+
+* Requires to be placed outside

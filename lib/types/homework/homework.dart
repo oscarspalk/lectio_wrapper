@@ -4,9 +4,9 @@ import 'package:lectio_wrapper/lectio_wrapper.dart';
 part 'homework.freezed.dart';
 part 'homework.g.dart';
 
-@JsonSerializable(explicitToJson: true)
 @freezed
 class Homework with _$Homework {
+  @JsonSerializable(explicitToJson: true)
   factory Homework(
       {required DateTime dato,
       required CalendarEvent activity,
