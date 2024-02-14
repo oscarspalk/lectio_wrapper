@@ -17,6 +17,6 @@ _$HomeworkImpl _$$HomeworkImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$HomeworkImplToJson(_$HomeworkImpl instance) =>
     <String, dynamic>{
       'dato': instance.dato.toIso8601String(),
-      'activity': instance.activity,
+      'activity': instance.activity.toJson(),
       'note': instance.note,
     };

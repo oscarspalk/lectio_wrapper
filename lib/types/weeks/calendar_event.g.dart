@@ -28,8 +28,8 @@ _$ModulRangeImpl _$$ModulRangeImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ModulRangeImplToJson(_$ModulRangeImpl instance) =>
     <String, dynamic>{
       'number': instance.number,
-      'start': instance.start,
-      'end': instance.end,
+      'start': instance.start.toJson(),
+      'end': instance.end.toJson(),
     };
 
 _$WeekImpl _$$WeekImplFromJson(Map<String, dynamic> json) => _$WeekImpl(
@@ -44,9 +44,9 @@ _$WeekImpl _$$WeekImplFromJson(Map<String, dynamic> json) => _$WeekImpl(
 
 Map<String, dynamic> _$$WeekImplToJson(_$WeekImpl instance) =>
     <String, dynamic>{
-      'days': instance.days,
+      'days': instance.days.map((e) => e.toJson()).toList(),
       'weekNum': instance.weekNum,
-      'modulRanges': instance.modulRanges,
+      'modulRanges': instance.modulRanges.map((e) => e.toJson()).toList(),
     };
 
 _$DayImpl _$$DayImplFromJson(Map<String, dynamic> json) => _$DayImpl(
@@ -61,7 +61,7 @@ _$DayImpl _$$DayImplFromJson(Map<String, dynamic> json) => _$DayImpl(
 
 Map<String, dynamic> _$$DayImplToJson(_$DayImpl instance) => <String, dynamic>{
       'informations': instance.informations,
-      'events': instance.events,
+      'events': instance.events.map((e) => e.toJson()).toList(),
       'date': instance.date.toIso8601String(),
     };
 
@@ -102,8 +102,8 @@ Map<String, dynamic> _$$CalendarEventImplToJson(_$CalendarEventImpl instance) =>
       'end': instance.end.toIso8601String(),
       'hasHomework': instance.hasHomework,
       'hasNote': instance.hasNote,
-      'teacherObjs': instance.teacherObjs,
-      'teamObjs': instance.teamObjs,
+      'teacherObjs': instance.teacherObjs.map((e) => e.toJson()).toList(),
+      'teamObjs': instance.teamObjs.map((e) => e.toJson()).toList(),
     };
 
 const _$CalendarEventTypeEnumMap = {

@@ -29,7 +29,7 @@ Map<String, dynamic> _$$AbsenceCauseEntryImplToJson(
       'note': instance.note,
       'registered': instance.registered.toIso8601String(),
       'type': _$AbsenceTypeEnumMap[instance.type]!,
-      'module': instance.module,
+      'module': instance.module.toJson(),
     };
 
 const _$AbsenceCausesEnumMap = {
