@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lectio_wrapper/lectio_wrapper.dart';
+
+import '../weeks/calendar_event.dart';
 
 part 'homework.freezed.dart';
 part 'homework.g.dart';
 
 @freezed
 class Homework with _$Homework {
-  @JsonSerializable(explicitToJson: true)
   factory Homework(
       {required DateTime dato,
       required CalendarEvent activity,

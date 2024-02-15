@@ -602,3 +602,7 @@
 ## 0.6.47
 
 * Requires to be placed outside
+
+## 0.6.48
+
+* An import was all it took
