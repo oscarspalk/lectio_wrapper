@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+File _$FileFromJson(Map<String, dynamic> json) {
+  return _File.fromJson(json);
+}
+
 /// @nodoc
 mixin _$File {
   String get href => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FileCopyWith<File> get copyWith => throw _privateConstructorUsedError;
 }
@@ -97,9 +102,12 @@ class __$$FileImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$FileImpl implements _File {
   _$FileImpl({required this.href, required this.name});
+
+  factory _$FileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FileImplFromJson(json);
 
   @override
   final String href;
@@ -120,6 +128,7 @@ class _$FileImpl implements _File {
             (identical(other.name, name) || other.name == name));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, href, name);
 
@@ -128,11 +137,20 @@ class _$FileImpl implements _File {
   @pragma('vm:prefer-inline')
   _$$FileImplCopyWith<_$FileImpl> get copyWith =>
       __$$FileImplCopyWithImpl<_$FileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FileImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _File implements File {
   factory _File({required final String href, required final String name}) =
       _$FileImpl;
+
+  factory _File.fromJson(Map<String, dynamic> json) = _$FileImpl.fromJson;
 
   @override
   String get href;

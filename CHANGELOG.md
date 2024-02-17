@@ -606,3 +606,7 @@
 ## 0.6.48
 
 * An import was all it took
+
+## 0.6.49
+
+* Made more types json encodable

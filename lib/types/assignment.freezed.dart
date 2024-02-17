@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+Assignment _$AssignmentFromJson(Map<String, dynamic> json) {
+  return _Assignment.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Assignment {
   List<File> get testFiles => throw _privateConstructorUsedError;
@@ -30,6 +34,7 @@ mixin _$Assignment {
   String get gradeNote => throw _privateConstructorUsedError;
   List<AssignmentEntry> get entries => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AssignmentCopyWith<Assignment> get copyWith =>
       throw _privateConstructorUsedError;
@@ -272,7 +277,7 @@ class __$$AssignmentImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$AssignmentImpl implements _Assignment {
   _$AssignmentImpl(
       {required final List<File> testFiles,
@@ -290,6 +295,9 @@ class _$AssignmentImpl implements _Assignment {
       required final List<AssignmentEntry> entries})
       : _testFiles = testFiles,
         _entries = entries;
+
+  factory _$AssignmentImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AssignmentImplFromJson(json);
 
   final List<File> _testFiles;
   @override
@@ -358,6 +366,7 @@ class _$AssignmentImpl implements _Assignment {
             const DeepCollectionEquality().equals(other._entries, _entries));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -380,6 +389,13 @@ class _$AssignmentImpl implements _Assignment {
   @pragma('vm:prefer-inline')
   _$$AssignmentImplCopyWith<_$AssignmentImpl> get copyWith =>
       __$$AssignmentImplCopyWithImpl<_$AssignmentImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AssignmentImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Assignment implements Assignment {
@@ -397,6 +413,9 @@ abstract class _Assignment implements Assignment {
       required final double absence,
       required final String gradeNote,
       required final List<AssignmentEntry> entries}) = _$AssignmentImpl;
+
+  factory _Assignment.fromJson(Map<String, dynamic> json) =
+      _$AssignmentImpl.fromJson;
 
   @override
   List<File> get testFiles;
@@ -430,6 +449,10 @@ abstract class _Assignment implements Assignment {
       throw _privateConstructorUsedError;
 }
 
+AssignmentEntry _$AssignmentEntryFromJson(Map<String, dynamic> json) {
+  return _AssignmentEntry.fromJson(json);
+}
+
 /// @nodoc
 mixin _$AssignmentEntry {
   DateTime get time => throw _privateConstructorUsedError;
@@ -437,6 +460,7 @@ mixin _$AssignmentEntry {
   String get note => throw _privateConstructorUsedError;
   File get resource => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AssignmentEntryCopyWith<AssignmentEntry> get copyWith =>
       throw _privateConstructorUsedError;
@@ -563,13 +587,16 @@ class __$$AssignmentEntryImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$AssignmentEntryImpl implements _AssignmentEntry {
   _$AssignmentEntryImpl(
       {required this.time,
       required this.user,
       required this.note,
       required this.resource});
+
+  factory _$AssignmentEntryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AssignmentEntryImplFromJson(json);
 
   @override
   final DateTime time;
@@ -597,6 +624,7 @@ class _$AssignmentEntryImpl implements _AssignmentEntry {
                 other.resource == resource));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, time, user, note, resource);
 
@@ -606,6 +634,13 @@ class _$AssignmentEntryImpl implements _AssignmentEntry {
   _$$AssignmentEntryImplCopyWith<_$AssignmentEntryImpl> get copyWith =>
       __$$AssignmentEntryImplCopyWithImpl<_$AssignmentEntryImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AssignmentEntryImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _AssignmentEntry implements AssignmentEntry {
@@ -614,6 +649,9 @@ abstract class _AssignmentEntry implements AssignmentEntry {
       required final MetaDataEntry user,
       required final String note,
       required final File resource}) = _$AssignmentEntryImpl;
+
+  factory _AssignmentEntry.fromJson(Map<String, dynamic> json) =
+      _$AssignmentEntryImpl.fromJson;
 
   @override
   DateTime get time;
@@ -629,6 +667,10 @@ abstract class _AssignmentEntry implements AssignmentEntry {
       throw _privateConstructorUsedError;
 }
 
+AssignmentRef _$AssignmentRefFromJson(Map<String, dynamic> json) {
+  return _AssignmentRef.fromJson(json);
+}
+
 /// @nodoc
 mixin _$AssignmentRef {
   int get week => throw _privateConstructorUsedError;
@@ -641,6 +683,7 @@ mixin _$AssignmentRef {
   String get taskNote => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AssignmentRefCopyWith<AssignmentRef> get copyWith =>
       throw _privateConstructorUsedError;
@@ -811,7 +854,7 @@ class __$$AssignmentRefImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$AssignmentRefImpl implements _AssignmentRef {
   _$AssignmentRefImpl(
       {required this.week,
@@ -823,6 +866,9 @@ class _$AssignmentRefImpl implements _AssignmentRef {
       required this.absence,
       required this.taskNote,
       required this.id});
+
+  factory _$AssignmentRefImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AssignmentRefImplFromJson(json);
 
   @override
   final int week;
@@ -867,6 +913,7 @@ class _$AssignmentRefImpl implements _AssignmentRef {
             (identical(other.id, id) || other.id == id));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, week, team, title, deadline,
       studentTime, status, absence, taskNote, id);
@@ -876,6 +923,13 @@ class _$AssignmentRefImpl implements _AssignmentRef {
   @pragma('vm:prefer-inline')
   _$$AssignmentRefImplCopyWith<_$AssignmentRefImpl> get copyWith =>
       __$$AssignmentRefImplCopyWithImpl<_$AssignmentRefImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AssignmentRefImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _AssignmentRef implements AssignmentRef {
@@ -889,6 +943,9 @@ abstract class _AssignmentRef implements AssignmentRef {
       required final String absence,
       required final String taskNote,
       required final String id}) = _$AssignmentRefImpl;
+
+  factory _AssignmentRef.fromJson(Map<String, dynamic> json) =
+      _$AssignmentRefImpl.fromJson;
 
   @override
   int get week;

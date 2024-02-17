@@ -4,6 +4,7 @@ import 'package:lectio_wrapper/types/primitives/file.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
 part 'assignment.freezed.dart';
+part 'assignment.g.dart';
 
 @freezed
 class Assignment with _$Assignment {
@@ -21,6 +22,8 @@ class Assignment with _$Assignment {
       required double absence,
       required String gradeNote,
       required List<AssignmentEntry> entries}) = _Assignment;
+  factory Assignment.fromJson(Map<String, Object?> json) =>
+      _$AssignmentFromJson(json);
 }
 
 @freezed
@@ -30,6 +33,9 @@ class AssignmentEntry with _$AssignmentEntry {
       required MetaDataEntry user,
       required String note,
       required File resource}) = _AssignmentEntry;
+
+  factory AssignmentEntry.fromJson(Map<String, Object?> json) =>
+      _$AssignmentEntryFromJson(json);
 }
 
 @freezed
@@ -44,4 +50,7 @@ class AssignmentRef with _$AssignmentRef {
       required String absence,
       required String taskNote,
       required String id}) = _AssignmentRef;
+
+  factory AssignmentRef.fromJson(Map<String, Object?> json) =>
+      _$AssignmentRefFromJson(json);
 }

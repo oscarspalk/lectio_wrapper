@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'team.freezed.dart';
+part 'team.g.dart';
 
 @freezed
 class Team with _$Team {
@@ -8,6 +9,8 @@ class Team with _$Team {
       {required String name,
       required String id,
       required String displayName}) = _Team;
+
+  factory Team.fromJson(Map<String, Object?> json) => _$TeamFromJson(json);
 }
 
 @freezed
