@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Subject {
   String get name => throw _privateConstructorUsedError;
-  SubjectTypes get type => throw _privateConstructorUsedError;
+  SubjectTypes? get type => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SubjectCopyWith<Subject> get copyWith => throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ abstract class $SubjectCopyWith<$Res> {
   factory $SubjectCopyWith(Subject value, $Res Function(Subject) then) =
       _$SubjectCopyWithImpl<$Res, Subject>;
   @useResult
-  $Res call({String name, SubjectTypes type});
+  $Res call({String name, SubjectTypes? type});
 }
 
 /// @nodoc
@@ -45,17 +45,17 @@ class _$SubjectCopyWithImpl<$Res, $Val extends Subject>
   @override
   $Res call({
     Object? name = null,
-    Object? type = null,
+    Object? type = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as SubjectTypes,
+              as SubjectTypes?,
     ) as $Val);
   }
 }
@@ -67,7 +67,7 @@ abstract class _$$SubjectImplCopyWith<$Res> implements $SubjectCopyWith<$Res> {
       __$$SubjectImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, SubjectTypes type});
+  $Res call({String name, SubjectTypes? type});
 }
 
 /// @nodoc
@@ -82,17 +82,17 @@ class __$$SubjectImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? type = null,
+    Object? type = freezed,
   }) {
     return _then(_$SubjectImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
+      type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as SubjectTypes,
+              as SubjectTypes?,
     ));
   }
 }
@@ -105,7 +105,7 @@ class _$SubjectImpl implements _Subject {
   @override
   final String name;
   @override
-  final SubjectTypes type;
+  final SubjectTypes? type;
 
   @override
   String toString() {
@@ -134,12 +134,12 @@ class _$SubjectImpl implements _Subject {
 abstract class _Subject implements Subject {
   factory _Subject(
       {required final String name,
-      required final SubjectTypes type}) = _$SubjectImpl;
+      required final SubjectTypes? type}) = _$SubjectImpl;
 
   @override
   String get name;
   @override
-  SubjectTypes get type;
+  SubjectTypes? get type;
   @override
   @JsonKey(ignore: true)
   _$$SubjectImplCopyWith<_$SubjectImpl> get copyWith =>

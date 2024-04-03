@@ -17,6 +17,6 @@ extension SubjectTypesExtension on SubjectTypes {
 
 @freezed
 class Subject with _$Subject {
-  factory Subject({required String name, required SubjectTypes type}) =
+  factory Subject({required String name, required SubjectTypes? type}) =
       _Subject;
 }

@@ -26,7 +26,8 @@ GradeRow? extractGradeRow(Bs4Element gradeRow, Student student) {
   var subject = Subject(
       name: subjectList[0],
       type: SubjectTypes.values
-          .firstWhere((element) => element.name == subjectList[1]));
+          .where((element) => element.name == subjectList[1])
+          .firstOrNull);
   var teamCell = gradeRow.children[0].children[0];
   var teamId = teamCell.getAttrValue("data-lectiocontextcard")!;
   var teamName = teamCell.text;

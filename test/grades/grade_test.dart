@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:dotenv/dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lectio_wrapper/lectio_wrapper.dart';
+import 'package:lectio_wrapper/topics/grades/scraping.dart';
 
 void main() {
   var env = DotEnv()..load();
@@ -18,5 +22,12 @@ void main() {
   test('list all grade notes', () async {
     var gradeNotes = await student!.grades.notes.list();
     expect(gradeNotes, anyOf(isNotEmpty, isEmpty));
+  });
+
+  test('test htx grades', () async {
+    var file = File(r"C:\Users\knudi\dev\lectio_wrapper\tests\grades.htm");
+    var content = (await file.readAsLines()).join("\n");
+    var grades = await extractGrades(BeautifulSoup(content), student!);
+    expect(grades, isNotEmpty);
   });
 }

@@ -610,3 +610,7 @@
 ## 0.6.49
 
 * Made more types json encodable
+
+## 0.6.50
+
+* Grades can apparently be other types than oral or written
