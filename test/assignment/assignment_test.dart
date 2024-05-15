@@ -26,19 +26,8 @@ void main() {
         status: "",
         absence: "",
         taskNote: "taskNote",
-        id: "59978186146"));
-    var assignment2 = await student!.assignments.get(AssignmentRef(
-        week: 1,
-        team: " ",
-        title: "",
-        deadline: DateTime.now(),
-        studentTime: 3,
-        status: "",
-        absence: "",
-        taskNote: "taskNote",
-        id: "59978186146"));
+        id: "61159044212"));
 
     expect(assignment, isNotNull);
-    expect(assignment2, isNotNull);
   });
 }

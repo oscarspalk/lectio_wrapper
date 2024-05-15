@@ -614,3 +614,7 @@
 ## 0.6.50
 
 * Grades can apparently be other types than oral or written
+
+## 0.6.51
+
+* Assignment entries can be without documents

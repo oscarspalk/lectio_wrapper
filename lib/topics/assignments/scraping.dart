@@ -102,7 +102,10 @@ Future<Assignment> extractAssignment(
   entryRows.removeAt(0);
   List<AssignmentEntry> entries = [];
   for (var row in entryRows) {
-    entries.add(extractAssignmentEntry(row));
+    var extracted = extractAssignmentEntry(row);
+    if (extracted != null) {
+      entries.add(extracted);
+    }
   }
   String grade = "";
   double absence = 0.0;
@@ -119,8 +122,8 @@ Future<Assignment> extractAssignment(
     Bs4Element? absenceElement = studentRow.children.elementAtOrNull(3);
     Bs4Element? gradeElement = studentRow.children.elementAtOrNull(5);
     Bs4Element? gradeNoteElement = studentRow.children.elementAtOrNull(6);
-    grade = gradeElement?.text ?? "";
-    gradeNote = gradeNoteElement?.text ?? "";
+    grade = gradeElement?.text.trim() ?? "";
+    gradeNote = gradeNoteElement?.text.trim() ?? "";
     String? rightSideAbsence =
         absenceElement?.text.split("/").elementAtOrNull(1);
     String? percentageString =
@@ -144,14 +147,18 @@ Future<Assignment> extractAssignment(
       absence: absence);
 }
 
-AssignmentEntry extractAssignmentEntry(Bs4Element row) {
+AssignmentEntry? extractAssignmentEntry(Bs4Element row) {
   DateTime time = deadlineFormat.parse(row.children[0].text);
   Bs4Element personElement = row.children[1].children[0];
   MetaDataEntry user = MetaDataEntry(
       name: personElement.text,
       id: personElement.getAttrValue("data-lectiocontextcard")!);
   String note = row.children[2].text;
-  Bs4Element resource = row.children[3].children[0].children[0];
-  File file = File(href: resource.getAttrValue("href")!, name: resource.text);
-  return AssignmentEntry(time: time, user: user, note: note, resource: file);
+  Bs4Element? resource =
+      row.children[3].children[0].children.elementAtOrNull(0);
+  if (resource != null) {
+    File file = File(href: resource.getAttrValue("href")!, name: resource.text);
+    return AssignmentEntry(time: time, user: user, note: note, resource: file);
+  }
+  return null;
 }
