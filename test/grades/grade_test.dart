@@ -24,6 +24,11 @@ void main() {
     expect(gradeNotes, anyOf(isNotEmpty, isEmpty));
   });
 
+  test('list exam proof', () async {
+    var examProof = await student!.grades.getExamProof();
+    expect(examProof, isNotNull);
+  });
+
   test('test htx grades', () async {
     var file = File(r"C:\Users\knudi\dev\lectio_wrapper\tests\grades.htm");
     var content = (await file.readAsLines()).join("\n");

@@ -1,11 +1,12 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
+import 'package:lectio_wrapper/types/grades/exam_entry.dart';
+import 'package:lectio_wrapper/types/grades/exam_grade.dart';
 import 'package:lectio_wrapper/types/grades/grade.dart';
 import 'package:lectio_wrapper/types/grades/subject.dart';
 import 'package:lectio_wrapper/types/primitives/team.dart';
 
-Future<List<GradeRow>> extractGrades(
-    BeautifulSoup soup, Student student) async {
+List<GradeRow> extractGrades(BeautifulSoup soup, Student student) {
   List<GradeRow> returnedRows = [];
   Bs4Element? gradeTable =
       soup.find('*', id: 's_m_Content_Content_karakterView_KarakterGV');
@@ -71,4 +72,39 @@ Grade? extractSingleGrade(Bs4Element element) {
   } catch (_) {
     return null;
   }
+}
+
+List<ExamEntry> extractExamEntries(BeautifulSoup soup) {
+  List<ExamEntry> entries = [];
+  var diplomaDiv = soup.find('*', id: 'printareaDiplomaLines');
+  var table = diplomaDiv?.find('tbody')?.children;
+  if (table != null) {
+    // start at index 2 because of double header
+    for (int i = 2; i < table.length; i++) {
+      var children = table[i].children;
+      var subject = children.elementAtOrNull(0)?.text;
+      var yearGrade = children.length >= 4
+          ? extractExamGrade(children.sublist(1, 4))
+          : null;
+      var examGrade = children.length >= 7
+          ? extractExamGrade(children.sublist(4, 7))
+          : null;
+      if (subject != null && subject.isNotEmpty) {
+        entries.add(ExamEntry(
+            team: subject, yearGrade: yearGrade, examGrade: examGrade));
+      }
+    }
+  }
+  return entries;
+}
+
+ExamGrade? extractExamGrade(List<Bs4Element> elements) {
+  var weight = double.tryParse(
+      elements.elementAtOrNull(0)?.text.replaceAll(",", ".") ?? "");
+  var grade = int.tryParse(elements.elementAtOrNull(1)?.text ?? "");
+  var ects = elements.elementAtOrNull(2)?.text;
+  if (ects != null && grade != null && weight != null) {
+    return ExamGrade(ects: ects, grade: Grade(weight: weight, grade: grade));
+  }
+  return null;
 }

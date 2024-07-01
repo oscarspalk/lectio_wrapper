@@ -8,8 +8,8 @@ part of 'calendar_event.dart';
 
 _$DayTimeImpl _$$DayTimeImplFromJson(Map<String, dynamic> json) =>
     _$DayTimeImpl(
-      hour: json['hour'] as int,
-      minute: json['minute'] as int,
+      hour: (json['hour'] as num).toInt(),
+      minute: (json['minute'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$DayTimeImplToJson(_$DayTimeImpl instance) =>
@@ -20,7 +20,7 @@ Map<String, dynamic> _$$DayTimeImplToJson(_$DayTimeImpl instance) =>
 
 _$ModulRangeImpl _$$ModulRangeImplFromJson(Map<String, dynamic> json) =>
     _$ModulRangeImpl(
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
       start: DayTime.fromJson(json['start'] as Map<String, dynamic>),
       end: DayTime.fromJson(json['end'] as Map<String, dynamic>),
     );
@@ -36,7 +36,7 @@ _$WeekImpl _$$WeekImplFromJson(Map<String, dynamic> json) => _$WeekImpl(
       days: (json['days'] as List<dynamic>)
           .map((e) => Day.fromJson(e as Map<String, dynamic>))
           .toList(),
-      weekNum: json['weekNum'] as int,
+      weekNum: (json['weekNum'] as num).toInt(),
       modulRanges: (json['modulRanges'] as List<dynamic>)
           .map((e) => ModulRange.fromJson(e as Map<String, dynamic>))
           .toList(),

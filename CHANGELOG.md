@@ -618,3 +618,7 @@
 ## 0.6.51
 
 * Assignment entries can be without documents
+
+## 0.6.52
+
+* You can now fetch exam proof

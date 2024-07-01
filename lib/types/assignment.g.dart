@@ -65,7 +65,7 @@ Map<String, dynamic> _$$AssignmentEntryImplToJson(
 
 _$AssignmentRefImpl _$$AssignmentRefImplFromJson(Map<String, dynamic> json) =>
     _$AssignmentRefImpl(
-      week: json['week'] as int,
+      week: (json['week'] as num).toInt(),
       team: json['team'] as String,
       title: json['title'] as String,
       deadline: DateTime.parse(json['deadline'] as String),
