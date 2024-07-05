@@ -622,3 +622,7 @@
 ## 0.6.52
 
 * You can now fetch exam proof
+
+## 0.6.54
+
+* Study plans can apparently last only a day

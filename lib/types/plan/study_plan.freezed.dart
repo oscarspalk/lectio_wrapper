@@ -175,7 +175,7 @@ abstract class _StudyTeamEntry implements StudyTeamEntry {
 mixin _$StudyPlanRef {
   String get title => throw _privateConstructorUsedError;
   DateTime get start => throw _privateConstructorUsedError;
-  DateTime get end => throw _privateConstructorUsedError;
+  DateTime? get end => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -189,7 +189,7 @@ abstract class $StudyPlanRefCopyWith<$Res> {
           StudyPlanRef value, $Res Function(StudyPlanRef) then) =
       _$StudyPlanRefCopyWithImpl<$Res, StudyPlanRef>;
   @useResult
-  $Res call({String title, DateTime start, DateTime end, String id});
+  $Res call({String title, DateTime start, DateTime? end, String id});
 }
 
 /// @nodoc
@@ -207,7 +207,7 @@ class _$StudyPlanRefCopyWithImpl<$Res, $Val extends StudyPlanRef>
   $Res call({
     Object? title = null,
     Object? start = null,
-    Object? end = null,
+    Object? end = freezed,
     Object? id = null,
   }) {
     return _then(_value.copyWith(
@@ -219,10 +219,10 @@ class _$StudyPlanRefCopyWithImpl<$Res, $Val extends StudyPlanRef>
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      end: null == end
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -239,7 +239,7 @@ abstract class _$$StudyPlanRefImplCopyWith<$Res>
       __$$StudyPlanRefImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, DateTime start, DateTime end, String id});
+  $Res call({String title, DateTime start, DateTime? end, String id});
 }
 
 /// @nodoc
@@ -255,7 +255,7 @@ class __$$StudyPlanRefImplCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? start = null,
-    Object? end = null,
+    Object? end = freezed,
     Object? id = null,
   }) {
     return _then(_$StudyPlanRefImpl(
@@ -267,10 +267,10 @@ class __$$StudyPlanRefImplCopyWithImpl<$Res>
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      end: null == end
+      end: freezed == end
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -293,7 +293,7 @@ class _$StudyPlanRefImpl implements _StudyPlanRef {
   @override
   final DateTime start;
   @override
-  final DateTime end;
+  final DateTime? end;
   @override
   final String id;
 
@@ -327,7 +327,7 @@ abstract class _StudyPlanRef implements StudyPlanRef {
   factory _StudyPlanRef(
       {required final String title,
       required final DateTime start,
-      required final DateTime end,
+      required final DateTime? end,
       required final String id}) = _$StudyPlanRefImpl;
 
   @override
@@ -335,7 +335,7 @@ abstract class _StudyPlanRef implements StudyPlanRef {
   @override
   DateTime get start;
   @override
-  DateTime get end;
+  DateTime? get end;
   @override
   String get id;
   @override
