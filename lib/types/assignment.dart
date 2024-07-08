@@ -47,6 +47,7 @@ class AssignmentRef with _$AssignmentRef {
       required DateTime deadline,
       required double studentTime,
       required String status,
+      required String awaits,
       required String absence,
       required String taskNote,
       required String id}) = _AssignmentRef;

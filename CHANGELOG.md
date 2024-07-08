@@ -630,3 +630,7 @@
 ## 0.6.55
 
 * Added something purely for debug purposes
+
+## 0.6.56
+
+* Added afventer property to assignments, so we know when they are finished

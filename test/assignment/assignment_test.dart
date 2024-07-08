@@ -18,6 +18,7 @@ void main() {
 
   test('get assignment', () async {
     var assignment = await student!.assignments.get(AssignmentRef(
+        awaits: "",
         week: 1,
         team: " ",
         title: "",

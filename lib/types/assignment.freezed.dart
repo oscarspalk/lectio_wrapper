@@ -679,6 +679,7 @@ mixin _$AssignmentRef {
   DateTime get deadline => throw _privateConstructorUsedError;
   double get studentTime => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  String get awaits => throw _privateConstructorUsedError;
   String get absence => throw _privateConstructorUsedError;
   String get taskNote => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
@@ -702,6 +703,7 @@ abstract class $AssignmentRefCopyWith<$Res> {
       DateTime deadline,
       double studentTime,
       String status,
+      String awaits,
       String absence,
       String taskNote,
       String id});
@@ -726,6 +728,7 @@ class _$AssignmentRefCopyWithImpl<$Res, $Val extends AssignmentRef>
     Object? deadline = null,
     Object? studentTime = null,
     Object? status = null,
+    Object? awaits = null,
     Object? absence = null,
     Object? taskNote = null,
     Object? id = null,
@@ -754,6 +757,10 @@ class _$AssignmentRefCopyWithImpl<$Res, $Val extends AssignmentRef>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      awaits: null == awaits
+          ? _value.awaits
+          : awaits // ignore: cast_nullable_to_non_nullable
               as String,
       absence: null == absence
           ? _value.absence
@@ -786,6 +793,7 @@ abstract class _$$AssignmentRefImplCopyWith<$Res>
       DateTime deadline,
       double studentTime,
       String status,
+      String awaits,
       String absence,
       String taskNote,
       String id});
@@ -808,6 +816,7 @@ class __$$AssignmentRefImplCopyWithImpl<$Res>
     Object? deadline = null,
     Object? studentTime = null,
     Object? status = null,
+    Object? awaits = null,
     Object? absence = null,
     Object? taskNote = null,
     Object? id = null,
@@ -837,6 +846,10 @@ class __$$AssignmentRefImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      awaits: null == awaits
+          ? _value.awaits
+          : awaits // ignore: cast_nullable_to_non_nullable
+              as String,
       absence: null == absence
           ? _value.absence
           : absence // ignore: cast_nullable_to_non_nullable
@@ -863,6 +876,7 @@ class _$AssignmentRefImpl implements _AssignmentRef {
       required this.deadline,
       required this.studentTime,
       required this.status,
+      required this.awaits,
       required this.absence,
       required this.taskNote,
       required this.id});
@@ -883,6 +897,8 @@ class _$AssignmentRefImpl implements _AssignmentRef {
   @override
   final String status;
   @override
+  final String awaits;
+  @override
   final String absence;
   @override
   final String taskNote;
@@ -891,7 +907,7 @@ class _$AssignmentRefImpl implements _AssignmentRef {
 
   @override
   String toString() {
-    return 'AssignmentRef(week: $week, team: $team, title: $title, deadline: $deadline, studentTime: $studentTime, status: $status, absence: $absence, taskNote: $taskNote, id: $id)';
+    return 'AssignmentRef(week: $week, team: $team, title: $title, deadline: $deadline, studentTime: $studentTime, status: $status, awaits: $awaits, absence: $absence, taskNote: $taskNote, id: $id)';
   }
 
   @override
@@ -907,6 +923,7 @@ class _$AssignmentRefImpl implements _AssignmentRef {
             (identical(other.studentTime, studentTime) ||
                 other.studentTime == studentTime) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.awaits, awaits) || other.awaits == awaits) &&
             (identical(other.absence, absence) || other.absence == absence) &&
             (identical(other.taskNote, taskNote) ||
                 other.taskNote == taskNote) &&
@@ -916,7 +933,7 @@ class _$AssignmentRefImpl implements _AssignmentRef {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, week, team, title, deadline,
-      studentTime, status, absence, taskNote, id);
+      studentTime, status, awaits, absence, taskNote, id);
 
   @JsonKey(ignore: true)
   @override
@@ -940,6 +957,7 @@ abstract class _AssignmentRef implements AssignmentRef {
       required final DateTime deadline,
       required final double studentTime,
       required final String status,
+      required final String awaits,
       required final String absence,
       required final String taskNote,
       required final String id}) = _$AssignmentRefImpl;
@@ -959,6 +977,8 @@ abstract class _AssignmentRef implements AssignmentRef {
   double get studentTime;
   @override
   String get status;
+  @override
+  String get awaits;
   @override
   String get absence;
   @override
