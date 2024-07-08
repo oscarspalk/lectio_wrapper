@@ -16,7 +16,13 @@ void main() {
     var messages = await student!.messages.list();
 
     var message = await student!.messages.get(
-      MessageRef(messages[0].id, DateTime.now(), "", "", -70, ""),
+      MessageRef(
+          id: messages[0].id,
+          dateChanged: DateTime.now(),
+          folderId: 2,
+          normalizedId: '',
+          sender: '',
+          topic: ''),
     );
     expect(message, isNotNull);
   });

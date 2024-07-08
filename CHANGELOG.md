@@ -634,3 +634,7 @@
 ## 0.6.56
 
 * Added afventer property to assignments, so we know when they are finished
+
+## 0.6.57
+
+* Made MessageRef a `freezed` class
