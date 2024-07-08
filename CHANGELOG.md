@@ -626,3 +626,7 @@
 ## 0.6.54
 
 * Study plans can apparently last only a day
+
+## 0.6.55
+
+* Added something purely for debug purposes

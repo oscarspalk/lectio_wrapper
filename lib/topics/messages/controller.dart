@@ -14,7 +14,10 @@ class MesssageController extends Controller {
     threads = ThreadsController(student);
   }
 
-  Future<List<MessageRef>> list() async {
+  Future<List<MessageRef>> list({List<MessageRef>? debugMessages}) async {
+    if (debugMessages != null) {
+      return debugMessages;
+    }
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
     var response = await request(url);
     var stateSoup = BeautifulSoup(response.data);

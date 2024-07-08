@@ -8,7 +8,10 @@ import 'package:lectio_wrapper/utils/dio_client.dart';
 class WeekController extends Controller {
   WeekController(super.student);
 
-  Future<Week> get(int year, int week) async {
+  Future<Week> get(int year, int week, {Week? debugWeek}) async {
+    if (debugWeek != null) {
+      return debugWeek;
+    }
     var url = student.buildUrl(
         "SkemaNy.aspx?${student.teacher ? "laererid" : "elevid"}=${student.studentId}&week=${intFixed(week, 2)}$year");
     var response = await request(url);

@@ -9,7 +9,11 @@ class AssignmentsController extends Controller {
   AssignmentsController(super.student);
 
   /// Returns all assignments for the specified year.
-  Future<List<AssignmentRef>> list() async {
+  Future<List<AssignmentRef>> list(
+      {List<AssignmentRef>? debugAssignments}) async {
+    if (debugAssignments != null) {
+      return debugAssignments;
+    }
     String url =
         student.buildUrl("OpgaverElev.aspx?elevid=${student.studentId}");
     var assignmentSoup = await postLoggedInPageSoup(url, r"s$m$ChooseTerm$term",
