@@ -638,3 +638,7 @@
 ## 0.6.57
 
 * Made MessageRef a `freezed` class
+
+## 0.6.58
+
+* Upgraded intl package
