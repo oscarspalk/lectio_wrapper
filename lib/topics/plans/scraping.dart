@@ -72,7 +72,9 @@ StudyPlanRef _extractPlan(Bs4Element row) {
         case 'Periode':
           var dates = value.split(_periodReg);
           start = parseLectioDate(dates[0].trim());
-          end = parseLectioDate(dates[1].trim());
+          if (dates.length > 1) {
+            end = parseLectioDate(dates[1].trim());
+          }
           break;
       }
     }

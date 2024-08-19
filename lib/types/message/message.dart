@@ -1,15 +1,22 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lectio_wrapper/types/message/meta/meta.dart';
 import 'package:lectio_wrapper/types/primitives/file.dart';
 
-class MessageRef {
-  int folderId;
-  String id;
-  String topic;
-  DateTime dateChanged;
-  String sender;
-  String normalizedId;
-  MessageRef(this.id, this.dateChanged, this.topic, this.sender, this.folderId,
-      this.normalizedId);
+part 'message.freezed.dart';
+part 'message.g.dart';
+
+@freezed
+class MessageRef with _$MessageRef {
+  factory MessageRef(
+      {required int folderId,
+      required String id,
+      required String topic,
+      required DateTime dateChanged,
+      required String sender,
+      required String normalizedId}) = _MessageRef;
+
+  factory MessageRef.fromJson(Map<String, Object?> json) =>
+      _$MessageRefFromJson(json);
 }
 
 class CreateMessage {

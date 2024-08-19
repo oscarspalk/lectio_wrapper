@@ -40,8 +40,13 @@ List<MessageRef> extractMessages(BeautifulSoup soup) {
           messageRow.children[5].children[0].getAttrValue('title')!;
       String dateChanged = messageRow.children[7].text;
       DateTime parsedTime = parseLectioDate(dateChanged);
-      messages.add(
-          MessageRef(id, parsedTime, topic, receivers, folderId, normalizedId));
+      messages.add(MessageRef(
+          id: id,
+          dateChanged: parsedTime,
+          topic: topic,
+          sender: receivers,
+          folderId: folderId,
+          normalizedId: normalizedId));
     }
   }
   return messages;

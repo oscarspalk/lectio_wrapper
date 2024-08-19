@@ -16,7 +16,7 @@ class StudyPlanRef with _$StudyPlanRef {
   factory StudyPlanRef(
       {required String title,
       required DateTime start,
-      required DateTime end,
+      required DateTime? end,
       required String id}) = _StudyPlanRef;
 }
 

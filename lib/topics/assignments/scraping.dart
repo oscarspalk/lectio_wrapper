@@ -39,8 +39,10 @@ AssignmentRef? extractAssignmentRef(Bs4Element assignmentRow) {
     double studentTime = double.parse(columns[4].text.replaceAll(",", "."));
     String status = columns[5].text;
     String absence = columns[6].text;
+    String awaits = columns[7].text;
     String taskNote = columns[8].text;
     return AssignmentRef(
+        awaits: awaits,
         week: week,
         team: team,
         title: title,

@@ -622,3 +622,23 @@
 ## 0.6.52
 
 * You can now fetch exam proof
+
+## 0.6.54
+
+* Study plans can apparently last only a day
+
+## 0.6.55
+
+* Added something purely for debug purposes
+
+## 0.6.56
+
+* Added afventer property to assignments, so we know when they are finished
+
+## 0.6.57
+
+* Made MessageRef a `freezed` class
+
+## 0.6.58
+
+* Upgraded intl package
