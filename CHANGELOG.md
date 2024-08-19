@@ -642,3 +642,7 @@
 ## 0.6.58
 
 * Upgraded intl package
+
+## 0.6.59
+
+* If a class has multiple rooms it is called "Lokaler"
