@@ -156,6 +156,9 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
       case "Lokale":
         room = data[1].trim();
         break;
+      case "Lokaler":
+        room = data[1].trim();
+        break;
       case "Note":
         var index = pieceInformation.indexOf(namedInfo);
         if (index < pieceInformation.length - 1) {
