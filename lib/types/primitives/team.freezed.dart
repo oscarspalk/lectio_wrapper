@@ -185,6 +185,7 @@ abstract class _Team implements Team {
 mixin _$ModuleStatistics {
   double get deviation => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
+  int get hosted => throw _privateConstructorUsedError;
   int get normal => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -198,7 +199,7 @@ abstract class $ModuleStatisticsCopyWith<$Res> {
           ModuleStatistics value, $Res Function(ModuleStatistics) then) =
       _$ModuleStatisticsCopyWithImpl<$Res, ModuleStatistics>;
   @useResult
-  $Res call({double deviation, int total, int normal});
+  $Res call({double deviation, int total, int hosted, int normal});
 }
 
 /// @nodoc
@@ -216,6 +217,7 @@ class _$ModuleStatisticsCopyWithImpl<$Res, $Val extends ModuleStatistics>
   $Res call({
     Object? deviation = null,
     Object? total = null,
+    Object? hosted = null,
     Object? normal = null,
   }) {
     return _then(_value.copyWith(
@@ -226,6 +228,10 @@ class _$ModuleStatisticsCopyWithImpl<$Res, $Val extends ModuleStatistics>
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
+              as int,
+      hosted: null == hosted
+          ? _value.hosted
+          : hosted // ignore: cast_nullable_to_non_nullable
               as int,
       normal: null == normal
           ? _value.normal
@@ -243,7 +249,7 @@ abstract class _$$ModuleStatisticsImplCopyWith<$Res>
       __$$ModuleStatisticsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double deviation, int total, int normal});
+  $Res call({double deviation, int total, int hosted, int normal});
 }
 
 /// @nodoc
@@ -259,6 +265,7 @@ class __$$ModuleStatisticsImplCopyWithImpl<$Res>
   $Res call({
     Object? deviation = null,
     Object? total = null,
+    Object? hosted = null,
     Object? normal = null,
   }) {
     return _then(_$ModuleStatisticsImpl(
@@ -269,6 +276,10 @@ class __$$ModuleStatisticsImplCopyWithImpl<$Res>
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
+              as int,
+      hosted: null == hosted
+          ? _value.hosted
+          : hosted // ignore: cast_nullable_to_non_nullable
               as int,
       normal: null == normal
           ? _value.normal
@@ -282,18 +293,23 @@ class __$$ModuleStatisticsImplCopyWithImpl<$Res>
 
 class _$ModuleStatisticsImpl implements _ModuleStatistics {
   _$ModuleStatisticsImpl(
-      {required this.deviation, required this.total, required this.normal});
+      {required this.deviation,
+      required this.total,
+      required this.hosted,
+      required this.normal});
 
   @override
   final double deviation;
   @override
   final int total;
   @override
+  final int hosted;
+  @override
   final int normal;
 
   @override
   String toString() {
-    return 'ModuleStatistics(deviation: $deviation, total: $total, normal: $normal)';
+    return 'ModuleStatistics(deviation: $deviation, total: $total, hosted: $hosted, normal: $normal)';
   }
 
   @override
@@ -304,11 +320,13 @@ class _$ModuleStatisticsImpl implements _ModuleStatistics {
             (identical(other.deviation, deviation) ||
                 other.deviation == deviation) &&
             (identical(other.total, total) || other.total == total) &&
+            (identical(other.hosted, hosted) || other.hosted == hosted) &&
             (identical(other.normal, normal) || other.normal == normal));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, deviation, total, normal);
+  int get hashCode =>
+      Object.hash(runtimeType, deviation, total, hosted, normal);
 
   @JsonKey(ignore: true)
   @override
@@ -322,12 +340,15 @@ abstract class _ModuleStatistics implements ModuleStatistics {
   factory _ModuleStatistics(
       {required final double deviation,
       required final int total,
+      required final int hosted,
       required final int normal}) = _$ModuleStatisticsImpl;
 
   @override
   double get deviation;
   @override
   int get total;
+  @override
+  int get hosted;
   @override
   int get normal;
   @override

@@ -18,5 +18,6 @@ class ModuleStatistics with _$ModuleStatistics {
   factory ModuleStatistics(
       {required double deviation,
       required int total,
+      required int hosted,
       required int normal}) = _ModuleStatistics;
 }

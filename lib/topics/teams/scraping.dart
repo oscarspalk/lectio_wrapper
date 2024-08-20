@@ -35,9 +35,13 @@ ModuleStatistics? extractModuleStats(BeautifulSoup soup) {
         var deviation = extractAbsencePercent(children[0]);
         var normal = int.tryParse(children[1].text);
         var total = int.tryParse(children[2].text);
-        if (normal != null && total != null) {
+        var hosted = int.tryParse(tRow.children[1].text);
+        if (normal != null && total != null && hosted != null) {
           return ModuleStatistics(
-              deviation: deviation, total: total, normal: normal);
+              deviation: deviation,
+              total: total,
+              normal: normal,
+              hosted: hosted);
         }
       }
     }

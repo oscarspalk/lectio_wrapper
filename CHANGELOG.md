@@ -646,3 +646,7 @@
 ## 0.6.59
 
 * If a class has multiple rooms it is called "Lokaler"
+
+## 0.6.60
+
+* Get the amount of hosted classes in module statistics.
