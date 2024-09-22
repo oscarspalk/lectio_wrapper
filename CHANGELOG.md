@@ -650,3 +650,7 @@
 ## 0.6.60
 
 * Get the amount of hosted classes in module statistics.
+
+## 0.6.61
+
+* Made the team and group context getter more error prone.

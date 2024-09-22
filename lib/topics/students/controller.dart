@@ -17,9 +17,11 @@ class StudentsController extends Controller {
         .toList();
     for (var group in groups ?? []) {
       var context = await student.context.get(group.id);
-      var groupFetched = await student.classes
-          .get(ClassRef(name: '', id: context.id), group: true);
-      yield groupFetched.students;
+      if (context != null) {
+        var groupFetched = await student.classes
+            .get(ClassRef(name: '', id: context.id), group: true);
+        yield groupFetched.students;
+      }
     }
   }
 }

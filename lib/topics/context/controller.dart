@@ -11,9 +11,9 @@ class ContextController extends Controller {
 
   List<Context> contexts = [];
 
-  Future<Context> get(String id) async {
+  Future<Context?> get(String id) async {
     var matches = contexts.where((element) => element.id == id);
-    Context context = Context('');
+    Context? context = Context('');
     if (matches.isNotEmpty) {
       return matches.first;
     }
@@ -28,7 +28,9 @@ class ContextController extends Controller {
     } else if (id.startsWith("G")) {
       context = extractGroupContext(soup);
     }
-    contexts.add(context);
+    if (context != null) {
+      contexts.add(context);
+    }
     return context;
   }
 }

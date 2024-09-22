@@ -26,10 +26,15 @@ StudentContext extractStudentContext(BeautifulSoup soup, String rootId) {
   return StudentContext(id, rootId, name);
 }
 
-GroupContext extractGroupContext(BeautifulSoup soup) {
-  Bs4Element memberLinkElement =
-      soup.find('*', id: 'ctl00_Content_linksrep_ctl02_somelink')!;
-  String id = queriesFromSoup(
-      memberLinkElement.getAttrValue("href")!)['holdelementid']!;
-  return GroupContext(id);
+GroupContext? extractGroupContext(BeautifulSoup soup) {
+  List<Bs4Element> links = soup.findAll('a');
+  List<Map<String, String>> queries =
+      links.map((link) => queriesFromSoup(link.getAttrValue("href"))).toList();
+  const holdIdKey = "holdelementid";
+  for (var query in queries) {
+    if (query.containsKey(holdIdKey)) {
+      return GroupContext(query[holdIdKey]!);
+    }
+  }
+  return null;
 }
