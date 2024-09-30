@@ -16,8 +16,8 @@ void main() {
     expect(calendar.days, isNotEmpty);
   });
 
-  test('get anders\'s week', () async {
-    var calendar = await student?.getStudent("54299109426").weeks.get(2024, 34);
+  test('get tobias\'s week', () async {
+    var calendar = await student?.getStudent("54299107302").weeks.get(2024, 40);
     expect(calendar, isNotNull);
   });
 

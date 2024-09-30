@@ -654,3 +654,7 @@
 ## 0.6.61
 
 * Made the team and group context getter more error prone.
+
+## 0.6.62
+
+* Some modules were read wrong indicating a wrong time, that is fixed now.

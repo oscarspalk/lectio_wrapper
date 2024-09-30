@@ -117,7 +117,7 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
     var dates = datePattern.allMatches(pieceInfo);
     var times = timePattern.allMatches(pieceInfo);
 
-    if (times.isNotEmpty) {
+    if (times.isNotEmpty && start == null && end == null) {
       if (dates.isNotEmpty) {
         String startTime =
             "${regToStr(dates.elementAt(0))} ${regToStr(times.elementAt(0))}";

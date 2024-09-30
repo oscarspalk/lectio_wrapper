@@ -32,7 +32,7 @@ void main() {
   test('test htx grades', () async {
     var file = File(r"C:\Users\knudi\dev\lectio_wrapper\tests\grades.htm");
     var content = (await file.readAsLines()).join("\n");
-    var grades = await extractGrades(BeautifulSoup(content), student!);
+    var grades = extractGrades(BeautifulSoup(content), student!);
     expect(grades, isNotEmpty);
   });
 }
