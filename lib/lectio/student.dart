@@ -14,6 +14,7 @@ import 'package:lectio_wrapper/topics/gyms/controller.dart';
 import 'package:lectio_wrapper/topics/messages/controller.dart';
 import 'package:lectio_wrapper/topics/messages/meta/controller.dart';
 import 'package:lectio_wrapper/topics/plans/controller.dart';
+import 'package:lectio_wrapper/topics/profile/controller.dart';
 import 'package:lectio_wrapper/topics/rooms/controller.dart';
 import 'package:lectio_wrapper/topics/students/controller.dart';
 import 'package:lectio_wrapper/topics/studiekort/controller.dart';
@@ -52,6 +53,7 @@ class Student {
   late PlansController plans;
   late TeamsController teams;
   late TermsController terms;
+  late ProfileController profile;
   late StudiekortController kort;
   bool teacher;
   Map<String, Uint8List> images = {};
@@ -72,6 +74,7 @@ class Student {
     plans = PlansController(this);
     teams = TeamsController(this);
     terms = TermsController(this);
+    profile = ProfileController(this);
     kort = StudiekortController(this);
   }
 
