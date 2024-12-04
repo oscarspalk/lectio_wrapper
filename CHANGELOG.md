@@ -666,3 +666,7 @@
 ## 0.6.64
 
 * We need access to more cookies
+
+## 0.6.65
+
+* The cookies aren't applied..

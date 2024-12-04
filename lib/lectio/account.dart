@@ -43,13 +43,18 @@ class Account {
   }
 
   Future<(String, List<Cookie>)> getUniloginUrl() async {
-    await clearCookies();
     String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
-    var loginGet = await request<String>(loginUrl);
-    var uniloginUrl = loginGet.realUri.toString();
-    var cookies =
-        await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
-    return (uniloginUrl, cookies);
+    String? uniloginUrl;
+    var lectioUri = Uri.https("www.lectio.dk");
+
+    var loginGet = await request<String>(loginUrl,
+        options: Options(followRedirects: false));
+
+    uniloginUrl = loginGet.headers.value(HttpHeaders.locationHeader);
+
+    var loadedCookies = await lppCookies.loadForRequest(lectioUri);
+
+    return (uniloginUrl ?? "", loadedCookies);
   }
 
   Future<Student?> login({bool autologin = false}) async {

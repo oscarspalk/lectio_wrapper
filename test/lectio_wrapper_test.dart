@@ -21,7 +21,7 @@ void main() {
   });
 
   test('login with mitid', () async {
-    student = await account.mitIDLogin();
+    var unilogin = await account.getUniloginUrl();
     expect(student, isNotNull);
   });
   test('login() with true credentials.', () async {
