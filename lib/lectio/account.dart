@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
@@ -43,12 +42,14 @@ class Account {
     return student;
   }
 
-  Future<String?> getUniloginUrl() async {
+  Future<(String, List<Cookie>)> getUniloginUrl() async {
+    await clearCookies();
     String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
     var loginGet = await request<String>(loginUrl);
-    await clearCookies();
     var uniloginUrl = loginGet.realUri.toString();
-    return uniloginUrl;
+    var cookies =
+        await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
+    return (uniloginUrl, cookies);
   }
 
   Future<Student?> login({bool autologin = false}) async {

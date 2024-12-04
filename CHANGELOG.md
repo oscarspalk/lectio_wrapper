@@ -662,3 +662,7 @@
 ## 0.6.63
 
 * Unilogin should be supported too
+
+## 0.6.64
+
+* We need access to more cookies
