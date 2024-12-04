@@ -658,3 +658,7 @@
 ## 0.6.62
 
 * Some modules were read wrong indicating a wrong time, that is fixed now.
+
+## 0.6.63
+
+* Unilogin should be supported too

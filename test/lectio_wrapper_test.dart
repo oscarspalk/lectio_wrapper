@@ -17,7 +17,12 @@ void main() {
   );
   Student? student;
   setUp(() async {
-    student = await account.loginWithCookies([], "54299107744");
+    //student = await account.loginWithCookies([], "54299107744");
+  });
+
+  test('login with mitid', () async {
+    student = await account.mitIDLogin();
+    expect(student, isNotNull);
   });
   test('login() with true credentials.', () async {
     expect(student, isNotNull);
