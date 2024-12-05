@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
@@ -42,19 +43,40 @@ class Account {
     return student;
   }
 
-  Future<(String, List<Cookie>)> getUniloginUrl() async {
+  Future<(String?, List<Cookie>)> getUniloginUrl() async {
     String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
     String? uniloginUrl;
+    bool found = false;
     var lectioUri = Uri.https("www.lectio.dk");
-
-    var loginGet = await request<String>(loginUrl,
-        options: Options(followRedirects: false));
-
-    uniloginUrl = loginGet.headers.value(HttpHeaders.locationHeader);
+    int i = 0;
+    while (!found && i < 3) {
+      var loginGet = await request<String>(loginUrl,
+          options: Options(followRedirects: false));
+      var locationHeader = loginGet.headers.value(HttpHeaders.locationHeader);
+      var maybeUrl = Uri.tryParse(locationHeader ?? "");
+      if (!(locationHeader?.startsWith("https://www.lectio.dk") ?? true) &&
+          maybeUrl != null) {
+        uniloginUrl = locationHeader;
+        found = true;
+      } else {
+        loginUrl = "https://www.lectio.dk/lectio/$gymId$locationHeader";
+      }
+      i++;
+    }
 
     var loadedCookies = await lppCookies.loadForRequest(lectioUri);
 
-    return (uniloginUrl ?? "", loadedCookies);
+    return (uniloginUrl, loadedCookies);
+  }
+
+  FutureOr<Student> uniloginLogin(String url) async {
+    var loginRequest =
+        await request(url, options: Options(followRedirects: false));
+    var student = await checkIfLoggedIn();
+    if (student == null) {
+      throw InvalidCredentialsError();
+    }
+    return student;
   }
 
   Future<Student?> login({bool autologin = false}) async {
@@ -84,12 +106,7 @@ class Account {
       await addCookies(
           Uri.https("www.lectio.dk"), [Cookie("isloggedin3", "Y")]);
 
-      var forsideSoup = await request<String>(
-        "https://www.lectio.dk/lectio/$gymId/forside.aspx",
-      );
-
-      var student =
-          checkLoggedIn(BeautifulSoup(forsideSoup.data as String), gymId);
+      var student = await checkIfLoggedIn();
       if (student == null) {
         throw InvalidCredentialsError();
       }
@@ -98,6 +115,16 @@ class Account {
     } catch (e) {
       return null;
     }
+  }
+
+  FutureOr<Student?> checkIfLoggedIn() async {
+    var forsideSoup = await request<String>(
+      "https://www.lectio.dk/lectio/$gymId/forside.aspx",
+    );
+
+    var student =
+        checkLoggedIn(BeautifulSoup(forsideSoup.data as String), gymId);
+    return student;
   }
 
   setAutologin() {

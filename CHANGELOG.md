@@ -670,3 +670,7 @@
 ## 0.6.65
 
 * The cookies aren't applied..
+
+## 0.6.66
+
+* MitID login works now, not the best solution though

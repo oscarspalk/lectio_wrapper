@@ -64,6 +64,7 @@ Future<Response<T>> request<T>(String url,
         cancelToken: cancelToken,
         options: options);
     if (dioRequest.realUri.path.endsWith("login.aspx") &&
+        !dioRequest.realUri.path.endsWith("unilogin.aspx") &&
         !url.endsWith("login.aspx")) {
       throw LoginException();
     }
