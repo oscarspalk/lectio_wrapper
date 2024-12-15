@@ -674,3 +674,7 @@
 ## 0.6.66
 
 * MitID login works now, not the best solution though
+
+## 0.7.0
+
+* MitID is now part of Lectio++

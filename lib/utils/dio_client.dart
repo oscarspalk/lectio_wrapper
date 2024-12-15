@@ -42,7 +42,8 @@ Future<Response<T>> request<T>(String url,
     CancelToken? cancelToken,
     Options? options,
     void Function(int, int)? onSendProgress,
-    void Function(int, int)? onReceiveProgress}) async {
+    void Function(int, int)? onReceiveProgress,
+    bool isLogin = false}) async {
   Response<T>? dioRequest;
   const referHeader = {"Referer": "https://www.lectio.dk"};
   if (options == null) {
@@ -63,7 +64,9 @@ Future<Response<T>> request<T>(String url,
         queryParameters: queryParameters,
         cancelToken: cancelToken,
         options: options);
-    if (dioRequest.realUri.path.endsWith("login.aspx") &&
+
+    if (!isLogin &&
+        dioRequest.realUri.path.endsWith("login.aspx") &&
         !dioRequest.realUri.path.endsWith("unilogin.aspx") &&
         !url.endsWith("login.aspx")) {
       throw LoginException();

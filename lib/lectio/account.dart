@@ -37,8 +37,33 @@ class Account {
 
   Future<Student?> loginWithCookies(
       List<Cookie> cookies, String studentId) async {
-    addCookies(Uri.parse("https://www.lectio.dk"), cookies);
+    await addCookies(Uri.parse("https://www.lectio.dk"), cookies);
     var student = Student(studentId, gymId);
+    int i = 0;
+    bool found = false;
+    var checkingUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
+    while (!found && i < 5) {
+      var requestCookies =
+          await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
+      var loginGet = await request<String>(checkingUrl,
+          options: Options(followRedirects: false, headers: {
+            "Cache-Control": "no-cache",
+            "Referer": "https://www.lectio.dk"
+          }),
+          isLogin: true);
+      var locationHeader = loginGet.headers.value(HttpHeaders.locationHeader);
+      var currentCookies =
+          await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
+      if (locationHeader == null || locationHeader.isEmpty) {
+        found = true;
+      } else {
+        checkingUrl = "https://www.lectio.dk$locationHeader";
+      }
+      i++;
+    }
+    if (found == false) {
+      return null;
+    }
     setAutologin();
     return student;
   }
@@ -70,8 +95,7 @@ class Account {
   }
 
   FutureOr<Student> uniloginLogin(String url) async {
-    var loginRequest =
-        await request(url, options: Options(followRedirects: false));
+    await request(url, options: Options(followRedirects: false));
     var student = await checkIfLoggedIn();
     if (student == null) {
       throw InvalidCredentialsError();
