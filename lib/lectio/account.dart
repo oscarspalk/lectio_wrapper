@@ -43,8 +43,6 @@ class Account {
     bool found = false;
     var checkingUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
     while (!found && i < 5) {
-      var requestCookies =
-          await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
       var loginGet = await request<String>(checkingUrl,
           options: Options(followRedirects: false, headers: {
             "Cache-Control": "no-cache",
@@ -52,8 +50,7 @@ class Account {
           }),
           isLogin: true);
       var locationHeader = loginGet.headers.value(HttpHeaders.locationHeader);
-      var currentCookies =
-          await lppCookies.loadForRequest(Uri.parse("https://www.lectio.dk"));
+
       if (locationHeader == null || locationHeader.isEmpty) {
         found = true;
       } else {
