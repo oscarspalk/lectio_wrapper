@@ -18,7 +18,7 @@ dependencies:
   json_annotation: ^4.9.0
   dio_cookie_manager: ^2.1.4
   cookie_jar: ^3.0.1
-
+  faker_dart: ^0.2.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

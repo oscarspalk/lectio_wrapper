@@ -1,5 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:dio/dio.dart';
+import 'package:faker_dart/faker_dart.dart';
 import 'package:lectio_wrapper/topics/messages/scraping.dart';
 import 'package:lectio_wrapper/topics/messages/threads/controller.dart';
 import 'package:lectio_wrapper/types/message/message.dart';
@@ -18,6 +19,32 @@ class MesssageController extends Controller {
     if (debugMessages != null) {
       return debugMessages;
     }
+    if (student.demo) {
+      var faker = Faker.instance;
+      return [
+        MessageRef(
+            folderId: 0,
+            id: "123",
+            topic: faker.commerce.department(),
+            dateChanged: faker.date.past(null),
+            sender: faker.name.fullName(),
+            normalizedId: ""),
+        MessageRef(
+            folderId: 0,
+            id: "123",
+            topic: faker.commerce.department(),
+            dateChanged: faker.date.past(null),
+            sender: faker.name.fullName(),
+            normalizedId: ""),
+        MessageRef(
+            folderId: 0,
+            id: "123",
+            topic: faker.commerce.department(),
+            dateChanged: faker.date.past(null),
+            sender: faker.name.fullName(),
+            normalizedId: "")
+      ];
+    }
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
     var response = await request(url);
     var stateSoup = BeautifulSoup(response.data);
@@ -25,6 +52,30 @@ class MesssageController extends Controller {
   }
 
   Future<Message?> get(MessageRef ref) async {
+    if (student.demo) {
+      var faker = Faker.instance;
+      return Message(
+          "0",
+          [
+            ThreadEntry(
+                faker.date.past(null),
+                MetaDataEntry(id: "0", name: faker.name.fullName()),
+                faker.lorem.paragraph(),
+                faker.commerce.department(), []),
+            ThreadEntry(
+                faker.date.past(null),
+                MetaDataEntry(id: "0", name: faker.name.fullName()),
+                faker.lorem.paragraph(),
+                faker.commerce.department(), []),
+            ThreadEntry(
+                faker.date.past(null),
+                MetaDataEntry(id: "0", name: faker.name.fullName()),
+                faker.lorem.paragraph(),
+                faker.commerce.department(), [])
+          ],
+          [],
+          ref);
+    }
     var url = student.buildUrl("beskeder2.aspx");
     var customData = {
       "__EVENTARGUMENT": ref.id,

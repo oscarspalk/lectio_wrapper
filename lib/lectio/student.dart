@@ -35,6 +35,7 @@ class Student {
   String studentId;
   int gymId;
   String? info;
+  bool demo;
   late String imageId;
   late String name;
   late HomeworkController homework;
@@ -57,7 +58,8 @@ class Student {
   late StudiekortController kort;
   bool teacher;
   Map<String, Uint8List> images = {};
-  Student(this.studentId, this.gymId, {this.info, this.teacher = false}) {
+  Student(this.studentId, this.gymId,
+      {this.info, this.teacher = false, this.demo = false}) {
     homework = HomeworkController(this);
     gyms = GymController();
     classes = ClassesController(this);

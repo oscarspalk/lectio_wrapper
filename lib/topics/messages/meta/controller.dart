@@ -13,6 +13,9 @@ class MessageMetaController extends Controller {
   MessageMetaController(super.student);
 
   Future<MessageMetaData?> get() async {
+    if (student.demo) {
+      return null;
+    }
     var soup = await student.messages.newMessage();
     if (soup != null) {
       var scripts = extractScripts(soup);

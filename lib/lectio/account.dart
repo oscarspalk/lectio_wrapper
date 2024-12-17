@@ -20,6 +20,10 @@ class Account {
   Future<Account> Function()? loginError;
   Account(this.gymId, this.username, this.password, {this.loginError});
 
+  Student demoLogin() {
+    return Student("54299107744", 256, demo: true);
+  }
+
   Student? checkLoggedIn(BeautifulSoup soup, int gymId) {
     var metaElement = soup
         .find('*', attrs: {'name': appStartUrlName})?.getAttrValue('content');
