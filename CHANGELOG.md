@@ -678,3 +678,7 @@
 ## 0.7.0
 
 * MitID is now part of Lectio++
+
+## 0.7.1
+
+* Added faker and a lot of fake data
