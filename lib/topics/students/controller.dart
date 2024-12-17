@@ -1,3 +1,4 @@
+import 'package:faker_dart/faker_dart.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/types/class.dart';
 import 'package:lectio_wrapper/utils/controller.dart';
@@ -11,6 +12,16 @@ class StudentsController extends Controller {
     "Alle Lærere"
   ];
   Stream<List<Student>> list() async* {
+    if (student.demo) {
+      var faker = Faker.instance;
+      for (var _ in _groupNames) {
+        yield List.generate(
+            200,
+            (i) => Student("", 0, demo: true)
+              ..name = faker.name.fullName()
+              ..imageId = "");
+      }
+    }
     var meta = await student.meta.get();
     var groups = meta?.groups
         .where((element) => _groupNames.contains(element.name))

@@ -87,6 +87,9 @@ class Student {
 
   /// Returns a [BasicInfo] containing name and pictureId.
   Future<BasicInfo> getBasicInfo() async {
+    if (demo) {
+      return BasicInfo("Oscar Gaardsted Spalk", "");
+    }
     String profileUrl = buildUrl("SkemaNy.aspx?type=elev&elevid=$studentId");
     var resp = await request<String>(profileUrl);
     BeautifulSoup profileSoup = BeautifulSoup(resp.data as String);
@@ -110,6 +113,10 @@ class Student {
 
   /// Returns an image from an id as a [Uint8List]
   DioImage getImage(String imageId, {bool fullsize = false}) {
+    if (demo) {
+      return DioImage.string(
+          "https://m.media-amazon.com/images/I/71fhxKX4PkL._AC_UF1000,1000_QL80_.jpg");
+    }
     String url;
     if (imageId.startsWith("https")) {
       url = imageId;

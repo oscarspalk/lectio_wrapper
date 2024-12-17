@@ -1,4 +1,5 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:faker_dart/faker_dart.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/topics/rooms/scraping.dart';
 import 'package:lectio_wrapper/topics/weeks/scraping.dart';
@@ -11,6 +12,15 @@ class RoomsController extends Controller {
   RoomsController(super.student);
 
   Future<List<Room>> list() async {
+    if (student.demo) {
+      return List.generate(
+          10,
+          (i) => Room(
+              id: "",
+              short: "M1",
+              inUse: false,
+              name: Faker.instance.name.jobSector()));
+    }
     var availabilitiesUrl = student.buildUrl(
         "SkemaAvanceret.aspx?type=aktuelleallelokaler&nosubnav=1&prevurl=FindSkemaAdv.aspx");
     var availabilityReq = await request(availabilitiesUrl);

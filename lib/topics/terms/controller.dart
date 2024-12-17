@@ -9,6 +9,13 @@ class TermsController extends Controller {
   TermsController(super.student);
 
   Future<List<Term>> list() async {
+    if (student.demo) {
+      return [
+        Term(2023, "2023", false),
+        Term(2023, "2024", false),
+        Term(2023, "2025", false)
+      ];
+    }
     var url =
         student.buildUrl("SkemaNy.aspx?type=elev&elevid=${student.studentId}");
     var req = await request(url);

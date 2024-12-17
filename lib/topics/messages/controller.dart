@@ -21,29 +21,16 @@ class MesssageController extends Controller {
     }
     if (student.demo) {
       var faker = Faker.instance;
-      return [
-        MessageRef(
+      return List.generate(
+        20,
+        (i) => MessageRef(
             folderId: 0,
             id: "123",
             topic: faker.commerce.department(),
             dateChanged: faker.date.past(null),
-            sender: faker.name.fullName(),
+            sender: "${faker.name.fullName()}(3bx)",
             normalizedId: ""),
-        MessageRef(
-            folderId: 0,
-            id: "123",
-            topic: faker.commerce.department(),
-            dateChanged: faker.date.past(null),
-            sender: faker.name.fullName(),
-            normalizedId: ""),
-        MessageRef(
-            folderId: 0,
-            id: "123",
-            topic: faker.commerce.department(),
-            dateChanged: faker.date.past(null),
-            sender: faker.name.fullName(),
-            normalizedId: "")
-      ];
+      );
     }
     var url = student.buildUrl("beskeder2.aspx?elevid=${student.studentId}");
     var response = await request(url);
@@ -73,7 +60,11 @@ class MesssageController extends Controller {
                 faker.lorem.paragraph(),
                 faker.commerce.department(), [])
           ],
-          [],
+          [
+            MetaDataEntry(id: "", name: "Oscar"),
+            MetaDataEntry(id: "", name: "Oscar"),
+            MetaDataEntry(id: "", name: "Oscar")
+          ],
           ref);
     }
     var url = student.buildUrl("beskeder2.aspx");

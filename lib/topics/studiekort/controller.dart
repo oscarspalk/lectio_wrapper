@@ -9,6 +9,14 @@ class StudiekortController extends Controller {
   StudiekortController(super.student);
 
   Future<Kort?> get() async {
+    if (student.demo) {
+      return Kort(
+          gymnasium: "Egaa Gymnasium",
+          name: "Oscar Gaardsted Spalk",
+          birthday: DateTime(2006, 11, 13),
+          picture: DioImage.string(
+              "https://m.media-amazon.com/images/I/71fhxKX4PkL._AC_UF1000,1000_QL80_.jpg"));
+    }
     String url = student.buildUrl("digitaltStudiekort.aspx");
     var kortRequest = await request<String>(url);
     return extractCard(BeautifulSoup(kortRequest.data ?? ""));
