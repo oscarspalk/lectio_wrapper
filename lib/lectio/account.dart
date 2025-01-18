@@ -5,6 +5,7 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:dio/dio.dart';
 import 'package:lectio_wrapper/lectio/student.dart';
 import 'package:lectio_wrapper/utils/dio_client.dart';
+import 'package:lectio_wrapper/utils/follow_request.dart';
 import 'package:lectio_wrapper/utils/scraping.dart';
 
 class InvalidCredentialsError extends Error {}
@@ -43,26 +44,14 @@ class Account {
       List<Cookie> cookies, String studentId) async {
     await addCookies(Uri.parse("https://www.lectio.dk"), cookies);
     var student = Student(studentId, gymId);
-    int i = 0;
-    bool found = false;
     var checkingUrl = "https://www.lectio.dk/lectio/$gymId/forside.aspx";
-    while (!found && i < 5) {
-      var loginGet = await request<String>(checkingUrl,
-          options: Options(followRedirects: false, headers: {
-            "Cache-Control": "no-cache",
-            "Referer": "https://www.lectio.dk"
-          }),
-          isLogin: true);
-      var locationHeader = loginGet.headers.value(HttpHeaders.locationHeader);
-
-      if (locationHeader == null || locationHeader.isEmpty) {
-        found = true;
-      } else {
-        checkingUrl = "https://www.lectio.dk$locationHeader";
-      }
-      i++;
-    }
-    if (found == false) {
+    var returnUrl = await followingRequest(
+      checkingUrl,
+      (url) {
+        return url == null || url.isEmpty;
+      },
+    );
+    if (returnUrl == null) {
       return null;
     }
     setAutologin();
@@ -71,24 +60,16 @@ class Account {
 
   Future<(String?, List<Cookie>)> getUniloginUrl() async {
     String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
-    String? uniloginUrl;
-    bool found = false;
+
     var lectioUri = Uri.https("www.lectio.dk");
-    int i = 0;
-    while (!found && i < 3) {
-      var loginGet = await request<String>(loginUrl,
-          options: Options(followRedirects: false));
-      var locationHeader = loginGet.headers.value(HttpHeaders.locationHeader);
-      var maybeUrl = Uri.tryParse(locationHeader ?? "");
-      if (!(locationHeader?.startsWith("https://www.lectio.dk") ?? true) &&
-          maybeUrl != null) {
-        uniloginUrl = locationHeader;
-        found = true;
-      } else {
-        loginUrl = "https://www.lectio.dk/lectio/$gymId$locationHeader";
-      }
-      i++;
-    }
+    String? uniloginUrl = await followingRequest(
+      loginUrl,
+      (url) {
+        var maybeUrl = Uri.tryParse(url ?? "");
+        return !(url?.startsWith("https://www.lectio.dk") ?? true) &&
+            maybeUrl != null;
+      },
+    );
 
     var loadedCookies = await lppCookies.loadForRequest(lectioUri);
 

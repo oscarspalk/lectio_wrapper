@@ -682,3 +682,7 @@
 ## 0.7.1
 
 * Added faker and a lot of fake data
+
+## 0.7.2
+
+* Made an abstraction layer for some of the unilogin url functions
