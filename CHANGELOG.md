@@ -686,3 +686,7 @@
 ## 0.7.2
 
 * Made an abstraction layer for some of the unilogin url functions
+
+## 0.7.3
+
+* Activity ids can be null

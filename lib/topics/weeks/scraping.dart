@@ -110,7 +110,7 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
   List<String> teacher = [];
   String note = "";
   List<String> pieceInformation =
-      element.getAttrValue('data-tooltip')!.split("\n");
+      (element.getAttrValue('data-tooltip')?.split("\n") ?? []);
 
   // check for title and timestamps
   for (var pieceInfo in pieceInformation) {
@@ -143,32 +143,34 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
   // extract all named info
   for (var namedInfo in pieceInformation) {
     List<String> data = namedInfo.split(":");
-    switch (data[0]) {
-      case "Hold":
-        team = data[1].trim();
-        break;
-      case "Lærer":
-        teacher = extractTeachers(data[1]);
-        break;
-      case "Lærere":
-        teacher = extractTeachers(data[1]);
-        break;
-      case "Lokale":
-        room = data[1].trim();
-        break;
-      case "Lokaler":
-        room = data[1].trim();
-        break;
-      case "Note":
-        var index = pieceInformation.indexOf(namedInfo);
-        if (index < pieceInformation.length - 1) {
-          note = pieceInformation
-              .sublist(index, pieceInformation.length)
-              .join("\n")
-              .replaceFirst('Note:', "")
-              .trim();
-        }
-        break;
+    if (data.length >= 2) {
+      switch (data[0]) {
+        case "Hold":
+          team = data[1].trim();
+          break;
+        case "Lærer":
+          teacher = extractTeachers(data[1]);
+          break;
+        case "Lærere":
+          teacher = extractTeachers(data[1]);
+          break;
+        case "Lokale":
+          room = data[1].trim();
+          break;
+        case "Lokaler":
+          room = data[1].trim();
+          break;
+        case "Note":
+          var index = pieceInformation.indexOf(namedInfo);
+          if (index < pieceInformation.length - 1) {
+            note = pieceInformation
+                .sublist(index, pieceInformation.length)
+                .join("\n")
+                .replaceFirst('Note:', "")
+                .trim();
+          }
+          break;
+      }
     }
   }
 
@@ -208,7 +210,7 @@ CalendarEvent? extractModul(Bs4Element element, {DateTime? day}) {
         team: team,
         teachers: teacher,
         room: room,
-        id: id!,
+        id: id ?? "",
         start: start,
         end: end,
         type: type,
