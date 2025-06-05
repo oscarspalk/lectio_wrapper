@@ -12,68 +12,71 @@ RegExp modulTimePattern = RegExp(r"\d{1,2}\/\d{1,2}");
 Future<Week> extractCalendar(BeautifulSoup soup, int year, int weekNum) async {
   List<ModulRange> modulRanges = [];
   List<Day> days = [];
-  var calendarSoup = soup.find("tbody")!;
-  var titleSoup = calendarSoup.find("td", selector: "tr.s2dayHeader")!.children;
-  titleSoup.removeAt(0).decompose();
-  List<String> titles = [];
-  for (var dayTitle in titleSoup) {
-    titles.add(dayTitle.text);
-  }
-
-  var informationHeaders =
-      calendarSoup.findAll("*", selector: "td.s2infoHeader");
-  informationHeaders.removeAt(0).decompose();
-  List<List<String>> informations = [];
-  for (var informationHeader in informationHeaders) {
-    List<String> informationsInner = [];
-    var infos = informationHeader.findAll("*", selector: "a.s2skemabrik");
-    for (var element in infos) {
-      informationsInner.add(element.text);
+  var calendarSoup = soup.find("tbody");
+  var titleSoup =
+      calendarSoup?.find("td", selector: "tr.s2dayHeader")?.children;
+  titleSoup?.removeAt(0).decompose();
+  if (calendarSoup != null && titleSoup != null) {
+    List<String> titles = [];
+    for (var dayTitle in titleSoup) {
+      titles.add(dayTitle.text);
     }
-    informations.add(informationsInner);
-  }
 
-  var calendarDays =
-      calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
-  Bs4Element modulRangesColumn = calendarDays.removeAt(0);
-
-  for (int i = 0; i < calendarDays.length; i++) {
-    var day = calendarDays[i];
-    var informationsForThisDay = informations[i];
-    var dayMatches = modulTimePattern.firstMatch(titles[i]);
-    List<int> dayMonthAndDay = dayMatches != null
-        ? titles[i]
-            .substring(dayMatches.start, dayMatches.end)
-            .split("/")
-            .map((e) => int.parse(e))
-            .toList()
-        : [1, 1];
-    var dayTime = DateTime(year, dayMonthAndDay[1], dayMonthAndDay[0]);
-    List<CalendarEvent> dayEvents = [];
-    day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
-      var event = extractModul(piece, day: dayTime);
-      if (event != null) {
-        dayEvents.add(event);
+    var informationHeaders =
+        calendarSoup.findAll("*", selector: "td.s2infoHeader");
+    informationHeaders.removeAt(0).decompose();
+    List<List<String>> informations = [];
+    for (var informationHeader in informationHeaders) {
+      List<String> informationsInner = [];
+      var infos = informationHeader.findAll("*", selector: "a.s2skemabrik");
+      for (var element in infos) {
+        informationsInner.add(element.text);
       }
-    });
-    days.add(Day(
-        informations: informationsForThisDay,
-        events: dayEvents,
-        date: dayTime));
-  }
+      informations.add(informationsInner);
+    }
 
-  List<Bs4Element> modulRangeContainers =
-      modulRangesColumn.findAll('*', class_: 's2module-info');
-  for (var modulRangeContainer in modulRangeContainers) {
-    List<String> modulAndTimes = modulRangeContainer.text.split(". modul");
-    if (modulAndTimes.length == 2) {
-      int? modulNumber = int.tryParse(modulAndTimes[0]);
-      List<String> times = modulAndTimes[1].split("-");
-      DayTime? start = dayTimeFromString(times[0]);
-      DayTime? end = dayTimeFromString(times[1]);
-      if (modulNumber != null && start != null && end != null) {
-        modulRanges
-            .add(ModulRange(number: modulNumber, start: start, end: end));
+    var calendarDays =
+        calendarSoup.findAll("*", selector: "div.s2skemabrikcontainer");
+    Bs4Element modulRangesColumn = calendarDays.removeAt(0);
+
+    for (int i = 0; i < calendarDays.length; i++) {
+      var day = calendarDays[i];
+      var informationsForThisDay = informations[i];
+      var dayMatches = modulTimePattern.firstMatch(titles[i]);
+      List<int> dayMonthAndDay = dayMatches != null
+          ? titles[i]
+              .substring(dayMatches.start, dayMatches.end)
+              .split("/")
+              .map((e) => int.parse(e))
+              .toList()
+          : [1, 1];
+      var dayTime = DateTime(year, dayMonthAndDay[1], dayMonthAndDay[0]);
+      List<CalendarEvent> dayEvents = [];
+      day.findAll("*", selector: "a.s2bgbox").forEach((piece) {
+        var event = extractModul(piece, day: dayTime);
+        if (event != null) {
+          dayEvents.add(event);
+        }
+      });
+      days.add(Day(
+          informations: informationsForThisDay,
+          events: dayEvents,
+          date: dayTime));
+    }
+
+    List<Bs4Element> modulRangeContainers =
+        modulRangesColumn.findAll('*', class_: 's2module-info');
+    for (var modulRangeContainer in modulRangeContainers) {
+      List<String> modulAndTimes = modulRangeContainer.text.split(". modul");
+      if (modulAndTimes.length == 2) {
+        int? modulNumber = int.tryParse(modulAndTimes[0]);
+        List<String> times = modulAndTimes[1].split("-");
+        DayTime? start = dayTimeFromString(times[0]);
+        DayTime? end = dayTimeFromString(times[1]);
+        if (modulNumber != null && start != null && end != null) {
+          modulRanges
+              .add(ModulRange(number: modulNumber, start: start, end: end));
+        }
       }
     }
   }
