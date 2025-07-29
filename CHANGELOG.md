@@ -690,3 +690,7 @@
 ## 0.7.3
 
 * Activity ids can be null
+
+# 0.7.5
+
+* Updated intl
