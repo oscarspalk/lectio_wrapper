@@ -20,7 +20,13 @@ class MessageMetaController extends Controller {
     if (soup != null) {
       var scripts = extractScripts(soup);
       for (var script in scripts) {
-        await _loadScript(script);
+        if(script.text.contains("Autocomplete.registerDataSetUrl")){
+          var fetchedContent = await _getUrls(script.text);
+          for(var fetchedScript in fetchedContent){
+          await _loadScript(fetchedScript);
+
+          }
+        }
       }
 
       List<MetaDataEntry> concatenatedEntries = [
@@ -44,26 +50,57 @@ class MessageMetaController extends Controller {
     return null;
   }
 
+  Future<List<ScriptContent>> _getUrls(String content) async{
+    List<ScriptContent> urls = [];
+    var urlStart = "/lectio";
+    var urlEnd = "'";
+    String currentContent = content;
+    var nextUrlStart = currentContent.indexOf(urlStart);
+    while(nextUrlStart != -1){
+      var nextEnd = currentContent.indexOf(urlEnd, nextUrlStart);
+      var extractedUrl = currentContent.substring(nextUrlStart, nextEnd);
+      currentContent = currentContent.substring(nextEnd);
+      nextUrlStart = currentContent.indexOf(urlStart);
+      urls.add(ScriptContent({}, extractedUrl));
+    }
+    
+
+    return urls;
+  }
+
   Future<void> _loadScript(ScriptContent script) async {
     String url = "https://www.lectio.dk${script.url}";
     var data = await request(url);
-    var entries = extractEntries(data.data, url);
-    switch (script.queries['type']) {
-      case 'bcteacher':
-        teachers = entries;
-        break;
-      case 'bcstudent':
-        students = entries;
-        break;
-      case 'bchold':
-        teams = entries;
-        break;
-      case 'bcgroup':
-        groups = entries;
-        break;
-      case 'favorites':
-        _favorites = entries;
-        break;
+    var dataMap = data.data;
+    if(dataMap is Map){
+      if(dataMap.containsKey("key") && dataMap.containsKey("items")){
+        
+      var key = dataMap["key"];
+      var items = dataMap["items"];
+      List<MetaDataEntry> entries = [];
+      for(var item in items){
+        var entry = MetaDataEntry(id: item[1], name: item[0]);
+        entries.add(entry);
+      }
+        if(key.contains('bcteacher')){
+      teachers = entries;
     }
+    else if (key.contains('bcstudent')){
+        students = entries;
+    }
+    else if(key.contains('bchold')){
+        teams = entries;
+
+    }
+    else if(key.contains('bcgroup')){
+               groups = entries;
+
+
+    }
+      }
+    }
+   
+    
+    
   }
 }

@@ -8,16 +8,10 @@ class ScriptContent {
   ScriptContent(this.queries, this.url);
 }
 
-List<ScriptContent> extractScripts(BeautifulSoup soup) {
+List<Bs4Element> extractScripts(BeautifulSoup soup) {
   List<Bs4Element> scripts = soup.findAll("script");
-  List<ScriptContent> actualScripts = [];
-  for (var script in scripts) {
-    var src = script.getAttrValue("src");
-    if (src != null && src.contains("type")) {
-      actualScripts.add(ScriptContent(queriesFromSoup(src), src));
-    }
-  }
-  return actualScripts;
+  return scripts.where((script) => script.text.contains("bcstudent") ).toList();
+ 
 }
 
 List<MetaDataEntry> extractEntries(String body, String url) {
