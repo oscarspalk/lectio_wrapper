@@ -62,18 +62,11 @@ class Account {
     String loginUrl = "https://www.lectio.dk/lectio/$gymId/login.aspx";
 
     var lectioUri = Uri.https("www.lectio.dk");
-    String? uniloginUrl = await followingRequest(
-      loginUrl,
-      (url) {
-        var maybeUrl = Uri.tryParse(url ?? "");
-        return !(url?.startsWith("https://www.lectio.dk") ?? true) &&
-            maybeUrl != null;
-      },
-    );
+   
 
     var loadedCookies = await lppCookies.loadForRequest(lectioUri);
 
-    return (uniloginUrl, loadedCookies);
+    return (loginUrl, loadedCookies);
   }
 
   FutureOr<Student> uniloginLogin(String url) async {
