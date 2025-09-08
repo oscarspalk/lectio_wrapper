@@ -63,14 +63,18 @@ class Account {
 
     var lectioUri = Uri.https("www.lectio.dk");
    
-
+    var loginRequest = await request(loginUrl, options: Options(followRedirects: false));
+    var location = loginRequest.headers[HttpHeaders.locationHeader]?.firstOrNull;
     var loadedCookies = await lppCookies.loadForRequest(lectioUri);
-
-    return (loginUrl, loadedCookies);
+    if(location == null){
+      throw Error();
+    }
+    return (location, loadedCookies);
   }
 
   FutureOr<Student> uniloginLogin(String url) async {
-    await request(url, options: Options(followRedirects: false));
+
+    var loginRequest = await request(url, options: Options(followRedirects: false));
     var student = await checkIfLoggedIn();
     if (student == null) {
       throw InvalidCredentialsError();

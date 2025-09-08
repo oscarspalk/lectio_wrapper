@@ -48,8 +48,6 @@ extension AbsenceCauseTopic on AbsenceCauses {
         return "Skolerelaterede aktiviteter";
       case AbsenceCauses.privateRelations:
         return "Private forhold";
-      default:
-        return "";
     }
   }
 }
